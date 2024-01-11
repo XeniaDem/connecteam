@@ -1,12 +1,18 @@
 import logo from "./logo.svg"
 import { Counter } from "./features/counter/Counter"
 import "./App.css"
+import { Header } from "./features/header/Header"
+import '@fontsource-variable/work-sans';
+import { Intro } from "./features/intro/Intro";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Header />
+        <Intro />
         <img src={logo} className="App-logo" alt="logo" />
+
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
