@@ -1,14 +1,15 @@
 .container {
-
-  
   font-family: 'Work Sans Variable', sans-serif;
-  
-
   gap: 56px;
   display: flex;
   flex-direction: column;
   padding-top: 100px;
   padding-left: 220px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  
 }
 
 
@@ -21,6 +22,8 @@
   font-weight: 700;
   line-height: 71.925px; /* 143.851% */
   padding-top: 140px;
+
+  
  
 }
 
@@ -66,6 +69,7 @@ border: 0.243px solid #FFF;
 background: var(--, linear-gradient(180deg, rgba(29, 29, 29, 0.62) 10.42%, rgba(0, 0, 0, 0.00) 100%));
 backdrop-filter: blur(5.349841117858887px);
 gap: 29px;
+position: relative;
 
 
 
@@ -87,5 +91,25 @@ gap: 29px;
   font-style: normal;
   font-weight: 400;
   line-height: 19.454px; /* 133.333% */
+}
+
+.arrow1{
+  position: absolute;
+  top: 71px;
+  right: -247px;
+
+}
+
+.arrow2{
+  position: absolute;
+  top: 66px;
+  left: -310px;
+
+}
+
+.rectangle{
+  position: absolute;
+  top: 64px;
+  left: 133px;
 }
 

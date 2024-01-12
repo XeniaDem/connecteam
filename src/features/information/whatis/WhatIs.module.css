@@ -1,0 +1,144 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  gap: 150px;
+  display: flex;
+  
+  
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  
+}
+
+
+.title {
+  color: #FFF;
+
+  padding-top: 208px;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px; /* 143.851% */
+  padding-top: 140px;
+  margin-bottom: 50px;
+  display: flex;
+  gap: 16px;
+
+  justify-content: center;
+}
+
+
+
+.left {
+  display: flex;
+  flex-direction: column;
+ gap: 234px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  margin-top: 400px;
+
+  
+}
+
+.card {
+ display: flex;
+  width: 500.962px;
+  height: 300.676px;
+  flex-shrink: 0;
+
+
+gap: 29px;
+position: relative;
+padding-top: 60px;
+
+
+
+}
+
+.cardRight {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardTitle {
+  color: rgba(255, 255, 255, 0.10);
+
+font-size: 35.62px;
+font-style: normal;
+font-weight: 600;
+line-height: 40.527px; /* 113.775% */
+}
+
+.textBox {
+  display: flex;
+  gap: 7px;
+  width: 300px;
+}
+
+.textBoxes {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+}
+
+.contents {
+  display: flex;
+  gap: 9px;
+  margin-top: 50px;
+  margin-left: -150px;
+}
+
+
+.text {
+  color: #FFF;
+  font-size: 11.081px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21.694px; /* 195.783% */
+}
+
+.rectangle {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+ 
+  margin-left: auto;
+margin-right: auto;
+
+flex-shrink: 0;
+border-radius: 16.88px;
+background: rgba(254, 254, 254, 0.10);
+backdrop-filter: blur(3.5592384338378906px);
+padding: 6px;
+}
+
+.line2 {
+  transform: rotate(-180deg);
+}
+
+.icon {
+  border-radius: 65.336px;
+  border: 1.401px solid var(--vd, #55C6F7);
+background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(29, 29, 29, 0.50) 100%);
+width: 70.886px;
+height: 70.886px;
+flex-shrink: 0;
+padding: 20px;
+
+justify-content: center;
+align-items:center;
+display: flex;
+fill: rgba(255, 255, 255, 0.10);
+stroke-width: 0.924px;
+stroke: var(--vd, #55C6F7);
+backdrop-filter: blur(3.6054623126983643px);
+
+
+}
+

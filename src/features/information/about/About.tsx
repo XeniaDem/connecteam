@@ -1,6 +1,7 @@
 import { Button } from "../../../components/button/Button"
 import styles from "./About.module.css"
 import photo from "./photo.svg"
+import rectangle from "./rectangle.svg"
 
 export function About() {
 
@@ -18,6 +19,9 @@ export function About() {
         <div className={styles.right}>
           <div className={styles.text}>
             Бизнес-лагерь представляет собой кратковременно действующее игровое государство со своим законодательством, законодательной, исполнительной и судебной властями, реальными производствами, бизнесами, банками и биржами, силовыми структурами и налогами, избирательной системой и СМИ, со своей валютой и прочими атрибутами государства (государств), гражданами которого являются слушатели, проходящие подготовку.
+          </div>
+          <div className={styles.rectangle}>
+            <img src={rectangle} />
           </div>
           <div className={styles.name}>
             Светлана Иванова

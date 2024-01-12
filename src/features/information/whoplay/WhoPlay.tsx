@@ -5,6 +5,9 @@ import logo2 from "./logo2.svg"
 import logo3 from "./logo3.svg"
 import logo4 from "./logo4.svg"
 import logo5 from "./logo5.svg"
+import vector from "./vector.svg"
+import ellipse from "./ellipse.svg"
+import pentagon from "./pentagon.svg"
 
 export function WhoPlay() {
 
@@ -15,6 +18,9 @@ export function WhoPlay() {
         В нашу игру играют
       </div>
       <div className={styles.line}>
+      <div className={styles.vector}>
+          <img src={vector} />
+          </div>
         <div className={styles.card}>
           <div className={styles.logo}>
           <img src={logo1} />
@@ -51,6 +57,12 @@ export function WhoPlay() {
 
       </div>
       <div className={styles.line}>
+      <div className={styles.ellipse}>
+          <img src={ellipse} />
+          </div>
+          <div className={styles.pentagon}>
+          <img src={pentagon} />
+          </div>
       <div className={styles.card}>
           <div className={styles.logo}>
           <img src={logo4} />
