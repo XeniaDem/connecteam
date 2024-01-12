@@ -27,12 +27,12 @@ export function FreeAccess() {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <input className={styles.input}/>
-                    <input className={styles.input}/>
-                    <input className={styles.input}/>
+                    <input className={styles.input} placeholder="Ваше имя"/>
+                    <input className={styles.input} placeholder="Ваш Email"/>
+                    <input className={styles.input} placeholder="+7 (999) 999-99-99"/>
                     <Button text={"Зарегистрироваться"} onClick={function (): void {
                         throw new Error("Function not implemented.")
-                    } }/>
+                    }} className= {styles.button} />
 
                 </div>
             </div>

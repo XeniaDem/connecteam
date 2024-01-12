@@ -99,8 +99,22 @@ background: rgba(0, 0, 0, 0.1);
 width: 197.373px;
 height: 42.537px;
 flex-shrink: 0;
+padding: 12px 25px;
+color: #FFF;
+box-sizing: border-box;
+
 }
 
+.button {
+  min-height: 43px;
+  color: #FFF;
+font-size: 11.471px;
+font-style: normal;
+font-weight: 600;
+line-height: 18.64px; /* 162.5% */
+
+box-sizing: border-box;
+}
 
 
 
