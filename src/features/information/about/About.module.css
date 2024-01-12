@@ -1,0 +1,70 @@
+.container {
+  
+  
+
+  font-family: 'Work Sans Variable', sans-serif;
+  display: flex;
+  gap: 50px;
+
+}
+
+.text {
+  color: #FFF;
+ 
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 125% */
+  
+  
+  padding-right: 6px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding-left: 54px;
+  padding-top: 76px;
+  
+}
+
+
+.right {
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 1200px;
+  
+
+  
+
+  flex-shrink: 0;
+
+}
+
+.title {
+  color: #FFF;
+
+font-size: 50px;
+font-style: normal;
+font-weight: 700;
+line-height: 71.925px; /* 143.851% */
+ 
+}
+
+
+.name {
+
+font-size: 24px;
+font-style: normal;
+font-weight: 600;
+line-height: 30px; /* 125% */
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+}
+

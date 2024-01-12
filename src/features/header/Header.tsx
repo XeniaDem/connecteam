@@ -8,7 +8,7 @@ export function Header() {
   return (
     <div className={styles.container}>
       <div className={styles.headerItem}>
-        <img src={logo}/> 
+        <img src={logo} />
       </div>
       <div className={styles.headerItem}>
         О проекте
@@ -25,14 +25,16 @@ export function Header() {
       <div className={styles.headerItem}>
         <Button text={"Зарегистрироваться"} onClick={function (): void {
           throw new Error("Function not implemented.")
-        } } />
+        }} />
 
       </div>
-      <div className={styles.person}>
-        <img src={person}/> 
-      </div>
-      <div className={styles.headerItem}>
-        Войти
+      <div className={styles.login}>
+        <div className={styles.person}>
+          <img src={person} />
+        </div>
+        <div className={styles.headerItem}>
+          Войти
+        </div>
       </div>
 
     </div>

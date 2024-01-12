@@ -4,6 +4,9 @@ import "./App.css"
 import { Header } from "./features/header/Header"
 import '@fontsource-variable/work-sans';
 import { Intro } from "./features/intro/Intro";
+import { About } from "./features/information/about/About";
+import { Information } from "./features/information/Information";
+
 
 function App() {
   return (
@@ -11,6 +14,7 @@ function App() {
       <header className="App-header">
         <Header />
         <Intro />
+        <Information />
         <img src={logo} className="App-logo" alt="logo" />
 
         <Counter />

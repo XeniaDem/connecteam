@@ -1,0 +1,87 @@
+.container {
+  
+
+  
+  font-family: 'Work Sans Variable', sans-serif;
+  gap: 28px;
+ 
+
+}
+
+
+.title {
+  color: #FFF;
+  text-align: center;
+  padding-top: 100px;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px; /* 143.851% */
+ 
+}
+
+.line {
+  display: flex;
+  gap: 28px;
+  
+  padding-top: 56px;
+  justify-content: center;
+}
+
+
+.card {
+ 
+width: 351.442px;
+height: 210.853px;
+flex-shrink: 0;
+border-radius: 23.197px;
+border: 1.16px solid rgba(0, 0, 0, 0.00);
+background: rgba(217, 217, 217, 0.10);
+
+text-align: center;
+margin-top: auto;
+padding-top: 48px;
+
+}
+
+.logo {
+  border-radius: 6.959px;
+border: 0.232px solid #FFF;
+background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(29, 29, 29, 0.50) 100%);
+width: 50px;
+height: 50px;
+flex-shrink: 0;
+padding: 5px;
+
+margin-left: auto;
+margin-right: auto;
+
+
+}
+
+.who {
+  font-family: 'Work Sans Variable', sans-serif;
+  color: #FFF;
+  text-align: center;
+  font-size: 25.891px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 134.335%; /* 34.781px */
+  letter-spacing: -1.812px;
+  padding-top: 21px;
+
+}
+
+.text {
+  color: #FFF;
+text-align: center;
+font-size: 13.918px;
+font-style: normal;
+font-weight: 300;
+line-height: 134.335%; /* 18.697px */
+letter-spacing: -0.974px;
+padding-top: 14px;
+  padding-left: 55px;
+  padding-right: 55px;
+}
+
