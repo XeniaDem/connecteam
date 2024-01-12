@@ -1,11 +1,6 @@
 .container {
-  
-
-  
   font-family: 'Work Sans Variable', sans-serif;
   gap: 28px;
- 
-
 }
 
 
@@ -26,6 +21,39 @@
   
   padding-top: 56px;
   justify-content: center;
+  position: relative;
+}
+
+.vector {
+  position: absolute;
+  width: 379.5px;
+height: 143.716px;
+flex-shrink: 0;
+flex-shrink: 0;
+top: -50px;
+right: 63px;
+}
+
+.ellipse {
+  position: absolute;
+  width: 379.5px;
+height: 143.716px;
+flex-shrink: 0;
+flex-shrink: 0;
+top: -110px;
+    left: 0px;
+
+}
+
+.pentagon {
+  position: absolute;
+  width: 451px;
+  height: 451px;
+
+  flex-shrink: 0;
+  top: 20px;
+  left: 0px;
+
 }
 
 
@@ -55,6 +83,7 @@ padding: 5px;
 
 margin-left: auto;
 margin-right: auto;
+
 
 
 }
