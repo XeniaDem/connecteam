@@ -1,0 +1,188 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  gap: 56px;
+  display: flex;
+
+
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  
+
+  border-radius: 23.377px;
+border: 0.234px solid var(--vd, #55C6F7);
+background: rgba(217, 217, 217, 0.10);
+box-shadow: 0px 4px 11.2px 0px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(4.400000095367432px);
+height: 683px;
+overflow: hidden;
+
+
+}
+
+
+.title {
+  color: #FFF;
+
+  padding-top: 80px;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px; /* 143.851% */
+  margin-bottom: 30px;
+  display: flex;
+  gap: 20px;
+
+  justify-content: center;
+ 
+}
+
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  margin-top: 101px;
+  gap: 40px;
+  
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  
+  width: 380px;
+
+flex-shrink: 0;
+border-radius: 23.377px;
+background: #FFF;
+box-shadow: 0px 4.675px 60.429px 0px rgba(0, 0, 0, 0.25);
+padding-top: 43px;
+margin-top: 45px;
+margin-bottom: 45px;
+
+align-items: center;
+
+
+}
+
+.text {
+  color: #FFF;
+  
+  font-size: 34.804px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 41.572px; /* 119.444% */
+  
+}
+
+.subtext {
+  color: #FFF;
+font-size: 20.516px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.505px; /* 119.444% */
+
+
+}
+
+.footerLeft {
+  color: #FFF;
+
+font-size: 10.258px;
+font-style: normal;
+font-weight: 500;
+line-height: 12.253px; /* 119.444% */
+margin-top: 200px;
+}
+
+.footerContainer {
+  padding: 38px 52px;
+  display: flex;
+  gap: 5px;
+}
+.footerRight {
+  color: #AAA;
+  font-size: 10.111px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14.155px; /* 140% */
+  letter-spacing: -0.004px;
+
+}
+.footerRightUnderline {
+  color: #AAA;
+  font-size: 10.111px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14.155px; /* 140% */
+  letter-spacing: -0.004px;
+  
+  text-decoration-line: underline;
+}
+
+.tickBox {
+  border-radius: 1.805px;
+border: 0.722px solid #767676;
+background: #FFF;
+width: 9.35px;
+height: 9.388px;
+flex-shrink: 0;
+}
+
+
+
+
+.inputs {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  
+}
+
+.input {
+  width: 285.531px;
+height: 46.667px;
+flex-shrink: 0;
+border-radius: 40.783px;
+background: #EDEDED;
+border: 0px;
+padding-left: 28px;
+color: #8E8E8E;
+
+font-size: 13.918px;
+font-style: normal;
+font-weight: 500;
+line-height: 22.616px; /* 162.5% */
+}
+
+
+.button {
+  width: 285.531px;
+height: 45.66px;
+flex-shrink: 0;
+border-radius: 40.783px;
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+border-width: 0px;
+color: #FFF;
+font-size: 14.026px;
+font-style: normal;
+font-weight: 500;
+line-height: 32.132px; /* 229.09% */
+}
+
+
+
+.ellipse2 {
+  position: absolute;
+  top: 100px;
+    right: 0px;
+    
+}
+
+
+
+
+
+
