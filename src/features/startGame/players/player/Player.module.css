@@ -1,0 +1,130 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+
+
+
+}
+
+.smallCrown {
+
+
+  margin-top: -20px;
+
+
+
+}
+
+.photo {
+  width: 57px;
+height: 57px;
+flex-shrink: 0;
+border-radius: 70.336px;
+border: 3px solid #303030;
+
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+object-fit: cover;
+
+}
+
+.photoAnswering {
+  width: 57px;
+height: 57px;
+flex-shrink: 0;
+border-radius: 70.336px;
+border: 3px solid var(--vd, #55C6F7);
+
+display: flex;
+align-items: center;
+justify-content: center;
+background-size: contain;
+overflow: hidden;
+
+}
+
+
+
+
+
+.photoDisconnected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 63px;
+height: 63px;
+background-color: #303030;
+border-radius: 70.336px;
+
+
+}
+
+.name {
+  color: #FFF;
+font-size: 17.143px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.812px; /* 144.737% */
+margin-top: 10px;
+text-align: center;
+
+}
+
+.nameDisconnected {
+
+  color: #595959;
+font-size: 17.143px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.812px; /* 144.737% */
+
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+.nameYou {
+  font-size: 17.143px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.812px; /* 144.737% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+margin-top: 10px;
+text-align: center;
+}
+
+.addButton {
+  width: 63px;
+  height: 63px;
+  border-radius: 70.336px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #303030;
+  color: #595959;
+  font-size: 60.143px;
+  font-weight: 350;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+display: flex;
+
+
+
+
+}
+
+
+
+.photo {
+  width: 57px;
+height: 57px;
+flex-shrink: 0;
+border-radius: 70.336px;
+border: 3px solid #303030;
+
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+object-fit: cover;
+
+
+}
+
+
+.name {
+  color: #FFF;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: 34.737px; /* 144.737% */
+
+display: flex;
+
+
+gap: 5px;
+
+}
+
+
+.nameYou {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34.737px; /* 144.737% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+
+
+display: flex;
+gap: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

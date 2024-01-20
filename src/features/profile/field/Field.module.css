@@ -1,0 +1,46 @@
+.container {
+
+  font-family: 'Work Sans Variable', sans-serif;
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.name {
+  color: #FFF;
+  display: flex;
+
+font-size: 21.13px;
+font-style: normal;
+font-weight: 700;
+line-height: 37.94px; /* 139.844% */
+align-items: center;
+justify-content: center;
+}
+.input {
+  border-radius: 20px;
+border: 1px solid var(--vd, #55C6F7);
+background: #1D1D1D;
+width: 426px;
+height: 50px;
+flex-shrink: 0;
+align-items: center;
+color: #FFF;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22.375px;
+padding-left: 20px;
+
+
+
+
+}
+
+
+
+
+
+
+

@@ -15,15 +15,15 @@
 .title {
   color: #FFF;
 
-  padding-top: 208px;
+  
   font-size: 50px;
   font-style: normal;
   font-weight: 700;
   line-height: 71.925px; /* 143.851% */
-  padding-top: 140px;
-  margin-bottom: 50px;
+  padding-top: 60px;
+  margin-bottom: 10px;
   display: flex;
-  gap: 16px;
+  gap: 20px;
 
   justify-content: center;
 }
@@ -33,13 +33,15 @@
 .left {
   display: flex;
   flex-direction: column;
- gap: 234px;
+ gap: 100px;
 }
 
 .right {
   display: flex;
   flex-direction: column;
-  margin-top: 400px;
+  margin-top: 250px;
+
+  
 
   
 }
@@ -54,6 +56,7 @@
 gap: 29px;
 position: relative;
 padding-top: 60px;
+
 
 
 
@@ -72,6 +75,19 @@ font-size: 35.62px;
 font-style: normal;
 font-weight: 600;
 line-height: 40.527px; /* 113.775% */
+
+
+
+}
+
+.cardTitleRight {
+  color: rgba(255, 255, 255, 0.10);
+
+font-size: 35.62px;
+font-style: normal;
+font-weight: 600;
+line-height: 40.527px; /* 113.775% */
+  text-align: right;
 }
 
 .textBox {
@@ -97,7 +113,7 @@ line-height: 40.527px; /* 113.775% */
 
 .text {
   color: #FFF;
-  font-size: 11.081px;
+  font-size: 14.081px;
   font-style: normal;
   font-weight: 500;
   line-height: 21.694px; /* 195.783% */
@@ -106,7 +122,7 @@ line-height: 40.527px; /* 113.775% */
 .rectangle {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
  
   margin-left: auto;
 margin-right: auto;
@@ -120,6 +136,8 @@ padding: 6px;
 
 .line2 {
   transform: rotate(-180deg);
+  margin-bottom: 10px;
+  margin-top: 3px;
 }
 
 .icon {

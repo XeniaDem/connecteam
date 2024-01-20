@@ -29,8 +29,9 @@ position: relative;
 }
 
 .at {
-  margin-top: -200px;
-  margin-left: 227px;
+  top: -200px;
+  right: 227px;
+  position: absolute;
 }
 
 
@@ -47,6 +48,7 @@ position: relative;
   padding-left: 100px;
   padding-right: 172px;
   justify-content: space-between;
+  margin-top: 56px;
   
 }
 

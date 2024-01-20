@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from "react";
 import styles from "./Button.module.css"
 import cn from 'classnames';
 type Props = {

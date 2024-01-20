@@ -1,4 +1,4 @@
-import { Button } from "../../components/button/Button"
+
 import styles from "./Intro.module.css"
 import connecteam from "./connecteam.svg"
 import autor from "./autor.svg"

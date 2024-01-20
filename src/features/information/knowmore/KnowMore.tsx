@@ -1,9 +1,9 @@
+
 import { Button } from "../../../components/button/Button"
 import styles from "./KnowMore.module.css"
 import at from "./at.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
-import vector from "./vector.svg"
 
 export function KnowMore() {
 
@@ -11,6 +11,9 @@ export function KnowMore() {
   return (
     <div>
       <div className={styles.container}>
+      <div className={styles.at}>
+        <img src={at} />
+        </div>
       <div className={styles.ellipse1}>
         <img src={ellipse1} />
         </div>
@@ -23,9 +26,7 @@ export function KnowMore() {
         <div className={styles.title}>
           Узнать подробности
         </div>
-        <div className={styles.at}>
-        <img src={at} />
-        </div>
+       
 
       </div>
       <div className={styles.down}>

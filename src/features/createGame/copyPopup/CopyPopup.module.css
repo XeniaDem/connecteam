@@ -1,0 +1,41 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+
+
+
+display: flex;
+flex-direction: column;
+
+align-items: center;
+justify-content: center;
+width: 393px;
+height: 80px;
+
+
+flex-shrink: 0;
+border-radius: 23.377px;
+border: 0.5px solid #55C6F7;
+background: linear-gradient(174deg, #1D1D1D 2.72%, rgba(29, 29, 29, 0.00) 115.36%);
+backdrop-filter: blur(30.21428680419922px);
+
+}
+
+
+.text {
+  color: #FFF;
+
+  font-size: 19.61px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.857px; /* 126.757% */
+}
+
+
+
+
+
+
+
+
+
+

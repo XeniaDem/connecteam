@@ -1,0 +1,99 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+
+
+
+display: flex;
+flex-direction: column;
+
+align-items: center;
+padding: 42px;
+gap: 13px;
+
+
+width: 500px;
+
+flex-shrink: 0;
+
+border-radius: 23.377px;
+border: 0.5px solid #55C6F7;
+background: linear-gradient(174deg, #1D1D1D 2.72%, rgba(29, 29, 29, 0.00) 115.36%);
+backdrop-filter: blur(30.21428680419922px);
+
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  
+}
+
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+height: 23px;
+padding: 0px;
+border: none;
+
+
+  background: url("./close.svg") no-repeat;
+
+}
+
+.title {
+
+  color: #FFF;
+  text-align: center;
+  font-size: 27.612px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 35px; /* 126.757% */
+}
+.subtitle {
+  color: #FFF;
+font-size: 16.701px;
+font-style: normal;
+font-weight: 500;
+line-height: 27.14px; /* 162.5% */
+}
+
+.link {
+  color: #8E8E8E;
+font-size: 13.918px;
+font-style: normal;
+font-weight: 500;
+line-height: 22.616px; /* 162.5% */
+}
+
+.divider {
+height: 1px;
+background: linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%);
+}
+
+
+.copyButton {
+  width: 272.531px;
+  height: 53.667px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+border: 1px solid var(--vd, #55C6F7);
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+margin-top: 40px;
+
+}
+
+
+
+
+
+
+
+
+

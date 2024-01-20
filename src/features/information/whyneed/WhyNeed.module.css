@@ -2,13 +2,13 @@
   font-family: 'Work Sans Variable', sans-serif;
   gap: 56px;
   display: flex;
-  flex-direction: column;
-  padding-top: 100px;
-  padding-left: 220px;
+
+  
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
+
+
+
+  
   
 }
 
@@ -16,15 +16,30 @@
 .title {
   color: #FFF;
   text-align: center;
-  padding-top: 208px;
+  padding-top: 130px;
   font-size: 50px;
   font-style: normal;
   font-weight: 700;
   line-height: 71.925px; /* 143.851% */
-  padding-top: 140px;
+  
+  margin-bottom: 100px;
 
   
  
+}
+
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 300px;
+}
+
+
+.right {
+  display: flex;
+  flex-direction: column;
+  margin-top: 250px;
 }
 
 .number {
@@ -43,21 +58,19 @@ padding-right: 20px;
 
 }
 
-.left {
+.cardLeft {
   display: flex;
   align-items: center;
+
 }
 
-.right {
+.cardRight {
   display: flex;
   flex-direction: column;
 
   
 }
 
-.second {
-  padding-left: 689px;
-}
 
 .card {
  display: flex;
@@ -70,6 +83,7 @@ background: var(--, linear-gradient(180deg, rgba(29, 29, 29, 0.62) 10.42%, rgba(
 backdrop-filter: blur(5.349841117858887px);
 gap: 29px;
 position: relative;
+
 
 
 
@@ -87,29 +101,30 @@ position: relative;
 
 .text {
   color: #FFF;
-  font-size: 14.59px;
+  font-size: 15.59px;
   font-style: normal;
   font-weight: 400;
   line-height: 19.454px; /* 133.333% */
+  padding-right: 5px;
 }
 
 .arrow1{
   position: absolute;
-  top: 71px;
+  top: 84px;
   right: -247px;
 
 }
 
 .arrow2{
   position: absolute;
-  top: 66px;
+  top: 60px;
   left: -310px;
 
 }
 
 .rectangle{
   position: absolute;
-  top: 64px;
-  left: 133px;
+  top: 2584px;
+  left: 175px;
 }
 

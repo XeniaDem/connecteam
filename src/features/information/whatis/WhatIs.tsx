@@ -1,4 +1,4 @@
-import { Button } from "../../../components/button/Button"
+
 import styles from "./WhatIs.module.css"
 import circle from "./circle.svg"
 import line1 from "./line1.svg"
@@ -181,7 +181,7 @@ export function WhatIs() {
         <div className={styles.right}>
           <div className={styles.card}>
           <div className={styles.cardLeft}>
-          <div className={styles.cardTitle}>
+          <div className={styles.cardTitleRight}>
                 Зачем
               </div>
               <div className={styles.line2}>

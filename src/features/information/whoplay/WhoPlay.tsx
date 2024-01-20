@@ -1,4 +1,4 @@
-import { Button } from "../../../components/button/Button"
+
 import styles from "./WhoPlay.module.css"
 import logo1 from "./logo1.svg"
 import logo2 from "./logo2.svg"

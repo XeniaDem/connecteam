@@ -1,0 +1,29 @@
+.button {
+  border-radius: 20px;
+  background: linear-gradient(90deg, #55C6F7 0%, #2AF8BA 100%);
+  color: #FFF;
+  font-family: 'Work Sans Variable', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22.375px; /* 139.844% */
+  padding: 5px 25px;
+text-align: center;
+}
+
+.checkbox input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30.996px;
+height: 30.996px;
+flex-shrink: 0;
+
+border-radius: 39.336px;
+border: 1px solid var(--vd, #55C6F7);
+outline: none;
+cursor: pointer;
+}
+
+
+
+

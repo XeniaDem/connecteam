@@ -1,4 +1,4 @@
-import { Button } from "../../../components/button/Button"
+
 import styles from "./About.module.css"
 import photo from "./photo.svg"
 import rectangle from "./rectangle.svg"

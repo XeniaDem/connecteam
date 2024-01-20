@@ -4,8 +4,22 @@ import "./App.css"
 import { Header } from "./features/header/Header"
 import '@fontsource-variable/work-sans';
 import { Intro } from "./features/intro/Intro";
-import { About } from "./features/information/about/About";
 import { Information } from "./features/information/Information";
+import { Registration } from "./features/registration/Registration";
+import { Login } from "./features/login/Login";
+import { AuthProblem } from "./features/authProblem/AuthProblem";
+import { UserPage } from "./features/userPage/UserPage";
+import { CreateGame } from "./features/createGame/CreateGame";
+import { Profile } from "./features/profile/Profile";
+import { StartPage } from "./features/startGame/startPage/StartPage";
+import { ChooseTopics } from "./features/startGame/chooseTopics/ChooseTopics";
+import { StartRound } from "./features/processGame/startRound/StartRound";
+import { TopicChoosing } from "./features/processGame/topicChoosing/TopicChoosing";
+import { WaitGame } from "./features/joinGame/waitGame/WaitGame";
+import { EnterGame } from "./features/joinGame/enterGame/EnterGame";
+import { LinkSent } from "./features/authProblem/linkSent/LinkSent";
+import { GameResults } from "./features/gameResults/GameResults";
+
 
 
 function App() {
@@ -15,6 +29,26 @@ function App() {
         <Header />
         <Intro />
         <Information />
+        <Registration />
+        <Login />
+        <AuthProblem />
+        <LinkSent/>
+        <UserPage />
+        <CreateGame />
+
+        <Profile/>
+
+        <StartPage/>
+
+        <ChooseTopics/>
+        <StartRound/>
+        <TopicChoosing/>
+        <WaitGame/>
+        <EnterGame/>
+        <GameResults/>
+
+
+
         <img src={logo} className="App-logo" alt="logo" />
 
         <Counter />

@@ -1,0 +1,33 @@
+.container {
+  padding-top: 86px;
+  padding-bottom: 46px;
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 42px;
+
+}
+
+.line {
+  display: flex;
+justify-content: center;
+align-items: center;
+gap: 42px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+flex-shrink: 0;
+border-radius: 20px;
+background: #232323;
+
+padding: 21px 21px;
+
+
+
+
+
+}
+
+.text {
+  color: #FFF;
+font-size: 20.516px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.505px; /* 119.444% */
+}
+
+
+
+
+
+
+
+
+
+
+

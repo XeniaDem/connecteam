@@ -1,0 +1,195 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+
+
+
+
+}
+
+
+.title {
+  color: #FFF;
+
+font-size: 50px;
+font-style: normal;
+font-weight: 700;
+line-height: 71.925px; /* 143.851% */
+padding-top: 104px;
+padding-left: 51px;
+}
+
+
+.subtitle {
+  color: #FFF;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34.737px; /* 144.737% */
+  padding-left: 51px;
+  padding-bottom: 47px;
+}
+
+.gamesFilter {
+  width: 1600px;
+}
+
+
+.filtration {
+  display: flex;
+align-items: right;
+justify-content: right;
+gap: 20px;
+margin-right: 190px;
+
+
+}
+
+.filterButton {
+  width: 28px;
+height: 28px;
+flex-shrink: 0;
+border: 1px solid var(--vd, #55C6F7);
+background: none;
+box-sizing: border-box;
+padding: 0px;
+border-radius: 10px;
+}
+
+.filterText {
+  color: #FFF;
+font-size: 17.507px;
+font-style: normal;
+font-weight: 500;
+line-height: 140.76%; /* 27.457px */
+letter-spacing: -0.975px;
+text-align: center;
+
+}
+
+.gamesType {
+  display: flex;
+  margin-top: -30px;
+  
+
+}
+
+.myGames {
+  background: url("./my.svg") no-repeat;
+
+  
+  min-height: 70px;
+  width: 1600px;
+  padding-left: 100px;
+  padding-top: 8px;
+  background-size: contain;
+
+margin-left: 51px;
+
+
+  
+
+}
+
+.myButton {
+  border: none;
+
+display: flex;
+box-sizing: border-box;
+font-size: 15.178px;
+font-style: normal;
+font-weight: 500;
+line-height: 140.76%; /* 21.364px */
+letter-spacing: -0.759px;
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+padding: 3px;
+
+
+}
+
+
+
+.games {
+  display: flex;
+  flex-direction: column;
+  padding-left: 51px;
+  width: 1600px;
+
+}
+
+.game {
+  height: 83px;
+max-height: 83px;
+display: flex;
+justify-content: space-between;
+
+}
+.gameInfo {
+display: flex;
+}
+.gameButton {
+
+font-size: 24.567px;
+font-style: normal;
+font-weight: 700;
+line-height: 140.76%; /* 34.581px */
+letter-spacing: -1.228px;
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+border: none;
+
+align-items: center;
+justify-content: center;
+padding: 0px;
+
+
+}
+
+.gameDate {
+  color: rgba(255, 255, 255, 0.39);
+  font-size: 22.817px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.76%; /* 32.117px */
+  letter-spacing: -1.141px;
+
+align-items: center;
+
+display: flex;
+margin-left: 55px;
+}
+
+.gameStatus {
+  color: rgba(255, 255, 255, 0.39);
+
+  font-size: 22.817px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.76%; /* 32.117px */
+  letter-spacing: -1.141px;
+  align-items: center;
+
+  display: flex;
+ 
+  margin-right: 190px;
+}
+
+.divider {
+  width: 1563px;
+height: 1px;
+background: linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%);
+
+}
+
+
+
+
+
+

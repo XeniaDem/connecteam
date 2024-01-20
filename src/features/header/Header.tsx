@@ -1,3 +1,4 @@
+
 import { Button } from "../../components/button/Button"
 import styles from "./Header.module.css"
 import logo from "./logo.svg"
@@ -22,7 +23,7 @@ export function Header() {
       <div className={styles.headerItem}>
         Контакты
       </div>
-      <div className={styles.headerItem}>
+      <div className={styles.headerButton}>
         <Button text={"Зарегистрироваться"} onClick={function (): void {
           throw new Error("Function not implemented.")
         }} />
