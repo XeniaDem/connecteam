@@ -15,20 +15,62 @@ gap: 10px;
 .exit {
   position: absolute;
   top: 80px;
-  right: 80px;
+  /* right: 80px; */
+  left: max( calc(100vw - 130px) , 800px );
+
+
   
 }
+.exitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+height: 50px;
+padding: 0px;
+border: 4px solid transparent;
 
+  background: url("../exit.svg") no-repeat;
+  z-index: 1;
+
+}
+.exitButton:hover,
+.exitButton:focus {
+
+box-shadow: none;
+
+}
 
 
 .photo {
   width: 140px;
 height: 140px;
 flex-shrink: 0;
-border-radius: 70.336px;
-border: 1px solid var(--vd, #55C6F7);
+border-radius: 70px;
+
+position:relative;
+overflow: hidden;
+object-fit: cover;
 
 }
+.photo::before {
+  border-radius:  70px;
+  border: 2.5px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
+
+}
+
+
+
+
 
 .title {
 

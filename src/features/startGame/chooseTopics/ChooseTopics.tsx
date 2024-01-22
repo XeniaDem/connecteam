@@ -11,7 +11,7 @@ import { InvitePopup } from "./InvitePopup/InvitePopup"
 
 type Props = {
   package: number;
-  
+
 
 
 }
@@ -32,17 +32,19 @@ export function ChooseTopics(props: Props) {
 
         </div>
         <div className={styles.exit}>
-        <img src={exit} />
+          <Button text={""} onClick={function (): void {
+            throw new Error("Function not implemented.")
+          }} className={styles.exitButton} />
         </div>
 
-        <Players/>
+        <Players />
 
         <div className={styles.title}>
           Выберите темы для игры
         </div>
 
         <div className={styles.topics}>
-          <Topics areChecked = {true}/>
+          <Topics areChecked={true} />
 
         </div>
 
@@ -54,14 +56,14 @@ export function ChooseTopics(props: Props) {
 
 
         <Button text={"Выбрать все темы"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.allTopicsButton} />
+          throw new Error("Function not implemented.")
+        }} className={styles.allTopicsButton} />
 
         <Button text={"Начать игру"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.startButton} />
+          throw new Error("Function not implemented.")
+        }} className={styles.startButton} />
 
-          
+
 
 
 
@@ -76,7 +78,7 @@ export function ChooseTopics(props: Props) {
 
       </div>
 
-      <InvitePopup/>
+      <InvitePopup />
 
     </div>
   )

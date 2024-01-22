@@ -13,12 +13,15 @@ import { CreateGame } from "./features/createGame/CreateGame";
 import { Profile } from "./features/profile/Profile";
 import { StartPage } from "./features/startGame/startPage/StartPage";
 import { ChooseTopics } from "./features/startGame/chooseTopics/ChooseTopics";
-import { StartRound } from "./features/processGame/startRound/StartRound";
-import { TopicChoosing } from "./features/processGame/topicChoosing/TopicChoosing";
+import { ChooseTopic } from "./features/processGame/chooseTopic/ChooseTopic";
 import { WaitGame } from "./features/joinGame/waitGame/WaitGame";
 import { EnterGame } from "./features/joinGame/enterGame/EnterGame";
 import { LinkSent } from "./features/authProblem/linkSent/LinkSent";
 import { GameResults } from "./features/gameResults/GameResults";
+import { AnswerQuestion } from "./features/processGame/answerQuestion/AnswerQuestion";
+import { RateAnswer } from "./features/processGame/rateAnswer/RateAnswer";
+import { InputGradient } from "./components/inputGradient/InputGradient";
+
 
 
 
@@ -41,11 +44,21 @@ function App() {
         <StartPage/>
 
         <ChooseTopics/>
-        <StartRound/>
-        <TopicChoosing/>
+        <ChooseTopic/>
+        <AnswerQuestion/>
+        <RateAnswer/>
+
+  
+
         <WaitGame/>
         <EnterGame/>
         <GameResults/>
+
+
+    
+       
+      
+    
 
 
 

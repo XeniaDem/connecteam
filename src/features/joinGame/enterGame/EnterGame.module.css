@@ -27,13 +27,15 @@ border-radius: 40.783px;
 border: 1px solid var(--vd, #55C6F7);
 background: rgba(0, 0, 0, 0.1);
 padding: 15px 26px;
-color: #8E8E8E;
 font-size: 13.918px;
 font-style: normal;
 font-weight: 500;
 line-height: 22.616px; /* 162.5% */
 box-sizing: border-box;
 color: #FFF;
+outline: none;
+z-index: 1;
+
 }
 
 .title {
@@ -45,6 +47,7 @@ font-style: normal;
 font-weight: 700; 
 line-height: 60px;
 text-align: center;
+z-index: 1;
 }
 
 .date {
@@ -72,6 +75,7 @@ font-size: 14.026px;
 font-style: normal;
 font-weight: 600;
 line-height: 32.132px; /* 229.09% */
+z-index: 1;
 }
 
 
@@ -101,7 +105,16 @@ line-height: 24.33px; /* 162.5% */
 box-sizing: border-box;
 padding: 0px;
 text-decoration-line: underline;
+z-index: 1;
 
+
+}
+.footerButton:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+box-shadow: none;
 
 }
 

@@ -7,6 +7,7 @@ import players from "./players.svg"
 import { Button } from "../../components/button/Button"
 import { Player } from "./player/Player"
 import { Result } from "./result/Result"
+import { InputGradient } from "../../components/inputGradient/InputGradient"
 
 
 type Props = {
@@ -14,9 +15,10 @@ type Props = {
   date: string;
 
   isCreator: boolean;
+  ownResult?: number;
 }
 
-GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: false }
+GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: false, ownResult: 40 }
 
 export function GameResults(props: Props) {
   return (
@@ -59,7 +61,7 @@ export function GameResults(props: Props) {
             </div>
             {props.isCreator ? (
               <div className={styles.allResults}>
-                <Result />
+                <Result isYou = {true}/>
                 <Result />
                 <Result />
                 <Result />
@@ -70,7 +72,7 @@ export function GameResults(props: Props) {
               </div>
             ) : (
               <div className={styles.singleResult}>
-                40 баллов
+                {props.ownResult} баллов
               </div>
             )}
           </div>
@@ -85,9 +87,6 @@ export function GameResults(props: Props) {
           </div>
 
         )}
-
-
-
 
 
         <div className={styles.close}>

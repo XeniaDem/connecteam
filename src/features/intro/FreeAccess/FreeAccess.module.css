@@ -1,13 +1,30 @@
 
 .container {
   width: 570.001px;
-  height: 350.09px;
+  height: 320.09px;
   flex-shrink: 0;
-  border-radius: 17.015px;
-  border: 1px solid var(--vd, #55C6F7);
-  background: rgba(0, 0, 0, 0.42);
+
   backdrop-filter: blur(4.400000095367432px);
   padding: 32px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.42);
+  border-radius: 17.015px;
+
+
+}
+
+.container::before {
+  border-radius: 17.015px;
+  border: 1px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
 
 }
 
@@ -92,6 +109,8 @@ line-height: 19px; /* 130% */
 
 }
 
+
+
 .input {
   border-radius: 28.075px;
 border: 1px solid var(--vd, #55C6F7);
@@ -103,7 +122,10 @@ padding: 12px 25px;
 color: #FFF;
 box-sizing: border-box;
 
+z-index: 1;
+outline: none;
 }
+
 
 .button {
   min-height: 43px;
@@ -114,6 +136,7 @@ font-weight: 600;
 line-height: 18.64px; /* 162.5% */
 
 box-sizing: border-box;
+z-index: 1;
 }
 
 

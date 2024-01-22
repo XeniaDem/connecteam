@@ -30,6 +30,13 @@ export function Registration() {
           <input className={styles.input} placeholder="Придумайте пароль" />
           <input className={styles.input} placeholder="Повторите пароль" />
         </div>
+        {/* <div className={styles.errorMessage}>
+         Поля Имя и Фамилия не могут быть пустыми.
+
+        </div> */}
+
+
+        
         <Button text={"Зарегистрироваться"} onClick={function (): void {
           throw new Error("Function not implemented.")
         }} className={styles.button} />

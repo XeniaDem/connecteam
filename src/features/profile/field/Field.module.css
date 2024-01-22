@@ -32,6 +32,8 @@ font-style: normal;
 font-weight: 500;
 line-height: 22.375px;
 padding-left: 20px;
+outline: none;
+z-index: 1;
 
 
 

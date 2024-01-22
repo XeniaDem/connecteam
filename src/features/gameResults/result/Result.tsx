@@ -17,7 +17,7 @@ type Props = {
 
 }
 
-Result.defaultProps = { isYou: false, name: "Ксения", score: 0 }
+Result.defaultProps = { isYou: false, name: "Ксения", score: 40 }
 
 
 export function Result(props: Props) {
@@ -27,7 +27,7 @@ export function Result(props: Props) {
     <div>
       <div className={styles.container}>
         <div className={styles.rectangle}>
-          40
+          {props.score}
         </div>
 
 

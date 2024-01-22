@@ -9,14 +9,17 @@ import { Button } from "../../../components/button/Button"
 
 
 type Props = {
+  name: string;
+  dateExpiry?: string;
   withPackage?: boolean;
   simpleActive?: boolean;
   extendedActive?: boolean;
   wideActive?: boolean;
 
+
 }
 
-PackageInfo.defaultProps = { withPackage: true, simpleActive: false, extendedActive: false, wideActive: true }
+PackageInfo.defaultProps = { withPackage: true, simpleActive: false, extendedActive: false, wideActive: true, name: "Ксения", dateExpiry: "01.01.2024" }
 
 
 export function PackageInfo(props: Props) {
@@ -32,15 +35,17 @@ export function PackageInfo(props: Props) {
             <img src={icon} />
           </div>
           <div className={styles.title}>
-            Добро пожаловать, name!
+            Добро пожаловать, {props.name}!
           </div>
           <div className={styles.subtitle}>
             Вам доступен пакет:
           </div>
-          <SimplePackage />
+          <div className={styles.package}>
+            <SimplePackage />
+            </div>
           <div className={styles.footerContainer}>
             <div className={styles.footer}>
-              Дата истечения срока подписки 01.01.2024
+              Дата истечения срока подписки {props.dateExpiry}
             </div>
 
               <Button text={"Сменить пакет"} onClick={function (): void {
@@ -60,15 +65,17 @@ export function PackageInfo(props: Props) {
               <img src={icon} />
             </div>
             <div className={styles.title}>
-              Добро пожаловать, name!
+            Добро пожаловать, {props.name}!
             </div>
             <div className={styles.subtitle}>
               Вам доступен пакет:
             </div>
+            <div className={styles.package}>
             <ExtendedPackage />
+            </div>
             <div className={styles.footerContainer}>
             <div className={styles.footer}>
-              Дата истечения срока подписки 01.01.2024
+              Дата истечения срока подписки {props.dateExpiry}
             </div>
 
               <Button text={"Сменить пакет"} onClick={function (): void {
@@ -89,16 +96,18 @@ export function PackageInfo(props: Props) {
               <img src={icon} />
             </div>
             <div className={styles.title}>
-              Добро пожаловать, name!
+            Добро пожаловать, {props.name}!
             </div>
             <div className={styles.subtitle}>
               Вам доступен пакет:
             </div>
+            <div className={styles.package}>
             <WidePackage />
+            </div>
             
             <div className={styles.footerContainer}>
             <div className={styles.footer}>
-              Дата истечения срока подписки 01.01.2024
+              Дата истечения срока подписки {props.dateExpiry}
             </div>
 
               <Button text={"Сменить пакет"} onClick={function (): void {
@@ -121,20 +130,13 @@ export function PackageInfo(props: Props) {
 
         <div className={styles.container}>
           <div className={styles.title}>
-            Добро пожаловать, name!
+            Добро пожаловать, {props.name}!
           </div>
           <div className={styles.subtitle}>
             Выберите пакет:
           </div>
 
           <PackageList simpleActive={false} extendedActive={false} wideActive={false} />
-
-
-
-
-
-
-
 
         </div>
 

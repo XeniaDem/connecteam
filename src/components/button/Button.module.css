@@ -9,6 +9,17 @@
   line-height: 22.375px; /* 139.844% */
   padding: 5px 25px;
 text-align: center;
+border: 1px solid var(--vd, #55C6F7);
+cursor: pointer;
+}
+
+.button:hover {
+  /* border: 2px solid var(--vd, #55C6F7); */
+  box-shadow: 
+ 
+  3px -3px 30px #55C6F7, 
+  -3px 3px 30px #2AF8BA;
+
 }
 
 

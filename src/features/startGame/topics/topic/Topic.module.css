@@ -5,6 +5,7 @@
 display: flex;
 
 align-items: center;
+
 gap: 40px;
 padding-left: 30px;
 
@@ -13,11 +14,37 @@ width: 350.843px;
 height: 110.872px;
 flex-shrink: 0;
 border-radius: 26.557px;
-border: 0.266px solid #55C6F7;
 background: rgba(217, 217, 217, 0.10);
 backdrop-filter: blur(5.8426361083984375px);
+position: relative;
 
 }
+.container::before {
+  border-radius: 26.557px;
+  border:  0.266px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
+
+}
+
+
+.container:hover,
+.container:focus {
+  box-shadow: 
+ 
+  3px -3px 30px #55C6F7, 
+  -3px 3px 30px #2AF8BA;
+  cursor: pointer;
+
+}
+
 
 .icon {
   
@@ -32,7 +59,7 @@ align-items: center;
 
 
 border-radius: 70.336px;
-border: 1px solid var(--vd, #55C6F7);
+
 position: relative;
 }
 

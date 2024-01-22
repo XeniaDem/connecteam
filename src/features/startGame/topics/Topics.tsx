@@ -26,26 +26,26 @@ export function Topics(props: Props) {
     <div>
       <div className={styles.container}>
         <div className={styles.line}>
-          <Topic isChecked = {props.areChecked}/>
-          <Topic isChecked = {props.areChecked}/>
-          <Topic isChecked = {props.areChecked}/>
+          <Topic isChecked={props.areChecked} />
+          <Topic isChecked={props.areChecked} />
+          <Topic isChecked={props.areChecked} />
 
         </div>
         <div className={styles.line}>
-        <Topic isChecked = {props.areChecked}/>
-        <Topic isChecked = {props.areChecked}/>
-        <Topic isChecked = {props.areChecked}/>
+          <Topic isChecked={props.areChecked} />
+          <Topic isChecked={props.areChecked} />
+          <Topic isChecked={props.areChecked} />
 
         </div>
         <div className={styles.line}>
-        <Topic isChecked = {props.areChecked}/>
-        <Topic isChecked = {props.areChecked}/>
-        <Topic isChecked = {props.areChecked}/>
+          <Topic isChecked={props.areChecked} />
+          <Topic isChecked={props.areChecked} />
+          <Topic isChecked={props.areChecked} />
 
         </div>
         <div className={styles.line}>
-        <Topic isChecked = {props.areChecked}/>
-        
+          <Topic isChecked={props.areChecked} />
+
 
         </div>
 

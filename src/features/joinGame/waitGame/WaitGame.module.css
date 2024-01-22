@@ -29,6 +29,7 @@ font-style: normal;
 font-weight: 700; 
 line-height: 60px;
 text-align: center;
+z-index: 1;
 }
 
 .date {
@@ -49,6 +50,7 @@ line-height: 45.135px; /* 143.851% */
   border-radius: 40.783px;
 background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
 margin-top: 54px;
+z-index: 1;
 }
 
 
@@ -78,7 +80,16 @@ line-height: 24.33px; /* 162.5% */
 box-sizing: border-box;
 padding: 0px;
 text-decoration-line: underline;
+z-index: 1;
 
+
+}
+.footerButton:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+box-shadow: none;
 
 }
 

@@ -22,6 +22,8 @@ border-radius: 39.336px;
 border: 1px solid var(--vd, #55C6F7);
 outline: none;
 cursor: pointer;
+display:flex;
+align-items: center;
 }
 
 

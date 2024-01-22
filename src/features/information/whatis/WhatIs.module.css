@@ -141,8 +141,8 @@ padding: 6px;
 }
 
 .icon {
-  border-radius: 65.336px;
-  border: 1.401px solid var(--vd, #55C6F7);
+  border-radius: 66px;
+
 background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(29, 29, 29, 0.50) 100%);
 width: 70.886px;
 height: 70.886px;
@@ -152,11 +152,23 @@ padding: 20px;
 justify-content: center;
 align-items:center;
 display: flex;
-fill: rgba(255, 255, 255, 0.10);
-stroke-width: 0.924px;
-stroke: var(--vd, #55C6F7);
-backdrop-filter: blur(3.6054623126983643px);
+position: relative;
 
+
+}
+
+.icon::before {
+  border-radius: 66px;
+  border: 1.5px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
 
 }
 

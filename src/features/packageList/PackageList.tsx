@@ -7,10 +7,11 @@ type Props = {
   simpleActive?: boolean;
   extendedActive?: boolean;
   wideActive?: boolean;
+  dateExpiry?: string;
 
 }
 
-PackageList.defaultProps = { simpleActive: false, extendedActive: false, wideActive: false }
+PackageList.defaultProps = { simpleActive: false, extendedActive: false, wideActive: false, dateExpiry: "01.01.2024" }
 
 
 export function PackageList(props: Props) {
@@ -70,7 +71,7 @@ export function PackageList(props: Props) {
           {props.simpleActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки 01.01.2024
+                Дата истечения срока подписки {props.dateExpiry}
               </div>
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
@@ -149,7 +150,7 @@ export function PackageList(props: Props) {
           {props.extendedActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки 01.01.2024
+                Дата истечения срока подписки {props.dateExpiry}
               </div>
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
@@ -233,7 +234,7 @@ export function PackageList(props: Props) {
           {props.wideActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки 01.01.2024
+                Дата истечения срока подписки {props.dateExpiry}
               </div>
 
               <Button text={"Участники пакета"} onClick={function (): void {

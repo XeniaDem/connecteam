@@ -1,5 +1,6 @@
 
 import { Button } from "../../../components/button/Button"
+import { InputGradient } from "../../../components/inputGradient/InputGradient"
 import styles from "./FreeAccess.module.css"
 export function FreeAccess() {
 
@@ -7,7 +8,7 @@ export function FreeAccess() {
     return (
         <div className={styles.container}>
             <div className={styles.title}>
-                Попробуйте бесплатный доступ <br/> на 14 дней!
+                Попробуйте бесплатный доступ <br /> на 14 дней!
             </div>
             <div className={styles.main}>
                 <div className={styles.left}>
@@ -21,28 +22,34 @@ export function FreeAccess() {
                         <div className={styles.advantage}>
                             1 победитель в игре
                         </div>
-                        
+
                     </div>
                     <div className={styles.text}>
-                        Регистрируйтесь сейчас и <br/> узнайте о сотрудниках больше
+                        Регистрируйтесь сейчас и <br /> узнайте о сотрудниках больше
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <input className={styles.input} placeholder="Ваше имя"/>
-                    <input className={styles.input} placeholder="Ваш Email"/>
-                    <input className={styles.input} placeholder="+7 (999) 999-99-99"/>
+
+                    <input className={styles.input} placeholder="Ваше имя" />
+
+                    {/* <InputGradient className= {styles.inputa} placeholder="Ваше имя"/> */}
+
+
+
+                    <input className={styles.input} placeholder="Ваш Email" />
+                    <input className={styles.input} placeholder="+7 (999) 999-99-99" />
                     <Button text={"Зарегистрироваться"} onClick={function (): void {
                         throw new Error("Function not implemented.")
-                    }} className= {styles.button} />
+                    }} className={styles.button} />
 
                 </div>
             </div>
             <div className={styles.footer}>
-                    Нажимая на кнопку, вы даете согласие на
-                    <span className={styles.footerUnderline}>
-                        обработку персональных данных и соглашаетесь c политикой конфиденциальности
-                    </span>
-                </div>
+                Нажимая на кнопку, вы даете согласие на
+                <span className={styles.footerUnderline}>
+                    обработку персональных данных и соглашаетесь c политикой конфиденциальности
+                </span>
+            </div>
         </div>
     )
 }

@@ -34,10 +34,24 @@ gap: 53px;
 height: 220px;
 flex-shrink: 0;
 border-radius: 305px;
-border: 10px solid var(--vd, #55C6F7);
 align-items: center;
 justify-content: center;
 display: flex;
+position: relative;
+}
+.photo::before {
+  border-radius:  305px;
+  border: 10px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
+
 }
 
 .footerButton {
@@ -49,10 +63,22 @@ line-height: 22.375px; /* 139.844% */
 border: none;
 background: none;
 text-decoration-line: underline;
-
-
+z-index: 1;
 
 }
+.footerButton:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+box-shadow: none;
+
+}
+
+
+
+
+
 
 .right {
   display: flex;
@@ -60,6 +86,7 @@ text-decoration-line: underline;
   gap: 25px;
   width: 750px;
   margin-top: 175px;
+  z-index: 1;
 }
 
 .footerButtons {

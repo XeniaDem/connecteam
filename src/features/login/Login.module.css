@@ -41,6 +41,7 @@ font-weight: 500;
 line-height: 22.616px; /* 162.5% */
 box-sizing: border-box;
 color: #FFF;
+outline: none;
 }
 
 
@@ -89,6 +90,19 @@ text-decoration-line: underline;
 
 
 }
+.footerButton:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+box-shadow: none;
+
+}
+
+
+
+
+
 
 
 .ellipse1 {
