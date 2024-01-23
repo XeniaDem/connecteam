@@ -1,9 +1,12 @@
 
+import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Header.module.css"
 import logo from "./logo.svg"
 import person from "./person.svg"
 export function Header() {
+
+  const navigate = useNavigate()
 
 
   return (
@@ -24,8 +27,8 @@ export function Header() {
         Контакты
       </div>
       <div className={styles.headerButton}>
-        <Button text={"Зарегистрироваться"} onClick={function (): void {
-          throw new Error("Function not implemented.")
+        <Button text={"Зарегистрироваться"} onClick={() => {
+          navigate("/registration")
         }} />
 
       </div>
