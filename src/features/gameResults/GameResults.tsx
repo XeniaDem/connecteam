@@ -18,7 +18,7 @@ type Props = {
   ownResult?: number;
 }
 
-GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: false, ownResult: 40 }
+GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true, ownResult: 40 }
 
 export function GameResults(props: Props) {
   return (
@@ -61,10 +61,10 @@ export function GameResults(props: Props) {
             </div>
             {props.isCreator ? (
               <div className={styles.allResults}>
-                <Result isYou = {true}/>
-                <Result />
-                <Result />
-                <Result />
+                <Result isYou={true} />
+                <Result isYou={true} score={50} />
+                <Result score={50} />
+                <Result score={60} />
                 <Result />
                 <Result />
                 <Result />

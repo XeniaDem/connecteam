@@ -82,6 +82,10 @@ margin-bottom: 40px;
 .results {
   display: flex;
   flex-direction: column;
+  
+  
+ 
+
 
 
 }
@@ -131,9 +135,16 @@ padding: 10px;
 
 
 
+
+
 .allResults {
   display: flex;
   gap: 30px;
+  align-items: flex-end;
+ 
+
+
+
 
 }
 

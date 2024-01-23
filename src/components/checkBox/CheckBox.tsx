@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import styles from "./CheckBox.module.css"
 import cn from 'classnames';
 import React from "react";
+import check from './check.svg'
 type Props = {
   text?: string;
   onClick?: () => void;
@@ -18,16 +19,35 @@ export function CheckBox(props: Props) {
 
 
   return (
-    <div className={styles.checkbox}  >
-      <label>
+    <div className={styles.checkbox}>
+      <label className = {styles.label}>
         <input type="checkbox" checked={checked}
           onChange={handleChange} />
-    
+
+
+        {
+
+          !checked ? null :
+
+          <div className={styles.check}>
+            <img src={check} />
+            </div>
+
+
+
+
+        }
+
+
       </label>
 
 
 
-  
+
+
+
+
+
     </div>
 
 

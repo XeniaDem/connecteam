@@ -2,12 +2,15 @@
 import styles from "./About.module.css"
 import photo from "./photo.svg"
 import rectangle from "./rectangle.svg"
+import {useRef} from 'react';
 
 export function About() {
 
+  const about = useRef(null);
+
 
   return (
-    <div className={styles.container}>
+    <div ref = {about} className={styles.container}>
         <div className={styles.left}>
           <div className={styles.title}>
             О проекте

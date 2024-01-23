@@ -26,7 +26,7 @@ export function Result(props: Props) {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.rectangle}>
+        <div className={styles.rectangle} style={{height: props.score * 4}}>
           {props.score}
         </div>
 

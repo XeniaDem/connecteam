@@ -11,7 +11,7 @@ export function UserPage() {
   return (
     <div className={styles.container}>
       <PackageInfo/>
-      <LastGames />
+      {/* <LastGames /> */}
 
     </div>
   )

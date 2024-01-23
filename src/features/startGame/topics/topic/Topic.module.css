@@ -31,6 +31,7 @@ position: relative;
      linear-gradient(#fff 0 0) padding-box, 
      linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor; /*5'*/
+ 
 
 }
 

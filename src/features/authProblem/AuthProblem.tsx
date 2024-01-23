@@ -4,9 +4,12 @@ import padlock from "./padlock.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { Button } from "../../components/button/Button"
+import { useNavigate } from "react-router-dom"
 
 
 export function AuthProblem() {
+
+  const navigate = useNavigate()
   return (
     <div>
       <div className={styles.container}>
@@ -54,9 +57,9 @@ export function AuthProblem() {
         </div>
         <div className={styles.footerContainer}>
 
-          <Button text={"Создайте новый аккаунт"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.footerButton} />
+          <Button text={"Создайте новый аккаунт"} onClick={() => {
+            navigate("/register")
+          }}  className={styles.footerButton} />
 
         </div>
       </div>

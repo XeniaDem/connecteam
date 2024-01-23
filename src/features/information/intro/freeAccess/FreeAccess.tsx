@@ -1,6 +1,6 @@
 
-import { Button } from "../../../components/button/Button"
-import { InputGradient } from "../../../components/inputGradient/InputGradient"
+import { Button } from "../../../../components/button/Button"
+import { InputGradient } from "../../../../components/inputGradient/InputGradient"
 import styles from "./FreeAccess.module.css"
 export function FreeAccess() {
 
@@ -33,9 +33,6 @@ export function FreeAccess() {
                     <input className={styles.input} placeholder="Ваше имя" />
 
                     {/* <InputGradient className= {styles.inputa} placeholder="Ваше имя"/> */}
-
-
-
                     <input className={styles.input} placeholder="Ваш Email" />
                     <input className={styles.input} placeholder="+7 (999) 999-99-99" />
                     <Button text={"Зарегистрироваться"} onClick={function (): void {

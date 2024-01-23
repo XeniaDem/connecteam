@@ -35,6 +35,8 @@ export function Timer(props: Props) {
         {props.isCreator ? (
           <div className={styles.controlButtons}>
             {">"} || x
+            <PlayArrowIcon/>
+
           
       
           </div>

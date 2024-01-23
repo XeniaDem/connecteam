@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Login.module.css"
 import connecteam from "./connecteam.svg"
@@ -7,6 +8,12 @@ import ellipse2 from "./ellipse2.svg"
 
 
 export function Login() {
+
+  const navigate = useNavigate()
+
+
+
+
   return (
     <div>
       <div className={styles.container}>
@@ -25,7 +32,7 @@ export function Login() {
 
         <div className={styles.inputs}>
           <input className={styles.input} placeholder="Эл. почта/номер телефона" />
-          <input className={styles.input} placeholder="Пароль" />
+          <input type="password" className={styles.input} placeholder="Пароль" />
 
         </div>
         <Button text={"Войти"} onClick={function (): void {
@@ -33,8 +40,8 @@ export function Login() {
         }} className={styles.button} />
         <div className={styles.footerContainer}>
 
-          <Button text={"Забыли пароль?"} onClick={function (): void {
-            throw new Error("Function not implemented.")
+          <Button text={"Забыли пароль?"} onClick={() => {
+            navigate("/forgot_password")
           }} className={styles.footerButton} />
 
         </div>
@@ -43,8 +50,8 @@ export function Login() {
             Нет аккаунта?
 
           </div>
-          <Button text={"Зарегистрироваться"} onClick={function (): void {
-            throw new Error("Function not implemented.")
+          <Button text={"Зарегистрироваться"} onClick={() => {
+            navigate("/register")
           }} className={styles.footerButton} />
 
         </div>

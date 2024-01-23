@@ -11,7 +11,7 @@
   flex-shrink: 0;
 
   padding-top: 300px;
-  margin-top: -95px;
+  margin-top: -112px;
   padding-left: 100px;
   padding-right: 100px;
  
@@ -32,10 +32,10 @@ flex-shrink: 0;
 .ellipse2 {
   position: absolute;
   top: 400px;
-  right: 140px;
+  right: 203px;
   width: 335.763px;
 height: 333.098px;
-transform: rotate(-27.214deg);
+
 flex-shrink: 0;
 }
 

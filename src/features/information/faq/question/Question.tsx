@@ -20,7 +20,7 @@ export function Question(props: Props) {
       <div className={styles.text}>
          {props.text}
          </div>
-        <Button text={props.isAnswerHidden ? "+" : "-"} onClick={ ()=> {
+        <Button text={props.isAnswerHidden ? "+" : "−"} onClick={ ()=> {
          props.setIsAnswerHidden(!props.isAnswerHidden)
         }} className={styles.button} />
       </div>

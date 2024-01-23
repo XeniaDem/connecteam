@@ -19,11 +19,28 @@ height: 30.996px;
 flex-shrink: 0;
 
 border-radius: 39.336px;
-border: 1px solid var(--vd, #55C6F7);
+border: 3px solid var(--vd, #55C6F7);
 outline: none;
 cursor: pointer;
 display:flex;
 align-items: center;
+z-index: 1;
+position: relative;
+}
+
+
+.label {
+  position: relative;
+
+}
+.check {
+
+  position: absolute;
+  top: 11px;
+  left: 10px;
+
+
+
 }
 
 

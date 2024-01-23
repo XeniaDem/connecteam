@@ -3,7 +3,7 @@ import { Counter } from "./features/counter/Counter"
 import "./App.css"
 import { Header } from "./features/header/Header"
 import '@fontsource-variable/work-sans';
-import { Intro } from "./features/intro/Intro";
+import { Intro } from "./features/information/intro/Intro";
 import { Information } from "./features/information/Information";
 import { Registration } from "./features/registration/Registration";
 import { Login } from "./features/login/Login";
@@ -30,10 +30,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Header />
-        <Intro />
         <Information />
-        <Registration />
-        <Login />
+        {/* <Registration />
+        <Login /> */}
+
+
         <AuthProblem />
         <LinkSent/>
         <UserPage />
@@ -55,20 +56,20 @@ function App() {
         <GameResults/>
 
 
+
+
     
        
       
-    
 
 
-
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" />
 
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
+        </p> */}
+        {/* <span>
           <span>Learn </span>
           <a
             className="App-link"
@@ -105,7 +106,7 @@ function App() {
           >
             React Redux
           </a>
-        </span>
+        </span> */}
       </header>
     </div>
   )

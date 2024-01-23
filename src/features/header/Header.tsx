@@ -4,31 +4,27 @@ import { Button } from "../../components/button/Button"
 import styles from "./Header.module.css"
 import logo from "./logo.svg"
 import person from "./person.svg"
+import { HeaderItem } from "./headerItem/HeaderItem"
 export function Header() {
 
   const navigate = useNavigate()
 
 
+
+
+
   return (
     <div className={styles.container}>
-      <div className={styles.headerItem}>
-        <img src={logo} />
-      </div>
-      <div className={styles.headerItem}>
-        О проекте
-      </div>
-      <div className={styles.headerItem}>
-        Как играть
-      </div>
-      <div className={styles.headerItem}>
-        О нас
-      </div>
-      <div className={styles.headerItem}>
-        Контакты
-      </div>
+
+      <img src={logo} />
+
+      <HeaderItem text="О проекте" />
+      <HeaderItem text="Как играть" />
+      <HeaderItem text="О нас" />
+      <HeaderItem text="Контакты" />
       <div className={styles.headerButton}>
         <Button text={"Зарегистрироваться"} onClick={() => {
-          navigate("/registration")
+          navigate("/register")
         }} />
 
       </div>
@@ -36,9 +32,9 @@ export function Header() {
         <div className={styles.person}>
           <img src={person} />
         </div>
-        <div className={styles.headerItem}>
-          Войти
-        </div>
+        <HeaderItem text="Войти" onClick={() => {
+          navigate("/login")
+        }} />
       </div>
 
     </div>
