@@ -4,8 +4,8 @@ import styles from "./Question.module.css"
 
 type Props = {
   text: string;
-
-
+  setIsAnswerHidden: (newValue: boolean) => void;
+  isAnswerHidden: boolean;
 
 
 }
@@ -20,8 +20,8 @@ export function Question(props: Props) {
       <div className={styles.text}>
          {props.text}
          </div>
-        <Button text={"+"} onClick={function (): void {
-          throw new Error("Function not implemented.")
+        <Button text={props.isAnswerHidden ? "+" : "-"} onClick={ ()=> {
+         props.setIsAnswerHidden(!props.isAnswerHidden)
         }} className={styles.button} />
       </div>
       

@@ -44,6 +44,7 @@ line-height: 22.616px; /* 162.5% */
 box-sizing: border-box;
 color: #FFF;
 outline: none;
+z-index: 1;
 }
 
 .input:focus {
@@ -77,6 +78,7 @@ font-size: 14.026px;
 font-style: normal;
 font-weight: 600;
 line-height: 32.132px; /* 229.09% */
+z-index: 1;
 }
 
 .footerContainer {
@@ -105,6 +107,7 @@ line-height: 24.33px; /* 162.5% */
 box-sizing: border-box;
 padding: 0px;
 text-decoration-line: underline;
+z-index: 1;
 
 }
 .footerButton:hover {

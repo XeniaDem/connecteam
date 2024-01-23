@@ -3,6 +3,7 @@ import { Button } from "../../../components/button/Button"
 import styles from "./Faq.module.css"
 import { Answer } from "./answer/Answer"
 import { Question } from "./question/Question"
+import { QuestionAnswer } from "./questionAnswer/QuestionAnswer"
 
 
 export function Faq() {
@@ -14,15 +15,14 @@ export function Faq() {
             FAQ
           </div>
         </div>
-        
+
 
         <div className={styles.questions}>
-          <Question/>
-          <Answer/>
-          <Question/>
-          <Question/>
-          <Question/>
-          <Question/>
+          <QuestionAnswer question="Вопрос" answer="Ответ" />
+          <QuestionAnswer question="Вопрос" answer="Ответ" />
+          <QuestionAnswer question="Вопрос" answer="Ответ" />
+          <QuestionAnswer question="Вопрос" answer="Ответ" />
+          <QuestionAnswer question="Вопрос" answer="Ответ" />
         </div>
       </div>
     </div>
