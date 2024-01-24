@@ -2,10 +2,9 @@
 
   display: flex;
   flex-direction:column;
-  height: 2000px;
+
   font-family: 'Work Sans Variable', sans-serif;
   gap: 50px;
-  padding: 50px;
 
 }
 

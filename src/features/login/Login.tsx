@@ -5,14 +5,27 @@ import styles from "./Login.module.css"
 import connecteam from "./connecteam.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
+import { useState } from "react"
 
 
 export function Login() {
 
   const navigate = useNavigate()
 
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  var error = ""
 
 
+  const handleChange = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+  
 
   return (
     <div>
@@ -31,9 +44,14 @@ export function Login() {
         </div>
 
         <div className={styles.inputs}>
-          <input className={styles.input} placeholder="Эл. почта/номер телефона" />
-          <input type="password" className={styles.input} placeholder="Пароль" />
+          <input className={styles.input} placeholder="Эл. почта/номер телефона"  value={email} onChange={(event) => { setEmail(event.target.value) }}/>
+          <div className={styles.inputContainer}>
+            <input type={showPassword ? "text" : "password"}
+              className={styles.input} placeholder="Пароль" value={password} onChange={(event) => { setPassword(event.target.value) }} />
 
+            <Button text={""} onClick={handleChange} className = {showPassword ? styles.eye : styles.eyeClosed}
+            />
+          </div>
         </div>
         <Button text={"Войти"} onClick={function (): void {
           throw new Error("Function not implemented.")

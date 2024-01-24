@@ -76,11 +76,11 @@ line-height: 32.132px; /* 229.09% */
   position: absolute;
   transform: rotate(90deg);
   bottom: -251px;
-  right: 207px;
+  right: 256px;
 }
 .ellipse3 {
   position: absolute;
-  bottom: 0px;
+  bottom: 1px;
   right: 400px;
 }
 

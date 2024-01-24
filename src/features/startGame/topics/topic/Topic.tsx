@@ -3,6 +3,7 @@ import { CheckBox } from "../../../../components/checkBox/CheckBox";
 import styles from "./Topic.module.css"
 
 import ellipse from "./ellipse.svg"
+import TopicIcon from '@mui/icons-material/Topic';
 
 
 
@@ -37,7 +38,7 @@ export function Topic(props: Props) {
           <div className={styles.ellipse}>
             <img src={ellipse} />
           </div>
-          @
+          <TopicIcon fontSize="medium"/>
 
         </div>
         <div className={styles.name}>

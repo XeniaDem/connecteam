@@ -36,9 +36,46 @@ outline: none;
 z-index: 1;
 
 
+}
+
+.input:disabled {
+border: 1px solid var(--vd, #5C5C5C);
 
 
 }
+
+
+
+
+
+.textarea {
+  font-family: 'Work Sans Variable', sans-serif;
+  border-radius: 20px;
+border: 1px solid var(--vd, #55C6F7);
+background: #1D1D1D;
+width: 426px;
+height: 100px;
+flex-shrink: 0;
+align-items: center;
+color: #FFF;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22.375px;
+padding-left: 20px;
+padding-top: 15px;
+outline: none;
+z-index: 1;
+resize:none;
+
+}
+
+.textarea:disabled {
+  border: 1px solid var(--vd, #5C5C5C);
+  
+  
+  }
+  
 
 
 

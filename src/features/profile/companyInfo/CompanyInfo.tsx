@@ -4,10 +4,22 @@ import styles from "./CompanyInfo.module.css"
 import photo from "../photo.svg"
 import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
+import React, { useState } from "react"
 
 
 
 export function CompanyInfo() {
+
+
+  const [disabled, setDisabled] = React.useState(true);
+
+  const handleChange = () => {
+    setDisabled(!disabled);
+  };
+
+  const [name, setName] = useState<undefined | string>('');
+  const [website, setWebsite] = useState<undefined | string>('');
+  const [about, setAbout] = useState<undefined | string>('');
 
 
   return (
@@ -36,15 +48,13 @@ export function CompanyInfo() {
 
         <div className={styles.right}>
 
-          <Field text={"Название компании"} />
-          <Field text={"Веб-сайт компании"} />
-          <Field text={"О компании"} />
+          <Field  isInput = {true} title={"Название компании"} disabled = {disabled} value = {name} onValueChange={setName}/>
+          <Field  isInput = {true} title={"Веб-сайт компании"} disabled = {disabled} value = {website} onValueChange={setWebsite}/>
+          <Field  isInput = {false} title={"О компании"} placeholder="Напишите что-нибудь..." disabled = {disabled} value = {about} onValueChange={setAbout}/>
 
           <div className={styles.footerButtons}>
 
-            <Button text={"Редактировать данные"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.footerButton} />
+          <Button text = {disabled ? "Редактировать данные" : "Сохранить"} onClick={handleChange} className={styles.footerButton} />
 
           </div>
 

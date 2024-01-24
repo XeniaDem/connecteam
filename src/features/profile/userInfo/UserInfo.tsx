@@ -4,11 +4,31 @@ import styles from "./UserInfo.module.css"
 import photo from "../photo.svg"
 import ellipse1 from "../ellipse1.svg"
 import { Button } from "../../../components/button/Button"
+import React, { useState } from "react"
 
 
 
 
 export function UserInfo() {
+
+
+  const [disabled, setDisabled] = React.useState(true);
+
+  const handleChange = () => {
+    if (!disabled) {
+      alert("Сохранение на сервере, email: " + email)
+    }
+    setDisabled(!disabled);
+    
+    
+    
+  };
+
+  
+  const [name, setName] = useState<undefined | string>('');
+  const [surname, setSurname] = useState<undefined | string>('');
+  const [email, setEmail] = useState<undefined | string>('');
+  const [about, setAbout] = useState<undefined | string>('');
 
 
   return (
@@ -41,15 +61,23 @@ export function UserInfo() {
               throw new Error("Function not implemented.")
             }} className={styles.settingsButton} />
           </div>
-          <Field text={"Имя и Фамилия"} />
-          <Field text={"Электронный адрес"} />
-          <Field text={"О себе"} />
+          <Field isInput={true} title={"Имя"} disabled={disabled} value = {name} onValueChange={setName}/>
+          <Field isInput={true} title={"Фамилия"} disabled={disabled} value = {surname} onValueChange={setSurname}/>
+          <Field isInput={true} title={"Электронный адрес"} disabled={disabled} value = {email} onValueChange={setEmail}/>
+          <Field isInput={false} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={disabled} value = {about} onValueChange={setAbout}/>
+
+
+
+
+
 
           <div className={styles.footerButtons}>
 
-            <Button text={"Редактировать данные"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.footerButton} />
+            <Button text={disabled ? "Редактировать данные" : "Сохранить"} onClick={handleChange} className={styles.footerButton} />
+
+
+
+
             <Button text={"Сменить пароль"} onClick={function (): void {
               throw new Error("Function not implemented.")
             }} className={styles.footerButton} />
