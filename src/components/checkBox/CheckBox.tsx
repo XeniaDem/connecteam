@@ -5,15 +5,17 @@ import React from "react";
 import check from './check.svg'
 type Props = {
   text?: string;
-  onClick?: () => void;
+  onChange?: () => void;
   className?: string;
+  checked?: boolean;
 
 }
 export function CheckBox(props: Props) {
 
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(props.checked);
 
   const handleChange = () => {
+    
     setChecked(!checked);
   };
 
@@ -22,7 +24,7 @@ export function CheckBox(props: Props) {
     <div className={styles.checkbox}>
       <label className = {styles.label}>
         <input type="checkbox" checked={checked}
-          onChange={handleChange} />
+          onChange={handleChange}  />
 
 
         {

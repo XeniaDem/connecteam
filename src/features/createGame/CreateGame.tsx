@@ -1,4 +1,5 @@
 
+import { useState } from "react"
 import { Button } from "../../components/button/Button"
 import styles from "./CreateGame.module.css"
 import { CopyPopup } from "./copyPopup/CopyPopup"
@@ -8,7 +9,23 @@ import icon from "./icon.svg"
 import { InvitePopup } from "./invitePopup/InvitePopup"
 
 
-export function CreateGame() {
+type Props = {
+  name?: string;
+}
+
+CreateGame.defaultProps = {name: "имя"}
+export function CreateGame(props: Props) {
+
+
+  const [gameCreated, setGameCreated] = useState(false)
+
+
+  const createGame = () => {
+
+    setGameCreated(true);
+  }
+
+
   return (
     <div>
       <div className={styles.container}>
@@ -29,28 +46,44 @@ export function CreateGame() {
           Создание игры
         </div>
         <div className={styles.subtitle}>
-          Имя создателя: name
+          Имя создателя: {props.name}
         </div>
 
         <div className={styles.creation}>
-          <div className={styles.inputs}>
-            <input className={styles.input} placeholder="Название игры" />
-            <input className={styles.input} placeholder="Дата и время игры" />
+          <div className={styles.items}>
+            <input className={styles.input} placeholder="Название игры" disabled={gameCreated} />
+            <input className={styles.input} placeholder="Дата и время игры" disabled={gameCreated} />
 
           </div>
-          <Button text={"Создать игру"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.createButton} />
+          {/* <Button text={"Создать игру"} onClick={createGame} className={styles.createButton} disabled = {gameCreated} /> */}
 
-          <Button text={"Добавить участника"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.inviteButton} />
+          {!gameCreated ?
+            <div className={styles.items} >
+              <Button text={"Создать игру"} onClick={createGame} className={styles.createButton} />
+            </div> :
+            <div className={styles.items} >
+              <div className={styles.text} >
+                Игра успешно создана!
+              </div>
+            </div>
+          }
 
-          <Button text={"Поделиться игрой"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.inviteButton} />
+
+
+
+
+          {!gameCreated ? null :
+            <div className={styles.items} >
+              <Button text={"Добавить участника"} onClick={function (): void {
+                throw new Error("Function not implemented.")
+              }} className={styles.inviteButton} />
+
+              <Button text={"Поделиться игрой"} onClick={function (): void {
+                throw new Error("Function not implemented.")
+              }} className={styles.inviteButton} />
+            </div>
+          }
         </div>
-
 
 
 
@@ -60,9 +93,9 @@ export function CreateGame() {
 
       </div>
 
-      <InvitePopup/>
+      <InvitePopup />
 
-      <CopyPopup/>
+      <CopyPopup />
     </div>
   )
 }

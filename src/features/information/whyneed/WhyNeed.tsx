@@ -10,12 +10,12 @@ export function WhyNeed() {
   return (
     <div>
 
-     
-<div className={styles.title}>
+
+      <div className={styles.title}>
         Зачем это нужно
       </div>
       <div className={styles.container}>
-  
+
         <div className={styles.rectangle}>
           <img src={rectangle} />
         </div>
@@ -40,7 +40,7 @@ export function WhyNeed() {
                 Создать команду единомышленников
               </div>
               <div className={styles.text}>
-                Только на основе единых базовых принципов и целей можно создать по-настоящему эффективную команду.
+                Только на основе единых базовых принципов и целей можно создать по-настоящему эффективную команду
               </div>
             </div>
           </div>
@@ -82,7 +82,7 @@ export function WhyNeed() {
                 Понять нового сотрудника
               </div>
               <div className={styles.text}>
-                Понять новому сотруднику быстрее адаптироваться в новом коллективе
+                Помочь новому сотруднику быстрее адаптироваться в новом коллективе
               </div>
             </div>
           </div>

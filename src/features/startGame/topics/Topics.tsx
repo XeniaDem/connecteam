@@ -6,13 +6,14 @@ import { Topic } from "./topic/Topic";
 
 
 type Props = {
-  areChecked: boolean;
+  withCheckBox: boolean;
+  areChecked?: boolean;
 
 
 
 }
 
-Topics.defaultProps = { areChecked: false }
+Topics.defaultProps = { withCheckBox: false }
 
 export function Topics(props: Props) {
   /*const players = [];
@@ -26,25 +27,25 @@ export function Topics(props: Props) {
     <div>
       <div className={styles.container}>
         <div className={styles.line}>
-          <Topic isChecked={props.areChecked} />
-          <Topic isChecked={props.areChecked} />
-          <Topic isChecked={props.areChecked} />
+          <Topic withCheckBox={props.withCheckBox} />
+          <Topic withCheckBox={props.withCheckBox} />
+          <Topic withCheckBox={props.withCheckBox} />
 
         </div>
         <div className={styles.line}>
-          <Topic isChecked={props.areChecked} />
-          <Topic isChecked={props.areChecked} />
-          <Topic isChecked={props.areChecked} />
+          <Topic withCheckBox={props.withCheckBox} />
+          <Topic withCheckBox={props.withCheckBox} />
+          <Topic withCheckBox={props.withCheckBox} />
 
         </div>
         <div className={styles.line}>
-          <Topic isChecked={props.areChecked} />
-          <Topic isChecked={props.areChecked} />
-          <Topic isChecked={props.areChecked} />
+          <Topic withCheckBox={props.withCheckBox} />
+          <Topic withCheckBox={props.withCheckBox} />
+          <Topic withCheckBox={props.withCheckBox} />
 
         </div>
         <div className={styles.line}>
-          <Topic isChecked={props.areChecked} />
+          <Topic withCheckBox={props.withCheckBox} />
 
 
         </div>

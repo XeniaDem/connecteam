@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { Registration } from "./features/registration/Registration"
 import { Login } from "./features/login/Login"
 import { AuthProblem } from "./features/authProblem/AuthProblem"
+import { Profile } from "./features/profile/Profile"
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "forgot_password",
     element: <AuthProblem/>,
+  },
+  {
+    path: "profile",
+    element: <Profile/>,
   },
 ]);
 

@@ -1,4 +1,5 @@
 
+import React from "react";
 import { CheckBox } from "../../../../components/checkBox/CheckBox";
 import styles from "./Topic.module.css"
 
@@ -13,7 +14,7 @@ type Props = {
 
   imageUrl?: URL;
 
-  isChecked: boolean;
+  withCheckBox: boolean;
 
   onClick?: () => void;
 
@@ -29,10 +30,20 @@ export function Topic(props: Props) {
     players.push(<Player />)
   }*/
 
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    alert(checked)
+    setChecked(!checked);
+
+  };
+
+
+
 
   return (
     <div>
-      <div className={styles.container}>
+      <div className={!checked ? styles.container : styles.checked}>
 
         <div className={styles.icon}>
           <div className={styles.ellipse}>
@@ -46,8 +57,8 @@ export function Topic(props: Props) {
 
         </div>
 
-        {props.isChecked ? (
-          <CheckBox />
+        {props.withCheckBox ? (
+          <CheckBox/>
         ) : (
           <div />
         )}

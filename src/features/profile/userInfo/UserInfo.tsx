@@ -5,6 +5,7 @@ import photo from "../photo.svg"
 import ellipse1 from "../ellipse1.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useState } from "react"
+import { ChangePasswordPopup } from "./changePasswordPopup/ChangePasswordPopup"
 
 
 
@@ -19,22 +20,25 @@ export function UserInfo() {
       alert("Сохранение на сервере, email: " + email)
     }
     setDisabled(!disabled);
-    
-    
-    
+
+
+
   };
 
-  
+
   const [name, setName] = useState<undefined | string>('');
   const [surname, setSurname] = useState<undefined | string>('');
   const [email, setEmail] = useState<undefined | string>('');
   const [about, setAbout] = useState<undefined | string>('');
 
 
+  const [open, setOpen] = useState(false);
+
+
   return (
     <div>
 
-      <div className={styles.container}>
+      <div className={!open? styles.container : styles.containerDisabled}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
         </div>
@@ -61,10 +65,10 @@ export function UserInfo() {
               throw new Error("Function not implemented.")
             }} className={styles.settingsButton} />
           </div>
-          <Field isInput={true} title={"Имя"} disabled={disabled} value = {name} onValueChange={setName}/>
-          <Field isInput={true} title={"Фамилия"} disabled={disabled} value = {surname} onValueChange={setSurname}/>
-          <Field isInput={true} title={"Электронный адрес"} disabled={disabled} value = {email} onValueChange={setEmail}/>
-          <Field isInput={false} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={disabled} value = {about} onValueChange={setAbout}/>
+          <Field isInput={true} title={"Имя"} disabled={disabled} value={name} onValueChange={setName} />
+          <Field isInput={true} title={"Фамилия"} disabled={disabled} value={surname} onValueChange={setSurname} />
+          <Field isInput={true} title={"Электронный адрес"} disabled={disabled} value={email} onValueChange={setEmail} />
+          <Field isInput={false} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={disabled} value={about} onValueChange={setAbout} />
 
 
 
@@ -78,13 +82,15 @@ export function UserInfo() {
 
 
 
-            <Button text={"Сменить пароль"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.footerButton} />
+            <Button text={"Сменить пароль"} onClick={() => setOpen(true)
+            } className={styles.footerButton} />
+
+            
           </div>
 
         </div>
       </div>
+      {open ? <ChangePasswordPopup closePopup={() => setOpen(false)} /> : null}
     </div>
   )
 }

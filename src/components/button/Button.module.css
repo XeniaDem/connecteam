@@ -22,4 +22,11 @@ cursor: pointer;
 
 }
 
+.button:disabled {
+box-shadow: none;
+cursor: auto;
+background: #5C5C5C;
+border: 1px solid var(--vd, #232323);
+}
+
 

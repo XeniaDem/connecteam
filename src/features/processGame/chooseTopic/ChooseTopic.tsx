@@ -78,7 +78,7 @@ export function ChooseTopic(props: Props) {
           </div>
 
           <div className={styles.topics}>
-            <Topics areChecked={false} />
+            <Topics withCheckBox={false} />
 
           </div>
 

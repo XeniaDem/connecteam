@@ -20,6 +20,14 @@ ChooseTopics.defaultProps = { package: 3 }
 
 
 export function ChooseTopics(props: Props) {
+
+  const checkAll = () => {
+    
+    
+  };
+
+
+
   return (
     <div>
       <div className={styles.container}>
@@ -44,7 +52,7 @@ export function ChooseTopics(props: Props) {
         </div>
 
         <div className={styles.topics}>
-          <Topics areChecked={true} />
+          <Topics withCheckBox={true}/>
 
         </div>
 
