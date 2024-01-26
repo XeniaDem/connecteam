@@ -6,11 +6,19 @@ import {useRef} from 'react';
 
 export function About() {
 
-  const about = useRef(null);
+  // const about = useRef(null);
+
+  // const about = forwardRef((props, ref) => {
+  //   return (
+  //     <div ref={ref}>
+  //       <h1>Results</h1>
+  //     </div>
+  //   );
+  // });
 
 
   return (
-    <div ref = {about} className={styles.container}>
+    <div className={styles.container} id = "about">
         <div className={styles.left}>
           <div className={styles.title}>
             О проекте

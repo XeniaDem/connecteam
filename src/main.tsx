@@ -9,6 +9,7 @@ import { Registration } from "./features/registration/Registration"
 import { Login } from "./features/login/Login"
 import { AuthProblem } from "./features/authProblem/AuthProblem"
 import { Profile } from "./features/profile/Profile"
+import { CreateGame } from "./features/createGame/CreateGame"
 
 const router = createBrowserRouter([
   {
@@ -19,19 +20,23 @@ const router = createBrowserRouter([
   },
   {
     path: "register",
-    element: <Registration/>,
+    element: <Registration />,
   },
   {
     path: "login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     path: "forgot_password",
-    element: <AuthProblem/>,
+    element: <AuthProblem />,
   },
   {
     path: "profile",
-    element: <Profile/>,
+    element: <Profile />,
+  },
+  {
+    path: "create_game",
+    element: <CreateGame />,
   },
 ]);
 

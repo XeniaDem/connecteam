@@ -33,10 +33,10 @@ export function RateAnswer(props: Props) {
 
           </div>
           <div className={styles.exit}>
-          <Button text={""} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.exitButton} />
-        </div>
+            <Button text={""} onClick={function (): void {
+              throw new Error("Function not implemented.")
+            }} className={styles.exitButton} />
+          </div>
 
           <Players />
 
@@ -63,7 +63,7 @@ export function RateAnswer(props: Props) {
 
           </div>
 
-          <Rounds/>
+          <Rounds />
 
         </div>
 

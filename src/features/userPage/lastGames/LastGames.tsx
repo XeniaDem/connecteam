@@ -14,7 +14,7 @@ export function LastGames() {
         <div className={styles.subtitle}>
           Кликните на игру, чтобы посмотреть ее состояние
         </div>
-        <div className={styles.filtration}>
+        {/* <div className={styles.filtration}>
           <Button text={""} onClick={function (): void {
             throw new Error("Function not implemented.")
           }} className={styles.filterButton} />
@@ -27,7 +27,7 @@ export function LastGames() {
 
 
 
-        </div>
+        </div> */}
 
 
         <div className={styles.gamesType}>

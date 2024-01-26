@@ -7,13 +7,14 @@ import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import icon from "./icon.svg"
 import { InvitePopup } from "./invitePopup/InvitePopup"
+import disableScroll from 'disable-scroll';
 
 
 type Props = {
   name?: string;
 }
 
-CreateGame.defaultProps = {name: "имя"}
+CreateGame.defaultProps = { name: "имя" }
 export function CreateGame(props: Props) {
 
 
@@ -21,14 +22,36 @@ export function CreateGame(props: Props) {
 
 
   const createGame = () => {
-
+    ////////////////////
     setGameCreated(true);
+  }
+
+  const [inviteOpen, setInviteOpen] = useState(false);
+  const [copyOpen, setCopyOpen] = useState(false);
+
+
+  const openInvitePopup = () => {
+    disableScroll.on()
+    setInviteOpen(true)
+
+  }
+  const closeInvitePopup = () => {
+    disableScroll.off()
+    setInviteOpen(false)
+
+  }
+  const openCopyPopup = () => {
+    setCopyOpen(true)
+    setTimeout(() => {
+      setCopyOpen(false);
+    }, 3000);
+
   }
 
 
   return (
     <div>
-      <div className={styles.container}>
+      <div className={!inviteOpen ? styles.container : styles.containerDisabled}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -74,13 +97,9 @@ export function CreateGame(props: Props) {
 
           {!gameCreated ? null :
             <div className={styles.items} >
-              <Button text={"Добавить участника"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.inviteButton} />
+              <Button text={"Добавить участника"} onClick={openInvitePopup} className={styles.inviteButton} />
 
-              <Button text={"Поделиться игрой"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.inviteButton} />
+              <Button text={"Поделиться игрой"} onClick={openCopyPopup} className={styles.inviteButton} />
             </div>
           }
         </div>
@@ -89,13 +108,11 @@ export function CreateGame(props: Props) {
 
 
 
-
-
       </div>
+      {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} /> : null}
+      {copyOpen ? <CopyPopup /> : null}
 
-      <InvitePopup />
 
-      <CopyPopup />
     </div>
   )
 }

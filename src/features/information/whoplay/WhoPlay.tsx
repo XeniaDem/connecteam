@@ -13,8 +13,8 @@ export function WhoPlay() {
 
 
   return (
-    <div>
-      <div className={styles.title}>
+    <div id = "whoplay">
+      <div className={styles.title} >
         В нашу игру играют
       </div>
       <div className={styles.line}>

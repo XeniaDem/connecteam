@@ -5,8 +5,6 @@ import styles from "./InvitePopup.module.css"
 type Props = {
   link: string;
   
-
-
 }
 
 InvitePopup.defaultProps = { link: "https://connnecteam.com/forms/d/e/1FAIpQLSclRBDTVi0K" }
@@ -37,9 +35,6 @@ export function InvitePopup(props: Props) {
 
 
         </div>
-
-
-
 
         <Button text={"Копировать"} onClick={function (): void {
           throw new Error("Function not implemented.")

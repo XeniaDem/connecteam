@@ -10,7 +10,6 @@ import icon2 from "./icon2.svg"
 import { PackageList } from "../../packageList/PackageList"
 
 
-
 export function PackageInfo() {
 
 

@@ -15,11 +15,11 @@ export function BecomeMember() {
           Стать участником {" "}
           <img src={connecteam} />
         </div>
-       
+
       </div>
-      
+
       <div className={styles.container}>
-   
+
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
         </div>
@@ -39,29 +39,29 @@ export function BecomeMember() {
         </div>
         <div className={styles.right}>
           <div className={styles.inputs}>
-            <input className={styles.input} placeholder="Выберите пакет" />
             <input className={styles.input} placeholder="Ваше Имя" />
+            <input className={styles.input} placeholder="Ваша Фамилия" />
             <input className={styles.input} placeholder="Ваш Email" />
-            <input className={styles.input} placeholder="+7 (999) 999-99-99" />
             <input className={styles.input} placeholder="Придумайте пароль" />
             <input className={styles.input} placeholder="Повторите пароль" />
           </div>
           <div className={styles.footerContainer}>
-          <div className={styles.tickBox}>
-      
+            <div className={styles.tickBox}>
+              <input type="checkbox" />
 
 
-          </div>
+
+            </div>
             <div className={styles.footerRight}>
               Я согласен с политикой {" "}
               <span className={styles.footerRightUnderline}>
-                  обработки персональных данных и даю согласие на обработку своих персональных данных
+                обработки персональных данных и даю согласие на обработку своих персональных данных
               </span>
             </div>
           </div>
           <Button text={"Отправить запрос"} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className= {styles.button} />
+            throw new Error("Function not implemented.")
+          }} className={styles.button} />
         </div>
 
 

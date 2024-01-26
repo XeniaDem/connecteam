@@ -25,6 +25,33 @@ export function Login() {
   };
 
 
+
+  const login = async () => {
+  const data = {
+    "email": email,
+    "password": password
+
+  }
+
+  const rawResponse = await fetch('http://localhost:5432/auth/sign-in/email', {
+    method: 'POST',
+    mode: "no-cors",
+
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  const content = await rawResponse.json();
+
+  console.log(content);
+
+}
+
+
   
 
   return (
@@ -53,9 +80,13 @@ export function Login() {
             />
           </div>
         </div>
-        <Button text={"Войти"} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className={styles.button} />
+
+        <div className={styles.errorMessage}>
+          {error}
+
+        </div>
+
+        <Button text={"Войти"} onClick={login} className={styles.button} />
         <div className={styles.footerContainer}>
 
           <Button text={"Забыли пароль?"} onClick={() => {

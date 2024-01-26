@@ -31,7 +31,7 @@ export function KnowMore() {
       </div>
       <div className={styles.down}>
       <div className={styles.inputs}>
-        <input className={styles.input} placeholder="Ваше имя" />
+        <input className={styles.input} placeholder="Ваше Имя" />
         <input className={styles.input} placeholder="Ваш Email"/>
         <input className={styles.input} placeholder="+7 (999) 999-99-99"/>
         </div>

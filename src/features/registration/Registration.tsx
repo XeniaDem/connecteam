@@ -8,7 +8,7 @@ import ellipse2 from "./ellipse2.svg"
 import { EmailConfirmationPopup } from "./emailConfirmationPopup/EmailConfirmationPopup"
 import { SuccessPopup } from "./successPopup/SuccessPopup"
 import { useNavigate } from "react-router-dom"
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import * as request from "superagent";
 
 
 export function Registration() {
@@ -23,16 +23,52 @@ export function Registration() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  var error = ""
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+
 
 
   const handleChange = () => {
     setShowPassword(!showPassword);
   };
 
+  const getErrorMessage = () => {
+
+    if (email.length < 3 || !email.includes("@")) {
+      return "Некорректно введен адрес эл. почты"
+
+
+    }
+
+    if (name.length < 1 || surname.length < 1) {
+      return "Поля имя и фамилия не могут быть пустыми"
+
+
+    }
+
+    if (password.length < 8) {
+      return "Пароль должен содержать хотя бы 8 символов"
+
+    }
+
+    if (password != passwordRepeated) {
+      return "Пароли не совпадают"
+
+    }
+    return null
+  }
+
+  const errorMessage = getErrorMessage()
+
 
 
   const register = async () => {
+    setFormSubmitted(true)
+    if (errorMessage != null) {
+      return;
+    }
+
 
 
     const data = {
@@ -43,50 +79,39 @@ export function Registration() {
       "password": password
 
     }
+    try {
 
-    const rawResponse = await fetch('http://localhost:5432/auth/sign-up', {
-      method: 'POST',
-      mode: "no-cors",
+      const response = await request.post('http://localhost:5432/auth/sign-up')
+      .set('Access-Control-Allow-Origin', '*')
+      .set ('Accept', 'application/json')
+      .set('Content-Type','application/json')
+    
 
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    const content = await rawResponse.json();
 
-    console.log(content);
+
+      if (response.ok) {
+        const jsonContent = await response.body();
+        console.log(jsonContent);
+      } else {
+
+        const textContent = response.text;
+        console.log("textContent", textContent);
+
+      }
+
+
+    }
+    catch (error: any) {
+      console.log("error:", error)
+
+    }
+
   }
 
 
-  const checkData = () => {
-
-    if (email.length < 3 || !email.includes("@")) {
-      error = "Некорректно введен эл. адрес"
 
 
-    }
 
-    if (name.length < 1 || surname.length < 1) {
-      error = "Поля имя и фамилия не могут быть пустыми"
-
-
-    }
-
-    if (password.length < 8) {
-      error = "Пароль должен содержать хотя бы 8 символов"
-
-    }
-
-    if (password != passwordRepeated) {
-      error = "Пароли не совпадают"
-
-    }
-
-
-  }
 
 
 
@@ -115,7 +140,7 @@ export function Registration() {
             <input type={showPassword ? "text" : "password"}
               className={styles.input} placeholder="Придумайте пароль" value={password} onChange={(event) => { setPassword(event.target.value) }} />
 
-            <Button text={""} onClick={handleChange} className = {showPassword ? styles.eye : styles.eyeClosed}
+            <Button text={""} onClick={handleChange} className={showPassword ? styles.eye : styles.eyeClosed}
             />
           </div>
           <input type={showPassword ? "text" : "password"}
@@ -123,11 +148,11 @@ export function Registration() {
         </div>
 
 
+        {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
+          {errorMessage}
 
-        {/* <div className={styles.errorMessage}>
-          {error}
+        </div>)}
 
-        </div> */}
 
 
 

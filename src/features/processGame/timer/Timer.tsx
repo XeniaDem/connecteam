@@ -4,6 +4,10 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
+import UseCountdown from "./useCountdown/UseCountdown";
+import React, { useEffect, useState } from "react";
+import { Button } from "../../../components/button/Button";
+import { useTimer } from "use-timer";
 
 type Props = {
   isCreator: boolean;
@@ -16,11 +20,34 @@ type Props = {
 Timer.defaultProps = { isCreator: true }
 
 export function Timer(props: Props) {
-  /*const players = [];
 
-  for (let i = 0; i < props.playersNum; i++) {
-    players.push(<Player />)
-  }*/
+
+  const { time, start, pause, reset, status } = useTimer({
+    initialTime: 180,
+    timerType: 'DECREMENTAL',
+    endTime: 0,
+    onTimeOver: () => {
+      alert('Time is over');
+      reset();
+    },
+  });
+
+  const seconds = (sec: number) => {
+    if (sec % 10 == 1) {
+      return "Cекунда"
+    }
+    if (sec % 10 == 2 || sec % 10 == 3 || sec % 10 == 4) {
+      return "Cекунды"
+    }
+    if (sec % 10 == 5 || sec % 10 == 6 || sec % 10 == 7 || sec % 10 == 8 || sec % 10 == 9 || sec % 10 == 0) {
+      return "Cекунд"
+    }
+  }
+
+  
+
+
+
 
 
   return (
@@ -29,12 +56,12 @@ export function Timer(props: Props) {
         <div className={styles.timerContainer}>
           <div className={styles.decor1} />
           <div className={styles.decor2} />
+          {time} <br/> {seconds(time)}
 
 
 
 
 
-          180 секунд
         </div>
 
         {props.isCreator ? (
@@ -47,24 +74,30 @@ export function Timer(props: Props) {
                 <stop offset={1} stopColor="#2AF8BA" />
               </linearGradient>
             </svg>
-            
 
 
 
-
-
-            <IconButton onClick={() => { throw new Error("Function not implemented.") }}>
+            <IconButton onClick={start}>
               <PlayArrowIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
             </IconButton>
-            <IconButton onClick={() => { throw new Error("Function not implemented.") }}>
+
+            <IconButton onClick={pause}>
               <PauseIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
             </IconButton>
+
             <IconButton onClick={() => { throw new Error("Function not implemented.") }}>
               <CloseIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
             </IconButton>
+
+
+
+
+
+
+
 
 
 

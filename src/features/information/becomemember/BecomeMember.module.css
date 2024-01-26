@@ -15,7 +15,8 @@
 background: rgba(217, 217, 217, 0.10);
 box-shadow: 0px 4px 11.2px 0px rgba(0, 0, 0, 0.25);
 backdrop-filter: blur(4.400000095367432px);
-height: 683px;
+/* height: 683px; */
+padding: 40px;
 overflow: hidden;
 
 
@@ -79,11 +80,14 @@ flex-shrink: 0;
 border-radius: 23.377px;
 background: #FFF;
 box-shadow: 0px 4.675px 60.429px 0px rgba(0, 0, 0, 0.25);
-padding-top: 43px;
+
 margin-top: 45px;
 margin-bottom: 45px;
+padding-top: 60px;
+padding-bottom: 60px;
 
 align-items: center;
+justify-content: center;
 z-index: 1;
 
 
@@ -116,13 +120,14 @@ font-size: 10.258px;
 font-style: normal;
 font-weight: 500;
 line-height: 12.253px; /* 119.444% */
-margin-top: 200px;
+margin-top: 150px;
+
 }
 
 .footerContainer {
   padding: 38px 52px;
   display: flex;
-  gap: 5px;
+  gap: 12px;
 }
 .footerRight {
   color: #AAA;
@@ -145,12 +150,11 @@ margin-top: 200px;
 }
 
 .tickBox {
-  border-radius: 1.805px;
-border: 0.722px solid #767676;
 background: #FFF;
 width: 9.35px;
 height: 9.388px;
 flex-shrink: 0;
+margin-top: -1px;
 }
 
 

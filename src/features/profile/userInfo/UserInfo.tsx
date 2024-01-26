@@ -6,6 +6,7 @@ import ellipse1 from "../ellipse1.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useState } from "react"
 import { ChangePasswordPopup } from "./changePasswordPopup/ChangePasswordPopup"
+import disableScroll from 'disable-scroll';
 
 
 
@@ -25,6 +26,17 @@ export function UserInfo() {
 
   };
 
+  const openPopup = () => {
+    disableScroll.on()
+    setOpen(true)
+
+  }
+  const closePopup = () => {
+    disableScroll.off()
+    setOpen(false)
+
+  }
+
 
   const [name, setName] = useState<undefined | string>('');
   const [surname, setSurname] = useState<undefined | string>('');
@@ -38,7 +50,7 @@ export function UserInfo() {
   return (
     <div>
 
-      <div className={!open? styles.container : styles.containerDisabled}>
+      <div className={!open ? styles.container : styles.containerDisabled} >
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
         </div>
@@ -82,15 +94,14 @@ export function UserInfo() {
 
 
 
-            <Button text={"Сменить пароль"} onClick={() => setOpen(true)
-            } className={styles.footerButton} />
+            <Button text={"Сменить пароль"} onClick={openPopup} className={styles.footerButton} />
 
-            
+
           </div>
 
         </div>
       </div>
-      {open ? <ChangePasswordPopup closePopup={() => setOpen(false)} /> : null}
+      {open ? <ChangePasswordPopup closePopup={closePopup} /> : null}
     </div>
   )
 }

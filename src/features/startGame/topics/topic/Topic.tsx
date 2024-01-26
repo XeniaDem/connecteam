@@ -19,9 +19,14 @@ type Props = {
   onClick?: () => void;
 
 
+  checked?: boolean;
+
+  
+
+
 }
 
-Topic.defaultProps = { name: "Образование", isChecked: false }
+Topic.defaultProps = { name: "Образование", withCheckBox: false }
 
 export function Topic(props: Props) {
   /*const players = [];
@@ -30,11 +35,16 @@ export function Topic(props: Props) {
     players.push(<Player />)
   }*/
 
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(props.checked);
 
   const handleChange = () => {
     alert(checked)
     setChecked(!checked);
+
+
+  };
+
+  const nothing = () => {
 
   };
 
@@ -43,7 +53,7 @@ export function Topic(props: Props) {
 
   return (
     <div>
-      <div className={!checked ? styles.container : styles.checked}>
+      <div className={!checked ? styles.container : styles.checked} onClick={props.withCheckBox ? nothing : handleChange}>
 
         <div className={styles.icon}>
           <div className={styles.ellipse}>
@@ -58,7 +68,7 @@ export function Topic(props: Props) {
         </div>
 
         {props.withCheckBox ? (
-          <CheckBox/>
+          <CheckBox checked = {checked} onClick={handleChange}/>
         ) : (
           <div />
         )}

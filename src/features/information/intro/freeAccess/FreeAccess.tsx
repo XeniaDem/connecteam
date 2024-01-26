@@ -37,7 +37,7 @@ const navigate = useNavigate()
                     <input className={styles.input} placeholder="Ваш Email" />
                     <input className={styles.input} placeholder="+7 (999) 999-99-99" />
                     <Button text={"Зарегистрироваться"} onClick={() => {
-                        navigate("/profile")
+                        navigate("/create_game")
                     }} className={styles.button} />
 
                 </div>

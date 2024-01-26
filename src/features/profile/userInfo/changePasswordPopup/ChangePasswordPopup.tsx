@@ -23,6 +23,7 @@ export function ChangePasswordPopup(props: Props) {
 
   return (
     <div>
+      <div className={styles.background}>
       <div className={styles.container}>
           <div className={styles.close}>
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
@@ -56,6 +57,7 @@ export function ChangePasswordPopup(props: Props) {
           }} className={styles.sendButton} />
 
       </div>
+    </div>
     </div>
   )
 }

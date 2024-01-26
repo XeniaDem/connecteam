@@ -18,8 +18,8 @@ export function Header() {
 
       <img src={logo} />
 
-      <HeaderItem text="О проекте" />
-      <HeaderItem text="Как играть" />
+      <HeaderItem text="О проекте" link = "#about" />
+      <HeaderItem text="Как играть" link = "#whoplay" />
       <HeaderItem text="О нас" />
       <HeaderItem text="Контакты" />
       <div className={styles.headerButton}>
@@ -32,9 +32,7 @@ export function Header() {
         <div className={styles.person}>
           <img src={person} />
         </div>
-        <HeaderItem text="Войти" onClick={() => {
-          navigate("/login")
-        }} />
+        <HeaderItem text="Войти" link = "/login"/>
       </div>
 
     </div>

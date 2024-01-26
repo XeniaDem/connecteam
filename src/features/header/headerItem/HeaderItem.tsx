@@ -9,7 +9,8 @@ import {Ref, useRef} from 'react';
 
 type Props = {
   text: string;
-  onClick?: () => void;
+  link?: string;
+  
 
 
 }
@@ -23,12 +24,12 @@ export function HeaderItem(props: Props) {
 
 
   return (
-    <div className={styles.headerItem} onClick={props.onClick}>
+    <a className={styles.headerItem} href={props.link}>
 
       {props.text}
 
 
 
-    </div>
+    </a>
   )
 }
