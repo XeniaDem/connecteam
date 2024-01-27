@@ -35,7 +35,7 @@ export function Login() {
 
   const rawResponse = await fetch('http://localhost:5432/auth/sign-in/email', {
     method: 'POST',
-    mode: "no-cors",
+    // mode: "no-cors",
 
     headers: {
       'Access-Control-Allow-Origin': '*',

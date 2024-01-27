@@ -1,10 +1,16 @@
 
+import { PropaneSharp } from "@mui/icons-material"
 import { Button } from "../../../components/button/Button"
 import styles from "../Popup.module.css"
 
+type Props = {
+  onClick: () => void
+  value?: string;
+  onValueChange?: (newValue: string) => void;
+}
 
 
-export function EmailConfirmationPopup() {
+export function EmailConfirmationPopup(props: Props) {
   return (
     <div>
       <div className={styles.container}>
@@ -22,7 +28,7 @@ export function EmailConfirmationPopup() {
 
 
 
-        <input className={styles.input} placeholder="Код из письма" />
+        <input className={styles.input} placeholder="Код из письма" value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }}/>
         {/* <div className={styles.errorMessage}>
           {error}
 
@@ -30,9 +36,7 @@ export function EmailConfirmationPopup() {
 
 
 
-        <Button text={"Отправить"} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className={styles.button} />
+        <Button text={"Отправить"} onClick={props.onClick} className={styles.button} />
 
       </div>
 
