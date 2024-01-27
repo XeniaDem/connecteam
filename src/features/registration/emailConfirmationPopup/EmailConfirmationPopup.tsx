@@ -7,6 +7,9 @@ type Props = {
   onClick: () => void
   value?: string;
   onValueChange?: (newValue: string) => void;
+  formSubmitted?: boolean;
+  errorMessage?: string;
+
 }
 
 
@@ -28,11 +31,19 @@ export function EmailConfirmationPopup(props: Props) {
 
 
 
-        <input className={styles.input} placeholder="Код из письма" value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }}/>
-        {/* <div className={styles.errorMessage}>
-          {error}
+        <input className={styles.input} placeholder="Код из письма" value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }} />
 
-        </div> */}
+        {props.formSubmitted && props.errorMessage ? (
+          <div className={styles.errorMessage}>
+            {props.errorMessage}
+
+          </div>
+
+        ) : (
+          <div />
+        )}
+
+
 
 
 

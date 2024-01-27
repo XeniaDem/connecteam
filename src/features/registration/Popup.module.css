@@ -39,6 +39,15 @@ backdrop-filter: blur(30.21428680419922px);
 
 }
 
+.errorMessage {
+  color: red;
+font-size: 14.972px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.33px; /* 162.5% */
+}
+
+
 
 
 

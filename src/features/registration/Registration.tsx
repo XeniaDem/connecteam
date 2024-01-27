@@ -10,11 +10,11 @@ import { SuccessPopup } from "./successPopup/SuccessPopup"
 import { useNavigate } from "react-router-dom"
 import * as request from "superagent";
 import disableScroll from 'disable-scroll';
+import validator from 'validator'
 
 
 export function Registration() {
   const navigate = useNavigate()
-
 
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
@@ -24,9 +24,7 @@ export function Registration() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-
   const [formSubmitted, setFormSubmitted] = useState(false);
-
 
   const [verifyOpen, setVerifyOpen] = useState(false);
 
@@ -37,9 +35,10 @@ export function Registration() {
 
   const getErrorMessage = () => {
 
-    if (email.length < 3 || !email.includes("@")) {
-      return "Некорректно введен адрес эл. почты"
-    }
+    // if (!validator.isEmail(email)) {
+    //   return "Некорректно введен адрес эл. почты"
+
+    // }
 
     if (name.length < 1 || surname.length < 1) {
       return "Поля имя и фамилия не могут быть пустыми"
@@ -74,13 +73,11 @@ export function Registration() {
 
   const [id, setId] = useState("");
   const saveId = (message: any) => {
-    var k = message.match(/\d+/)
+    var id = message.match(/\d+/)
 
-    setId(k)
-    alert ("saved id: " + k)
+    setId(id)
+    alert("saved id: " + id)
   }
-
-
 
   const register = async () => {
     setFormSubmitted(true)
@@ -115,12 +112,8 @@ export function Registration() {
 
         })
 
-        verifyEmail()
-        setVerifyOpen(true)
-    
-
-
-
+      verifyEmail()
+      setVerifyOpen(true)
 
       // if (response.ok) {
       //   const jsonContent = await response.body;
@@ -149,9 +142,6 @@ export function Registration() {
     setCode(message.match(/\d+/))
     // alert("saved code: " + code)
   }
-
-  
-
   const verifyEmail = async () => {
 
     const data = {
@@ -199,20 +189,27 @@ export function Registration() {
     }
 
   }
-  const [value, setValue] = useState<undefined | string>('');
+  const [codeValue, setCodeValue] = useState<undefined | string>('');
+
+
+  const [verifySubmitted, setVerifySubmitted] = useState(false)
+  const [verifyError, setVerifyError] = useState("")
 
   const verifyUser = async () => {
-    if (value != code) {
-      alert("Коды не совпадают. " + " saved: " + code + " typed: " + value )
-      return;
-  
-    }
+    setVerifySubmitted(true)
+    setVerifyError("")
+    if (codeValue != code) {
+      setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+      alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
+      // setVerifySubmitted(false)
 
+      return;
+    }
 
 
     const data = {
       "id": "" + id + "",
-    
+
     }
     alert(data)
     try {
@@ -252,15 +249,9 @@ export function Registration() {
       console.log("error:", error)
 
       // errorMessage = error
-
-
     }
 
   }
-
-
-
-
 
 
 
@@ -317,11 +308,16 @@ export function Registration() {
 
         </div>
 
-
       </div>
-      {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser} value = {value} onValueChange={setValue}/> : null}
+      {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
+        value={codeValue} onValueChange={setCodeValue}
+        formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
       {/* <EmailConfirmationPopup /> */}
       {/* <SuccessPopup /> */}
     </div>
   )
+}
+
+function validate(email: string) {
+  throw new Error("Function not implemented.")
 }
