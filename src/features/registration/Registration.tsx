@@ -74,12 +74,10 @@ export function Registration() {
 
   const [id, setId] = useState("");
   const saveId = (message: any) => {
-    alert ("i saved id")
-
     var k = message.match(/\d+/)
 
     setId(k)
-    alert ("dmdmd" + k)
+    alert ("saved id: " + k)
   }
 
 
@@ -148,9 +146,8 @@ export function Registration() {
 
   const [code, setCode] = useState("");
   const saveCode = (message: any) => {
-    alert ("i saved code")
-
     setCode(message.match(/\d+/))
+    // alert("saved code: " + code)
   }
 
   
@@ -206,7 +203,7 @@ export function Registration() {
 
   const verifyUser = async () => {
     if (value != code) {
-      alert("Коды не совпадают" + " saved: " + code + "typed:" + value )
+      alert("Коды не совпадают. " + " saved: " + code + " typed: " + value )
       return;
   
     }
@@ -214,7 +211,8 @@ export function Registration() {
 
 
     const data = {
-      "id": id,
+      "id": "" + id + "",
+    
     }
     alert(data)
     try {
