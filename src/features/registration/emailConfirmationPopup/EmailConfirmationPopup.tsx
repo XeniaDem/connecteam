@@ -41,10 +41,6 @@ export function EmailConfirmationPopup(props: Props) {
           <div />
         )}
 
-
-
-
-
         <Button text={"Отправить"} onClick={props.onClick} className={styles.button} />
 
       </div>

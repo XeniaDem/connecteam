@@ -12,14 +12,14 @@ type Props = {
   name: string;
   dateExpiry?: string;
   withPackage?: boolean;
-  simpleActive?: boolean;
-  extendedActive?: boolean;
-  wideActive?: boolean;
+  basicActive?: boolean;
+  advancedActive?: boolean;
+  premiumActive?: boolean;
 
 
 }
 
-PackageInfo.defaultProps = { withPackage: true, simpleActive: false, extendedActive: false, wideActive: true, name: "Ксения", dateExpiry: "01.01.2024" }
+PackageInfo.defaultProps = { withPackage: true, basicActive: false, advancedActive: false, premiumActive: true, name: "Ксения", dateExpiry: "01.01.2024" }
 
 
 export function PackageInfo(props: Props) {
@@ -27,8 +27,7 @@ export function PackageInfo(props: Props) {
 
   if (props.withPackage) {
 
-
-    if (props.simpleActive) {
+    if (props.basicActive) {
       return (
         <div className={styles.container}>
           <div className={styles.icon}>
@@ -57,7 +56,7 @@ export function PackageInfo(props: Props) {
         </div>
       )
     }
-    else if (props.extendedActive) {
+    else if (props.advancedActive) {
       return (
         <div>
           <div className={styles.container}>
@@ -88,7 +87,7 @@ export function PackageInfo(props: Props) {
         </div>
       )
     }
-    else if (props.wideActive) {
+    else if (props.premiumActive) {
       return (
         <div>
           <div className={styles.container}>
@@ -136,7 +135,7 @@ export function PackageInfo(props: Props) {
             Выберите пакет:
           </div>
 
-          <PackageList simpleActive={false} extendedActive={false} wideActive={false} />
+          <PackageList basicActive={false} advancedActive={false} premiumActive={false} isLogged = {true}/>
 
         </div>
 

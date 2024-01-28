@@ -37,7 +37,7 @@ export function PackageInfo() {
           <div className={styles.title}>
             Доступ
           </div>
-          <PackageList simpleActive = {false} extendedActive = {false} wideActive = {true}/>
+          <PackageList basicActive = {false} advancedActive = {false} premiumActive = {true}/>
     
 
 

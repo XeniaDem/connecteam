@@ -69,7 +69,6 @@ export function Login() {
 
     if (!validator.isEmail(email)) {
       return "Некорректно введен адрес эл. почты"
-
     }
 
     if (password.length < 8) {
@@ -80,20 +79,22 @@ export function Login() {
 
   var errorMessage = getErrorMessage()
 
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
+
+  let token = ""
+
   const saveToken = (message: any) => {
 
-    alert(message)
     var messageParsed = JSON.parse(message);
     var content = messageParsed.token
-    alert(content)
 
-    setToken(content)
+    // setToken(content)
+    token = content
 
   }
 
   const readServerError = (message: any) => {
-    alert(message)
+    // alert(message)
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
@@ -141,9 +142,10 @@ export function Login() {
           throw new Error;
 
         })
-
-      navigate("/user_page")
       setLoginError("")
+      // alert("token to send " + token)
+      navigate("/user_page", { state: { token: token } })
+
 
       // if (response.ok) {
       //   const jsonContent = await response.body;
@@ -195,7 +197,7 @@ export function Login() {
           alert(error.response.text)
           throw new Error;
         })
-        alert("saved id: " + id)
+      // alert("saved id: " + id)
 
 
     }
@@ -220,12 +222,12 @@ export function Login() {
 
 
   const verifyUser = async () => {
-    alert("saved id2: " + id)
+    // alert("saved id2: " + id)
     setVerifySubmitted(true)
     setVerifyError("")
     if (codeValue != code) {
       setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-      alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
+      // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
       return;
     }
 
@@ -242,9 +244,9 @@ export function Login() {
         .send(data)
         .then(
 
-        response => alert(response.text)
+          // response => alert(response.text)
 
-      )
+        )
         .catch(error => {
           // alert(error.response.text)
           setVerifyError(error.response.text)
@@ -252,6 +254,7 @@ export function Login() {
         })
 
       setVerifyOpen(false)
+      login()
       openSuccessPopup()
 
     }
@@ -297,7 +300,6 @@ export function Login() {
         {formSubmitted && loginError ? (
           <div className={styles.errorMessage}>
             {loginError}
-
           </div>
 
         ) : (

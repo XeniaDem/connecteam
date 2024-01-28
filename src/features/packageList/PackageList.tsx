@@ -1,20 +1,34 @@
 
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import styles from "./PackageList.module.css"
 import tick from "./tick.svg"
 
 type Props = {
-  simpleActive?: boolean;
-  extendedActive?: boolean;
-  wideActive?: boolean;
+  basicActive?: boolean;
+  advancedActive?: boolean;
+  premiumActive?: boolean;
   dateExpiry?: string;
+  isLogged: boolean;
 
 }
 
-PackageList.defaultProps = { simpleActive: false, extendedActive: false, wideActive: false, dateExpiry: "01.01.2024" }
+PackageList.defaultProps = { bacisActive: false, advancedActive: false, premiumActive: false, dateExpiry: "01.01.2024" }
 
 
 export function PackageList(props: Props) {
+  const navigate = useNavigate()
+
+
+  const choosePackage = () => {
+
+    if (!props.isLogged) {
+      navigate("/register")
+    } else {
+      /////
+    }
+
+  }
 
 
   return (
@@ -22,7 +36,7 @@ export function PackageList(props: Props) {
       <div className={styles.container}>
         <div className={styles.card}>
 
-        {props.simpleActive ? (
+        {props.basicActive ? (
           <div className={styles.nameActive}>
             Простой
           </div>
@@ -68,7 +82,7 @@ export function PackageList(props: Props) {
           </div>
 
 
-          {props.simpleActive ? (
+          {props.basicActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
                 Дата истечения срока подписки {props.dateExpiry}
@@ -79,9 +93,7 @@ export function PackageList(props: Props) {
             </div>
 
           ) : (
-            <Button text={"Выбрать"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.inactive} />
+            <Button text={"Выбрать"} onClick={choosePackage} className={styles.inactive} />
           )}
 
 
@@ -92,7 +104,7 @@ export function PackageList(props: Props) {
 
         <div className={styles.card}>
 
-        {props.extendedActive ? (
+        {props.advancedActive ? (
           <div className={styles.nameActive}>
             Расширенный
           </div>
@@ -147,7 +159,7 @@ export function PackageList(props: Props) {
 
 
           
-          {props.extendedActive ? (
+          {props.advancedActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
                 Дата истечения срока подписки {props.dateExpiry}
@@ -158,9 +170,7 @@ export function PackageList(props: Props) {
             </div>
 
           ) : (
-            <Button text={"Выбрать"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.inactive} />
+            <Button text={"Выбрать"} onClick={choosePackage} className={styles.inactive} />
           )}
 
         </div>
@@ -168,7 +178,7 @@ export function PackageList(props: Props) {
 
         <div className={styles.card}>
 
-        {props.wideActive ? (
+        {props.premiumActive ? (
           <div className={styles.nameActive}>
             Широкий
           </div>
@@ -231,7 +241,7 @@ export function PackageList(props: Props) {
 
 
           
-          {props.wideActive ? (
+          {props.premiumActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
                 Дата истечения срока подписки {props.dateExpiry}
@@ -246,9 +256,7 @@ export function PackageList(props: Props) {
             </div>
 
           ) : (
-            <Button text={"Выбрать"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.inactive} />
+            <Button text={"Выбрать"} onClick={choosePackage} className={styles.inactive} />
           )}
         </div>
 

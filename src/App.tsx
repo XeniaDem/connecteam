@@ -37,8 +37,8 @@ function App() {
 
         <AuthProblem />
         <LinkSent/>
-        <UserPage />
-        <CreateGame />
+        {/* <UserPage />
+        <CreateGame /> */}
 
         <Profile/>
 
