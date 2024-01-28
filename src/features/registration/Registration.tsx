@@ -28,6 +28,8 @@ export function Registration() {
 
   const [verifyOpen, setVerifyOpen] = useState(false);
 
+  const [successOpen, setSuccessOpen] = useState(false);
+
 
   const handleChange = () => {
     setShowPassword(!showPassword);
@@ -35,10 +37,10 @@ export function Registration() {
 
   const getErrorMessage = () => {
 
-    // if (!validator.isEmail(email)) {
-    //   return "Некорректно введен адрес эл. почты"
+    if (!validator.isEmail(email)) {
+      return "Некорректно введен адрес эл. почты"
 
-    // }
+    }
 
     if (name.length < 1 || surname.length < 1) {
       return "Поля имя и фамилия не могут быть пустыми"
@@ -62,13 +64,17 @@ export function Registration() {
       return ("Пользователь с таким эл. адресом уже существует")
 
     }
-    return null;
+    return message;
   }
-  const openPopup = () => {
+  const openVerifyPopup = () => {
     disableScroll.on()
     setVerifyOpen(true)
 
   }
+
+
+  const [registrationError, setRegistrationError] = useState("")
+
 
 
   const [id, setId] = useState("");
@@ -76,8 +82,10 @@ export function Registration() {
     var id = message.match(/\d+/)
 
     setId(id)
-    alert("saved id: " + id)
+    // alert("saved id: " + id)
   }
+
+
 
   const register = async () => {
     setFormSubmitted(true)
@@ -106,14 +114,15 @@ export function Registration() {
 
         )
         .catch(error => {
-          const serverError = readServerError(error.response.text)
-          alert(serverError)
+          setRegistrationError(readServerError(error.response.text))
+          // alert(registrationError)
           throw new Error;
 
         })
 
+      setRegistrationError("")
       verifyEmail()
-      setVerifyOpen(true)
+      openVerifyPopup()
 
       // if (response.ok) {
       //   const jsonContent = await response.body;
@@ -131,7 +140,7 @@ export function Registration() {
     }
     catch (error: any) {
 
-      alert(error.text)
+      // alert(error.text)
       console.log("error:", error)
     }
 
@@ -140,10 +149,8 @@ export function Registration() {
   const [code, setCode] = useState("");
   const saveCode = (message: any) => {
     setCode(message.match(/\d+/))
-    // alert("saved code: " + code)
   }
   const verifyEmail = async () => {
-
     const data = {
       "email": email,
     }
@@ -156,36 +163,21 @@ export function Registration() {
         .send(data)
         .then(
 
+
           response => saveCode(response.text)
 
         )
         .catch(error => {
-          alert(error.response.text)
-          return;
+          // alert(error.response.text)
+          throw new Error;
         })
-
-      // if (response.ok) {
-      //   const jsonContent = await response.body;
-      //   console.log(jsonContent);
-      // } else {
-      //   alert("ndnbdnd")
-
-      //   const textContent = response.text;
-      //   alert(textContent)
-      //   console.log("textContent", textContent);
-
-      // }
 
 
     }
     catch (error: any) {
 
-      alert(error.text)
+      // alert(error.text)
       console.log("error:", error)
-
-      // errorMessage = error
-
-
     }
 
   }
@@ -195,13 +187,21 @@ export function Registration() {
   const [verifySubmitted, setVerifySubmitted] = useState(false)
   const [verifyError, setVerifyError] = useState("")
 
+
+  const openSuccessPopup = () => {
+    disableScroll.on()
+    setSuccessOpen(true)
+
+  }
+
+
+
   const verifyUser = async () => {
     setVerifySubmitted(true)
     setVerifyError("")
     if (codeValue != code) {
       setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-      alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
-      // setVerifySubmitted(false)
+      // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
 
       return;
     }
@@ -211,7 +211,6 @@ export function Registration() {
       "id": "" + id + "",
 
     }
-    alert(data)
     try {
 
       const response = await request.post('http://localhost:5432/auth/verify/user')
@@ -221,13 +220,17 @@ export function Registration() {
         .send(data)
         .then(
 
-          response => alert(response.text)
+          // response => alert(response.text)
 
         )
         .catch(error => {
-          alert(error.response.text)
-          return;
+          // alert(error.response.text)
+          setVerifyError(error.response.text)
+          throw new Error;
         })
+
+      setVerifyOpen(false)
+      openSuccessPopup()
 
       // if (response.ok) {
       //   const jsonContent = await response.body;
@@ -245,7 +248,7 @@ export function Registration() {
     }
     catch (error: any) {
 
-      alert(error.text)
+      // alert(error.text)
       console.log("error:", error)
 
       // errorMessage = error
@@ -273,18 +276,23 @@ export function Registration() {
         </div>
 
         <div className={styles.inputs}>
-          <input className={styles.input} placeholder="Эл. почта/номер телефона" value={email} onChange={(event) => { setEmail(event.target.value) }} />
-          <input className={styles.input} placeholder="Имя" value={name} onChange={(event) => { setName(event.target.value) }} />
-          <input className={styles.input} placeholder="Фамилия" value={surname} onChange={(event) => { setSurname(event.target.value) }} />
+          <input className={styles.input} placeholder="Эл. почта/номер телефона" value={email}
+            onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
+          <input className={styles.input} placeholder="Имя" value={name}
+            onChange={(event) => { setName(event.target.value) }} />
+          <input className={styles.input} placeholder="Фамилия" value={surname}
+            onChange={(event) => { setSurname(event.target.value) }} />
           <div className={styles.inputContainer}>
             <input type={showPassword ? "text" : "password"}
-              className={styles.input} placeholder="Придумайте пароль" value={password} onChange={(event) => { setPassword(event.target.value) }} />
+              className={styles.input} placeholder="Придумайте пароль" value={password}
+              onChange={(event) => { setPassword((event.target.value).replace(/\s/g, '')) }} />
 
             <Button text={""} onClick={handleChange} className={showPassword ? styles.eye : styles.eyeClosed}
             />
           </div>
           <input type={showPassword ? "text" : "password"}
-            className={styles.input} placeholder="Повторите пароль" value={passwordRepeated} onChange={(event) => { setPasswordRepeated(event.target.value) }} />
+            className={styles.input} placeholder="Повторите пароль" value={passwordRepeated}
+            onChange={(event) => { setPasswordRepeated((event.target.value).replace(/\s/g, '')) }} />
         </div>
 
 
@@ -292,6 +300,19 @@ export function Registration() {
           {errorMessage}
 
         </div>)}
+
+        {formSubmitted && registrationError ? (
+          <div className={styles.errorMessage}>
+            {registrationError}
+
+          </div>
+
+        ) : (
+          <div />
+        )}
+
+
+
 
 
 
@@ -312,7 +333,8 @@ export function Registration() {
       {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-      {/* <EmailConfirmationPopup /> */}
+      {successOpen ? <SuccessPopup /> : null}
+
       {/* <SuccessPopup /> */}
     </div>
   )
