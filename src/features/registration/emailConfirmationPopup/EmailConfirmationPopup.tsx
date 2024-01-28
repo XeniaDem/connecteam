@@ -31,7 +31,7 @@ export function EmailConfirmationPopup(props: Props) {
 
 
 
-        <input className={styles.input} placeholder="Код из письма" value={props.value} onChange={(event) => { props.onValueChange?.((event.target.value).replace(/\D/g, "")) }} />
+        <input className={styles.input} maxLength={4} placeholder="Код из письма" value={props.value} onChange={(event) => { props.onValueChange?.((event.target.value).replace(/\D/g, "")) }} />
 
         {props.formSubmitted && props.errorMessage ? (
           <div className={styles.errorMessage}>

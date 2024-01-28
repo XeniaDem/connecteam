@@ -175,21 +175,16 @@ export function Registration() {
         .set('Content-Type', 'application/json')
         .send(data)
         .then(
-
-
           response => saveCode(response.text)
-
         )
         .catch(error => {
-          // alert(error.response.text)
+          alert(error.response.text)
           throw new Error;
         })
 
 
     }
     catch (error: any) {
-
-      // alert(error.text)
       console.log("error:", error)
     }
 
@@ -208,20 +203,18 @@ export function Registration() {
   }
 
 
-
   const verifyUser = async () => {
     setVerifySubmitted(true)
     setVerifyError("")
+    alert("idtosend: " + id)
     if (codeValue != code) {
       setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
       alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
-
       return;
     }
 
-
     const data = {
-      "id": id.toString,
+      "id": id.toString(),
 
     }
     try {
@@ -233,7 +226,7 @@ export function Registration() {
         .send(data)
         .then(
 
-          // response => alert(response.text)
+          response => alert(response.text)
 
         )
         .catch(error => {
@@ -247,18 +240,14 @@ export function Registration() {
 
     }
     catch (error: any) {
-
-      // alert(error.text)
       console.log("error:", error)
-
-      // errorMessage = error
     }
 
   }
 
   return (
     <div>
-      <div className={(!verifyOpen) ? styles.container : styles.containerDisabled}>
+      <div className={(!verifyOpen && !successOpen) ? styles.container : styles.containerDisabled}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -308,12 +297,6 @@ export function Registration() {
           <div />
         )}
 
-
-
-
-
-
-
         <Button text={"Зарегистрироваться"} onClick={register} className={styles.button} />
         <div className={styles.footerContainer}>
           <div className={styles.footerItem}>
@@ -331,8 +314,6 @@ export function Registration() {
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
       {successOpen ? <SuccessPopup /> : null}
-
-      {/* <SuccessPopup /> */}
     </div>
   )
 }
