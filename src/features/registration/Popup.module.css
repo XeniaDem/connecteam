@@ -51,9 +51,6 @@ line-height: 24.33px; /* 162.5% */
 
 
 
-
-
-
 .close {
   position: absolute;
   top: 20px;
@@ -80,9 +77,6 @@ border: none;
 box-shadow: none;
 
 }
-
-
-
 
 
 
@@ -121,6 +115,38 @@ color: #FFF;
 z-index: 1;
 outline: none;
 }
+
+
+
+.inputSmall {
+  width: 143.531px;
+height: 46.667px;
+border-radius: 40.783px;
+text-align: center;
+border: 1px solid var(--vd, #55C6F7);
+background: rgba(0, 0, 0, 0.1);
+padding: 10px 20px;
+color: #8E8E8E;
+font-size: 20.918px;
+font-style: normal;
+font-weight: 800;
+line-height: 22.616px;
+box-sizing: border-box;
+color: #FFF;
+z-index: 1;
+outline: none;
+}
+.inputSmall::-webkit-input-placeholder {
+  font-size: 14.918px;
+font-style: normal;
+font-weight: 500;
+
+text-align:center;
+align-items: center;
+}
+
+
+
 
 
 

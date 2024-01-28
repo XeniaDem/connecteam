@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom"
 import { Button } from "../../../components/button/Button"
 import styles from "../Popup.module.css"
+import disableScroll from 'disable-scroll';
 
 type Props = {
   isLogin?: boolean;
@@ -17,7 +18,7 @@ export function SuccessPopup(props: Props) {
         <div className={styles.container}>
   
         <div className={styles.close}>
-        <Button text={""} onClick = {() =>navigate("/user_page")} className={styles.closeButton} />
+        <Button text={""} onClick = {() => {navigate("/user_page"); disableScroll.off()}} className={styles.closeButton} />
             </div>
   
   
@@ -27,7 +28,7 @@ export function SuccessPopup(props: Props) {
   
   
   
-          <Button text={"Личный кабинет"} onClick = {() =>navigate("/user_page")} className={styles.button} />
+          <Button text={"Личный кабинет"} onClick = {() => {navigate("/user_page"); disableScroll.off()}} className={styles.button} />
   
         </div>
   
@@ -42,7 +43,7 @@ export function SuccessPopup(props: Props) {
       <div className={styles.container}>
 
       <div className={styles.close}>
-      <Button text={""} onClick = {() =>navigate("/")} className={styles.closeButton} />
+      <Button text={""} onClick = {() => {navigate("/"); disableScroll.off()}} className={styles.closeButton} />
           </div>
 
 
@@ -52,7 +53,7 @@ export function SuccessPopup(props: Props) {
 
 
 
-        <Button text={"Войти"} onClick = {() =>navigate("/login")} className={styles.button} />
+        <Button text={"Войти"} onClick = {() => {navigate("/login"); disableScroll.off()}} className={styles.button} />
 
       </div>
 

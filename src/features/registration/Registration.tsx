@@ -75,6 +75,11 @@ export function Registration() {
     setVerifyOpen(true)
 
   }
+  const closeVerifyPopup = () => {
+    disableScroll.off()
+    setVerifyOpen(false)
+
+  }
 
 
   const [registrationError, setRegistrationError] = useState("")
@@ -203,6 +208,7 @@ export function Registration() {
   }
 
 
+
   const verifyUser = async () => {
     setVerifySubmitted(true)
     setVerifyError("")
@@ -235,7 +241,7 @@ export function Registration() {
           throw new Error;
         })
 
-      setVerifyOpen(false)
+      closeVerifyPopup()
       openSuccessPopup()
 
     }

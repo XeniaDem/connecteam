@@ -10,8 +10,11 @@ import { RealGames } from "./realGames/RealGames"
 import { WhatIs } from "./whatIs/WhatIs"
 import { WhoPlay } from "./whoPlay/WhoPlay"
 import { WhyNeed } from "./whyNeed/WhyNeed"
+import disableScroll from 'disable-scroll';
 
 export function Information() {
+
+  disableScroll.off()
 
 
   return (
