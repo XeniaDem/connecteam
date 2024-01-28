@@ -39,7 +39,6 @@ export function Registration() {
 
     if (!validator.isEmail(email)) {
       return "Некорректно введен адрес эл. почты"
-
     }
 
     if (name.length < 1 || surname.length < 1) {
@@ -56,16 +55,21 @@ export function Registration() {
     return null
   }
 
+
   var errorMessage = getErrorMessage()
 
   const readServerError = (message: any) => {
+    // alert(message)
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
 
-    if (message.includes("duplicate key value violates")) {
+    if (content.includes("duplicate key value violates")) {
       return ("Пользователь с таким эл. адресом уже существует")
 
     }
-    return message;
+    return content;
   }
+
   const openVerifyPopup = () => {
     disableScroll.on()
     setVerifyOpen(true)
@@ -79,7 +83,11 @@ export function Registration() {
 
   const [id, setId] = useState("");
   const saveId = (message: any) => {
-    var id = message.match(/\d+/)
+    // alert(message)
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.id
+    // var id = message.match(/\d+/)
+    var id = content
 
     setId(id)
     // alert("saved id: " + id)
@@ -148,7 +156,12 @@ export function Registration() {
 
   const [code, setCode] = useState("");
   const saveCode = (message: any) => {
-    setCode(message.match(/\d+/))
+    alert(message)
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.confirmationCode
+    // setCode(message.match(/\d+/))
+    setCode(content)
+
   }
   const verifyEmail = async () => {
     const data = {
@@ -201,14 +214,14 @@ export function Registration() {
     setVerifyError("")
     if (codeValue != code) {
       setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-      // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
+      alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
 
       return;
     }
 
 
     const data = {
-      "id": "" + id + "",
+      "id": id.toString,
 
     }
     try {
@@ -232,19 +245,6 @@ export function Registration() {
       setVerifyOpen(false)
       openSuccessPopup()
 
-      // if (response.ok) {
-      //   const jsonContent = await response.body;
-      //   console.log(jsonContent);
-      // } else {
-      //   alert("ndnbdnd")
-
-      //   const textContent = response.text;
-      //   alert(textContent)
-      //   console.log("textContent", textContent);
-
-      // }
-
-
     }
     catch (error: any) {
 
@@ -255,9 +255,6 @@ export function Registration() {
     }
 
   }
-
-
-
 
   return (
     <div>
@@ -340,6 +337,3 @@ export function Registration() {
   )
 }
 
-function validate(email: string) {
-  throw new Error("Function not implemented.")
-}
