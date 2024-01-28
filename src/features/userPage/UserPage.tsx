@@ -5,13 +5,16 @@ import { LastGames } from "./lastGames/LastGames"
 import { PackageInfo } from "./packageInfo/PackageInfo"
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
+import disableScroll from 'disable-scroll';
+import { Header } from "../header/Header"
 
 
 
 export function UserPage() {
 
+
   const { state } = useLocation();
-  const { token } = state;
+    const { token } = state;
   // alert("token on page:" + token)
 
 
@@ -53,7 +56,8 @@ export function UserPage() {
     alert("data: " + "\n access: " + access + "\n company: " + companyName +
       "\n name: " + name + " \n surname: " + surname +
       "\n id: " + id + "\n image: " + image + "\n email: " + email + "\n phone: " + phone)
-
+    
+    readAccess()
     setFetched(true)
 
   }
@@ -67,7 +71,7 @@ export function UserPage() {
 
 
 
-  const readAccess = (message: any) => {
+  const readAccess = () => {
 
     if (access == "user") {
       setWithPackage(false)
@@ -159,6 +163,8 @@ export function UserPage() {
 
   }
   useEffect(() => {
+    
+    disableScroll.off()
     fetchUserPage();
 
     alert("loaded");
@@ -169,6 +175,9 @@ export function UserPage() {
   return (
 
     <div className={styles.container}>
+        <div className={styles.header}>
+          <Header loggedHeader={true} />
+        </div>
       <PackageInfo name = {name} withPackage = {withPackage} basicActive = {basicActive} advancedActive = {advancedActive} premiumActive = {premiumActive}/>
       <LastGames />
 

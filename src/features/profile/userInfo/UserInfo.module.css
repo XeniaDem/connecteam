@@ -8,6 +8,8 @@
   justify-content: center;
 
   position: relative;
+  margin-top: 20px;
+
  
 
 
@@ -30,6 +32,7 @@
 
   pointer-events: none;
   overflow: hidden;
+  margin-top: 20px;
   
 
 
@@ -40,6 +43,7 @@
 
 
 .left {
+  width: 400px;
   display: flex;
   flex-direction: column;
  gap: 60px;
@@ -157,7 +161,7 @@ font-style: normal;
 font-weight: 500;
 line-height: 133.125%; /* 21.399px */
 letter-spacing: -0.643px;
-margin-top: -143px;
+margin-top: -57px;
 
 }
 

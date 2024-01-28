@@ -5,7 +5,7 @@ import { InputGradient } from "../../../../components/inputGradient/InputGradien
 import styles from "./FreeAccess.module.css"
 export function FreeAccess() {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
     return (
         <div className={styles.container}>
             <div className={styles.title}>

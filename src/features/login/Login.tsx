@@ -11,6 +11,7 @@ import request from "superagent"
 import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { SuccessPopup } from "../registration/successPopup/SuccessPopup"
+import { Header } from "../header/Header"
 
 
 export function Login() {
@@ -168,15 +169,15 @@ export function Login() {
   }
 
   const [id, setId] = useState("");
-  const [code, setCode] = useState("");
+  // const [code, setCode] = useState("");
 
   const saveIdAndCode = (message: any) => {
     var messageParsed = JSON.parse(message);
     var id = messageParsed.id
-    var code = messageParsed.confirmationCode
-    // setCode(message.match(/\d+/))
+    // var code = messageParsed.confirmationCode
+
     setId(id)
-    setCode(code)
+    // setCode(code)
 
   }
   const verifyEmail = async () => {
@@ -218,6 +219,17 @@ export function Login() {
     setSuccessOpen(true)
 
   }
+  const readVerifyError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+
+    if (content.includes("Wrong code")) {
+      return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+
+    }
+    return content;
+
+  }
 
 
 
@@ -225,14 +237,15 @@ export function Login() {
     // alert("saved id2: " + id)
     setVerifySubmitted(true)
     setVerifyError("")
-    if (codeValue != code) {
-      setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-      // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
-      return;
-    }
+    // if (codeValue != code) {
+    //   setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+    //   // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
+    //   return;
+    // }
 
     const data = {
       "id": id.toString(),
+      "code": codeValue
 
     }
     try {
@@ -244,12 +257,12 @@ export function Login() {
         .send(data)
         .then(
 
-          // response => alert(response.text)
+          response => alert(response.text)
 
         )
         .catch(error => {
           // alert(error.response.text)
-          setVerifyError(error.response.text)
+          setVerifyError(readVerifyError(error.response.text))
           throw new Error;
         })
 
@@ -268,6 +281,9 @@ export function Login() {
   return (
     <div>
       <div className={(!verifyOpen && !successOpen) ? styles.container : styles.containerDisabled}>
+        <div className={styles.header}>
+          <Header authHeader={true} />
+        </div>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -282,7 +298,7 @@ export function Login() {
         </div>
 
         <div className={styles.inputs}>
-          <input className={styles.input} placeholder="Эл. почта/номер телефона" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
+          <input className={styles.input} placeholder="Эл. почта" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
           <div className={styles.inputContainer}>
             <input type={showPassword ? "text" : "password"}
               className={styles.input} placeholder="Пароль" value={password} onChange={(event) => { setPassword((event.target.value).replace(/\s/g, '')) }} />

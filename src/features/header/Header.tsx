@@ -5,22 +5,85 @@ import styles from "./Header.module.css"
 import logo from "./logo.svg"
 import person from "./person.svg"
 import { HeaderItem } from "./headerItem/HeaderItem"
-export function Header() {
+
+
+type Props = {
+  authHeader?: boolean;
+  loggedHeader?: boolean;
+  withPackage?: boolean;
+
+}
+export function Header(props: Props) {
 
   const navigate = useNavigate()
 
+  if (props.loggedHeader) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.group}>
+          <div className={styles.logo}>
+            <img src={logo} />
+          </div>
 
 
+          <HeaderItem text="Профиль" onClick={() => {
+            navigate("/profile")
+            
+          }} />
+          {props.withPackage ? (
+            <HeaderItem text="Создать игру" />
+          ) : (
+            <div />
+          )}
+          <HeaderItem text="Мои игры" />
+        </div>
+        <Button text={"Выход"} onClick={() => {
+          navigate("/")
+        }} className={styles.authButton} />
+
+
+      </div>
+
+
+
+    )
+  }
+
+
+
+  if (props.authHeader) {
+    return (
+      <div className={styles.container}>
+
+        <div className={styles.logo}>
+          <img src={logo} onClick={() => {
+            navigate("/")
+          }} />
+        </div>
+        <Button text={"Вход"} onClick={() => {
+          navigate("/login")
+        }} className={styles.authButton} />
+
+
+      </div>
+
+
+
+    )
+  }
 
 
   return (
+
     <div className={styles.container}>
-
-      <img src={logo} />
-
-      <HeaderItem text="О проекте" link = "#about" />
-      <HeaderItem text="Как играть" link = "#whoplay" />
-      <HeaderItem text="О нас" />
+      <div className={styles.logo}>
+        <img src={logo} onClick={() => {
+          navigate("/")
+        }} />
+      </div>
+      <HeaderItem text="О проекте" link="#about" />
+      <HeaderItem text="Как играть" link="#real_games" />
+      <HeaderItem text="FAQ" link="#faq" />
       <HeaderItem text="Контакты" />
       <div className={styles.headerButton}>
         <Button text={"Зарегистрироваться"} onClick={() => {
@@ -32,9 +95,9 @@ export function Header() {
         <div className={styles.person}>
           <img src={person} />
         </div>
-        <HeaderItem text="Войти" link = "/login"/>
+        <HeaderItem text="Войти" link="/login" />
       </div>
 
-    </div>
+    </div >
   )
 }

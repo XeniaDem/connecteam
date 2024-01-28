@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import * as request from "superagent";
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
+import { Header } from "../header/Header"
 
 
 export function Registration() {
@@ -83,7 +84,6 @@ export function Registration() {
 
 
   const [registrationError, setRegistrationError] = useState("")
-
 
 
   const [id, setId] = useState("");
@@ -159,15 +159,14 @@ export function Registration() {
 
   }
 
-  const [code, setCode] = useState("");
-  const saveCode = (message: any) => {
-    alert(message)
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.confirmationCode
-    // setCode(message.match(/\d+/))
-    setCode(content)
+  // const [code, setCode] = useState("");
+  // const saveCode = (message: any) => {
+  //   alert(message)
+  //   var messageParsed = JSON.parse(message);
+  //   var content = messageParsed.confirmationCode
+  //   setCode(content)
 
-  }
+  // }
   const verifyEmail = async () => {
     const data = {
       "email": email,
@@ -180,8 +179,8 @@ export function Registration() {
         .set('Content-Type', 'application/json')
         .send(data)
         .then(
-          response => saveCode(response.text)
-        )
+        // response => saveCode(response.text)
+      )
         .catch(error => {
           alert(error.response.text)
           throw new Error;
@@ -207,20 +206,31 @@ export function Registration() {
 
   }
 
+  const readVerifyError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
 
+    if (content.includes("Wrong code")) {
+      return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+
+    }
+    return content;
+
+  }
 
   const verifyUser = async () => {
     setVerifySubmitted(true)
     setVerifyError("")
-    alert("idtosend: " + id)
-    if (codeValue != code) {
-      setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-      alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
-      return;
-    }
+    // alert("idtosend: " + id)
+    // if (codeValue != code) {
+    //   setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+    //   alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
+    //   return;
+    // }
 
     const data = {
       "id": id.toString(),
+      "code": codeValue
 
     }
     try {
@@ -237,7 +247,7 @@ export function Registration() {
         )
         .catch(error => {
           // alert(error.response.text)
-          setVerifyError(error.response.text)
+          setVerifyError(readVerifyError(error.response.text))
           throw new Error;
         })
 
@@ -253,7 +263,12 @@ export function Registration() {
 
   return (
     <div>
+
       <div className={(!verifyOpen && !successOpen) ? styles.container : styles.containerDisabled}>
+        <div className={styles.header}>
+          <Header authHeader={true} />
+        </div>
+
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -268,7 +283,7 @@ export function Registration() {
         </div>
 
         <div className={styles.inputs}>
-          <input className={styles.input} placeholder="Эл. почта/номер телефона" value={email}
+          <input className={styles.input} placeholder="Эл. почта" value={email}
             onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
           <input className={styles.input} placeholder="Имя" value={name}
             onChange={(event) => { setName(event.target.value) }} />

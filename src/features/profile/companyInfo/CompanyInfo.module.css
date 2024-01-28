@@ -3,7 +3,7 @@
 
   display: flex;
 
-gap: 53px;
+  gap: 10px;
   justify-content: center;
 
   position: relative;
@@ -11,6 +11,7 @@ gap: 53px;
 }
 
 .left {
+  width: 400px;
   display: flex;
   flex-direction: column;
  gap: 60px;

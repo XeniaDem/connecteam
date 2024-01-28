@@ -4,13 +4,17 @@ import { Button } from "../../../components/button/Button"
 import styles from "./HeaderItem.module.css"
 import logo from "./logo.svg"
 import person from "./person.svg"
-import {Ref, useRef} from 'react';
+import { Ref, useRef, useState } from 'react';
 
 
 type Props = {
   text: string;
   link?: string;
-  
+  onClick?: () => void;
+  onSelectedChange?: (newValue: boolean) => void;
+
+  selected?: boolean;
+
 
 
 }
@@ -24,7 +28,8 @@ export function HeaderItem(props: Props) {
 
 
   return (
-    <a className={styles.headerItem} href={props.link}>
+    <a className={!props.selected ? styles.headerItem : styles.headerItemSelected}
+      href={props.link} onClick={props.onClick} >
 
       {props.text}
 

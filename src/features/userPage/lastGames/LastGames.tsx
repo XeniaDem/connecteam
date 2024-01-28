@@ -7,7 +7,7 @@ import styles from "./LastGames.module.css"
 export function LastGames() {
   return (
     <div>
-      <div className={styles.container}>
+      <div className={styles.container} id = "games">
         <div className={styles.title}>
           Последние игры
         </div>

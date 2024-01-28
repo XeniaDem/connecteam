@@ -1,3 +1,13 @@
+.header {
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  
+  
+  }
+
 .container {
 
   display: flex;
@@ -6,6 +16,7 @@
   font-family: 'Work Sans Variable', sans-serif;
   gap: 50px;
   background-color: #171717;
+  margin-top: 70px;
 
 }
 

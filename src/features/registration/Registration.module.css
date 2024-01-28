@@ -1,3 +1,13 @@
+
+.header {
+width: 100vw;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 1;
+
+
+}
 .container {
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
