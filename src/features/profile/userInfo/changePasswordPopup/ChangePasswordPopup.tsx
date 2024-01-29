@@ -17,6 +17,60 @@ export function ChangePasswordPopup(props: Props) {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const getPasswordError = () => {
+    if (oldPassword.length < 8) {
+      return "Пароль должен содержать хотя бы 8 символов"
+
+    }
+    return null;
+
+  };
+  var passwordError = getPasswordError();
+
+
+
+  // const changePassword = async () => {
+  //   setPasswordSubmitted(true)
+  //   if (passwordError != null) {
+  //     return;
+  //   }
+  //   setVerifySubmitted(true)
+  //   const data = {
+  //     email: email,
+  //     password: password
+  //   }
+  //   try {
+
+  //     const response = await request.post('http://localhost:5432/users/verify-email')
+  //       .set('Access-Control-Allow-Origin', '*')
+  //       .set('Accept', 'application/json')
+  //       .set('Content-Type', 'application/json')
+  //       .set('Authorization', `Bearer ${props.token}`)
+  //       .send(data)
+  //       .then(
+
+  //       response => alert(response.text)
+
+  //     )
+  //       .catch(error => {
+  //         setVerifyError(readVerifyError(error.response.text));
+  //         throw new Error;
+
+  //       })
+
+  //     openVerifyPopup()
+  //   }
+  //   catch (error: any) {
+  //     // alert(error.text)
+  //     console.log("error:", error)
+  //   }
+
+
+  // }
+
+
+
+
   const handleChange = () => {
     setShowPassword(!showPassword);
   };

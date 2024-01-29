@@ -11,6 +11,7 @@ type Props = {
   authHeader?: boolean;
   loggedHeader?: boolean;
   withPackage?: boolean;
+  token?: string;
 
 }
 export function Header(props: Props) {
@@ -27,8 +28,8 @@ export function Header(props: Props) {
 
 
           <HeaderItem text="Профиль" onClick={() => {
-            navigate("/profile")
-            
+            navigate("/profile", { state: { token: props.token } })
+
           }} />
           {props.withPackage ? (
             <HeaderItem text="Создать игру" />

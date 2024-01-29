@@ -40,7 +40,7 @@ function App() {
         {/* <UserPage />
         <CreateGame /> */}
 
-        <Profile/>
+        {/* <Profile/> */}
 
         <StartPage/>
 

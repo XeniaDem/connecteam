@@ -3,7 +3,7 @@ import request from "superagent"
 import styles from "./UserPage.module.css"
 import { LastGames } from "./lastGames/LastGames"
 import { PackageInfo } from "./packageInfo/PackageInfo"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { Header } from "../header/Header"
@@ -12,8 +12,10 @@ import { Header } from "../header/Header"
 
 export function UserPage() {
 
+  const navigate = useNavigate();
 
   const { state } = useLocation();
+ 
     const { token } = state;
   // alert("token on page:" + token)
 
@@ -33,6 +35,7 @@ export function UserPage() {
   const [phone, setPhone] = useState("");
 
   const readAnswer = (message: any) => {
+
     var messageParsed = JSON.parse(message);
 
     var access = messageParsed.access;
@@ -100,8 +103,18 @@ export function UserPage() {
     }
 
   }
+  const readServerError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
 
+    if (content.includes("token is expired")) {
+      navigate("/login")
+      return ("Срок действия токена вышел.")
 
+    }
+    // alert(content);
+
+  }
 
 
 
@@ -118,7 +131,7 @@ export function UserPage() {
     }
     try {
 
-      const response = await request.get('http://localhost:5432/user/me')
+      const response = await request.get('http://localhost:5432/users/me')
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
@@ -130,28 +143,12 @@ export function UserPage() {
 
         )
         .catch(error => {
-          alert(error.response.text)
+          readServerError(error.response.text)
           // alert(registrationError)
           throw new Error;
 
         })
       setFetched(true);
-
-
-
-
-      // if (response.ok) {
-      //   const jsonContent = await response.body;
-      //   console.log(jsonContent);
-      // } else {
-      //   alert("ndnbdnd")
-
-      //   const textContent = response.text;
-      //   alert(textContent)
-      //   console.log("textContent", textContent);
-
-      // }
-
 
     }
     catch (error: any) {
@@ -167,7 +164,7 @@ export function UserPage() {
     disableScroll.off()
     fetchUserPage();
 
-    alert("loaded");
+    // alert("loaded");
   }, []);
 
 
@@ -176,10 +173,10 @@ export function UserPage() {
 
     <div className={styles.container}>
         <div className={styles.header}>
-          <Header loggedHeader={true} />
+          <Header loggedHeader={true} token = {token} />
         </div>
       <PackageInfo name = {name} withPackage = {withPackage} basicActive = {basicActive} advancedActive = {advancedActive} premiumActive = {premiumActive}/>
-      <LastGames />
+      <LastGames id = "games"/>
 
     </div>
   )

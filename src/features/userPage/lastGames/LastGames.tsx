@@ -3,11 +3,15 @@ import { Button } from "../../../components/button/Button"
 import styles from "./LastGames.module.css"
 
 
+type Props = {
+  id: string;
+}
 
-export function LastGames() {
+
+export function LastGames(props: Props) {
   return (
     <div>
-      <div className={styles.container} id = "games">
+      <div className={styles.container} id = {props.id} >
         <div className={styles.title}>
           Последние игры
         </div>

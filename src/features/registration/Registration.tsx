@@ -173,7 +173,7 @@ export function Registration() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify/email')
+      const response = await request.post('http://localhost:5432/auth/verify-email')
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
@@ -210,7 +210,7 @@ export function Registration() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("Wrong code")) {
+    if (content.includes("Wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
 
     }
@@ -235,7 +235,7 @@ export function Registration() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify/user')
+      const response = await request.post('http://localhost:5432/auth/verify-user')
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')

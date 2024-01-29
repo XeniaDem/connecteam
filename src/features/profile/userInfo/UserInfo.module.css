@@ -9,6 +9,7 @@
 
   position: relative;
   margin-top: 20px;
+  gap: 60px;
 
  
 
@@ -33,6 +34,7 @@
   pointer-events: none;
   overflow: hidden;
   margin-top: 20px;
+  gap: 60px;
   
 
 
@@ -89,6 +91,19 @@ z-index: 1;
      linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor; /*5'*/
 
+}
+
+.errorMessage {
+  color: red;
+font-size: 14.972px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.33px; /* 162.5% */
+display: flex;
+justify-content: end;
+padding: 0px;
+margin-top: -18px;
+margin-right: 25px;
 }
 
 .footerButton {
@@ -168,6 +183,8 @@ margin-top: -57px;
 
 
 .footerButtons {
+
+
   display: flex;
   flex-direction: column;
   text-align: right;

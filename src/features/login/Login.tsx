@@ -186,7 +186,7 @@ export function Login() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify/email')
+      const response = await request.post('http://localhost:5432/auth/verify-email')
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
@@ -242,15 +242,16 @@ export function Login() {
     //   // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
     //   return;
     // }
+    alert(codeValue)
 
     const data = {
       "id": id.toString(),
-      "code": codeValue
+      "code": codeValue?.toString()
 
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify/user')
+      const response = await request.post('http://localhost:5432/auth/verify-user')
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
