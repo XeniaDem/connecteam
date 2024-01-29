@@ -53,25 +53,27 @@ export function PasswordPopup(props: Props) {
               />
             </div>
           </div>
-          {props.formSubmitted && (props.errorMessage) ? (
-            <div className={styles.errorMessage}>
-              {props.errorMessage}
+          <div className={styles.errors}>
+            {props.formSubmitted && (props.errorMessage) ? (
+              <div className={styles.errorMessage}>
+                {props.errorMessage}
 
-            </div>
+              </div>
 
-          ) : (
-            <div />
-          )}
+            ) : (
+              <div />
+            )}
 
-          {props.formSubmitted && (props.serverError) ? (
-            <div className={styles.errorMessage}>
-              {props.serverError}
+            {props.formSubmitted && (props.serverError) ? (
+              <div className={styles.errorMessage}>
+                {props.serverError}
 
-            </div>
+              </div>
 
-          ) : (
-            <div />
-          )}
+            ) : (
+              <div />
+            )}
+          </div>
 
 
 

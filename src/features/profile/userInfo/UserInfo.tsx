@@ -140,6 +140,7 @@ export function UserInfo(props: Props) {
   }
   const closeVerifyPopup = () => {
     disableScroll.off()
+    setCodeValue("")
     setVerifyOpen(false)
 
   }
@@ -446,7 +447,7 @@ export function UserInfo(props: Props) {
       {verifyOpen ? <EmailConfirmationPopup onClick={changeEmail}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-      {changePasswordOpen ? <ChangePasswordPopup closePopup={closeChangePasswordPopup} /> : null}
+      {changePasswordOpen ? <ChangePasswordPopup closePopup={closeChangePasswordPopup} token = {props.token} /> : null}
 
     </div>
   )
