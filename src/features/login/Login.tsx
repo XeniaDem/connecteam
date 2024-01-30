@@ -14,6 +14,7 @@ import { SuccessPopup } from "../registration/successPopup/SuccessPopup"
 import { Header } from "../header/Header"
 import { useDispatch } from "react-redux"
 import { setToken } from "../auth/authSlice"
+import { post } from "../../utils/api"
 
 
 export function Login() {
@@ -29,31 +30,6 @@ export function Login() {
   const handleChange = () => {
     setShowPassword(!showPassword);
   };
-
-  //   const login = async () => {
-  //   const data = {
-  //     "email": email,
-  //     "password": password
-
-  //   }
-
-  //   const rawResponse = await fetch('http://localhost:5432/auth/sign-in/email', {
-  //     method: 'POST',
-  //     // mode: "no-cors",
-
-  //     headers: {
-  //       'Access-Control-Allow-Origin': '*',
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(data)
-  //   });
-
-  //   const content = await rawResponse.json();
-
-  //   console.log(content);
-
-  // }
 
 
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -84,18 +60,6 @@ export function Login() {
 
   // const [token, setToken] = useState("");
 
-  let token = ""
-
-  const saveToken = (message: any) => {
-
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.token
-
-    // setToken(content)
-    token = content
-    dispatch(setToken(token))
-
-  }
 
   const readServerError = (message: any) => {
     // alert(message)
@@ -119,6 +83,19 @@ export function Login() {
   const [loginError, setLoginError] = useState("")
 
   const dispatch = useDispatch()
+  let token = ""
+
+  const saveToken = (message: any) => {
+
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.token
+
+    // setToken(content)
+    token = content
+    dispatch(setToken(token))
+
+  }
+
 
   const login = async () => {
     setFormSubmitted(true)
@@ -133,44 +110,28 @@ export function Login() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/sign-in/email')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(data)
-        .then(
-
-          response => saveToken(response.text)
-
-        )
-        .catch(error => {
-          setLoginError(readServerError(error.response.text))
-          throw new Error;
-
-        })
+      const response = await post('auth/sign-in/email', data)
+      saveToken(response.text)
       setLoginError("")
       // alert("token to send " + token)
-      navigate("/user_page", { state: { token: token } })
+      // navigate("/user_page", { state: { token: token } })
+      navigate("/user_page")
 
     }
     catch (error: any) {
-
-      // alert(error.text)
+      setLoginError(readServerError(error.response.text))
       console.log("error:", error)
     }
 
   }
 
   const [id, setId] = useState("");
-  // const [code, setCode] = useState("");
 
   const saveId = (message: any) => {
     var messageParsed = JSON.parse(message);
     var id = messageParsed.id
-    // var code = messageParsed.confirmationCode
 
     setId(id)
-    // setCode(code)
 
   }
   const verifyEmail = async () => {
@@ -179,23 +140,14 @@ export function Login() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify-email')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(data)
-        .then(
-          response => saveId(response.text)
-        )
-        .catch(error => {
-          alert(error.response.text)
-          throw new Error;
-        })
-      // alert("saved id: " + id)
+      const response = await post('auth/verify-email', data)
+      saveId(response.text)
+
 
 
     }
     catch (error: any) {
+      alert(error.response.text)
       console.log("error:", error)
     }
 
@@ -216,7 +168,7 @@ export function Login() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("Wrong code")) {
+    if (content.includes("Wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
 
     }
@@ -226,11 +178,8 @@ export function Login() {
 
 
   const verifyUser = async () => {
-    // alert("saved id2: " + id)
     setVerifySubmitted(true)
     setVerifyError("")
-
-    alert(codeValue)
 
     const data = {
       "id": id.toString(),
@@ -239,21 +188,9 @@ export function Login() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify-user')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(data)
-        .then(
+      const response = await post('auth/verify-user', data)
 
-          response => alert(response.text)
-
-        )
-        .catch(error => {
-          // alert(error.response.text)
-          setVerifyError(readVerifyError(error.response.text))
-          throw new Error;
-        })
+      alert(response.text)
 
       setVerifyOpen(false)
       login()
@@ -261,6 +198,7 @@ export function Login() {
 
     }
     catch (error: any) {
+      setVerifyError(readVerifyError(error.response.text))
       console.log("error:", error)
     }
 

@@ -42,10 +42,12 @@ export function UserPage() {
   const readAnswer = (message: any) => {
 
     var messageParsed = JSON.parse(message);
+    // alert(JSON.stringify(messageParsed));
+    console.log(JSON.stringify(messageParsed));
 
     var access = messageParsed.access;
     setAccess(access);
-    var companyName = messageParsed.comppany_name; //////////
+    var companyName = messageParsed.company_name; //////////
     setCompanyName(companyName)
     var name = messageParsed.first_name
     setName(name)

@@ -1,7 +1,7 @@
 
 import { PackageInfo } from "./packageInfo/PackageInfo"
 import styles from "./Profile.module.css"
-import { CompanyInfo } from "./companyInfo/CompanyInfo"
+import { Company, CompanyInfo } from "./companyInfo/CompanyInfo"
 import { User, UserInfo } from "./userInfo/UserInfo"
 import { ChangePasswordPopup } from "./userInfo/changePasswordPopup/ChangePasswordPopup"
 import { useEffect, useRef, useState } from "react"
@@ -9,17 +9,20 @@ import { Header } from "../header/Header"
 import { useLocation, useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import request from "superagent"
+import { useSelector } from "react-redux"
+import { selectToken } from "../auth/authSlice"
+import { get } from "../../utils/api"
 
 
 
 export function Profile() {
 
-
   const navigate = useNavigate();
-  const { state } = useLocation();
 
-  const { token } = state;
+  // const { state } = useLocation();
+  // const { token } = state;
 
+  const token = useSelector(selectToken)
 
   const [userInfo, setUserInfo] = useState<User | null>(null)
 
@@ -30,11 +33,27 @@ export function Profile() {
       name: messageParsed.first_name,
       surname: messageParsed.second_name,
       email: messageParsed.email,
-      about: ""
+      about: messageParsed.description,
+      photo: messageParsed.image /////////////
 
     }
-    // alert(JSON.stringify(userInfo));
     setUserInfo(userInfo);
+
+  }
+
+  const [companyInfo, setCompanyInfo] = useState<Company | null>(null)
+
+
+  const readCompanyInfo = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    const companyInfo = {
+      name: messageParsed.company_name,
+      website: messageParsed.company_url,
+      about: messageParsed.company_info,
+      photo: messageParsed.company_logo
+
+    }
+    setCompanyInfo(companyInfo);
 
   }
 
@@ -53,26 +72,12 @@ export function Profile() {
 
   const fetchUserPage = async () => {
     try {
-
-      const response = await request.get('http://localhost:5432/users/me')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .then(
-
-          response => readUserInfo(response.text)
-
-        )
-        .catch(error => {
-          readServerError(error.response.text)
-          throw new Error;
-
-        })
-
+      const response = await get('users/me', token)
+      readUserInfo(response.text)
+      readCompanyInfo(response.text)
     }
     catch (error: any) {
-      // alert(error.text)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 
@@ -93,13 +98,14 @@ export function Profile() {
       <div className={styles.header}>
         <Header loggedHeader={true} token={token} />
       </div>
-      
-      {userInfo && (<UserInfo savedUser = {userInfo} token={token} />)}
+
+      {userInfo && (<UserInfo savedUser={userInfo} token={token} />)}
 
       <div className={styles.divider} />
 
 
-      <CompanyInfo />
+      {companyInfo && (<CompanyInfo savedCompany={companyInfo} token={token} />)}
+
       <div className={styles.divider} />
       <PackageInfo />
 

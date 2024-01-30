@@ -60,17 +60,7 @@ export function Registration() {
 
   var errorMessage = getErrorMessage()
 
-  const readServerError = (message: any) => {
-    // alert(message)
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
 
-    if (content.includes("duplicate key value violates")) {
-      return ("Пользователь с таким эл. адресом уже существует")
-
-    }
-    return content;
-  }
 
   const openVerifyPopup = () => {
     disableScroll.on()
@@ -89,16 +79,23 @@ export function Registration() {
 
   const [id, setId] = useState("");
   const saveId = (message: any) => {
-    // alert(message)
     var messageParsed = JSON.parse(message);
     var content = messageParsed.id
-    // var id = message.match(/\d+/)
     var id = content
 
     setId(id)
-    // alert("saved id: " + id)
   }
+  const readServerError = (message: any) => {
+    // alert(message)
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
 
+    if (content.includes("duplicate key value violates")) {
+      return ("Пользователь с таким эл. адресом уже существует")
+
+    }
+    return content;
+  }
 
 
   const register = async () => {
@@ -109,54 +106,24 @@ export function Registration() {
 
     const data = {
       "email": email,
-      "phone_number": "89912818155",
       "first_name": name,
       "second_name": surname,
       "password": password
 
     }
     try {
-
-      const response = await post('auth/sign-up', data )
-        // .set('Access-Control-Allow-Origin', '*')
-        // .set('Accept', 'application/json')
-        // .set('Content-Type', 'application/json')
-        // .send(data)
-        saveId(response.text)
-        // .then(
-
-        //   response => saveId(response.text)
-
-        // )
-        // .catch(error => {
-        //   // setRegistrationError(readServerError(error.response.text))
-        //   // alert(registrationError)
-        //   throw new Error;
-
-        // })
-
+      const response = await post('auth/sign-up', data)
+      saveId(response.text)
       setRegistrationError("")
       verifyEmail()
       openVerifyPopup()
-
-      // if (response.ok) {
-      //   const jsonContent = await response.body;
-      //   console.log(jsonContent);
-      // } else {
-      //   alert("ndnbdnd")
-
-      //   const textContent = response.text;
-      //   alert(textContent)
-      //   console.log("textContent", textContent);
-
-      // }
-
 
     }
     catch (error: any) {
       setRegistrationError(readServerError(error.response.text))
 
-      // alert(error.text)
+
+      alert("eee" + error.response.text)
       console.log("error:", error)
     }
 
@@ -168,22 +135,11 @@ export function Registration() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify-email')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(data)
-        .then(
-        // response => saveCode(response.text)
-      )
-        .catch(error => {
-          alert(error.response.text)
-          throw new Error;
-        })
-
+      const response = await post('auth/verify-email', data)
 
     }
     catch (error: any) {
+      alert(error.response.text)
       console.log("error:", error)
     }
 
@@ -223,27 +179,14 @@ export function Registration() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/verify-user')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(data)
-        .then(
-
-          response => alert(response.text)
-
-        )
-        .catch(error => {
-          // alert(error.response.text)
-          setVerifyError(readVerifyError(error.response.text))
-          throw new Error;
-        })
-
+      const response = await post('auth/verify-user', data)
+      alert(response.text)
       closeVerifyPopup()
       openSuccessPopup()
 
     }
     catch (error: any) {
+      setVerifyError(readVerifyError(error.response.text))
       console.log("error:", error)
     }
 

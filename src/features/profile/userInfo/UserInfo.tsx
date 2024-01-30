@@ -1,7 +1,7 @@
 
 import { Field } from "../field/Field"
 import styles from "./UserInfo.module.css"
-import photo from "../photo.svg"
+import defaultPhoto from "../photo.svg"
 import ellipse1 from "../ellipse1.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useEffect, useRef, useState } from "react"
@@ -12,12 +12,14 @@ import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { PasswordPopup } from "./passwordPopup/passwordPopup"
+import { patch, post } from "../../../utils/api"
 
 export type User = {
   name: string;
   surname: string;
   about: string;
   email: string;
+  photo: string;
 
 }
 type Props = {
@@ -29,78 +31,18 @@ type Props = {
 export function UserInfo({ savedUser, token }: Props) {
 
 
-
-  // const navigate = useNavigate()
-
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [about, setAbout] = useState("");
-
-  // const readUserInfo = (message: any) => {
-  //   var messageParsed = JSON.parse(message);
-  //   setName(messageParsed.first_name)
-  //   setSurname(messageParsed.second_name)
-  //   setEmail(messageParsed.email)
-  //   setAbout("")///////////
-
-  // }
-
-  // const readServerError = (message: any) => {
-  //   var messageParsed = JSON.parse(message);
-  //   var content = messageParsed.message
-
-  //   if (content.includes("token is expired")) {
-  //     navigate("/login")
-  //     return ("Срок действия токена вышел.")
-
-  //   }
-  //   alert(content);
-
-  // }
-
-  // const fetchUserPage = async () => {
-  //   try {
-
-  //     const response = await request.get('http://localhost:5432/users/me')
-  //       .set('Access-Control-Allow-Origin', '*')
-  //       .set('Accept', 'application/json')
-  //       .set('Content-Type', 'application/json')
-  //       .set('Authorization', `Bearer ${props.token}`)
-  //       .then(
-
-  //         response => readUserInfo(response.text)
-
-  //       )
-  //       .catch(error => {
-  //         readServerError(error.response.text)
-  //         throw new Error;
-
-  //       })
-
-  //   }
-  //   catch (error: any) {
-  //     // alert(error.text)
-  //     console.log("error:", error)
-  //   }
-
-
-  // }
-
+  const [photo, setPhoto] = useState("");
 
 
   const [isDataChanging, setIsDataChanging] = React.useState(false);
 
-  // const [oldName, setOldName] = useState("");
-  // const [oldSurname, setOldSurname] = useState("");
-  // const [oldAbout, setOldAbout] = useState("");
-
-
   const handleDataChange = () => {
     if (!isDataChanging) {
-      // setOldName(name);
-      // setOldSurname(surname);
-      // setOldAbout(about);
+      setIsDataChanging(!isDataChanging);
     }
 
     if (isDataChanging) {
@@ -110,17 +52,71 @@ export function UserInfo({ savedUser, token }: Props) {
 
       else if ((savedUser.name != name) || (savedUser.surname != surname) || (savedUser.about != about)) {
         alert("datachange")
+        changeUserInfo()
       }
       else {
         setIsDataChanging(!isDataChanging);
         alert("Ничего не сохраняем")
       }
     }
-    setIsDataChanging(!isDataChanging); /////////
   };
+  const getDataErrorMessage = () => {
+
+    if (name.length < 1 || surname.length < 1) {
+      return "Поля имя и фамилия не могут быть пустыми"
+    }
+
+    return null
+  }
+
+  var dataErrorMessage = getDataErrorMessage()
+
+  const readInfoChangeError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+    alert(content)
+    // if (content.includes("Wrong verification code")) {
+    //   return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+
+    // }
+
+    return content;
+
+  }
+
+  const changeUserInfo = async () => { //меняет данные юзера
+
+    const data = {
+      "first_name": name,
+      "second_name": surname,
+      "description": about
+    }
+    try {
+
+      const response = await patch('users/info', data, token)
+
+      alert(response.text)
+
+      setIsDataChanging(!isDataChanging);
+
+    }
+    catch (error: any) {
+      readInfoChangeError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
+
+
+
+
+
+
 
   const [isEmailChanging, setIsEmailChanging] = React.useState(false);
-  // const [oldEmail, setOldEmail] = useState("");
 
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordSubmitted, setPasswordSubmitted] = useState(false);
@@ -131,16 +127,12 @@ export function UserInfo({ savedUser, token }: Props) {
 
 
 
-
-
   const handleEmailChange = () => {
     if (!isEmailChanging) {
       setIsEmailChanging(!isEmailChanging);
-      // setOldEmail(email);
     }
 
     if (isEmailChanging) {
-      // setFormSubmitted(true)
       if (emailErrorMessage != null) {
         return;
       }
@@ -148,10 +140,6 @@ export function UserInfo({ savedUser, token }: Props) {
       else if (savedUser.email != email) {
         alert("emailchange")
         openPasswordPopup()
-        // setIsEmailChanging(!isEmailChanging);
-
-        // verifyEmail()
-
 
       } else {
         alert("Ничего не сохраняем")
@@ -160,11 +148,16 @@ export function UserInfo({ savedUser, token }: Props) {
 
     }
 
-
-
-
-
   };
+  const getEmailErrorMessage = () => {
+
+    if (!validator.isEmail(email)) {
+      return "Некорректно введен адрес эл. почты"
+    }
+
+    return null
+  }
+  var emailErrorMessage = getEmailErrorMessage()
 
   const openPasswordPopup = () => {
     disableScroll.on()
@@ -216,25 +209,15 @@ export function UserInfo({ savedUser, token }: Props) {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/users/verify-email')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .send(data)
-        .then(
-          response => alert(response.text)
-        )
-        .catch(error => {
-          setVerifyError(readVerifyError(error.response.text));
-          throw new Error;
+      const response = await post('users/verify-email', data, token)
 
-        })
+      alert(response.text)
       closePasswordPopup()
       openVerifyPopup()
     }
     catch (error: any) {
       // alert(error.text)
+      setVerifyError(readVerifyError(error.response.text));
       console.log("error:", error)
     }
 
@@ -261,8 +244,7 @@ export function UserInfo({ savedUser, token }: Props) {
 
   const [verifySubmitted, setVerifySubmitted] = useState(false)
 
-
-  const readChangeError = (message: any) => {
+  const readEmailChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
     alert(content)
@@ -283,32 +265,21 @@ export function UserInfo({ savedUser, token }: Props) {
     }
     try {
 
-      const response = await request.patch('http://localhost:5432/users/change-email')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .send(data)
-        .then(
-          response => alert(response.text)
-        )
-        .catch(error => {
-          setVerifyError(readChangeError(error.response.text))
-          throw new Error;
+      const response = await patch('users/change-email', data, token)
 
-        })
+      alert(response.text)
       closeVerifyPopup()
       setIsEmailChanging(!isEmailChanging);
+
     }
     catch (error: any) {
       // alert(error.text)
+      setVerifyError(readEmailChangeError(error.response.text))
       console.log("error:", error)
     }
 
 
   }
-
-
 
 
 
@@ -327,32 +298,6 @@ export function UserInfo({ savedUser, token }: Props) {
 
 
 
-  const getDataErrorMessage = () => {
-
-    if (name.length < 1 || surname.length < 1) {
-      return "Поля имя и фамилия не могут быть пустыми"
-    }
-
-    return null
-  }
-
-
-  var dataErrorMessage = getDataErrorMessage()
-
-  const getEmailErrorMessage = () => {
-
-    if (!validator.isEmail(email)) {
-      return "Некорректно введен адрес эл. почты"
-    }
-
-    return null
-  }
-  var emailErrorMessage = getEmailErrorMessage()
-
-
-
-
-
 
 
 
@@ -362,12 +307,15 @@ export function UserInfo({ savedUser, token }: Props) {
 
 
   useEffect(() => {
+  
 
     disableScroll.off();
     setName(savedUser.name)
     setSurname(savedUser.surname)
     setAbout(savedUser.about)
     setEmail(savedUser.email)
+    setPhoto(savedUser.photo)
+
 
   }, [savedUser]);
 
@@ -389,14 +337,11 @@ export function UserInfo({ savedUser, token }: Props) {
             Личные данные
           </div>
           <div className={styles.photo}>
-            <img src={photo} />
+            <img src={photo == "" ? defaultPhoto : photo} />
           </div>
           <Button text={"Сменить фотографию профиля"} onClick={function (): void {
             throw new Error("Function not implemented.")
           }} className={styles.footerButton} />
-
-
-
         </div>
 
 
