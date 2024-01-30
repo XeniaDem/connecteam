@@ -13,87 +13,94 @@ import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { PasswordPopup } from "./passwordPopup/passwordPopup"
 
+export type User = {
+  name: string;
+  surname: string;
+  about: string;
+  email: string;
 
+}
 type Props = {
   token: string;
+  savedUser: User;
+
 }
 
-export function UserInfo(props: Props) {
+export function UserInfo({ savedUser, token }: Props) {
 
-  const navigate = useNavigate()
+
+
+  // const navigate = useNavigate()
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [about, setAbout] = useState("");
 
-  const readUserInfo = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    setName(messageParsed.first_name)
-    setSurname(messageParsed.second_name)
-    setEmail(messageParsed.email)
-    setAbout("")///////////
+  // const readUserInfo = (message: any) => {
+  //   var messageParsed = JSON.parse(message);
+  //   setName(messageParsed.first_name)
+  //   setSurname(messageParsed.second_name)
+  //   setEmail(messageParsed.email)
+  //   setAbout("")///////////
 
-  }
+  // }
 
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
+  // const readServerError = (message: any) => {
+  //   var messageParsed = JSON.parse(message);
+  //   var content = messageParsed.message
 
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
+  //   if (content.includes("token is expired")) {
+  //     navigate("/login")
+  //     return ("Срок действия токена вышел.")
 
-    }
-    alert(content);
+  //   }
+  //   alert(content);
 
-  }
+  // }
 
-  const fetchUserPage = async () => {
-    const data = {
+  // const fetchUserPage = async () => {
+  //   try {
 
-    }
-    try {
+  //     const response = await request.get('http://localhost:5432/users/me')
+  //       .set('Access-Control-Allow-Origin', '*')
+  //       .set('Accept', 'application/json')
+  //       .set('Content-Type', 'application/json')
+  //       .set('Authorization', `Bearer ${props.token}`)
+  //       .then(
 
-      const response = await request.get('http://localhost:5432/users/me')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${props.token}`)
-        .send()
-        .then(
+  //         response => readUserInfo(response.text)
 
-          response => readUserInfo(response.text)
+  //       )
+  //       .catch(error => {
+  //         readServerError(error.response.text)
+  //         throw new Error;
 
-        )
-        .catch(error => {
-          readServerError(error.response.text)
-          throw new Error;
+  //       })
 
-        })
-      // setFetched(true);
-
-    }
-    catch (error: any) {
-      // alert(error.text)
-      console.log("error:", error)
-    }
+  //   }
+  //   catch (error: any) {
+  //     // alert(error.text)
+  //     console.log("error:", error)
+  //   }
 
 
-  }
+  // }
+
+
 
   const [isDataChanging, setIsDataChanging] = React.useState(false);
 
-  const [oldName, setOldName] = useState("");
-  const [oldSurname, setOldSurname] = useState("");
-  const [oldAbout, setOldAbout] = useState("");
+  // const [oldName, setOldName] = useState("");
+  // const [oldSurname, setOldSurname] = useState("");
+  // const [oldAbout, setOldAbout] = useState("");
 
 
   const handleDataChange = () => {
     if (!isDataChanging) {
-      setOldName(name);
-      setOldSurname(surname);
-      setOldAbout(about);
+      // setOldName(name);
+      // setOldSurname(surname);
+      // setOldAbout(about);
     }
 
     if (isDataChanging) {
@@ -101,7 +108,7 @@ export function UserInfo(props: Props) {
         return;
       }
 
-      else if ((oldName != name) || (oldSurname != surname) || (oldAbout != about)) {
+      else if ((savedUser.name != name) || (savedUser.surname != surname) || (savedUser.about != about)) {
         alert("datachange")
       }
       else {
@@ -113,7 +120,7 @@ export function UserInfo(props: Props) {
   };
 
   const [isEmailChanging, setIsEmailChanging] = React.useState(false);
-  const [oldEmail, setOldEmail] = useState("");
+  // const [oldEmail, setOldEmail] = useState("");
 
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordSubmitted, setPasswordSubmitted] = useState(false);
@@ -129,7 +136,7 @@ export function UserInfo(props: Props) {
   const handleEmailChange = () => {
     if (!isEmailChanging) {
       setIsEmailChanging(!isEmailChanging);
-      setOldEmail(email);
+      // setOldEmail(email);
     }
 
     if (isEmailChanging) {
@@ -138,7 +145,7 @@ export function UserInfo(props: Props) {
         return;
       }
 
-      else if (oldEmail != email) {
+      else if (savedUser.email != email) {
         alert("emailchange")
         openPasswordPopup()
         // setIsEmailChanging(!isEmailChanging);
@@ -213,7 +220,7 @@ export function UserInfo(props: Props) {
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${props.token}`)
+        .set('Authorization', `Bearer ${token}`)
         .send(data)
         .then(
           response => alert(response.text)
@@ -280,7 +287,7 @@ export function UserInfo(props: Props) {
         .set('Access-Control-Allow-Origin', '*')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${props.token}`)
+        .set('Authorization', `Bearer ${token}`)
         .send(data)
         .then(
           response => alert(response.text)
@@ -350,18 +357,19 @@ export function UserInfo(props: Props) {
 
 
 
-  
 
- 
+
+
 
   useEffect(() => {
 
-    if (!changePasswordOpen && !verifyOpen && !passwordOpen) {
+    disableScroll.off();
+    setName(savedUser.name)
+    setSurname(savedUser.surname)
+    setAbout(savedUser.about)
+    setEmail(savedUser.email)
 
-      disableScroll.off();
-      fetchUserPage();
-    }
-  }, []);
+  }, [savedUser]);
 
 
 
@@ -436,7 +444,7 @@ export function UserInfo(props: Props) {
       {verifyOpen ? <EmailConfirmationPopup onClick={changeEmail}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-      {changePasswordOpen ? <ChangePasswordPopup closePopup={closeChangePasswordPopup} token = {props.token} /> : null}
+      {changePasswordOpen ? <ChangePasswordPopup closePopup={closeChangePasswordPopup} token={token} /> : null}
 
     </div>
   )

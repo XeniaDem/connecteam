@@ -147,18 +147,6 @@ export function Login() {
       // alert("token to send " + token)
       navigate("/user_page", { state: { token: token } })
 
-
-      // if (response.ok) {
-      //   const jsonContent = await response.body;
-      //   console.log(jsonContent);
-      // } else {
-      //   alert("ndnbdnd")
-
-      //   const textContent = response.text;
-      //   alert(textContent)
-      //   console.log("textContent", textContent);
-
-      // }
     }
     catch (error: any) {
 
@@ -171,7 +159,7 @@ export function Login() {
   const [id, setId] = useState("");
   // const [code, setCode] = useState("");
 
-  const saveIdAndCode = (message: any) => {
+  const saveId = (message: any) => {
     var messageParsed = JSON.parse(message);
     var id = messageParsed.id
     // var code = messageParsed.confirmationCode
@@ -192,7 +180,7 @@ export function Login() {
         .set('Content-Type', 'application/json')
         .send(data)
         .then(
-          response => saveIdAndCode(response.text)
+          response => saveId(response.text)
         )
         .catch(error => {
           alert(error.response.text)
@@ -232,16 +220,11 @@ export function Login() {
   }
 
 
-
   const verifyUser = async () => {
     // alert("saved id2: " + id)
     setVerifySubmitted(true)
     setVerifyError("")
-    // if (codeValue != code) {
-    //   setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-    //   // alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
-    //   return;
-    // }
+
     alert(codeValue)
 
     const data = {

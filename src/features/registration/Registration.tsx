@@ -12,6 +12,7 @@ import * as request from "superagent";
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
 import { Header } from "../header/Header"
+import { post } from "../../utils/api"
 
 
 export function Registration() {
@@ -116,22 +117,23 @@ export function Registration() {
     }
     try {
 
-      const response = await request.post('http://localhost:5432/auth/sign-up')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(data)
-        .then(
+      const response = await post('auth/sign-up', data )
+        // .set('Access-Control-Allow-Origin', '*')
+        // .set('Accept', 'application/json')
+        // .set('Content-Type', 'application/json')
+        // .send(data)
+        saveId(response.text)
+        // .then(
 
-          response => saveId(response.text)
+        //   response => saveId(response.text)
 
-        )
-        .catch(error => {
-          setRegistrationError(readServerError(error.response.text))
-          // alert(registrationError)
-          throw new Error;
+        // )
+        // .catch(error => {
+        //   // setRegistrationError(readServerError(error.response.text))
+        //   // alert(registrationError)
+        //   throw new Error;
 
-        })
+        // })
 
       setRegistrationError("")
       verifyEmail()
@@ -152,6 +154,7 @@ export function Registration() {
 
     }
     catch (error: any) {
+      setRegistrationError(readServerError(error.response.text))
 
       // alert(error.text)
       console.log("error:", error)
@@ -159,14 +162,6 @@ export function Registration() {
 
   }
 
-  // const [code, setCode] = useState("");
-  // const saveCode = (message: any) => {
-  //   alert(message)
-  //   var messageParsed = JSON.parse(message);
-  //   var content = messageParsed.confirmationCode
-  //   setCode(content)
-
-  // }
   const verifyEmail = async () => {
     const data = {
       "email": email,
@@ -221,13 +216,6 @@ export function Registration() {
   const verifyUser = async () => {
     setVerifySubmitted(true)
     setVerifyError("")
-    // alert("idtosend: " + id)
-    // if (codeValue != code) {
-    //   setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-    //   alert("Коды не совпадают. " + " saved: " + code + " typed: " + codeValue)
-    //   return;
-    // }
-
     const data = {
       "id": id.toString(),
       "code": codeValue
