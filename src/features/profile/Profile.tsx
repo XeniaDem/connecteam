@@ -19,16 +19,15 @@ export function Profile() {
   const { state } = useLocation();
 
   const { token } = state;
-  // alert("token on page:" + token)
 
 
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Header loggedHeader={true} token = {token}/>
+        <Header loggedHeader={true} token={token} />
       </div>
-      <UserInfo token = {token} />
+      <UserInfo token={token} />
       <div className={styles.divider} />
 
 

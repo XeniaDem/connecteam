@@ -22,148 +22,6 @@ export function UserInfo(props: Props) {
 
   const navigate = useNavigate()
 
-  const [isDataChanging, setIsDataChanging] = React.useState(false);
-
-  const [oldName, setOldName] = useState("");
-  const [oldSurname, setOldSurname] = useState("");
-  const [oldAbout, setOldAbout] = useState("");
-
-  const handleDataChange = () => {
-    if (!isDataChanging) {
-      setOldName(name);
-      setOldSurname(surname);
-      setOldAbout(about);
-    }
-
-    if (isDataChanging) {
-      // setFormSubmitted(true)
-      if (dataErrorMessage != null) {
-        return;
-      }
-
-      else if (oldName != name) {
-        alert("namechange")
-      }
-      else if (oldSurname != surname) {
-        alert("surnamechange")
-
-      }
-      else if (oldAbout != about) {
-        alert("aboutchange")
-      } else {
-        alert("Ничего не сохраняем")
-      }
-
-
-
-
-    }
-
-    setIsDataChanging(!isDataChanging);
-
-
-  };
-
-  const [isEmailChanging, setIsEmailChanging] = React.useState(false);
-  const [oldEmail, setOldEmail] = useState("");
-
-  const [passwordOpen, setPasswordOpen] = useState(false);
-  const [passwordSubmitted, setPasswordSubmitted] = useState(false);
-  const [password, setPassword] = useState("");
-
-
-  const [verifyError, setVerifyError] = useState<undefined | string>('');
-
-  const openPasswordPopup = () => {
-    disableScroll.on()
-    setPasswordOpen(true)
-
-  }
-  const closePasswordPopup = () => {
-    disableScroll.off()
-    setPassword("")
-    passwordError = "";
-    setVerifyError("")
-    setPasswordSubmitted(false)
-    setPasswordOpen(false)
-
-  }
-  const getPasswordError = () => {
-    if (password.length < 8) {
-      return "Пароль должен содержать хотя бы 8 символов"
-
-    }
-    return null;
-
-  };
-  var passwordError = getPasswordError();
-
-
-
-  const handleEmailChange = () => {
-    if (!isEmailChanging) {
-      setIsEmailChanging(!isEmailChanging);
-      setOldEmail(email);
-    }
-
-    if (isEmailChanging) {
-      // setFormSubmitted(true)
-      if (emailErrorMessage != null) {
-        return;
-      }
-
-      else if (oldEmail != email) {
-        alert("emailchange")
-        openPasswordPopup()
-        // setIsEmailChanging(!isEmailChanging);
-
-        // verifyEmail()
-
-
-      } else {
-        alert("Ничего не сохраняем")
-        setIsEmailChanging(!isEmailChanging);
-      }
-
-    }
-
-
-
-
-
-  };
-
-  const openVerifyPopup = () => {
-    disableScroll.on()
-    setVerifyOpen(true)
-
-  }
-  const closeVerifyPopup = () => {
-    disableScroll.off()
-    setCodeValue("")
-    setVerifyOpen(false)
-
-  }
-  const [verifyOpen, setVerifyOpen] = useState(false);
-
-
-
-
-
-  const openChangePasswordPopup = () => {
-    disableScroll.on()
-    setChangePasswordOpen(true)
-
-  }
-  const closeChangePasswordPopup = () => {
-    disableScroll.off()
-    setChangePasswordOpen(false)
-
-  }
-  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
-
-
-
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -177,28 +35,6 @@ export function UserInfo(props: Props) {
     setAbout("")///////////
 
   }
-  const getDataErrorMessage = () => {
-
-    if (name.length < 1 || surname.length < 1) {
-      return "Поля имя и фамилия не могут быть пустыми"
-    }
-
-    return null
-  }
-
-
-  var dataErrorMessage = getDataErrorMessage()
-
-  const getEmailErrorMessage = () => {
-
-    if (!validator.isEmail(email)) {
-      return "Некорректно введен адрес эл. почты"
-    }
-
-    return null
-  }
-  var emailErrorMessage = getEmailErrorMessage()
-
 
   const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
@@ -246,38 +82,127 @@ export function UserInfo(props: Props) {
 
   }
 
+  const [isDataChanging, setIsDataChanging] = React.useState(false);
 
-  const [codeValue, setCodeValue] = useState<undefined | string>('');
+  const [oldName, setOldName] = useState("");
+  const [oldSurname, setOldSurname] = useState("");
+  const [oldAbout, setOldAbout] = useState("");
 
 
-  const [verifySubmitted, setVerifySubmitted] = useState(false)
+  const handleDataChange = () => {
+    if (!isDataChanging) {
+      setOldName(name);
+      setOldSurname(surname);
+      setOldAbout(about);
+    }
+
+    if (isDataChanging) {
+      if (dataErrorMessage != null) {
+        return;
+      }
+
+      else if ((oldName != name) || (oldSurname != surname) || (oldAbout != about)) {
+        alert("datachange")
+      }
+      else {
+        setIsDataChanging(!isDataChanging);
+        alert("Ничего не сохраняем")
+      }
+    }
+    setIsDataChanging(!isDataChanging); /////////
+  };
+
+  const [isEmailChanging, setIsEmailChanging] = React.useState(false);
+  const [oldEmail, setOldEmail] = useState("");
+
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [passwordSubmitted, setPasswordSubmitted] = useState(false);
+  const [password, setPassword] = useState("");
 
 
+  const [verifyError, setVerifyError] = useState<undefined | string>('');
+
+
+
+
+
+  const handleEmailChange = () => {
+    if (!isEmailChanging) {
+      setIsEmailChanging(!isEmailChanging);
+      setOldEmail(email);
+    }
+
+    if (isEmailChanging) {
+      // setFormSubmitted(true)
+      if (emailErrorMessage != null) {
+        return;
+      }
+
+      else if (oldEmail != email) {
+        alert("emailchange")
+        openPasswordPopup()
+        // setIsEmailChanging(!isEmailChanging);
+
+        // verifyEmail()
+
+
+      } else {
+        alert("Ничего не сохраняем")
+        setIsEmailChanging(!isEmailChanging);
+      }
+
+    }
+
+
+
+
+
+  };
+
+  const openPasswordPopup = () => {
+    disableScroll.on()
+    setPasswordOpen(true)
+
+  }
+  const closePasswordPopup = () => {
+    disableScroll.off()
+    setPassword("")
+    passwordError = "";
+    setVerifyError("")
+    setPasswordSubmitted(false)
+    setPasswordOpen(false)
+
+  }
+  const getPasswordError = () => {
+    if (password.length < 8) {
+      return "Пароль должен содержать хотя бы 8 символов"
+
+    }
+    return null;
+
+  };
+  var passwordError = getPasswordError();
 
   const readVerifyError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
     if (content.includes("Email is already taken")) {
-
       return ("Введенный эл. адрес уже используется другим пользователем.")
-
     }
     if (content.includes("Wrong password")) {
-
       return ("Пароль неверен. Пожалуйста, попробуйте еще раз.")
-
     }
     return content;
 
   }
 
-  const verifyEmail = async () => {
+  const verifyEmail = async () => { //проверяет новый email на незанятость а также пароль
     setPasswordSubmitted(true)
     if (passwordError != null) {
       return;
     }
-    setVerifySubmitted(true)
+    // setVerifySubmitted(true)
     const data = {
       email: email,
       password: password
@@ -291,18 +216,14 @@ export function UserInfo(props: Props) {
         .set('Authorization', `Bearer ${props.token}`)
         .send(data)
         .then(
-
           response => alert(response.text)
-
         )
         .catch(error => {
           setVerifyError(readVerifyError(error.response.text));
           throw new Error;
 
         })
-      setVerifyError("")
       closePasswordPopup()
-
       openVerifyPopup()
     }
     catch (error: any) {
@@ -312,6 +233,27 @@ export function UserInfo(props: Props) {
 
 
   }
+
+
+  const openVerifyPopup = () => {
+    disableScroll.on()
+    setVerifyOpen(true)
+
+  }
+  const closeVerifyPopup = () => {
+    disableScroll.off()
+    setCodeValue("")
+    setVerifyError("")
+    setVerifySubmitted(false)
+    setVerifyOpen(false)
+
+  }
+  const [verifyOpen, setVerifyOpen] = useState(false);
+
+  const [codeValue, setCodeValue] = useState<undefined | string>('');
+
+  const [verifySubmitted, setVerifySubmitted] = useState(false)
+
 
   const readChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
@@ -326,9 +268,8 @@ export function UserInfo(props: Props) {
 
   }
 
-
-
-  const changeEmail = async () => {
+  const changeEmail = async () => { //меняет емаил если он подтвержден кодом
+    setVerifySubmitted(true)
     const data = {
       new_email: email,
       code: codeValue
@@ -342,20 +283,15 @@ export function UserInfo(props: Props) {
         .set('Authorization', `Bearer ${props.token}`)
         .send(data)
         .then(
-
           response => alert(response.text)
-
         )
         .catch(error => {
           setVerifyError(readChangeError(error.response.text))
           throw new Error;
 
         })
-
-
       closeVerifyPopup()
       setIsEmailChanging(!isEmailChanging);
-
     }
     catch (error: any) {
       // alert(error.text)
@@ -364,6 +300,59 @@ export function UserInfo(props: Props) {
 
 
   }
+
+
+
+
+
+  const openChangePasswordPopup = () => {
+    disableScroll.on()
+    setChangePasswordOpen(true)
+
+  }
+  const closeChangePasswordPopup = () => {
+    disableScroll.off()
+    setChangePasswordOpen(false)
+
+  }
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+
+
+
+
+  const getDataErrorMessage = () => {
+
+    if (name.length < 1 || surname.length < 1) {
+      return "Поля имя и фамилия не могут быть пустыми"
+    }
+
+    return null
+  }
+
+
+  var dataErrorMessage = getDataErrorMessage()
+
+  const getEmailErrorMessage = () => {
+
+    if (!validator.isEmail(email)) {
+      return "Некорректно введен адрес эл. почты"
+    }
+
+    return null
+  }
+  var emailErrorMessage = getEmailErrorMessage()
+
+
+
+
+
+
+
+
+
+  
+
+ 
 
   useEffect(() => {
 

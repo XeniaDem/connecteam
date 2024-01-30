@@ -14,10 +14,11 @@ export function UserPage() {
 
   const navigate = useNavigate();
 
+
   const { state } = useLocation();
- 
-    const { token } = state;
-  // alert("token on page:" + token)
+  const { token } = state;
+
+
 
 
   const [fetched, setFetched] = useState(false);
@@ -56,12 +57,11 @@ export function UserPage() {
     setPhone(phone)
 
 
-    alert("data: " + "\n access: " + access + "\n company: " + companyName +
-      "\n name: " + name + " \n surname: " + surname +
-      "\n id: " + id + "\n image: " + image + "\n email: " + email + "\n phone: " + phone)
+    // alert("data: " + "\n access: " + access + "\n company: " + companyName +
+    //   "\n name: " + name + " \n surname: " + surname +
+    //   "\n id: " + id + "\n image: " + image + "\n email: " + email + "\n phone: " + phone)
     
     readAccess()
-    setFetched(true)
 
   }
 
@@ -71,7 +71,6 @@ export function UserPage() {
   const [basicActive, setBasicActive] = useState(false);
   const [advancedActive, setAdvancedActive] = useState(false);
   const [premiumActive, setPremiumActive] = useState(false);
-
 
 
   const readAccess = () => {
@@ -116,19 +115,7 @@ export function UserPage() {
 
   }
 
-
-
-
   const fetchUserPage = async () => {
-
-    if (fetched) {
-      alert("data already fetched");
-      return;
-    }
-
-    const data = {
-
-    }
     try {
 
       const response = await request.get('http://localhost:5432/users/me')
@@ -152,19 +139,17 @@ export function UserPage() {
 
     }
     catch (error: any) {
-
-      // alert(error.text)
       console.log("error:", error)
     }
 
 
   }
+
+
+
   useEffect(() => {
-    
     disableScroll.off()
     fetchUserPage();
-
-    // alert("loaded");
   }, []);
 
 

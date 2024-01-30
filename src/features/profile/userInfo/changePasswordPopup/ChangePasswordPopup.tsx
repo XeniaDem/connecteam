@@ -37,14 +37,12 @@ export function ChangePasswordPopup(props: Props) {
 
   var passwordError = getPasswordError();
 
-
   const [serverError, setServerError] = useState(false);
 
 
   const readChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
-    alert(content)
     if (content.includes("Wrong old password")) {
       return ("Текущий пароль неверен. Пожалуйста, попробуйте еще раз.")
 
@@ -58,7 +56,6 @@ export function ChangePasswordPopup(props: Props) {
     if (passwordError != null) {
       return;
     }
-    alert("old p " + oldPassword)
     const data = {
       new_password: password,
       old_password: oldPassword
@@ -87,8 +84,6 @@ export function ChangePasswordPopup(props: Props) {
       // alert(error.text)
       console.log("error:", error)
     }
-
-
   }
 
 
@@ -110,8 +105,6 @@ export function ChangePasswordPopup(props: Props) {
           <div className={styles.title}>
             Для смены пароля укажите ваш старый и новый пароль.
           </div>
-
-
 
           <div className={styles.inputs}>
             <div className={styles.inputContainer}>
@@ -146,10 +139,6 @@ export function ChangePasswordPopup(props: Props) {
           ) : (
             <div />
           )}
-
-
-
-
           <Button text={"Сменить пароль"} onClick={changePassword} className={styles.sendButton} />
 
         </div>

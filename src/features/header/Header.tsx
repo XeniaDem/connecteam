@@ -23,7 +23,9 @@ export function Header(props: Props) {
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.logo}>
-            <img src={logo} />
+            <img src={logo} onClick={() => {
+              navigate("/user_page", { state: { token: props.token } })
+            }} />
           </div>
 
 
