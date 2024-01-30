@@ -121,9 +121,6 @@ export function Registration() {
     }
     catch (error: any) {
       setRegistrationError(readServerError(error.response.text))
-
-
-      alert("eee" + error.response.text)
       console.log("error:", error)
     }
 

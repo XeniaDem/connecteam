@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./ChangePasswordPopup.module.css"
 import request from "superagent";
+import { patch } from "../../../../utils/api";
 
 
 type Props = {
@@ -26,7 +27,6 @@ export function ChangePasswordPopup(props: Props) {
 
     if (oldPassword.length < 8 || password.length < 8 || passwordRepeated.length < 8) {
       return "Пароли должны содержать хотя бы 8 символов"
-
     }
     if (password != passwordRepeated) {
       return "Пароли не совпадают"
@@ -62,25 +62,13 @@ export function ChangePasswordPopup(props: Props) {
     }
     try {
 
-      const response = await request.patch('http://localhost:5432/users/change-password')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${props.token}`)
-        .send(data)
-        .then(
+      const response = await patch('users/change-password', data, props.token)
+      props.closePopup();
 
-        )
-        .catch(error => {
-          setServerError(readChangeError(error.response.text));
-          throw new Error;
-
-        })
-        props.closePopup();
-        
 
     }
     catch (error: any) {
+      setServerError(readChangeError(error.response.text));
       // alert(error.text)
       console.log("error:", error)
     }
@@ -109,15 +97,15 @@ export function ChangePasswordPopup(props: Props) {
           <div className={styles.inputs}>
             <div className={styles.inputContainer}>
               <input type={showPassword ? "text" : "password"}
-                className={styles.input} placeholder="Старый пароль" value={oldPassword} onChange={(event) => { setOldPassword(event.target.value) }} />
+                className={styles.input} placeholder="Старый пароль" value={oldPassword} onChange={(event) => { setOldPassword((event.target.value).replace(/\s/g, '')) }} />
 
               <Button text={""} onClick={handleChange} className={showPassword ? styles.eye : styles.eyeClosed}
               />
             </div>
             <input type={showPassword ? "text" : "password"}
-              className={styles.input} placeholder="Новый пароль" value={password} onChange={(event) => { setPassword(event.target.value) }} />
+              className={styles.input} placeholder="Новый пароль" value={password} onChange={(event) => { setPassword((event.target.value).replace(/\s/g, '')) }} />
             <input type={showPassword ? "text" : "password"}
-              className={styles.input} placeholder="Повторите пароль" value={passwordRepeated} onChange={(event) => { setPasswordRepeated(event.target.value) }} />
+              className={styles.input} placeholder="Повторите пароль" value={passwordRepeated} onChange={(event) => { setPasswordRepeated((event.target.value).replace(/\s/g, '')) }} />
           </div>
 
           {formSubmitted && (passwordError) ? (
