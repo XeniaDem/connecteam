@@ -12,6 +12,8 @@ import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { SuccessPopup } from "../registration/successPopup/SuccessPopup"
 import { Header } from "../header/Header"
+import { useDispatch } from "react-redux"
+import { setToken } from "../auth/authSlice"
 
 
 export function Login() {
@@ -91,6 +93,7 @@ export function Login() {
 
     // setToken(content)
     token = content
+    dispatch(setToken(token))
 
   }
 
@@ -114,6 +117,8 @@ export function Login() {
 
 
   const [loginError, setLoginError] = useState("")
+
+  const dispatch = useDispatch()
 
   const login = async () => {
     setFormSubmitted(true)

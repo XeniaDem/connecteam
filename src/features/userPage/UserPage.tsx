@@ -7,6 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { Header } from "../header/Header"
+import { useSelector } from "react-redux"
+import { selectToken } from "../auth/authSlice"
 
 
 
@@ -15,8 +17,10 @@ export function UserPage() {
   const navigate = useNavigate();
 
 
-  const { state } = useLocation();
-  const { token } = state;
+  // const { state } = useLocation();
+  // const { token } = state;
+  const token = useSelector(selectToken)
+
 
 
 

@@ -1,6 +1,8 @@
 
+import { useSelector } from "react-redux";
 import { Button } from "../../../components/button/Button"
 import styles from "./LastGames.module.css"
+import { selectToken } from "../../auth/authSlice";
 
 
 type Props = {
@@ -9,11 +11,12 @@ type Props = {
 
 
 export function LastGames(props: Props) {
+  const token = useSelector(selectToken)
   return (
     <div>
       <div className={styles.container} id = {props.id} >
         <div className={styles.title}>
-          Последние игры
+          Последние игры {token}
         </div>
         <div className={styles.subtitle}>
           Кликните на игру, чтобы посмотреть ее состояние

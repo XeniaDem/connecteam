@@ -38,7 +38,7 @@ export function Header(props: Props) {
           ) : (
             <div />
           )}
-          <HeaderItem text="Мои игры" link = "#my_games"/>
+          <HeaderItem text="Мои игры" link = "#games"/>
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
