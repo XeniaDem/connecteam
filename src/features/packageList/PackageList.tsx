@@ -3,32 +3,73 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import styles from "./PackageList.module.css"
 import tick from "./tick.svg"
+import { useEffect, useState } from "react";
 
 type Props = {
-  basicActive?: boolean;
-  advancedActive?: boolean;
-  premiumActive?: boolean;
+  // basicActive?: boolean;
+  // advancedActive?: boolean;
+  // premiumActive?: boolean;
   dateExpiry?: string;
   isLogged: boolean;
+  access?: string;
 
 }
 
-PackageList.defaultProps = { bacisActive: false, advancedActive: false, premiumActive: false, dateExpiry: "01.01.2024" }
+PackageList.defaultProps = { basicActive: false, advancedActive: false, premiumActive: false, dateExpiry: "01.01.2024" }
 
 
-export function PackageList(props: Props) {
+export function PackageList({access, isLogged, dateExpiry}: Props) {
   const navigate = useNavigate()
 
 
   const choosePackage = () => {
 
-    if (!props.isLogged) {
+    if (!isLogged) {
       navigate("/register")
     } else {
-      /////
+      /////tbd
     }
 
   }
+
+  // const [withPackage, setWithPackage] = useState(false);
+
+  const [basicActive, setBasicActive] = useState(false);
+  const [advancedActive, setAdvancedActive] = useState(false);
+  const [premiumActive, setPremiumActive] = useState(false);
+
+
+  const readAccess = () => {
+
+    if (access == "user") {
+      setBasicActive(false);
+      setAdvancedActive(false);
+      setPremiumActive(false);
+
+    }
+    if (access == "basic") {
+      setBasicActive(true);
+      setAdvancedActive(false);
+      setPremiumActive(false);
+    }
+    if (access == "advanced") {
+      setBasicActive(false);
+      setAdvancedActive(true);
+      setPremiumActive(false);
+    }
+    if (access == "premium") {
+      setBasicActive(false);
+      setAdvancedActive(false);
+      setPremiumActive(true);
+    }
+
+  }
+
+  useEffect(() => {
+    
+    readAccess()
+
+  }, []);
 
 
   return (
@@ -36,7 +77,7 @@ export function PackageList(props: Props) {
       <div className={styles.container}>
         <div className={styles.card}>
 
-        {props.basicActive ? (
+        {basicActive ? (
           <div className={styles.nameActive}>
             Простой
           </div>
@@ -82,10 +123,10 @@ export function PackageList(props: Props) {
           </div>
 
 
-          {props.basicActive ? (
+          {basicActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки {props.dateExpiry}
+                Дата истечения срока подписки {dateExpiry}
               </div>
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
@@ -104,7 +145,7 @@ export function PackageList(props: Props) {
 
         <div className={styles.card}>
 
-        {props.advancedActive ? (
+        {advancedActive ? (
           <div className={styles.nameActive}>
             Расширенный
           </div>
@@ -159,10 +200,10 @@ export function PackageList(props: Props) {
 
 
           
-          {props.advancedActive ? (
+          {advancedActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки {props.dateExpiry}
+                Дата истечения срока подписки {dateExpiry}
               </div>
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
@@ -178,7 +219,7 @@ export function PackageList(props: Props) {
 
         <div className={styles.card}>
 
-        {props.premiumActive ? (
+        {premiumActive ? (
           <div className={styles.nameActive}>
             Широкий
           </div>
@@ -241,10 +282,10 @@ export function PackageList(props: Props) {
 
 
           
-          {props.premiumActive ? (
+          {premiumActive ? (
             <div className = {styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки {props.dateExpiry}
+                Дата истечения срока подписки {dateExpiry}
               </div>
 
               <Button text={"Участники пакета"} onClick={function (): void {

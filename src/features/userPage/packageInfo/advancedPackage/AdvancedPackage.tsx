@@ -6,7 +6,7 @@ import tick from "../tick.svg"
 
 
 
-export function ExtendedPackage() {
+export function AdvancedPackage() {
 
 
     return (

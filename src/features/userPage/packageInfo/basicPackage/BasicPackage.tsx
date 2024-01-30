@@ -2,14 +2,18 @@
 import styles from "../Package.module.css"
 import tick from "../tick.svg"
 
-export function WidePackage() {
+
+
+
+
+export function BasicPackage() {
 
 
     return (
       <div>
         <div className={styles.container}>
           <div className={styles.name}>
-            Широкий
+            Простой
           </div>
           <div className={styles.textBoxes}>
             <div className={styles.textBox}>
@@ -26,7 +30,7 @@ export function WidePackage() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-              Возможность добавления авторизованных пользователей сервиса в качестве дополнительных организаторов игр (до 3-х) человек.
+                3 темы с вопросами
               </div>
             </div>
             <div className={styles.textBox}>
@@ -34,7 +38,7 @@ export function WidePackage() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-              10 тем с вопросами
+                Не более 10 вопросов на каждую тему
               </div>
             </div>
             <div className={styles.textBox}>
@@ -42,27 +46,12 @@ export function WidePackage() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-              До 50 вопросов на каждую тему
+                Возможность добавлять в одну игру не более 4 игроков
               </div>
             </div>
-            <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
-              Возможность приглашать в одну игру до 7 игроков
-              </div>
-            </div>
-            <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
-              Возможность выбора темы для конкректной игры
-              </div>
-            </div>
-
+        
           </div>
+       
 
         </div>
 

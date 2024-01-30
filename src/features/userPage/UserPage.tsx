@@ -9,6 +9,7 @@ import disableScroll from 'disable-scroll';
 import { Header } from "../header/Header"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
+import { get } from "../../utils/api"
 
 
 
@@ -21,11 +22,6 @@ export function UserPage() {
   // const { token } = state;
   const token = useSelector(selectToken)
 
-
-
-
-
-  const [fetched, setFetched] = useState(false);
 
 
 
@@ -66,48 +62,10 @@ export function UserPage() {
     // alert("data: " + "\n access: " + access + "\n company: " + companyName +
     //   "\n name: " + name + " \n surname: " + surname +
     //   "\n id: " + id + "\n image: " + image + "\n email: " + email + "\n phone: " + phone)
-    
-    readAccess()
+
 
   }
 
-
-  const [withPackage, setWithPackage] = useState(false);
-
-  const [basicActive, setBasicActive] = useState(false);
-  const [advancedActive, setAdvancedActive] = useState(false);
-  const [premiumActive, setPremiumActive] = useState(false);
-
-
-  const readAccess = () => {
-
-    if (access == "user") {
-      setWithPackage(false)
-      setBasicActive(false);
-      setAdvancedActive(false);
-      setPremiumActive(false);
-
-    }
-    if (access == "basic") {
-      setWithPackage(true)
-      setBasicActive(true);
-      setAdvancedActive(false);
-      setPremiumActive(false);
-    }
-    if (access == "advanced") {
-      setWithPackage(true)
-      setBasicActive(false);
-      setAdvancedActive(true);
-      setPremiumActive(false);
-    }
-    if (access == "premium") {
-      setWithPackage(true)
-      setBasicActive(false);
-      setAdvancedActive(false);
-      setPremiumActive(true);
-    }
-
-  }
   const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
@@ -124,27 +82,12 @@ export function UserPage() {
   const fetchUserPage = async () => {
     try {
 
-      const response = await request.get('http://localhost:5432/users/me')
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .send()
-        .then(
-
-          response => readAnswer(response.text)
-
-        )
-        .catch(error => {
-          readServerError(error.response.text)
-          // alert(registrationError)
-          throw new Error;
-
-        })
-      setFetched(true);
+      const response = await get('users/me', token)
+      readAnswer(response.text)
 
     }
     catch (error: any) {
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 
@@ -163,11 +106,11 @@ export function UserPage() {
   return (
 
     <div className={styles.container}>
-        <div className={styles.header}>
-          <Header loggedHeader={true} token = {token} />
-        </div>
-      <PackageInfo name = {name} withPackage = {withPackage} basicActive = {basicActive} advancedActive = {advancedActive} premiumActive = {premiumActive}/>
-      <LastGames id = "games"/>
+      <div className={styles.header}>
+        <Header loggedHeader={true} />
+      </div>
+      <PackageInfo name={name} access={access} />
+      <LastGames id="games" />
 
     </div>
   )

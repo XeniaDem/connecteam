@@ -2,18 +2,14 @@
 import styles from "../Package.module.css"
 import tick from "../tick.svg"
 
-
-
-
-
-export function SimplePackage() {
+export function PremiumPackage() {
 
 
     return (
       <div>
         <div className={styles.container}>
           <div className={styles.name}>
-            Простой
+            Широкий
           </div>
           <div className={styles.textBoxes}>
             <div className={styles.textBox}>
@@ -30,7 +26,7 @@ export function SimplePackage() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                3 темы с вопросами
+              Возможность добавления авторизованных пользователей сервиса в качестве дополнительных организаторов игр (до 3-х) человек.
               </div>
             </div>
             <div className={styles.textBox}>
@@ -38,7 +34,7 @@ export function SimplePackage() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                Не более 10 вопросов на каждую тему
+              10 тем с вопросами
               </div>
             </div>
             <div className={styles.textBox}>
@@ -46,12 +42,27 @@ export function SimplePackage() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                Возможность добавлять в одну игру не более 4 игроков
+              До 50 вопросов на каждую тему
               </div>
             </div>
-        
+            <div className={styles.textBox}>
+              <div className={styles.tick}>
+                <img src={tick} />
+              </div>
+              <div className={styles.text}>
+              Возможность приглашать в одну игру до 7 игроков
+              </div>
+            </div>
+            <div className={styles.textBox}>
+              <div className={styles.tick}>
+                <img src={tick} />
+              </div>
+              <div className={styles.text}>
+              Возможность выбора темы для конкректной игры
+              </div>
+            </div>
+
           </div>
-       
 
         </div>
 

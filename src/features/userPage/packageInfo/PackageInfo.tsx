@@ -2,49 +2,55 @@
 import styles from "./PackageInfo.module.css"
 import icon from "./icon.svg"
 import { PackageList } from "../../packageList/PackageList"
-import { SimplePackage } from "./simplePackage/SimplePackage"
-import { ExtendedPackage } from "./extendedPackage/ExtendedPackage"
-import { WidePackage } from "./widePackage/WidePackage"
+import { BasicPackage } from "./basicPackage/BasicPackage"
+import { AdvancedPackage } from "./advancedPackage/AdvancedPackage"
+import { PremiumPackage } from "./premiumPackage/PremiumPackage"
 import { Button } from "../../../components/button/Button"
+import { Access } from "../../profile/packageInfo/PackageInfo"
+import { useEffect, useState } from "react"
 
 
 type Props = {
   name: string;
   dateExpiry?: string;
-  withPackage?: boolean;
-  basicActive?: boolean;
-  advancedActive?: boolean;
-  premiumActive?: boolean;
+  access: string;
 
 
 }
 
-PackageInfo.defaultProps = { withPackage: true, basicActive: false, advancedActive: false, premiumActive: true, name: "Ксения", dateExpiry: "01.01.2024" }
 
 
-export function PackageInfo(props: Props) {
+export function PackageInfo({ name, access, dateExpiry }: Props) {
+
+  // useEffect(() => {
+    
+  //   readAccess()
+
+  // }, []);
+ 
+  
 
 
-  if (props.withPackage) {
+  if (!(access == "user")) {
 
-    if (props.basicActive) {
+    if (access == "basic") {
       return (
         <div className={styles.container}>
           <div className={styles.icon}>
             <img src={icon} />
           </div>
           <div className={styles.title}>
-            Добро пожаловать, {props.name}!
+            Добро пожаловать, {name}!
           </div>
           <div className={styles.subtitle}>
             Вам доступен пакет:
           </div>
           <div className={styles.package}>
-            <SimplePackage />
+            <BasicPackage />
             </div>
           <div className={styles.footerContainer}>
             <div className={styles.footer}>
-              Дата истечения срока подписки {props.dateExpiry}
+              Дата истечения срока подписки {dateExpiry}
             </div>
 
               <Button text={"Сменить пакет"} onClick={function (): void {
@@ -56,7 +62,7 @@ export function PackageInfo(props: Props) {
         </div>
       )
     }
-    else if (props.advancedActive) {
+    else if (access == "advanced") {
       return (
         <div>
           <div className={styles.container}>
@@ -64,17 +70,17 @@ export function PackageInfo(props: Props) {
               <img src={icon} />
             </div>
             <div className={styles.title}>
-            Добро пожаловать, {props.name}!
+            Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
               Вам доступен пакет:
             </div>
             <div className={styles.package}>
-            <ExtendedPackage />
+            <AdvancedPackage />
             </div>
             <div className={styles.footerContainer}>
             <div className={styles.footer}>
-              Дата истечения срока подписки {props.dateExpiry}
+              Дата истечения срока подписки {dateExpiry}
             </div>
 
               <Button text={"Сменить пакет"} onClick={function (): void {
@@ -87,7 +93,7 @@ export function PackageInfo(props: Props) {
         </div>
       )
     }
-    else if (props.premiumActive) {
+    else if (access == "premium") {
       return (
         <div>
           <div className={styles.container}>
@@ -95,18 +101,18 @@ export function PackageInfo(props: Props) {
               <img src={icon} />
             </div>
             <div className={styles.title}>
-            Добро пожаловать, {props.name}!
+            Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
               Вам доступен пакет:
             </div>
             <div className={styles.package}>
-            <WidePackage />
+            <PremiumPackage />
             </div>
             
             <div className={styles.footerContainer}>
             <div className={styles.footer}>
-              Дата истечения срока подписки {props.dateExpiry}
+              Дата истечения срока подписки {dateExpiry}
             </div>
 
               <Button text={"Сменить пакет"} onClick={function (): void {
@@ -123,20 +129,18 @@ export function PackageInfo(props: Props) {
   }
 
 
-  else {
+  else if (access = "user") {
     return (
       <div>
 
         <div className={styles.container}>
           <div className={styles.title}>
-            Добро пожаловать, {props.name}!
+            Добро пожаловать, {name}!
           </div>
           <div className={styles.subtitle}>
             Выберите пакет:
           </div>
-
-          <PackageList basicActive={false} advancedActive={false} premiumActive={false} isLogged = {true}/>
-
+          <PackageList isLogged = {true} access = "user"/>
         </div>
 
 

@@ -1,5 +1,5 @@
 
-import { PackageInfo } from "./packageInfo/PackageInfo"
+import { Access, PackageInfo } from "./packageInfo/PackageInfo"
 import styles from "./Profile.module.css"
 import { Company, CompanyInfo } from "./companyInfo/CompanyInfo"
 import { User, UserInfo } from "./userInfo/UserInfo"
@@ -57,6 +57,27 @@ export function Profile() {
 
   }
 
+
+  const [accessInfo, setAccessInfo] = useState<Access | null>(null)
+
+  const readAccessInfo = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    const accessInfo = {
+      access: messageParsed.access
+
+    }
+    setAccessInfo(accessInfo);
+
+  }
+
+
+
+
+
+
+
+
+
   const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
@@ -75,6 +96,7 @@ export function Profile() {
       const response = await get('users/me', token)
       readUserInfo(response.text)
       readCompanyInfo(response.text)
+      readAccessInfo(response.text)
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -96,7 +118,7 @@ export function Profile() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Header loggedHeader={true} token={token} />
+        <Header loggedHeader={true}/>
       </div>
 
       {userInfo && (<UserInfo savedUser={userInfo} token={token} />)}
@@ -107,9 +129,9 @@ export function Profile() {
       {companyInfo && (<CompanyInfo savedCompany={companyInfo} token={token} />)}
 
       <div className={styles.divider} />
-      <PackageInfo />
 
-      {/* <ChangePasswordPopup/> */}
+      {accessInfo && (<PackageInfo savedAccess={accessInfo} token={token}/>)}
+
 
 
     </div>

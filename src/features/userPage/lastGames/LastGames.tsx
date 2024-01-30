@@ -16,7 +16,7 @@ export function LastGames(props: Props) {
     <div>
       <div className={styles.container} id = {props.id} >
         <div className={styles.title}>
-          Последние игры {token}
+          Последние игры 
         </div>
         <div className={styles.subtitle}>
           Кликните на игру, чтобы посмотреть ее состояние

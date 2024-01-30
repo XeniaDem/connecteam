@@ -11,7 +11,6 @@ type Props = {
   authHeader?: boolean;
   loggedHeader?: boolean;
   withPackage?: boolean;
-  token?: string;
 
 }
 export function Header(props: Props) {
@@ -24,13 +23,13 @@ export function Header(props: Props) {
         <div className={styles.group}>
           <div className={styles.logo}>
             <img src={logo} onClick={() => {
-              navigate("/user_page", { state: { token: props.token } })
+              navigate("/user_page")
             }} />
           </div>
 
 
           <HeaderItem text="Профиль" onClick={() => {
-            navigate("/profile", { state: { token: props.token } })
+            navigate("/profile")
 
           }} />
           {props.withPackage ? (
