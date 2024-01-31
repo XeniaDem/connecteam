@@ -9,6 +9,7 @@ import { Question } from "../question/Question"
 import { Timer } from "../timer/Timer"
 import { Button } from "../../../components/button/Button"
 import { Rounds } from "../rounds/Rounds"
+import { StarRating } from "./starRating/StarRating"
 
 
 type Props = {
@@ -45,7 +46,7 @@ export function RateAnswer(props: Props) {
               <Question />
 
               <div className={styles.stars}>
-                *****
+                <StarRating/>
               </div>
 
 
