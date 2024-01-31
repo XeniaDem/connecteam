@@ -37,7 +37,7 @@ export function FreeAccess() {
                     <input className={styles.input} placeholder="Ваш Email" />
                     <input className={styles.input} placeholder="+7 (999) 999-99-99" />
                     <Button text={"Зарегистрироваться"} onClick={() => {
-                        navigate("/create_game")
+                        navigate("/admin_page") /////////////////////
                     }} className={styles.button} />
 
                 </div>

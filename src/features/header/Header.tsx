@@ -10,12 +10,43 @@ import { HeaderItem } from "./headerItem/HeaderItem"
 type Props = {
   authHeader?: boolean;
   loggedHeader?: boolean;
+  adminHeader?: boolean;
   withPackage?: boolean;
 
 }
 export function Header(props: Props) {
 
   const navigate = useNavigate()
+
+  if (props.adminHeader) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.group}>
+          <div className={styles.logo}>
+            <img src={logo} onClick={() => {
+              navigate("/admin_page")
+            }} />
+          </div>
+
+
+          <HeaderItem text="Вопросы" onClick={() => {
+            navigate("/admin_page")
+
+          }} />
+
+          <HeaderItem text="Пользователи" link = ""/>
+        </div>
+        <Button text={"Выход"} onClick={() => {
+          navigate("/")
+        }} className={styles.authButton} />
+
+
+      </div>
+
+
+
+    )
+  }
 
   if (props.loggedHeader) {
     return (
@@ -35,7 +66,7 @@ export function Header(props: Props) {
           {props.withPackage ? (
             <HeaderItem text="Создать игру" />
           ) : (
-            <div />
+            null
           )}
           <HeaderItem text="Мои игры" link = "#games"/>
         </div>

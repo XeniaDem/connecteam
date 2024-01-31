@@ -21,6 +21,7 @@ import { GameResults } from "./features/gameResults/GameResults";
 import { AnswerQuestion } from "./features/processGame/answerQuestion/AnswerQuestion";
 import { RateAnswer } from "./features/processGame/rateAnswer/RateAnswer";
 import { InputGradient } from "./components/inputGradient/InputGradient";
+import { AdminPage } from "./features/adminPage/AdminPage";
 
 
 
@@ -54,6 +55,7 @@ function App() {
         <WaitGame/>
         <EnterGame/>
         <GameResults/>
+        <AdminPage/>
 
 
 

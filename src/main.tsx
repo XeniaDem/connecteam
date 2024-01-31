@@ -11,6 +11,7 @@ import { AuthProblem } from "./features/authProblem/AuthProblem"
 import { Profile } from "./features/profile/Profile"
 import { CreateGame } from "./features/createGame/CreateGame"
 import { UserPage } from "./features/userPage/UserPage"
+import { AdminPage } from "./features/adminPage/AdminPage"
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "user_page",
     element: <UserPage/>,
+  },
+  {
+    path: "admin_page",
+    element: <AdminPage/>,
   },
 ]);
 

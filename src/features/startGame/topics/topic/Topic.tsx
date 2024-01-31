@@ -19,9 +19,10 @@ type Props = {
   onClick?: () => void;
 
 
-  checked?: boolean;
+  selected?: boolean;
+  inactive?: boolean;
 
-  
+
 
 
 }
@@ -35,11 +36,11 @@ export function Topic(props: Props) {
     players.push(<Player />)
   }*/
 
-  const [checked, setChecked] = React.useState(props.checked);
+  const [selected, setSelected] = React.useState(props.selected);
 
   const handleChange = () => {
-    alert(checked)
-    setChecked(!checked);
+    alert(selected)
+    setSelected(!selected);
 
 
   };
@@ -53,13 +54,14 @@ export function Topic(props: Props) {
 
   return (
     <div>
-      <div className={!checked ? styles.container : styles.checked} onClick={props.withCheckBox ? nothing : handleChange}>
+      <div className={!selected ? (!props.inactive ? styles.container : styles.inactive) : styles.selected}
+        onClick={(props.withCheckBox || props.inactive) ? nothing : handleChange}>
 
         <div className={styles.icon}>
           <div className={styles.ellipse}>
             <img src={ellipse} />
           </div>
-          <TopicIcon fontSize="medium"/>
+          <TopicIcon fontSize="medium" />
 
         </div>
         <div className={styles.name}>
@@ -68,7 +70,7 @@ export function Topic(props: Props) {
         </div>
 
         {props.withCheckBox ? (
-          <CheckBox checked = {checked} onClick={handleChange}/>
+          <CheckBox checked={selected} onClick={handleChange} />
         ) : (
           <div />
         )}

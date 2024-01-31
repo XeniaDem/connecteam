@@ -140,7 +140,7 @@ export function PackageInfo({ name, access, dateExpiry }: Props) {
           <div className={styles.subtitle}>
             Выберите пакет:
           </div>
-          <PackageList isLogged = {true} access = "user"/>
+          <PackageList isLogged = {true} access = "user" dateExpiry={dateExpiry}/>
         </div>
 
 

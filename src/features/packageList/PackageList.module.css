@@ -8,6 +8,7 @@
 
   position: relative;
   padding-top: 76px;
+  
 }
 
 
@@ -122,13 +123,14 @@ background: rgba(29, 29, 29, 0.70);
 
 display: flex;
 flex-direction: column;
-border-radius:  23.015px;
+border-radius: 23.015px;
 
 
 align-items: center;
 
 
 padding-bottom: 29px;
+margin-bottom: 10px;
 
 justify-content: space-between;
 position:relative;

@@ -40,14 +40,14 @@ position: relative;
 .container:focus {
   box-shadow: 
  
-  3px -3px 30px #55C6F7, 
-  -3px 3px 30px #2AF8BA;
+  3px -3px 10px #55C6F7, 
+  -3px 3px 10px #2AF8BA;
   cursor: pointer;
 
 }
 
 
-.checked {
+.selected {
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
@@ -68,10 +68,49 @@ backdrop-filter: blur(5.8426361083984375px);
 position: relative;
 box-shadow: 
  
-  3px -3px 30px #55C6F7, 
-  -3px 3px 30px #2AF8BA;
+  3px -3px 10px #55C6F7, 
+  -3px 3px 10px #2AF8BA;
 
 }
+
+.inactive {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+display: flex;
+
+align-items: center;
+
+gap: 40px;
+padding-left: 30px;
+
+
+width: 350.843px;
+height: 110.872px;
+flex-shrink: 0;
+border-radius: 26.557px;
+background: rgba(217, 217, 217, 0.10);
+backdrop-filter: blur(5.8426361083984375px);
+opacity: 0.48;
+position: relative;
+
+}
+.inactive::before {
+  border-radius: 26.557px;
+  border:  0.266px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
+ 
+
+}
+
 
 
 
