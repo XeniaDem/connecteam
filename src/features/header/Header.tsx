@@ -34,7 +34,10 @@ export function Header(props: Props) {
 
           }} />
 
-          <HeaderItem text="Пользователи" link = ""/>
+          <HeaderItem text="Пользователи"  onClick={() => {
+            navigate("/users_page")
+
+          }} />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
