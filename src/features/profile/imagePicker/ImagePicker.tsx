@@ -5,16 +5,17 @@ import defaultPhoto from "../photo.svg"
 import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useEffect, useState } from "react"
-import disableScroll from 'disable-scroll';
-import { patch } from "../../../utils/api"
+
+import { useFilePicker } from 'use-file-picker';
+import { FilePicker } from "./FilePicker"
 
 
 type Props = {
-  savedPhoto: string;
+
 }
 
 
-export function ImagePicker({ savedPhoto }: Props) {
+export function ImagePicker() {
 
   const [photo, setPhoto] = useState("")
 
@@ -23,7 +24,7 @@ export function ImagePicker({ savedPhoto }: Props) {
 
   useEffect(() => {
 
-    setPhoto(savedPhoto)
+
 
 
   }, []);
@@ -43,6 +44,8 @@ export function ImagePicker({ savedPhoto }: Props) {
         <Button text={"Сменить логотип компании"} onClick={function (): void {
           throw new Error("Function not implemented.")
         }} className={styles.footerButton} />
+
+        <FilePicker/>
 
 
 

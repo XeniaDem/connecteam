@@ -13,6 +13,8 @@ import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { PasswordPopup } from "./passwordPopup/passwordPopup"
 import { patch, post } from "../../../utils/api"
+import { ImagePicker } from "../imagePicker/ImagePicker"
+import { FilePicker } from "../imagePicker/FilePicker"
 
 export type User = {
   name: string;
@@ -390,6 +392,7 @@ export function UserInfo({ savedUser, token }: Props) {
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
       {changePasswordOpen ? <ChangePasswordPopup closePopup={closeChangePasswordPopup} token={token} /> : null}
+      <FilePicker/>
 
     </div>
   )

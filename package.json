@@ -29,6 +29,7 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.21.3",
     "superagent": "^8.1.2",
+    "use-file-picker": "^2.1.1",
     "use-timer": "^2.0.1",
     "validator": "^13.11.0"
   },
