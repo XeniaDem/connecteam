@@ -7,6 +7,7 @@ import { Button } from "../../../components/button/Button"
 import React, { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { patch } from "../../../utils/api"
+import { ImagePicker } from "../imagePicker/ImagePicker"
 
 export type Company = {
   name: string;
@@ -121,12 +122,7 @@ export function CompanyInfo({ savedCompany, token }: Props) {
           <div className={styles.title}>
             Компания
           </div>
-          <div className={styles.photo}>
-            <img src={photo == "" ? defaultPhoto : photo} />
-          </div>
-          <Button text={"Сменить логотип компании"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.footerButton} />
+          <ImagePicker isUser = {false}/>
 
         </div>
 

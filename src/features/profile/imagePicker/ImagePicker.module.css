@@ -3,32 +3,15 @@
 
   display: flex;
 
-  gap: 60px;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   position: relative;
+  gap: 30px;
   
 }
 
-.left {
-  width: 400px;
-  display: flex;
-  flex-direction: column;
- gap: 60px;
- justify-content: center;
- align-items: center;
- 
-}
-
-.title {
-  color: #FFF;
-  text-align: center;
-
-  font-size: 45px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 60px; /* 120% */
-}
 
 .photo {
   width: 220px;
@@ -66,6 +49,7 @@ border: none;
 background: none;
 text-decoration-line: underline;
 z-index: 1;
+text-align: center;
 
 }
 .footerButton:hover {
@@ -81,28 +65,6 @@ box-shadow: none;
 
 
 
-
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  width: 750px;
-  margin-top: 175px;
-  z-index: 1;
-}
-
-.footerButtons {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  
-}
-
-.ellipse2 {
-  position: absolute;
-  top: -525px;
-  right: 0px;
-}
 
 
 

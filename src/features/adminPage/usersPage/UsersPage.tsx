@@ -116,6 +116,12 @@ export function UsersPage() {
 
   return (
     <div className={styles.container}>
+         <svg width={0} height={0}>
+        <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+          <stop offset={0} stopColor="#55C6F7" />
+          <stop offset={1} stopColor="#2AF8BA" />
+        </linearGradient>
+      </svg>
       <div className={styles.header}>
         <Header adminHeader={true} />
       </div>

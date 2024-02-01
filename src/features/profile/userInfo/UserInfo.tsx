@@ -14,7 +14,6 @@ import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopu
 import { PasswordPopup } from "./passwordPopup/passwordPopup"
 import { patch, post } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
-import { FilePicker } from "../imagePicker/FilePicker"
 
 export type User = {
   name: string;
@@ -338,12 +337,9 @@ export function UserInfo({ savedUser, token }: Props) {
           <div className={styles.title}>
             Личные данные
           </div>
-          <div className={styles.photo}>
-            <img src={photo == "" ? defaultPhoto : photo} />
-          </div>
-          <Button text={"Сменить фотографию профиля"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.footerButton} />
+
+          <ImagePicker isUser = {true}/>
+ 
         </div>
 
 
@@ -392,7 +388,7 @@ export function UserInfo({ savedUser, token }: Props) {
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
       {changePasswordOpen ? <ChangePasswordPopup closePopup={closeChangePasswordPopup} token={token} /> : null}
-      <FilePicker/>
+
 
     </div>
   )

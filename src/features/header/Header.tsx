@@ -36,13 +36,14 @@ export function Header(props: Props) {
 
           }} />
 
-          <HeaderItem text="Пользователи"  onClick={() => {
+          <HeaderItem text="Пользователи" onClick={() => {
             navigate("/users_page")
 
           }} />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
+          dispatch(setToken(""))
         }} className={styles.authButton} />
 
 
