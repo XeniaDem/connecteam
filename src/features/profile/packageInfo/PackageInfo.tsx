@@ -23,7 +23,6 @@ type Props = {
 export function PackageInfo({savedAccess, token }: Props) {
 
 
-
   return (
     <div>
 
@@ -50,12 +49,6 @@ export function PackageInfo({savedAccess, token }: Props) {
           </div>
           <PackageList isLogged = {true} access={savedAccess.access}/>
     
-
-
-
-
-   
-
       </div>
     </div>
   )

@@ -21,6 +21,7 @@ export function UserPage() {
   // const { state } = useLocation();
   // const { token } = state;
   const token = useSelector(selectToken)
+  
 
 
 
@@ -98,6 +99,9 @@ export function UserPage() {
 
   useEffect(() => {
     disableScroll.off()
+    if (token == "") {
+      navigate("/")
+    }
     fetchUserPage();
   }, []);
 

@@ -5,6 +5,8 @@ import styles from "./Header.module.css"
 import logo from "./logo.svg"
 import person from "./person.svg"
 import { HeaderItem } from "./headerItem/HeaderItem"
+import { useDispatch } from "react-redux"
+import { setToken } from "../auth/authSlice"
 
 
 type Props = {
@@ -50,6 +52,7 @@ export function Header(props: Props) {
 
     )
   }
+  const dispatch = useDispatch()
 
   if (props.loggedHeader) {
     return (
@@ -71,10 +74,16 @@ export function Header(props: Props) {
           ) : (
             null
           )}
-          <HeaderItem text="Мои игры" link = "#games"/>
+          {/* <HeaderItem text="Мои игры" link = "#games"/> */}
+          <HeaderItem text="Пользователи" onClick={() => {
+           
+            navigate("/users_page")
+
+          }}/>
         </div>
-        <Button text={"Выход"} onClick={() => {
+        <Button text={"Выход"} onClick={() => { 
           navigate("/")
+          dispatch(setToken(""))
         }} className={styles.authButton} />
 
 

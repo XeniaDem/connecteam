@@ -175,7 +175,6 @@ export function Registration() {
 
     }
     try {
-
       const response = await post('auth/verify-user', data)
       alert(response.text)
       closeVerifyPopup()

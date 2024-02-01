@@ -7,15 +7,23 @@ import { useEffect, useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
+export type UserModel = {
+  name: string;
+  surname: string;
+  email: string;
+  photo: string;
+  access: string;
+
+}
+
 type Props = {
-
-
+  user: UserModel;
 
 }
 
 
 
-export function User() {
+export function User( { user }: Props) {
 
   // useEffect(() => {
 
@@ -38,13 +46,13 @@ export function User() {
         <div className={styles.group}>
           <div className={styles.photo}>
             {/* <img src = {photo}/> */}
-            <PhotoCameraIcon fontSize = "large" sx={{ fill: "url(#linearColors)" }} />
+            {(user.photo == "") ? <PhotoCameraIcon fontSize = "large" sx={{ fill: "url(#linearColors)" }} /> : <img src = {user.photo}/> }
           </div>
           <div className={styles.name}>
-            name
+            {user.name} {" "} {user.surname}
           </div>
           <div className={styles.email}>
-            email
+            {user.email}
           </div>
         </div>
         <div className={styles.group}>
@@ -52,13 +60,17 @@ export function User() {
             Доступ:
           </div>
           <div className={styles.access}>
-            Широкий
+            {(user.access == "user") ? "Нет доступа" : ""}
+            {(user.access == "basic") ? "Простой" : ""}
+            {(user.access == "advanced") ? "Расширенный" : ""}
+            {(user.access == "premium") ? "Широкий" : ""}
           </div>
         </div>
 
 
 
       </div>
+      <div className={styles.divider} />
     </div>
   )
 }
