@@ -11,6 +11,7 @@ type Props = {
 
   value?: string;
   onValueChange?: (newValue: string) => void;
+  small?:boolean;
 
 
 
@@ -30,7 +31,7 @@ export function Field(props: Props) {
       </div>
       <div className={styles.inputs}>
         {props.isInput ? (
-          <input className={styles.input} placeholder={props.placeholder} disabled={props.disabled}
+          <input className={!props.small ? styles.input : styles.inputSmall} placeholder={props.placeholder} disabled={props.disabled}
             value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }} />
         ) : (
           <textarea className={styles.textarea} placeholder={props.placeholder} disabled={props.disabled} 

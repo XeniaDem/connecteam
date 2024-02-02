@@ -11,12 +11,39 @@
 
   /*border-radius: 50px 0px 0px 50px;*/
 
+  background: linear-gradient(90deg, rgba(85, 198, 247, 0.10) 0%, rgba(42, 248, 186, 0.10) 107.16%), #171717;
+
+  padding-left: 81px;
+  padding-right: 81px;
+
+ 
+
+}
+
+.containerDisabled {
+  font-family: 'Work Sans Variable', sans-serif;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+
+
+  position: relative;
+
+  /*border-radius: 50px 0px 0px 50px;*/
+
 
 
   background: linear-gradient(90deg, rgba(85, 198, 247, 0.10) 0%, rgba(42, 248, 186, 0.10) 107.16%), #171717;
 
   padding-left: 81px;
   padding-right: 81px;
+
+  /* filter: blur(1px) brightness(0.5);
+
+  pointer-events: none;
+  overflow: hidden;  */
 
  
 

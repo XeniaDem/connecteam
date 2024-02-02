@@ -28,7 +28,7 @@ export function Information() {
       <WhatIs />
       <RealGames />
       <Packages />
-      <BecomeMember />
+      {/* <BecomeMember /> */}
       <Faq />
 
     </div>

@@ -36,14 +36,14 @@ function App() {
         <Login /> */}
 
 
-        <AuthProblem />
-        <LinkSent/>
+        {/* <AuthProblem />
+        <LinkSent/> */}
         {/* <UserPage />
         <CreateGame /> */}
 
         {/* <Profile/> */}
 
-        <StartPage/>
+        {/* <StartPage/>
 
         <ChooseTopics/>
         <ChooseTopic/>
@@ -55,7 +55,7 @@ function App() {
         <WaitGame/>
         <EnterGame/>
         <GameResults/>
-        <AdminPage/>
+        <AdminPage/> */}
 
 
 

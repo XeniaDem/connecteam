@@ -6,9 +6,21 @@ backdrop-filter: blur(4.400000095367432px);
 overflow: hidden;
 
 padding-bottom: 140px;
+background: url("./background.svg");
+
+
+background-position-x: right;
+background-position-y: top;
+background-repeat: no-repeat;
+margin-top: -20px;
+z-index: 0;
+background-size: 200%;
+/* background-attachment:fixed; */
 
 
 }
+
+
 
 
 .title {

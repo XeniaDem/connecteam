@@ -44,6 +44,25 @@ border: 1px solid var(--vd, #5C5C5C);
 
 }
 
+.inputSmall {
+  border-radius: 20px;
+border: 1px solid var(--vd, #55C6F7);
+background: #1D1D1D;
+width: 266px;
+height: 50px;
+flex-shrink: 0;
+align-items: center;
+color: #FFF;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22.375px;
+padding-left: 20px;
+outline: none;
+z-index: 1;
+
+}
+
 
 
 

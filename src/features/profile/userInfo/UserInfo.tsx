@@ -11,7 +11,7 @@ import request from "superagent"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
-import { PasswordPopup } from "./passwordPopup/passwordPopup"
+import { PasswordPopup } from "./PasswordPopup/PasswordPopup"
 import { patch, post } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 

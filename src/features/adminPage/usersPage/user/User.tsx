@@ -5,6 +5,8 @@ import users from "./users.svg"
 import questions from "./questions.svg"
 import { useEffect, useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import disableScroll from 'disable-scroll';
+import { UserPopup } from "../userPopup/UserPopup"
 
 
 export type UserModel = {
@@ -19,11 +21,12 @@ export type UserModel = {
 type Props = {
   user: UserModel;
 
+
 }
 
 
 
-export function User( { user }: Props) {
+export function User({ user}: Props) {
 
   // useEffect(() => {
 
@@ -32,19 +35,46 @@ export function User( { user }: Props) {
   // }, []);
 
 
+  const [userOpen, setUserOpen] = useState(false);
+
+
+
+  const openUserPopup = () => {
+    disableScroll.on()
+    setUserOpen(true)
+
+  }
+  const closeUserPopup = () => {
+    disableScroll.off()
+    setUserOpen(false)
+
+  }
+
+  const getAccess = () => {
+    if (user.access == "user")
+      return ("Нет доступа")
+    if (user.access == "bacis")
+      return ("Простой")
+    if (user.access == "advanced")
+      return ("Расширенный")
+    if (user.access == "premium")
+      return ("Широкий")
+  }
+
+
   return (
-    <div>
-   
+    <div className={styles.background}>
+
 
       <div className={styles.container}>
-   
+
 
         <div className={styles.group}>
           <div className={styles.photo}>
             {/* <img src = {photo}/> */}
-            {(user.photo == "") ? <PhotoCameraIcon fontSize = "large" sx={{ fill: "url(#linearColors)" }} /> : <img src = {user.photo}/> }
+            {(user.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={user.photo} />}
           </div>
-          <div className={styles.name}>
+          <div className={styles.name} onClick={openUserPopup}>
             {user.name} {" "} {user.surname}
           </div>
           <div className={styles.email}>
@@ -56,18 +86,21 @@ export function User( { user }: Props) {
             Доступ:
           </div>
           <div className={styles.access}>
-            {(user.access == "user") ? "Нет доступа" : ""}
-            {(user.access == "basic") ? "Простой" : ""}
-            {(user.access == "advanced") ? "Расширенный" : ""}
-            {(user.access == "premium") ? "Широкий" : ""}
+
+            {getAccess()}
           </div>
         </div>
 
 
-
+       
       </div>
+
       <div className={styles.divider} />
+
+      {userOpen ? <UserPopup user={user} closePopup={closeUserPopup} /> : null}
+     
     </div>
+
   )
 }
 

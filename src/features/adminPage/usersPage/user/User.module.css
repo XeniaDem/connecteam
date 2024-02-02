@@ -1,3 +1,15 @@
+
+
+/* .background {
+  width: 100vw;
+  height: 100vh;
+
+
+}  */
+
+
+
+
 .container {
   font-family: 'Work Sans Variable', sans-serif;
   height: 82px;
@@ -14,6 +26,7 @@
 
  
 }
+
 
 .group {
   display: flex;
@@ -50,6 +63,14 @@ letter-spacing: -0.05em;
 display: flex;
 align-items: center;
 color: #FFF;
+cursor: pointer;
+}
+
+.name:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .email {
