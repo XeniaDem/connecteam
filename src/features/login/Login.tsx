@@ -84,15 +84,16 @@ export function Login() {
 
   const dispatch = useDispatch()
   let token = ""
+  let access = ""
 
-  const saveToken = (message: any) => {
+  const saveAccessAndToken = (message: any) => {
 
     var messageParsed = JSON.parse(message);
-    var content = messageParsed.token
+    access = messageParsed.access;
 
     // setToken(content)
-    token = content
-    dispatch(setToken(token))
+    token = messageParsed.token;
+    dispatch(setToken(token));
 
   }
 
@@ -111,11 +112,14 @@ export function Login() {
     try {
 
       const response = await post('auth/sign-in/email', data)
-      saveToken(response.text)
+      saveAccessAndToken(response.text)
       setLoginError("")
       // alert("token to send " + token)
       // navigate("/user_page", { state: { token: token } })
-      navigate("/user_page")
+      if (access == "admin")
+        navigate("/admin_page")
+      else
+        navigate("/user_page")
 
     }
     catch (error: any) {

@@ -10,6 +10,7 @@ import { UserPopup } from "../userPopup/UserPopup"
 
 
 export type UserModel = {
+  id: string;
   name: string;
   surname: string;
   email: string;
@@ -20,13 +21,14 @@ export type UserModel = {
 
 type Props = {
   user: UserModel;
+  token: string;
 
 
 }
 
 
 
-export function User({ user}: Props) {
+export function User({ user, token}: Props) {
 
   // useEffect(() => {
 
@@ -45,21 +47,32 @@ export function User({ user}: Props) {
 
   }
   const closeUserPopup = () => {
+   
     disableScroll.off()
     setUserOpen(false)
 
   }
 
-  const getAccess = () => {
+  const readAccess = () => {
     if (user.access == "user")
       return ("Нет доступа")
-    if (user.access == "bacis")
+    if (user.access == "basic")
       return ("Простой")
     if (user.access == "advanced")
       return ("Расширенный")
     if (user.access == "premium")
       return ("Широкий")
+      if (user.access == "admin")
+      return ("Администратор")
   }
+
+  useEffect(() => {
+    readAccess()
+
+    
+
+  }, []);
+
 
 
   return (
@@ -87,7 +100,7 @@ export function User({ user}: Props) {
           </div>
           <div className={styles.access}>
 
-            {getAccess()}
+            {readAccess()}
           </div>
         </div>
 
@@ -97,7 +110,7 @@ export function User({ user}: Props) {
 
       <div className={styles.divider} />
 
-      {userOpen ? <UserPopup user={user} closePopup={closeUserPopup} /> : null}
+      {userOpen ? <UserPopup user={user} token = {token} closePopup={closeUserPopup} /> : null}
      
     </div>
 

@@ -34,7 +34,7 @@ export function Profile() {
       surname: messageParsed.second_name,
       email: messageParsed.email,
       about: messageParsed.description,
-      photo: messageParsed.image /////////////
+      photo: messageParsed.profile_image /////////////
 
     }
     setUserInfo(userInfo);

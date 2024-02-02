@@ -75,12 +75,12 @@ export function Header(props: Props) {
           ) : (
             null
           )}
-          {/* <HeaderItem text="Мои игры" link = "#games"/> */}
-          <HeaderItem text="Пользователи" onClick={() => {
+          <HeaderItem text="Мои игры" link = "#games"/>
+          {/* <HeaderItem text="Пользователи" onClick={() => {
            
             navigate("/users_page")
 
-          }}/>
+          }}/> */}
         </div>
         <Button text={"Выход"} onClick={() => { 
           navigate("/")

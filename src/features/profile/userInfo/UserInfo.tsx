@@ -11,9 +11,9 @@ import request from "superagent"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
-import { PasswordPopup } from "./PasswordPopup/PasswordPopup"
 import { patch, post } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
+import { PasswordPopup } from "./passwordPopup/passwordPopup"
 
 export type User = {
   name: string;
@@ -353,7 +353,7 @@ export function UserInfo({ savedUser, token }: Props) {
           <Field isInput={true} title={"Имя"} disabled={!isDataChanging} value={name} onValueChange={setName} />
           <Field isInput={true} title={"Фамилия"} disabled={!isDataChanging} value={surname} onValueChange={setSurname} />
 
-          <Field isInput={false} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} />
+          <Field isTextArea={true} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} />
 
 
 

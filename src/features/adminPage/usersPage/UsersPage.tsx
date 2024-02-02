@@ -39,6 +39,7 @@ export function UsersPage() {
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
       const userModel = {
+        id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
         surname: messageParsed.data[i].second_name,
         email: messageParsed.data[i].email,
@@ -83,21 +84,6 @@ export function UsersPage() {
 
 
 
-  const [userOpen, setUserOpen] = useState(false);
-
-  const openUserPopup = () => {
-    disableScroll.on()
-    setUserOpen(true)
-
-  }
-  const closeUserPopup = () => {
-    disableScroll.off()
-    setUserOpen(false)
-
-  }
-
-
-
 
 
 
@@ -126,8 +112,7 @@ export function UsersPage() {
 
         {users?.map(user =>
           <div>
-            <User user={user} onClick={openUserPopup}/>
-            {userOpen ? <UserPopup user={user} closePopup={closeUserPopup} /> : null}
+            <User user={user} token = {token}/>
 
           </div>
 

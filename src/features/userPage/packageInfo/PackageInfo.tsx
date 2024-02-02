@@ -22,11 +22,13 @@ type Props = {
 
 export function PackageInfo({ name, access, dateExpiry }: Props) {
 
-  // useEffect(() => {
+  useEffect(() => {
     
-  //   readAccess()
+    alert(access)
 
-  // }, []);
+  }, []);
+
+  
  
   
 

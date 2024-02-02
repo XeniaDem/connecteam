@@ -13,10 +13,12 @@ left: 0;
 right: 0;
 bottom: 0; */
 display: flex;
+flex-direction: column;
+
 
 
 padding: 42px;
-gap: 13px;
+
 
 
 flex-shrink: 0;
@@ -30,7 +32,12 @@ backdrop-filter: blur(30.21428680419922px);
 
 opacity: 1;
 z-index: 1;
+align-items: center;
 
+}
+.body {
+  display: flex;
+  gap: 13px;
 }
 
 
@@ -183,6 +190,23 @@ text-align: end;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 box-shadow: none;
+
+}
+
+
+.saveButton {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 285.531px;
+  height: 46.667px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+z-index: 1;
 
 }
 

@@ -1,17 +1,25 @@
 
 import { useState } from "react";
 import styles from "./Field.module.css"
+import Dropdown, { Option } from 'react-dropdown';
+// import 'react-dropdown/style.css';
 
 
 type Props = {
   title: string;
   placeholder?: string;
-  isInput: boolean;
-  disabled: boolean;
+  isInput?: boolean;
+  isTextArea?: boolean;
+  isDropDown?: boolean;
+  disabled?: boolean;
 
   value?: string;
   onValueChange?: (newValue: string) => void;
-  small?:boolean;
+  small?: boolean;
+
+  dropDownValue?: string;
+  onDropDownValueChange?: (newValue: Option) => void;
+
 
 
 
@@ -20,7 +28,14 @@ type Props = {
 }
 
 
-export function Field(props: Props) {
+export function Field(this: any, props: Props) {
+
+
+  const options = [
+    'Нет доступа', 'Простой', 'Широкий', 'Расширенный', 'Администратор'
+  ];
+  const defaultOption = options[0];
+
 
 
 
@@ -34,8 +49,22 @@ export function Field(props: Props) {
           <input className={!props.small ? styles.input : styles.inputSmall} placeholder={props.placeholder} disabled={props.disabled}
             value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }} />
         ) : (
-          <textarea className={styles.textarea} placeholder={props.placeholder} disabled={props.disabled} 
-          value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }}/>
+          null
+        )}
+        {props.isTextArea ? (
+          <textarea className={styles.textarea} placeholder={props.placeholder} disabled={props.disabled}
+            value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }} />
+        ) : (
+          null
+        )}
+        {props.isDropDown ? (
+          <Dropdown controlClassName={styles.control} menuClassName={styles.menu} arrowClassName= {styles.arrow}
+            // arrowClosed={<span className={styles.arrowClosed} />}
+            // arrowOpen={<span className={styles.arrowOpen} />}
+            
+            options={options} onChange={props.onDropDownValueChange} value={props.dropDownValue} placeholder="Select an option" />
+        ) : (
+          null
         )}
       </div>
 
