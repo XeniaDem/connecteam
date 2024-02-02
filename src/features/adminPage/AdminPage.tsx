@@ -5,6 +5,7 @@ import icon from "./icon.svg"
 import users from "./users.svg"
 import questions from "./questions.svg"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 
 type Props = {
@@ -16,12 +17,24 @@ type Props = {
 
 
 export function AdminPage() {
+  const navigate = useNavigate()
 
   // useEffect(() => {
 
   //   readAccess()
 
   // }, []);
+
+  const toUsersPage = () => {
+    navigate("/users_page")
+
+  }
+
+  const toQuestionsPage = () => {
+    navigate("/users_page")
+
+  }
+
 
 
   return (
@@ -36,14 +49,14 @@ export function AdminPage() {
         Приветствуем Вас на <br /> странице администратора!
       </div>
 
-      <div className={styles.section}>
+      <div className={styles.section} onClick={toUsersPage}>
         <div className={styles.subtitle}>
           Вопросы
         </div>
         <img src={questions} />
       </div>
 
-      <div className={styles.section}>
+      <div className={styles.section} onClick={toQuestionsPage}>
       <div className={styles.subtitle}>
           Пользователи
         </div>

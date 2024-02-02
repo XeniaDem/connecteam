@@ -77,7 +77,6 @@ export function UserPopup(props: Props) {
   }
 
   const changeAccess = async () => {
-    alert("id" + props.user.id + " new access " + newAccess)
   
     const data = {
       id: props.user.id.toString(),
@@ -86,7 +85,6 @@ export function UserPopup(props: Props) {
     try {
 
       const response = await patch('users/change-access', data, props.token)
-      alert(response.text)
       setNewAccess("")
       setAccessChanging(false)
       props.onChange()

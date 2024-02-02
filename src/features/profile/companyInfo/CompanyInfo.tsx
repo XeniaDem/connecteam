@@ -129,8 +129,8 @@ export function CompanyInfo({ savedCompany, token }: Props) {
 
         <div className={styles.right}>
 
-          <Field  isInput = {true} title={"Название компании"} disabled={!isDataChanging} value = {name} onValueChange={setName}/>
-          <Field  isInput = {true} title={"Веб-сайт компании"} disabled={!isDataChanging} value = {website} onValueChange={setWebsite}/>
+          <Field  isInput = {true} title={"Название компании"}  placeholder="Название" disabled={!isDataChanging} value = {name} onValueChange={setName}/>
+          <Field  isInput = {true} title={"Веб-сайт компании"}  placeholder="Веб-сайт"disabled={!isDataChanging} value = {website} onValueChange={setWebsite}/>
           <Field  isTextArea = {true} title={"О компании"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value = {about} onValueChange={setAbout}/>
 
           <div className={styles.footerButtons}>
