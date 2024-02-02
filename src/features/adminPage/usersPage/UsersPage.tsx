@@ -33,7 +33,7 @@ export function UsersPage() {
 
   const readUsers = (message: any) => {
     const messageParsed = JSON.parse(message);
-    alert(JSON.stringify(messageParsed.data[0]));
+
     const usersNum = (messageParsed.data.length);
 
     const userModels = [];
@@ -51,6 +51,7 @@ export function UsersPage() {
 
     }
     setUsers(userModels)
+    setFetched(true)
 
   }
 
@@ -72,6 +73,7 @@ export function UsersPage() {
     try {
       const response = await get('users/list', token)
       readUsers(response.text)
+      return;
 
     }
     catch (error: any) {
@@ -81,17 +83,23 @@ export function UsersPage() {
 
 
   }
+  const [fetched, setFetched] = useState(false)
+
+
+  const onChange = () => {
+    setFetched(!fetched)
 
 
 
+
+  }
 
 
 
   useEffect(() => {
 
     fetchUsers()
-
-  }, []);
+  }, [fetched]);
 
   return (
     <div className={styles.container}>
@@ -112,7 +120,7 @@ export function UsersPage() {
 
         {users?.map(user =>
           <div>
-            <User user={user} token = {token}/>
+            <User user={user} token = {token} onChange = {onChange}/>
 
           </div>
 

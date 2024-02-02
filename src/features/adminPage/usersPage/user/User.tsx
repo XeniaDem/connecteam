@@ -22,13 +22,14 @@ export type UserModel = {
 type Props = {
   user: UserModel;
   token: string;
+  onChange: () => void;
 
 
 }
 
 
 
-export function User({ user, token}: Props) {
+export function User({ user, token, onChange}: Props) {
 
   // useEffect(() => {
 
@@ -47,9 +48,12 @@ export function User({ user, token}: Props) {
 
   }
   const closeUserPopup = () => {
-   
     disableScroll.off()
     setUserOpen(false)
+    onChange()
+    
+   
+ 
 
   }
 
@@ -66,12 +70,6 @@ export function User({ user, token}: Props) {
       return ("Администратор")
   }
 
-  useEffect(() => {
-    readAccess()
-
-    
-
-  }, []);
 
 
 
@@ -110,7 +108,7 @@ export function User({ user, token}: Props) {
 
       <div className={styles.divider} />
 
-      {userOpen ? <UserPopup user={user} token = {token} closePopup={closeUserPopup} /> : null}
+      {userOpen ? <UserPopup user={user} token = {token} closePopup={closeUserPopup} onChange = {onChange} /> : null}
      
     </div>
 

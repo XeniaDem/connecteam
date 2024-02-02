@@ -13,7 +13,7 @@ import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { patch, post } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
-import { PasswordPopup } from "./passwordPopup/passwordPopup"
+import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 
 export type User = {
   name: string;

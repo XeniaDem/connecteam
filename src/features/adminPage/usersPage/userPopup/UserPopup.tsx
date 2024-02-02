@@ -14,6 +14,7 @@ type Props = {
   closePopup: () => void;
   user: UserModel;
   token: string;
+  onChange: () => void;
 
 }
 
@@ -88,9 +89,8 @@ export function UserPopup(props: Props) {
       alert(response.text)
       setNewAccess("")
       setAccessChanging(false)
-      readAccess()
-
-
+      props.onChange()
+      props.closePopup()
 
 
     }
@@ -133,7 +133,7 @@ export function UserPopup(props: Props) {
             </div>
             <div className={styles.right}>
               <div className={styles.fields}>
-                <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name} />
+                <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name + " " + props.user.surname} />
                 <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={props.user.email} />
                 <Field small={true} isDropDown={true} title={"Порог доступа"} dropDownValue={readAccess()} onDropDownValueChange={onDropDownValueChange} />
 
