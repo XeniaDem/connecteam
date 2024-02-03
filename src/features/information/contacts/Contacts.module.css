@@ -1,0 +1,68 @@
+.container {
+    font-family: 'Work Sans Variable', sans-serif;
+  box-shadow: 0px 4px 11.2px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    height: 250px;
+    padding: 50px;
+    justify-content: space-between;
+
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+}
+
+.group {
+    display: flex;
+    gap: 100px;
+}
+.title {
+font-size: 16px;
+font-weight: 600;
+line-height: 21px;
+letter-spacing: -0.03em;
+
+
+}
+
+.text {
+    color: rgba(255, 255, 255, 0.45);
+  
+  font-size: 15.108px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.76%; /* 18.451px */
+  letter-spacing: -0.655px;
+  margin-top: -20px;
+
+  
+
+  }
+
+  .textUnderline {
+    color: rgba(255, 255, 255, 0.45);
+  
+    font-size: 15.108px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140.76%; /* 18.451px */
+    letter-spacing: -0.655px;
+    margin-top: -20px;
+    text-decoration: underline;
+    cursor: pointer;
+
+  }
+
+  .email {
+    color: rgba(255, 255, 255, 0.45);
+ 
+font-size: 24px;
+font-weight: 400;
+line-height: 32px;
+letter-spacing: -0.03em;
+text-decoration: underline;
+
+  }

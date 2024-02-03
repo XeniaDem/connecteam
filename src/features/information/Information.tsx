@@ -2,6 +2,7 @@
 import styles from "./Information.module.css"
 import { About } from "./about/About"
 import { BecomeMember } from "./becomeMember/BecomeMember"
+import { Contacts } from "./contacts/Contacts"
 import { Faq } from "./faq/Faq"
 import { Intro } from "./intro/Intro"
 import { KnowMore } from "./knowMore/KnowMore"
@@ -30,6 +31,7 @@ export function Information() {
       <Packages />
       {/* <BecomeMember /> */}
       <Faq />
+      <Contacts/>
 
     </div>
   )

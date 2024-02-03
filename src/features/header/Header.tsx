@@ -83,11 +83,6 @@ export function Header(props: Props) {
             navigate("/user_page")
 
           }} link="#games" />
-          {/* <HeaderItem text="Пользователи" onClick={() => {
-           
-            navigate("/users_page")
-
-          }}/> */}
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
@@ -137,7 +132,7 @@ export function Header(props: Props) {
       <HeaderItem text="О проекте" link="#about" />
       <HeaderItem text="Как играть" link="#real_games" />
       <HeaderItem text="FAQ" link="#faq" />
-      <HeaderItem text="Контакты" />
+      <HeaderItem text="Контакты" link="#contacts" />
       <div className={styles.headerButton}>
         <Button text={"Зарегистрироваться"} onClick={() => {
           navigate("/register")

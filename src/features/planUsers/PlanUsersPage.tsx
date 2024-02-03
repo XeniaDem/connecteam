@@ -1,6 +1,6 @@
 
 import { Header } from "../header/Header"
-import styles from "./PlanUsers.module.css"
+import styles from "./PlanUsersPage.module.css"
 import icon from "./icon.svg"
 import questions from "./questions.svg"
 import { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from "react"
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import { User, UserModel } from "../adminPage/usersPage/user/User"
 import { Button } from "../../components/button/Button"
+import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
 
 
 type Props = {
@@ -21,13 +22,13 @@ type Props = {
 
 
 
-export function PlanUsers() {
+export function PlanUsersPage() {
 
   const navigate = useNavigate()
 
   const token = useSelector(selectToken)
 
-  const [planUsers, setPlanUsers] = useState<UserModel[] | null>(null)
+  const [planUsers, setPlanUsers] = useState<PlanUserModel[] | null>(null)
 
   const [usersNum, setUsersNum] = useState(0)
 
@@ -40,16 +41,16 @@ export function PlanUsers() {
 
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
-      const userModel = {
+      const planUserModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
         surname: messageParsed.data[i].second_name,
         email: messageParsed.data[i].email,
         photo: messageParsed.data[i].profile_image,
-        access: messageParsed.data[i].access,
+        plan: messageParsed.data[i].access, ///////////////////////
 
       }
-      userModels.push(userModel)
+      userModels.push(planUserModel)
 
     }
     setPlanUsers(userModels)
@@ -73,14 +74,14 @@ export function PlanUsers() {
 
   const fetchPlanUsers = async () => {
     try {
-      // const response = await get('users/list', token)
-      // readUsers(response.text)
+      const response = await get('users/list', token)
+      readPlanUsers(response.text)
       return;
 
     }
     catch (error: any) {
-      // readServerError(error.response.text)
-      // console.log("error:", error)
+      readServerError(error.response.text)
+      console.log("error:", error)
     }
 
 
@@ -99,7 +100,7 @@ export function PlanUsers() {
 
   useEffect(() => {
 
-    // fetchPlanUsers()
+    fetchPlanUsers()
   }, [fetched]);
 
   return (
@@ -129,7 +130,7 @@ export function PlanUsers() {
 
           planUsers?.map(user =>
             <div>
-              <User user={user} token={token} onChange={onChange} />
+              <PlanUser planUser={user} token={token} onChange={onChange} />
 
             </div>
 

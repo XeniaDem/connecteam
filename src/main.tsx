@@ -13,7 +13,7 @@ import { CreateGame } from "./features/createGame/CreateGame"
 import { UserPage } from "./features/userPage/UserPage"
 import { AdminPage } from "./features/adminPage/AdminPage"
 import { UsersPage } from "./features/adminPage/usersPage/UsersPage"
-import { PlanUsers } from "./features/planUsers/PlanUsers"
+import { PlanUsersPage } from "./features/planUsers/PlanUsersPage"
 import { PlanRequestsPage } from "./features/adminPage/planRequestsPage/PlanRequestsPage"
 
 const router = createBrowserRouter([
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
   },
   {
     path: "plan_users",
-    element: <PlanUsers/>,
+    element: <PlanUsersPage/>,
   },
   {
     path: "plan_requests",
