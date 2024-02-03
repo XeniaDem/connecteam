@@ -38,13 +38,15 @@ export function UsersPage() {
 
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
+      var isYou = (messageParsed.data[i].id == id)
       const userModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
         surname: messageParsed.data[i].second_name,
         email: messageParsed.data[i].email,
         photo: messageParsed.data[i].profile_image, //////////////
-        access: messageParsed.data[i].access
+        access: messageParsed.data[i].access,
+        isYou: isYou
 
       }
       userModels.push(userModel)
@@ -70,6 +72,7 @@ export function UsersPage() {
   }
 
   const fetchUsers = async () => {
+    fetchMe()
     try {
       const response = await get('users/list', token)
       readUsers(response.text)
@@ -89,7 +92,34 @@ export function UsersPage() {
   const onChange = () => {
     setFetched(!fetched)
 
+  }
 
+
+  const [id, setId] = useState("");
+
+
+  const readId = (message: any) => {
+
+    var messageParsed = JSON.parse(message);
+    // alert(JSON.stringify(messageParsed));
+   
+    var id = messageParsed.id
+    setId(id)
+
+  }
+
+
+  const fetchMe = async () => {
+    try {
+
+      const response = await get('users/me', token)
+      readId(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
 
 
   }
@@ -120,7 +150,7 @@ export function UsersPage() {
 
         {users?.map(user =>
           <div>
-            <User user={user} token = {token} onChange = {onChange}/>
+            <User user={user} token = {token} onChange = {onChange} />
 
           </div>
 

@@ -14,6 +14,7 @@ right: 0;
 bottom: 0; */
 display: flex;
 flex-direction: column;
+overflow: hidden;
 
 
 
@@ -76,6 +77,7 @@ justify-content: center;
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 2;
   
 }
 
@@ -91,7 +93,7 @@ border: none;
 
 
   background: url("./close.svg") no-repeat;
-  z-index: 1;
+  z-index: 2;
 
 }
 .closeButton:hover {
@@ -114,6 +116,7 @@ box-shadow: none;
   font-style: normal;
   font-weight: 800;
   line-height: 35px; /* 126.757% */
+  z-index: 1;
 
 
 }
@@ -126,6 +129,7 @@ box-shadow: none;
   z-index: 1;
   margin-top: 50px;
   justify-content: center;
+  position: relative;
  
 
 
@@ -141,6 +145,8 @@ box-shadow: none;
   align-items: center;
   gap: 40px;
   width: 310px;
+  position: relative;
+
 
 }
 .photo {
@@ -153,6 +159,7 @@ border: 1px solid #55C6F7;
 justify-content: center;
 overflow: hidden;
 object-fit: fill;
+  z-index: 1;
 
 
 
@@ -171,27 +178,6 @@ object-fit: fill;
   
 }
 
-.footerButton {
-  color: #5C5C5C;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 22.375px; /* 139.844% */
-border: none;
-background: none;
-text-decoration-line: underline;
-z-index: 2;
-text-align: end;
-
-}
-.footerButton:hover {
-  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-box-shadow: none;
-
-}
 
 
 .saveButton {
@@ -210,6 +196,19 @@ z-index: 1;
 
 }
 
+.ellipse1{
+  position: absolute;
+  bottom: -124px;
+  right: -63px;
+}
+.ellipse2{
+  position: absolute;
+  transform: rotate(180deg);
+  top: -66px;
+    left: -45px;
+
+
+}
 
 
 

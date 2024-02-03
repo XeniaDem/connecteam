@@ -1,5 +1,5 @@
 
-import { Access, PackageInfo } from "./packageInfo/PackageInfo"
+import { PackageInfo, Plan } from "./packageInfo/PackageInfo"
 import styles from "./Profile.module.css"
 import { Company, CompanyInfo } from "./companyInfo/CompanyInfo"
 import { User, UserInfo } from "./userInfo/UserInfo"
@@ -58,15 +58,17 @@ export function Profile() {
   }
 
 
-  const [accessInfo, setAccessInfo] = useState<Access | null>(null)
+  const [planInfo, setPlanInfo] = useState<Plan| null>(null)
 
-  const readAccessInfo = (message: any) => {
+  const readPlanInfo = (message: any) => {
     const messageParsed = JSON.parse(message);
-    const accessInfo = {
-      access: messageParsed.access
+    const planInfo = {
+      planType: messageParsed.plan_type,
+      expiryDate: messageParsed.expiry_date.substring(0,10),
+      planAccess: messageParsed.plan_access,
 
     }
-    setAccessInfo(accessInfo);
+    setPlanInfo(planInfo);
 
   }
 
@@ -78,6 +80,23 @@ export function Profile() {
 
 
 
+
+
+
+  const fetchPlan = async () => {
+    try {
+
+      const response = await get('users/plan', token)
+      readPlanInfo(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
   const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
@@ -96,7 +115,7 @@ export function Profile() {
       const response = await get('users/me', token)
       readUserInfo(response.text)
       readCompanyInfo(response.text)
-      readAccessInfo(response.text)
+      fetchPlan()
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -130,7 +149,7 @@ export function Profile() {
 
       <div className={styles.divider} />
 
-      {accessInfo && (<PackageInfo savedAccess={accessInfo} token={token}/>)}
+      <PackageInfo savedPlan = {planInfo} token={token}/>
 
 
 

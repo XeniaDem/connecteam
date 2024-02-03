@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import styles from "./Field.module.css"
-import Dropdown, { Option } from 'react-dropdown';
+import Dropdown, { Group, Option } from 'react-dropdown';
 // import 'react-dropdown/style.css';
 
 
@@ -19,6 +19,7 @@ type Props = {
 
   dropDownValue?: string;
   onDropDownValueChange?: (newValue: Option) => void;
+  options: string[];
 
 
 
@@ -26,13 +27,14 @@ type Props = {
 
 
 }
+Field.defaultProps = {options: ['Нет доступа', 'Простой',  'Расширенный', 'Широкий','Администратор']}
 
 
 export function Field(this: any, props: Props) {
 
 
   const options = [
-    'Нет доступа', 'Простой', 'Широкий', 'Расширенный', 'Администратор'
+    'Нет доступа', 'Простой',  'Расширенный', 'Широкий','Администратор'
   ];
   const defaultOption = options[0];
 
@@ -62,7 +64,7 @@ export function Field(this: any, props: Props) {
             // arrowClosed={<span className={styles.arrowClosed} />}
             // arrowOpen={<span className={styles.arrowOpen} />}
             
-            options={options} onChange={props.onDropDownValueChange} value={props.dropDownValue} placeholder="Select an option" />
+            options={props.options} onChange={props.onDropDownValueChange} value={props.dropDownValue} placeholder="Select an option" />
         ) : (
           null
         )}

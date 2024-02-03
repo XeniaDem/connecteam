@@ -10,17 +10,21 @@ import icon2 from "./icon2.svg"
 import { PackageList } from "../../packageList/PackageList"
 
 
-export type Access = {
-  access: string;
+export type Plan = {
+  planType: string;
+  expiryDate: string;
+  planAccess: string;
+
 
 }
 type Props = {
   token: string;
-  savedAccess: Access;
+  savedPlan: Plan;
 
 }
 
-export function PackageInfo({savedAccess, token }: Props) {
+export function PackageInfo({savedPlan, token }: Props) {
+
 
 
   return (
@@ -47,7 +51,7 @@ export function PackageInfo({savedAccess, token }: Props) {
           <div className={styles.title}>
             Доступ
           </div>
-          <PackageList isLogged = {true} access={savedAccess.access}/>
+          <PackageList isLogged = {true} planInfo={savedPlan}/>
     
       </div>
     </div>

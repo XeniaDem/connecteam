@@ -27,14 +27,7 @@ export function UserPage() {
 
 
 
-  const [access, setAccess] = useState("");
-  const [companyName, setCompanyName] = useState("");
   const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [id, setId] = useState("");
-  const [image, setImage] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
 
   const readAnswer = (message: any) => {
 
@@ -42,22 +35,12 @@ export function UserPage() {
     // alert(JSON.stringify(messageParsed));
     console.log(JSON.stringify(messageParsed));
 
-    var access = messageParsed.access;
-    setAccess(access);
-    var companyName = messageParsed.company_name; //////////
-    setCompanyName(companyName)
+
     var name = messageParsed.first_name
     setName(name)
-    var surname = messageParsed.second_name
-    setSurname(surname)
-    var id = messageParsed.id
-    setId(id)
-    var image = messageParsed.image
-    setImage(image)
-    var email = messageParsed.email
-    setEmail(email)
-    var phone = messageParsed.phone_number
-    setPhone(phone)
+
+
+
 
 
     // alert("data: " + "\n access: " + access + "\n company: " + companyName +
@@ -113,7 +96,7 @@ export function UserPage() {
       <div className={styles.header}>
         <Header loggedHeader={true} />
       </div>
-      <PackageInfo name={name} access={access} />
+      <PackageInfo name={name} />
       <LastGames id="games" />
 
     </div>

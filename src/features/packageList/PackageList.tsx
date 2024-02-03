@@ -4,21 +4,24 @@ import { Button } from "../../components/button/Button";
 import styles from "./PackageList.module.css"
 import tick from "./tick.svg"
 import { useEffect, useState } from "react";
+import { Plan } from "../profile/packageInfo/PackageInfo";
 
 type Props = {
   // basicActive?: boolean;
   // advancedActive?: boolean;
   // premiumActive?: boolean;
-  dateExpiry?: string;
+
   isLogged: boolean;
-  access?: string;
+
+  planInfo?: Plan | null;
+
 
 }
 
-PackageList.defaultProps = { basicActive: false, advancedActive: false, premiumActive: false, dateExpiry: "01.01.2024" }
 
 
-export function PackageList({access, isLogged, dateExpiry}: Props) {
+
+export function PackageList({ isLogged, planInfo }: Props) {
   const navigate = useNavigate()
 
 
@@ -40,36 +43,40 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
 
 
   const readAccess = () => {
-
-    if (access == "user") {
+    if (planInfo == null) {
       setBasicActive(false);
       setAdvancedActive(false);
       setPremiumActive(false);
+      return;
 
     }
-    if (access == "basic") {
+
+    if (planInfo?.planType == "basic") {
       setBasicActive(true);
       setAdvancedActive(false);
       setPremiumActive(false);
+      return;
     }
-    if (access == "advanced") {
+    if (planInfo?.planType == "advanced") {
       setBasicActive(false);
       setAdvancedActive(true);
       setPremiumActive(false);
+      return;
     }
-    if (access == "premium") {
+    if (planInfo?.planType == "premium") {
       setBasicActive(false);
       setAdvancedActive(false);
       setPremiumActive(true);
+      return;
     }
 
   }
 
   useEffect(() => {
-    
+
     readAccess()
 
-  }, []);
+  }, [planInfo]);
 
 
   return (
@@ -77,15 +84,15 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
       <div className={styles.container}>
         <div className={styles.card}>
 
-        {basicActive ? (
-          <div className={styles.nameActive}>
-            Простой
-          </div>
-        ) : (
-          <div className={styles.name}>
-            Простой
-          </div>
-        )}
+          {basicActive ? (
+            <div className={styles.nameActive}>
+              Простой
+            </div>
+          ) : (
+            <div className={styles.name}>
+              Простой
+            </div>
+          )}
           <div className={styles.textBoxes}>
             <div className={styles.textBox}>
               <div className={styles.tick}>
@@ -124,9 +131,9 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
 
 
           {basicActive ? (
-            <div className = {styles.buttons}>
+            <div className={styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки {dateExpiry}
+                Дата истечения срока подписки {planInfo?.expiryDate}
               </div>
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
@@ -145,15 +152,15 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
 
         <div className={styles.card}>
 
-        {advancedActive ? (
-          <div className={styles.nameActive}>
-            Расширенный
-          </div>
-        ) : (
-          <div className={styles.name}>
-            Расширенный
-          </div>
-        )}
+          {advancedActive ? (
+            <div className={styles.nameActive}>
+              Расширенный
+            </div>
+          ) : (
+            <div className={styles.name}>
+              Расширенный
+            </div>
+          )}
           <div className={styles.textBoxes}>
             <div className={styles.textBox}>
               <div className={styles.tick}>
@@ -199,11 +206,11 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
           </div>
 
 
-          
+
           {advancedActive ? (
-            <div className = {styles.buttons}>
+            <div className={styles.buttons}>
               <div className={styles.expiry}>
-                Дата истечения срока подписки {dateExpiry}
+                Дата истечения срока подписки {planInfo?.expiryDate}
               </div>
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
@@ -219,15 +226,15 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
 
         <div className={styles.card}>
 
-        {premiumActive ? (
-          <div className={styles.nameActive}>
-            Широкий
-          </div>
-        ) : (
-          <div className={styles.name}>
-            Широкий
-          </div>
-        )}
+          {premiumActive ? (
+            <div className={styles.nameActive}>
+              Широкий
+            </div>
+          ) : (
+            <div className={styles.name}>
+              Широкий
+            </div>
+          )}
           <div className={styles.textBoxes}>
             <div className={styles.textBox}>
               <div className={styles.tick}>
@@ -281,16 +288,23 @@ export function PackageList({access, isLogged, dateExpiry}: Props) {
           </div>
 
 
-          
-          {premiumActive ? (
-            <div className = {styles.buttons}>
-              <div className={styles.expiry}>
-                Дата истечения срока подписки {dateExpiry}
-              </div>
 
-              <Button text={"Участники пакета"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.viewMembers} />
+          {premiumActive ? (
+            <div className={styles.buttons}>
+              <div className={styles.expiry}>
+                Дата истечения срока подписки {planInfo?.expiryDate}
+              </div>
+              {planInfo?.planAccess == "holder" ? (
+
+                <Button text={"Участники пакета"} onClick={function (): void {
+                  throw new Error("Function not implemented.")
+                }} className={styles.viewMembers} />
+
+              ) : (
+                null
+
+              )}
+
               <Button text={"Отказаться"} onClick={function (): void {
                 throw new Error("Function not implemented.")
               }} className={styles.cancel} />

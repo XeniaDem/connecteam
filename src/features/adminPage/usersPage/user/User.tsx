@@ -16,6 +16,7 @@ export type UserModel = {
   email: string;
   photo: string;
   access: string;
+  isYou?: boolean;
 
 }
 
@@ -24,12 +25,11 @@ type Props = {
   token: string;
   onChange: () => void;
 
-
 }
 
 
 
-export function User({ user, token, onChange}: Props) {
+export function User({ user, token, onChange }: Props) {
 
   // useEffect(() => {
 
@@ -51,9 +51,8 @@ export function User({ user, token, onChange}: Props) {
     disableScroll.off()
     setUserOpen(false)
     onChange()
-    
-   
- 
+
+
 
   }
 
@@ -66,7 +65,7 @@ export function User({ user, token, onChange}: Props) {
       return ("Расширенный")
     if (user.access == "premium")
       return ("Широкий")
-      if (user.access == "admin")
+    if (user.access == "admin")
       return ("Администратор")
   }
 
@@ -85,12 +84,24 @@ export function User({ user, token, onChange}: Props) {
             {/* <img src = {photo}/> */}
             {(user.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={user.photo} />}
           </div>
-          <div className={styles.name} onClick={openUserPopup}>
-            {user.name} {" "} {user.surname}
-          </div>
-          <div className={styles.email}>
+          {user.isYou ? (
+            <div className={styles.nameActive}>
+              {user.name} {" "} {user.surname} {"(Вы)"}
+            </div>
+
+
+          ) : (
+            <div className={styles.name} onClick={openUserPopup}>
+              {user.name} {" "} {user.surname}
+            </div>
+
+          )}
+               <div className={styles.email}>
             {user.email}
           </div>
+
+
+
         </div>
         <div className={styles.group}>
           <div className={styles.text}>
@@ -103,13 +114,13 @@ export function User({ user, token, onChange}: Props) {
         </div>
 
 
-       
+
       </div>
 
       <div className={styles.divider} />
 
-      {userOpen ? <UserPopup user={user} token = {token} closePopup={closeUserPopup} onChange = {onChange} /> : null}
-     
+      {userOpen ? <UserPopup user={user} token={token} closePopup={closeUserPopup} onChange={onChange} /> : null}
+
     </div>
 
   )

@@ -7,6 +7,8 @@ import { Field } from "../../../profile/field/Field";
 import { User, UserModel } from "../user/User";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { patch } from "../../../../utils/api";
+import ellipse1 from "./ellipse1.svg"
+import ellipse2 from "./ellipse1.svg"
 
 
 
@@ -53,7 +55,7 @@ export function UserPopup(props: Props) {
     if (value == "Администратор")
       return ("admin")
   }
-  const [newAccess, setNewAccess] = useState <string | undefined> ("")
+  const [newAccess, setNewAccess] = useState<string | undefined>("")
 
   const onDropDownValueChange = (value: { label: any; }) => {
 
@@ -77,7 +79,7 @@ export function UserPopup(props: Props) {
   }
 
   const changeAccess = async () => {
-  
+
     const data = {
       id: props.user.id.toString(),
       access: newAccess
@@ -100,6 +102,15 @@ export function UserPopup(props: Props) {
   }
 
 
+  const packageOptions = [
+    'Нет доступа', 'Простой', 'Расширенный', 'Широкий', 'Администратор'
+  ];
+
+  const periodOptions = [
+    '14 дней', '1 месяц', '2 месяца'
+  ];
+
+
 
 
 
@@ -110,6 +121,8 @@ export function UserPopup(props: Props) {
 
       <div className={styles.background}>
         <div className={styles.container}>
+
+
           <div className={styles.close}>
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
@@ -118,6 +131,9 @@ export function UserPopup(props: Props) {
 
           <div className={styles.body}>
             <div className={styles.left}>
+              <div className={styles.ellipse2}>
+                <img src={ellipse2} />
+              </div>
               <div className={styles.title}>
                 Личные данные
 
@@ -130,10 +146,23 @@ export function UserPopup(props: Props) {
 
             </div>
             <div className={styles.right}>
+              <div className={styles.ellipse1}>
+                <img src={ellipse1} />
+              </div>
               <div className={styles.fields}>
                 <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name + " " + props.user.surname} />
                 <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={props.user.email} />
-                <Field small={true} isDropDown={true} title={"Порог доступа"} dropDownValue={readAccess()} onDropDownValueChange={onDropDownValueChange} />
+                <Field small={true} isDropDown={true} options={packageOptions} title={"Порог доступа"} dropDownValue={readAccess()} onDropDownValueChange={onDropDownValueChange} />
+               
+
+
+                {accessChanging && newAccess != "user" && newAccess != "admin" ? (
+                  <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"} dropDownValue={periodOptions[0]} onDropDownValueChange={(() => null)} />
+
+                ) : (
+                  null
+                )}
+
 
 
               </div>
