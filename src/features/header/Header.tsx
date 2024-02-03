@@ -40,6 +40,10 @@ export function Header(props: Props) {
             navigate("/users_page")
 
           }} />
+          <HeaderItem text="Запросы на пакет" onClick={() => {
+            navigate("/plan_requests")
+
+          }} />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
@@ -75,14 +79,17 @@ export function Header(props: Props) {
           ) : (
             null
           )}
-          <HeaderItem text="Мои игры" link = "#games"/>
+          <HeaderItem text="Мои игры" onClick={() => {
+            navigate("/user_page")
+
+          }} link="#games" />
           {/* <HeaderItem text="Пользователи" onClick={() => {
            
             navigate("/users_page")
 
           }}/> */}
         </div>
-        <Button text={"Выход"} onClick={() => { 
+        <Button text={"Выход"} onClick={() => {
           navigate("/")
           dispatch(setToken(""))
         }} className={styles.authButton} />

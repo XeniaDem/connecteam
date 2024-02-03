@@ -45,30 +45,10 @@ height: 60.62px;
 border-radius: 50px;
 display: flex;
 align-items: center;
+border: 1px solid #55C6F7;
 justify-content: center;
 overflow: hidden;
 object-fit: fill;
-position: relative;
-
-
-
- 
-}
-
-.photo::before {
-
-border-radius: 50px;
-
-border: 1px solid transparent;
-padding: 10px; 
-content: "";
-position: absolute;
-inset: 0;
-background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
--webkit-mask: /*4*/
-   linear-gradient(#fff 0 0) padding-box, 
-   linear-gradient(#fff 0 0);
--webkit-mask-composite: xor; /*5'*/
 
 
 
@@ -118,6 +98,7 @@ letter-spacing: -0.05em;
 display: flex;
 align-items: center;
 color: #595959;
+width: 350px;
 
 
 }
@@ -135,9 +116,20 @@ align-items: center;
 color: #FFF;
 }
 
+.period {
+  font-size: 25px;
+font-weight: 400;
+line-height: 35px;
+letter-spacing: -0.05em;
+display: flex;
+align-items: center;
+color: #595959;
+
+}
 
 
-.access {
+
+.plan {
   min-width: 171px;
 height: 44.76px;
 border-radius: 51.39px;
@@ -160,7 +152,7 @@ position:relative;
 
 }
 
-.access::before {
+.plan::before {
   border-radius: 57.4px;
   border: 1.76px solid transparent;
   padding: 10px; 

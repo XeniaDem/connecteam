@@ -34,6 +34,10 @@ export function PackageList({ isLogged, planInfo }: Props) {
     }
 
   }
+  const showPlanUsers = () => {
+
+    navigate("/plan_users")
+  }
 
   // const [withPackage, setWithPackage] = useState(false);
 
@@ -296,9 +300,7 @@ export function PackageList({ isLogged, planInfo }: Props) {
               </div>
               {planInfo?.planAccess == "holder" ? (
 
-                <Button text={"Участники пакета"} onClick={function (): void {
-                  throw new Error("Function not implemented.")
-                }} className={styles.viewMembers} />
+                <Button text={"Участники пакета"} onClick={showPlanUsers} className={styles.viewMembers} />
 
               ) : (
                 null

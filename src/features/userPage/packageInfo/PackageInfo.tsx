@@ -83,8 +83,6 @@ export function PackageInfo({ name }: Props) {
 
 
   useEffect(() => {
-    alert(planInfo)
-
 
     fetchPlan()
 

@@ -9,6 +9,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { patch } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse1.svg"
+import defaultPhoto from "./photo.svg"
 
 
 
@@ -139,7 +140,7 @@ export function UserPopup(props: Props) {
 
               </div>
               <div className={styles.photo}>
-                {(props.user.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={props.user.photo} />}
+                {(props.user.photo == "") ? <img src = {defaultPhoto} /> : <img src={props.user.photo} />}
 
               </div>
 

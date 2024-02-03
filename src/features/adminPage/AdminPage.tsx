@@ -25,15 +25,6 @@ export function AdminPage() {
 
   // }, []);
 
-  const toUsersPage = () => {
-    navigate("/users_page")
-
-  }
-
-  const toQuestionsPage = () => {
-    navigate("/users_page")
-
-  }
 
 
 
@@ -49,16 +40,23 @@ export function AdminPage() {
         Приветствуем Вас на <br /> странице администратора!
       </div>
 
-      <div className={styles.section} onClick={toUsersPage}>
+      <div className={styles.section} onClick={() => navigate("/users_page")}>
         <div className={styles.subtitle}>
           Вопросы
         </div>
         <img src={questions} />
       </div>
 
-      <div className={styles.section} onClick={toQuestionsPage}>
+      <div className={styles.section} onClick={() => navigate("/questions_page")}>
       <div className={styles.subtitle}>
           Пользователи
+        </div>
+        <img src={users} />
+
+      </div>
+      <div className={styles.section} onClick={() => navigate("/requests_page")}>
+      <div className={styles.subtitle}>
+          Запросы на пакет
         </div>
         <img src={users} />
 

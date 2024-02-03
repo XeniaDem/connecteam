@@ -150,22 +150,32 @@ box-shadow: none;
 
 }
 .photo {
-  width: 160.62px;
-height: 160.62px;
-border-radius: 100px;
-display: flex;
+  width: 220px;
+height: 220px;
+flex-shrink: 0;
+border-radius: 305px;
+
 align-items: center;
-border: 1px solid #55C6F7;
 justify-content: center;
-overflow: hidden;
-object-fit: fill;
-  z-index: 1;
-
-
-
- 
+display: flex;
+position:relative;
+z-index: 1;
 }
 
+.photo::before {
+  border-radius:  305px;
+  border: 10px solid transparent;
+  padding: 10px; 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+  -webkit-mask: /*4*/
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; /*5'*/
+
+}
 
 
 .fields {
