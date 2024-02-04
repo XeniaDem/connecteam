@@ -149,7 +149,7 @@ export function Profile() {
 
       <div className={styles.divider} />
 
-      <PackageInfo savedPlan = {planInfo} token={token}/>
+      <PackageInfo savedPlan = {planInfo} token={token} />
 
 
 

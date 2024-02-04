@@ -1,8 +1,5 @@
 
 import styles from "./User.module.css"
-import photo from "./photo.svg"
-import users from "./users.svg"
-import questions from "./questions.svg"
 import { useEffect, useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import disableScroll from 'disable-scroll';
@@ -29,7 +26,7 @@ type Props = {
 
 
 
-export function User({ user, token, onChange }: Props) {
+export function User({ user, token, onChange}: Props) {
 
   // useEffect(() => {
 
@@ -45,6 +42,7 @@ export function User({ user, token, onChange }: Props) {
   const openUserPopup = () => {
     disableScroll.on()
     setUserOpen(true)
+    
 
   }
   const closeUserPopup = () => {

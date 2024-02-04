@@ -39,44 +39,8 @@ align-items: center;
 
 
 
-
-.photo {
-  width: 60.62px;
-height: 60.62px;
-border-radius: 50px;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-object-fit: fill;
-position: relative;
-
-
-
- 
-}
-
-.photo::before {
-
-border-radius: 50px;
-
-border: 1px solid transparent;
-padding: 10px; 
-content: "";
-position: absolute;
-inset: 0;
-background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
--webkit-mask: /*4*/
-   linear-gradient(#fff 0 0) padding-box, 
-   linear-gradient(#fff 0 0);
--webkit-mask-composite: xor; /*5'*/
-
-
-
- 
-}
-
 .name {
+
 
 font-size: 25px;
 font-weight: 500;
@@ -87,6 +51,7 @@ align-items: center;
 color: #FFF;
 cursor: pointer;
 width: 250px;
+margin-left: -35px;
 }
 
 .nameActive {
@@ -101,6 +66,7 @@ align-items: center;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   width: 250px;
+  margin-left: -35px;
 
 }
 
@@ -111,17 +77,6 @@ align-items: center;
   -webkit-text-fill-color: transparent;
 }
 
-.email {
-font-size: 25px;
-font-weight: 400;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
-color: #595959;
-
-
-}
 
 
 .text {
@@ -138,8 +93,8 @@ color: #FFF;
 
 
 
-.access {
-  min-width: 171px;
+.deleteButton {
+  width: 150px;
 height: 44.76px;
 border-radius: 51.39px;
 
@@ -157,24 +112,10 @@ text-align: center;
 align-items: center;
 justify-content: center;
 display: flex;
-position:relative;
+margin-left: -30px;
 
 }
 
-.access::before {
-  border-radius: 57.4px;
-  border: 1.76px solid transparent;
-  padding: 10px; 
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; 
-  -webkit-mask: 
-     linear-gradient(#fff 0 0) padding-box, 
-     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; 
-
-}
 
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);

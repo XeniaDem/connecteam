@@ -72,7 +72,10 @@ export function UsersPage() {
   }
 
   const fetchUsers = async () => {
-    fetchMe()
+    if (id == "") {
+      setFetched(false);
+    }
+ 
     try {
       const response = await get('users/list', token)
       readUsers(response.text)
@@ -126,7 +129,12 @@ export function UsersPage() {
 
 
 
+
+
+
   useEffect(() => {
+   
+    fetchMe()
 
     fetchUsers()
   }, [fetched]);
@@ -150,7 +158,7 @@ export function UsersPage() {
 
         {users?.map(user =>
           <div>
-            <User user={user} token = {token} onChange = {onChange} />
+            <User user={user} token = {token} onChange = {onChange}/>
 
           </div>
 

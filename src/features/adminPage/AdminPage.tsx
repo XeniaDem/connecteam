@@ -6,6 +6,9 @@ import users from "./users.svg"
 import questions from "./questions.svg"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { get } from "../../utils/api"
+import { useSelector } from "react-redux"
+import { selectToken } from "../auth/authSlice"
 
 
 type Props = {
@@ -19,9 +22,15 @@ type Props = {
 export function AdminPage() {
   const navigate = useNavigate()
 
+
+
+
+
+
+
   // useEffect(() => {
 
-  //   readAccess()
+  //   fetchMe()
 
   // }, []);
 
@@ -40,21 +49,21 @@ export function AdminPage() {
         Приветствуем Вас на <br /> странице администратора!
       </div>
 
-      <div className={styles.section} onClick={() => navigate("/users_page")}>
+      <div className={styles.section} onClick={() => navigate("/questions_page")}>
         <div className={styles.subtitle}>
           Вопросы
         </div>
         <img src={questions} />
       </div>
 
-      <div className={styles.section} onClick={() => navigate("/questions_page")}>
+      <div className={styles.section} onClick={() => navigate("/users_page")}>
       <div className={styles.subtitle}>
           Пользователи
         </div>
         <img src={users} />
 
       </div>
-      <div className={styles.section} onClick={() => navigate("/requests_page")}>
+      <div className={styles.section} onClick={() => navigate("/plan_requests")}>
       <div className={styles.subtitle}>
           Запросы на пакет
         </div>

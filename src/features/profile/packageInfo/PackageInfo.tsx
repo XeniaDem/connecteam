@@ -19,7 +19,7 @@ export type Plan = {
 }
 type Props = {
   token: string;
-  savedPlan: Plan;
+  savedPlan: Plan | null;
 
 }
 
@@ -28,7 +28,7 @@ export function PackageInfo({savedPlan, token }: Props) {
 
 
   return (
-    <div>
+    <div id = "package_info">
 
       <div className={styles.container}>
       <div className={styles.ellipse1}>

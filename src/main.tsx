@@ -15,6 +15,7 @@ import { AdminPage } from "./features/adminPage/AdminPage"
 import { UsersPage } from "./features/adminPage/usersPage/UsersPage"
 import { PlanUsersPage } from "./features/planUsers/PlanUsersPage"
 import { PlanRequestsPage } from "./features/adminPage/planRequestsPage/PlanRequestsPage"
+import { QuestionsPage } from "./features/adminPage/questionsPage/QuestionsPage"
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: "users_page",
-    element: <UsersPage/>,
+    element: <UsersPage />,
   },
   {
     path: "plan_users",
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "plan_requests",
     element: <PlanRequestsPage/>,
+  },
+  {
+    path: "questions_page",
+    element: <QuestionsPage/>,
   },
 ]);
 

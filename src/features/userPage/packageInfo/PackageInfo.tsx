@@ -113,9 +113,7 @@ export function PackageInfo({ name }: Props) {
               Дата истечения срока подписки {planInfo.expiryDate}
             </div>
 
-            <Button text={"Сменить пакет"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.button} />
+            <Button text={"Управлять пакетом"} onClick={() => (navigate("/profile#package_info"))} className={styles.button} />
 
 
           </div>
@@ -142,10 +140,7 @@ export function PackageInfo({ name }: Props) {
               <div className={styles.footer}>
                 Дата истечения срока подписки {planInfo.expiryDate}
               </div>
-
-              <Button text={"Сменить пакет"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.button} />
+              <Button text={"Управлять пакетом"} onClick={() => (navigate("/profile#package_info"))} className={styles.button} />
 
 
             </div>
@@ -175,9 +170,7 @@ export function PackageInfo({ name }: Props) {
                 Дата истечения срока подписки {planInfo.expiryDate}
               </div>
 
-              <Button text={"Сменить пакет"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.button} />
+              <Button text={"Управлять пакетом"} onClick={() => (navigate("/profile"))} className={styles.button} />
 
 
             </div>

@@ -32,7 +32,7 @@ export function Header(props: Props) {
 
 
           <HeaderItem text="Вопросы" onClick={() => {
-            navigate("/admin_page")
+            navigate("/questions_page")
 
           }} />
 

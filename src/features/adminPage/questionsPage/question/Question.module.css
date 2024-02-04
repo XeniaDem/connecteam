@@ -1,0 +1,75 @@
+
+
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  height: 50px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-left: 15px;
+  padding-right: 15px;
+
+
+
+
+  /*border-radius: 50px 0px 0px 50px;*/
+
+
+ 
+}
+
+
+.group {
+  display: flex;
+  gap: 80px;
+
+align-items: center;
+
+}
+
+
+
+
+
+.text {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+
+
+color: #FFF;
+}
+
+
+
+.deleteButton {
+  color: #5C5C5C;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.04em;
+  
+border: none;
+background: none;
+z-index: 1;
+margin-right: -80px;
+
+
+}
+.deleteButton:hover {
+  /* background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  text-decoration: underline;
+box-shadow: none;
+
+}
+
+.divider {
+  border: 1px solid rgba(89, 89, 89, 1);
+}
+
