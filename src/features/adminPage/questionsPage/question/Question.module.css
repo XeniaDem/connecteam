@@ -28,10 +28,25 @@
 align-items: center;
 
 }
+.smallGroup {
+  display: flex;
+
+align-items: center;
+
+}
 
 
+.counter {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
 
 
+color: #FFF;
+border: none;
+background: none;
+}
 
 .text {
   font-size: 20px;
@@ -41,6 +56,29 @@ align-items: center;
 
 
 color: #FFF;
+border: none;
+background: none;
+min-width: 400px;
+}
+
+.textActive {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+display: flex;
+align-items: center;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  outline: none;
+  border: 1px solid #55C6F7;
+  caret-color: #FFF;
+  border-radius: 60px;
+  padding: 5px 25px;
+  min-width: 400px;
+
 }
 
 
@@ -55,7 +93,6 @@ color: #FFF;
 border: none;
 background: none;
 z-index: 1;
-margin-right: -80px;
 
 
 }

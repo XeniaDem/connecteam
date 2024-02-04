@@ -49,9 +49,12 @@ letter-spacing: -0.05em;
 display: flex;
 align-items: center;
 color: #FFF;
-cursor: pointer;
-width: 250px;
+/* width: 280px; */
 margin-left: -35px;
+
+border: none;
+background: none;
+
 }
 
 .nameActive {
@@ -65,17 +68,33 @@ align-items: center;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  width: 250px;
   margin-left: -35px;
+  outline: none;
+  border: 1px solid #55C6F7;
+  caret-color: #FFF;
+  border-radius: 60px;
+  padding: 5px 25px;
 
 }
 
-.name:hover {
+.count {
+  font-size: 25px;
+font-weight: 500;
+line-height: 35px;
+letter-spacing: -0.05em;
+display: flex;
+align-items: center;
+color: #5C5C5C;
+margin-right: -35px;
+
+}
+
+/* .name:hover {
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
+} */
 
 
 

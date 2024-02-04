@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { IconButton } from "@mui/material";
 import { Button } from "../../../../components/button/Button";
 import EditIcon from '@mui/icons-material/Edit';
+import DoneIcon from '@mui/icons-material/Done';
 
 
 export type TopicModel = {
@@ -19,14 +20,14 @@ export type TopicModel = {
 
 type Props = {
   token: string;
-  topic: TopicModel;
+  savedTopic: TopicModel;
   onChange: () => void;
 
 }
 
 
 
-export function Topic({ topic, token, onChange }: Props) {
+export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
 
   // useEffect(() => {
 
@@ -36,8 +37,45 @@ export function Topic({ topic, token, onChange }: Props) {
 
   const [questionsOpen, setQuestionsOpen] = useState(false);
 
+  const [topicEditing, setTopicEditing] = useState(false);
 
 
+
+  const [topicName, setTopicName] = useState("");
+
+
+  const handleTopicEdit = () => {
+    if (!topicEditing) {
+      setTopicEditing(!topicEditing);
+    }
+
+    if (topicEditing) {
+
+      if (savedTopic.name != topicName) {
+        if (topicName == "") {
+          return;
+        }
+        alert("topicchange")
+        setTopicEditing(!topicEditing);
+       // changeCompanyInfo()
+          /// onChange() потом включить
+      }
+      else {
+        setTopicEditing(!topicEditing);
+        alert("Ничего не сохраняем")
+      }
+    }
+
+
+
+  }
+
+
+  useEffect(() => {
+
+    setTopicName(savedTopic.name)
+
+  }, [savedTopic]);
 
 
 
@@ -49,28 +87,39 @@ export function Topic({ topic, token, onChange }: Props) {
 
 
         <div className={styles.group}>
-        <IconButton onClick={() => null}>
-          <EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+          <IconButton onClick={handleTopicEdit}>
+            {!topicEditing ? (<EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+            ) : (
+              <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+            )}
 
-          
+
+
           </IconButton>
 
-          <div className={!questionsOpen ? styles.name : styles.nameActive} onClick={() => setQuestionsOpen(!questionsOpen)}>
-            {topic.name}
+          <div >
+            {/* {topic.name} */}
+            <input className={!topicEditing ? styles.name : styles.nameActive} placeholder={"Название темы"} disabled={!topicEditing}
+              value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
           </div>
+   
+
 
 
         </div>
         <div className={styles.group}>
+        <div className={styles.count}>
+            (вопросов: {savedTopic.questions.length})
+          </div>
           <IconButton onClick={() => setQuestionsOpen(!questionsOpen)}>
 
-            {!questionsOpen  ? (
-            <KeyboardArrowLeftIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            {!questionsOpen ? (
+              <KeyboardArrowLeftIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             ) : (
               <KeyboardArrowDownIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
             )}
-          
+
           </IconButton>
           <Button text={"Удалить"} onClick={() => null} className={styles.deleteButton} />
 
@@ -83,9 +132,9 @@ export function Topic({ topic, token, onChange }: Props) {
 
       {questionsOpen ? (
         <div>
-          {topic.questions?.map(question =>
+          {savedTopic.questions?.map(question =>
             <div>
-              <Question question={question} onChange={onChange} />
+              <Question savedQuestion={question} onChange={onChange} />
 
             </div>
 

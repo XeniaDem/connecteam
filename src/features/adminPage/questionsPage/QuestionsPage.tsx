@@ -12,6 +12,7 @@ import { JSX } from "react/jsx-runtime"
 import disableScroll from 'disable-scroll';
 import { Topic, TopicModel } from "./topic/Topic"
 import { QuestionModel } from "./question/Question"
+import { Button } from "../../../components/button/Button"
 
 
 type Props = {
@@ -33,28 +34,28 @@ export function QuestionsPage() {
 
 
   const readTopics = (message: any) => {
-   // const messageParsed = JSON.parse(message);
+    // const messageParsed = JSON.parse(message);
 
     const topicsNum = 5 // (messageParsed.data.length);
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
-      
+
 
       const questionsNum = 5 // (messageParsed.data[i].length);
       const questionModels = [];
       for (let j = 0; j < questionsNum; j++) {
         const questionModel = {
-          number: j+1,
+          number: j + 1,
           text: "Как составлять расписание?", //messageParsed.data[i].questions[j].text
-  
+
         }
         questionModels.push(questionModel)
       }
 
       const topicModel = {
         name: "Обучение", //messageParsed.data[i].name
-        questions: questionModels 
+        questions: questionModels
 
       }
       topicModels.push(topicModel)
@@ -80,7 +81,7 @@ export function QuestionsPage() {
   }
 
   const fetchTopics = async () => {
- 
+
     try {
       const response = await get('users/list', token)
       readTopics(response.text)
@@ -112,7 +113,7 @@ export function QuestionsPage() {
   useEffect(() => {
     readTopics("");
 
-   
+
   }, [fetched]);
 
   return (
@@ -126,15 +127,20 @@ export function QuestionsPage() {
       <div className={styles.header}>
         <Header adminHeader={true} />
       </div>
-      <div className={styles.title}>
-        Список тем и вопросов
+      <div className={styles.up}>
+        <div className={styles.title}>
+          Список тем и вопросов
+        </div>
+        <Button text={"Загрузить вопрос"} onClick={() => null} className={styles.addButton} />
       </div>
+
+
       <div className={styles.topics}>
 
 
         {topics?.map(topic =>
           <div>
-            <Topic topic={topic} token = {token} onChange = {onChange}/>
+            <Topic savedTopic={topic} token={token} onChange={onChange} />
 
           </div>
 

@@ -60,6 +60,13 @@ min-height: 100vh;
   
   }
 
+  .up {
+    margin-top: 187px;
+    display:flex;
+    justify-content: space-between;
+    padding-bottom: 57px;
+  }
+
 
 .title {
   color: #FFF;
@@ -68,13 +75,26 @@ font-size: 50px;
 font-style: normal;
 font-weight: 700;
 line-height: 71.925px; /* 143.851% */
-margin-top: 187px;
-padding-bottom: 57px;
+
 
  
 }
 
+.addButton {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  width: 200.531px;
+  height: 46.667px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+z-index: 1;
+
+}
 
 
 .topics {
