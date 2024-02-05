@@ -28,6 +28,8 @@ export function UserPage() {
 
 
   const [name, setName] = useState("");
+  const [access, setAccess] = useState("");
+
 
   const readAnswer = (message: any) => {
 
@@ -38,6 +40,8 @@ export function UserPage() {
 
     var name = messageParsed.first_name
     setName(name)
+    var access = messageParsed.access
+    setAccess(access)
 
 
 
@@ -94,7 +98,7 @@ export function UserPage() {
 
     <div className={styles.container}>
       <div className={styles.header}>
-        <Header loggedHeader={true} />
+        <Header loggedHeader={true} withPackage = {!(access == "user")}/>
       </div>
       <PackageInfo name={name} />
       <LastGames id="games" />

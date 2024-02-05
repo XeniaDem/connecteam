@@ -1,3 +1,14 @@
+.header {
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  
+  
+  }
+
+
 .container {
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
@@ -49,6 +60,8 @@ line-height: 19.481px; /* 38.962% */
 .creation {
   display: flex;
 flex-direction: column;
+justify-content: center;
+align-items: center;
 
   border-radius: 23px;
 
@@ -167,6 +180,15 @@ background-clip: text;
 
 
 }
+.errorMessage {
+  color: red;
+font-size: 14.972px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.33px; /* 162.5% */
+padding: 0px;
+
+}
 
 
 
@@ -194,7 +216,46 @@ background-clip: text;
 }
 
 
+.calendar {
+  color:#FFF;
+  text-decoration: none;
+  text-align: center;
+
+  width: 250px;
+  border: 1px solid #55C6F7;
+  padding: 10px;
+  border-radius: 20px;
 
 
+}
+
+.tile {
+  background-color: #171717;
+
+  font-family: 'Work Sans Variable', sans-serif;
+ color: #FFF;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  padding: 5px;
+  border: none;
+
+  
+  
+
+}
+
+.calendarContainer {
+  background-color: red;
+}
+.navigate {
+  background-color: red;
+  padding: 0px;
+  border: none;
+  margin-top: -5px;
+  height: 10px;
+  width:10px;
+}
 
 

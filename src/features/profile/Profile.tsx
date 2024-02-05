@@ -137,7 +137,7 @@ export function Profile() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Header loggedHeader={true}/>
+        <Header loggedHeader={true} withPackage = {!(planInfo == null)}/>
       </div>
 
       {userInfo && (<UserInfo savedUser={userInfo} token={token} />)}

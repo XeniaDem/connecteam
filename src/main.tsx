@@ -68,6 +68,10 @@ const router = createBrowserRouter([
     path: "questions_page",
     element: <QuestionsPage/>,
   },
+  {
+    path: "create_game",
+    element: <CreateGame/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

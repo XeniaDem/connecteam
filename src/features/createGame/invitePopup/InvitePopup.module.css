@@ -86,7 +86,7 @@ box-shadow: none;
   color: #FFF;
   text-align: center;
 
-  font-size: 25.612px;
+  font-size: 22.612px;
   font-style: normal;
   font-weight: 500;
   line-height: 35px; /* 126.757% */
@@ -112,6 +112,19 @@ box-sizing: border-box;
 color: #FFF;
 z-index: 1;
 outline: none;
+}
+
+
+.errorMessage {
+  color: red;
+font-size: 14.972px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.33px; /* 162.5% */
+display: flex;
+justify-content: end;
+padding: 0px;
+
 }
 
 

@@ -75,7 +75,8 @@ export function Header(props: Props) {
 
           }} />
           {props.withPackage ? (
-            <HeaderItem text="Создать игру" />
+            <HeaderItem text="Создать игру" onClick={() => {
+              navigate("/create_game")}} />
           ) : (
             null
           )}
