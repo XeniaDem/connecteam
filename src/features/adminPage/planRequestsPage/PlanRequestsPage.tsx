@@ -72,7 +72,7 @@ export function PlanRequestsPage() {
 
   const fetchRequests = async () => {
     try {
-      const response = await get('users/list', token)
+      const response = await get('users/list', token) ////////////////////////
       readRequests(response.text)
       return;
 

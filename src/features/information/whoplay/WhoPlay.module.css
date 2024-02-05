@@ -64,26 +64,64 @@ width: 351.442px;
 height: 210.853px;
 flex-shrink: 0;
 border-radius: 23.197px;
-border: 1.16px solid rgba(0, 0, 0, 0.00);
 background: rgba(217, 217, 217, 0.10);
 
 text-align: center;
 margin-top: auto;
 padding-top: 48px;
+position: relative;
+
+}
+
+.card::before {
+  border-radius: 23.197px;
+  border: 1px solid transparent;
+ padding: 10px; 
+ content: "";
+ position: absolute;
+ inset: 0;
+ background: linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(191, 191, 191, 0.7)) border-box; /*3*/
+ -webkit-mask: /*4*/
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+ -webkit-mask-composite: xor; /*5'*/
+
+
 
 }
 
 .logo {
   border-radius: 6.959px;
-border: 0.232px solid #FFF;
 background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(29, 29, 29, 0.50) 100%);
 width: 50px;
 height: 50px;
 flex-shrink: 0;
 padding: 5px;
 
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
 margin-left: auto;
 margin-right: auto;
+
+
+
+}
+
+
+.logo::before {
+  border-radius: 6.959px;
+  border: 0.5px solid transparent;
+ padding: 10px; 
+ content: "";
+ position: absolute;
+ inset: 0;
+ background: linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(191, 191, 191, 0.5)) border-box; /*3*/
+ -webkit-mask: /*4*/
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+ -webkit-mask-composite: xor; /*5'*/
 
 
 
@@ -111,7 +149,7 @@ font-weight: 300;
 line-height: 134.335%; /* 18.697px */
 letter-spacing: -0.974px;
 padding-top: 14px;
-  padding-left: 55px;
-  padding-right: 55px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 

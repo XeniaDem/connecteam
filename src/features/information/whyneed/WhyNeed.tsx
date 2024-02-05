@@ -11,17 +11,24 @@ export function WhyNeed() {
     <div>
 
 
+
+
       <div className={styles.title}>
         Зачем это нужно
+
       </div>
       <div className={styles.container}>
 
-        <div className={styles.rectangle}>
-          <img src={rectangle} />
-        </div>
+
+
 
 
         <div className={styles.left}>
+          <div className={styles.rectangle}>
+            <img src={rectangle} />
+          </div>
+
+
 
           <div className={styles.card}>
 
@@ -66,10 +73,13 @@ export function WhyNeed() {
 
         <div className={styles.right}>
 
+
+
           <div className={styles.card}>
 
 
             <div className={styles.arrow2}>
+
               <img src={arrow2} />
             </div>
             <div className={styles.cardLeft}>

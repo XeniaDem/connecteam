@@ -23,7 +23,7 @@ export function Packages() {
         <div className={styles.rectangle}>
           <img src={rectangle} />
         </div>
-        <PackageList basicActive = {false} advancedActive = {false} premiumActive = {false} isLogged = {false}/>
+        <PackageList isLogged = {false}/>
         
       </div>
 

@@ -5,6 +5,7 @@ import { BecomeMember } from "./becomeMember/BecomeMember"
 import { Contacts } from "./contacts/Contacts"
 import { Faq } from "./faq/Faq"
 import { Intro } from "./intro/Intro"
+import { Introduction } from "./introduction/Introduction"
 import { KnowMore } from "./knowMore/KnowMore"
 import { Packages } from "./packages/Packages"
 import { RealGames } from "./realGames/RealGames"
@@ -21,7 +22,7 @@ export function Information() {
   return (
     <div className={styles.container}>
 
-      <Intro />
+      <Introduction />
       <About />
       <WhoPlay />
       <WhyNeed />

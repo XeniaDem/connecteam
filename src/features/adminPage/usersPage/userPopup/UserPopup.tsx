@@ -8,7 +8,7 @@ import { User, UserModel } from "../user/User";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { patch } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse1.svg"
+import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
 
 

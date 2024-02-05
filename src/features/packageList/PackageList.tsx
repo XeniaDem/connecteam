@@ -47,7 +47,7 @@ export function PackageList({ isLogged, planInfo }: Props) {
 
 
   const readAccess = () => {
-    if (planInfo == null) {
+    if (planInfo == null || !isLogged) {
       setBasicActive(false);
       setAdvancedActive(false);
       setPremiumActive(false);
@@ -86,7 +86,7 @@ export function PackageList({ isLogged, planInfo }: Props) {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.card}>
+        <div className={isLogged ? styles.card : styles.highlighted}>
 
           {basicActive ? (
             <div className={styles.nameActive}>
@@ -134,6 +134,7 @@ export function PackageList({ isLogged, planInfo }: Props) {
           </div>
 
 
+
           {basicActive ? (
             <div className={styles.buttons}>
               <div className={styles.expiry}>
@@ -145,7 +146,15 @@ export function PackageList({ isLogged, planInfo }: Props) {
             </div>
 
           ) : (
-            <Button text={"Выбрать"} onClick={choosePackage} className={styles.inactive} />
+            <div className={styles.buttons}>
+              <div className={styles.offer}>
+                {isLogged ? "" : "Попробуйте бесплатный доступ на 14 дней!"}
+              </div>
+
+        
+                <Button text={"Выбрать"} onClick={choosePackage} className={isLogged ? styles.inactive : styles.active} />
+          
+            </div>
           )}
 
 
