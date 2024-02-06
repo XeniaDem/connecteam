@@ -7,6 +7,7 @@ import person from "./person.svg"
 import { HeaderItem } from "./headerItem/HeaderItem"
 import { useDispatch } from "react-redux"
 import { setToken } from "../auth/authSlice"
+import { useState } from "react"
 
 
 type Props = {
@@ -20,7 +21,21 @@ export function Header(props: Props) {
 
   const navigate = useNavigate()
 
+  const [selectedItemName, setSelectedItemName] = useState("");
+  const onItemClicked = (newValue: boolean, name: string) => {
+
+
+    
+    setSelectedItemName(name)
+
+
+
+  };
+
+
+
   if (props.adminHeader) {
+
     return (
       <div className={styles.container}>
         <div className={styles.group}>
@@ -32,18 +47,25 @@ export function Header(props: Props) {
 
 
           <HeaderItem text="Вопросы" onClick={() => {
+
             navigate("/questions_page")
 
-          }} />
+          }} selected={"Вопросы" == selectedItemName} onItemClicked={onItemClicked} />
 
           <HeaderItem text="Пользователи" onClick={() => {
             navigate("/users_page")
 
-          }} />
+
+          }} selected={"Пользователи" == selectedItemName} onItemClicked={onItemClicked} />
+
           <HeaderItem text="Запросы на пакет" onClick={() => {
+
             navigate("/plan_requests")
 
-          }} />
+
+
+
+          }} selected={"Запросы на пакет" == selectedItemName} onItemClicked={onItemClicked} />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
@@ -73,17 +95,14 @@ export function Header(props: Props) {
           <HeaderItem text="Профиль" onClick={() => {
             navigate("/profile")
 
-          }} />
+          }} onItemClicked={onItemClicked}/>
           {props.withPackage ? (
             <HeaderItem text="Создать игру" onClick={() => {
-              navigate("/create_game")}} />
+              navigate("/create_game")}} onItemClicked={onItemClicked}/>
           ) : (
             null
           )}
-          <HeaderItem text="Мои игры" onClick={() => {
-            navigate("/user_page")
-
-          }} link="#games" />
+          <HeaderItem text="Мои игры" link="#games"/>
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
@@ -130,7 +149,7 @@ export function Header(props: Props) {
           navigate("/")
         }} />
       </div>
-      <HeaderItem text="О проекте" link="#about" />
+      <HeaderItem text="О проекте" link="#about"/>
       <HeaderItem text="Как играть" link="#real_games" />
       <HeaderItem text="FAQ" link="#faq" />
       <HeaderItem text="Контакты" link="#contacts" />
@@ -144,7 +163,7 @@ export function Header(props: Props) {
         <div className={styles.person}>
           <img src={person} />
         </div>
-        <HeaderItem text="Войти" link="/login" />
+        {/* <HeaderItem text="Войти" link="/login" /> */}
       </div>
 
     </div >

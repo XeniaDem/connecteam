@@ -118,74 +118,56 @@ export function UserPopup(props: Props) {
 
   return (
 
-    <div>
-
-      <div className={styles.background}>
-        <div className={styles.container}>
 
 
-          <div className={styles.close}>
-            <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
-          </div>
+    <div className={styles.background}>
+      <div className={styles.container}>
+
+
+        <div className={styles.close}>
+          <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
+        </div>
 
 
 
-          <div className={styles.body}>
-            <div className={styles.left}>
-              <div className={styles.ellipse2}>
-                <img src={ellipse2} />
-              </div>
-              <div className={styles.title}>
-                Личные данные
-
-              </div>
-              <div className={styles.photo}>
-                {(props.user.photo == "") ? <img src = {defaultPhoto} /> : <img src={props.user.photo} />}
-
-              </div>
-
+        <div className={styles.body}>
+          <div className={styles.left}>
+            <div className={styles.ellipse2}>
+              <img src={ellipse2} />
+            </div>
+            <div className={styles.title}>
+              Личные данные
 
             </div>
-            <div className={styles.right}>
-              <div className={styles.ellipse1}>
-                <img src={ellipse1} />
-              </div>
-              <div className={styles.fields}>
-                <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name + " " + props.user.surname} />
-                <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={props.user.email} />
-                <Field small={true} isDropDown={true} options={packageOptions} title={"Порог доступа"} dropDownValue={readAccess()} onDropDownValueChange={onDropDownValueChange} />
-               
+            <div className={styles.photo}>
+              {(props.user.photo == "") ? <img src={defaultPhoto} /> : <img src={props.user.photo} />}
 
-
-                {accessChanging && newAccess != "user" && newAccess != "admin" ? (
-                  <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"} dropDownValue={periodOptions[0]} onDropDownValueChange={(() => null)} />
-
-                ) : (
-                  null
-                )}
-
-
-
-              </div>
             </div>
 
 
-
-
-
-
           </div>
+          <div className={styles.right}>
+            <div className={styles.ellipse1}>
+              <img src={ellipse1} />
+            </div>
+            <div className={styles.fields}>
+              <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name + " " + props.user.surname} />
+              <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={props.user.email} />
+              <Field small={true} isDropDown={true} options={packageOptions} title={"Порог доступа"} dropDownValue={readAccess()} onDropDownValueChange={onDropDownValueChange} />
 
-          {accessChanging ? (
-            <Button text={"Сохранить"} onClick={changeAccess} className={styles.saveButton} />
-
-          ) : (
-            null
-          )}
 
 
+              {accessChanging && newAccess != "user" && newAccess != "admin" ? (
+                <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"} dropDownValue={periodOptions[0]} onDropDownValueChange={(() => null)} />
+
+              ) : (
+                null
+              )}
 
 
+
+            </div>
+          </div>
 
 
 
@@ -194,7 +176,24 @@ export function UserPopup(props: Props) {
 
         </div>
 
+        {accessChanging ? (
+          <Button text={"Сохранить"} onClick={changeAccess} className={styles.saveButton} />
+
+        ) : (
+          null
+        )}
+
+
+
+
+
+
+
+
+
+
       </div>
-    </div >
+
+    </div>
   )
 }

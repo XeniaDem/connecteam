@@ -148,7 +148,7 @@ export function CreateGame(props: Props) {
       <div className={styles.header}>
         <Header loggedHeader={true} withPackage={true} />
       </div>
-      <div className={!inviteOpen ? styles.container : styles.containerDisabled}>
+      <div className={styles.container}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 

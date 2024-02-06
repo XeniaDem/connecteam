@@ -1,15 +1,4 @@
 
-
-/* .background {
-  width: 100vw;
-  height: 100vh;
-
-
-}  */
-
-
-
-
 .container {
   font-family: 'Work Sans Variable', sans-serif;
   height: 82px;
@@ -18,13 +7,6 @@
   justify-content: space-between;
   align-items: center;
 
-
-
-
-  /*border-radius: 50px 0px 0px 50px;*/
-
-
- 
 }
 
 

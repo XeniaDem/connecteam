@@ -211,7 +211,7 @@ export function Login() {
 
   return (
     <div>
-      <div className={(!verifyOpen && !successOpen) ? styles.container : styles.containerDisabled}>
+      <div className={styles.container}>
         <div className={styles.header}>
           <Header authHeader={true} />
         </div>

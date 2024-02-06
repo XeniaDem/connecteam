@@ -14,7 +14,7 @@ export function SuccessPopup(props: Props) {
   const navigate = useNavigate()
   if (props.isLogin) {
     return (
-      <div>
+      <div className={styles.background}>
         <div className={styles.container}>
   
         <div className={styles.close}>
@@ -39,7 +39,7 @@ export function SuccessPopup(props: Props) {
 
   }
   return (
-    <div>
+    <div className={styles.background}>
       <div className={styles.container}>
 
       <div className={styles.close}>

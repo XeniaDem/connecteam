@@ -25,26 +25,6 @@ background-color: #171717;
 
 }
 
-.containerDisabled {
-  background-color: #171717;
-  
-
-  font-family: 'Work Sans Variable', sans-serif;
-  position: relative;
-
-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 24px;
-filter: blur(1px) brightness(0.5);
-pointer-events: none;
-
-
-  
-}
-
 
 .title {
 

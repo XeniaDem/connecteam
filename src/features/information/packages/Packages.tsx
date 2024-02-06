@@ -9,7 +9,7 @@ export function Packages() {
 
 
   return (
-    <div>
+    <div id = "packages">
       <div className={styles.title}>
         Форматы участия
       </div>

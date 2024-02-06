@@ -41,7 +41,7 @@ export function InvitePopup(props: Props) {
 
 
   return (
-    <div>
+    <div className={styles.background}>
       <div className={styles.container}>
 
       <div className={styles.close}>

@@ -26,10 +26,11 @@ export type User = {
 type Props = {
   token: string;
   savedUser: User;
+  onChange: () => void;
 
 }
 
-export function UserInfo({ savedUser, token }: Props) {
+export function UserInfo({ savedUser, token, onChange }: Props) {
 
 
   const [name, setName] = useState("");
@@ -54,6 +55,7 @@ export function UserInfo({ savedUser, token }: Props) {
       else if ((savedUser.name != name) || (savedUser.surname != surname) || (savedUser.about != about)) {
         alert("datachange")
         changeUserInfo()
+       
       }
       else {
         setIsDataChanging(!isDataChanging);
@@ -99,6 +101,8 @@ export function UserInfo({ savedUser, token }: Props) {
       alert(response.text)
 
       setIsDataChanging(!isDataChanging);
+      onChange()
+     
 
     }
     catch (error: any) {
@@ -271,6 +275,8 @@ export function UserInfo({ savedUser, token }: Props) {
       alert(response.text)
       closeVerifyPopup()
       setIsEmailChanging(!isEmailChanging);
+      onChange()
+      
 
     }
     catch (error: any) {
@@ -301,7 +307,7 @@ export function UserInfo({ savedUser, token }: Props) {
 
 
 
-
+ 
 
 
 
@@ -309,7 +315,6 @@ export function UserInfo({ savedUser, token }: Props) {
 
   useEffect(() => {
   
-
     disableScroll.off();
     setName(savedUser.name)
     setSurname(savedUser.surname)
@@ -318,9 +323,8 @@ export function UserInfo({ savedUser, token }: Props) {
     setPhoto(savedUser.photo)
 
 
+
   }, [savedUser]);
-
-
 
 
 
@@ -328,7 +332,7 @@ export function UserInfo({ savedUser, token }: Props) {
   return (
     <div>
 
-      <div className={(!changePasswordOpen && !verifyOpen && !passwordOpen) ? styles.container : styles.containerDisabled} >
+      <div className={styles.container} >
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
         </div>

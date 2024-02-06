@@ -2,10 +2,11 @@
 .background {
   width: 100vw;
   height: 100vh;
-
-  /* pointer-events: none; */
-  /* position: fixed;
-  top: 0; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(2px) brightness(0.5);
+  z-index: 2;
 }
 
 
@@ -31,8 +32,9 @@ width: 500px;
 flex-shrink: 0;
 
 border-radius: 23px;
-background: linear-gradient(174deg, #1D1D1D 2.72%, rgba(29, 29, 29, 0.00) 115.36%);
+background: linear-gradient(174deg, #1D1D1D 2.72%, rgba(29, 29, 29, 0.9) 115.36%);
 backdrop-filter: blur(30.21428680419922px);
+opacity: 1;
 
 }
 .container::before {

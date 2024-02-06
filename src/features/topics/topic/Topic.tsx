@@ -26,7 +26,6 @@ type Props = {
 
 }
 
-Topic.defaultProps = { name: "Образование", withCheckBox: false }
 
 export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }: Props) {
   /*const players = [];

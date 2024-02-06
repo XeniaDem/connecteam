@@ -70,6 +70,7 @@ export function Profile() {
     }
     setPlanInfo(planInfo);
 
+
   }
 
 
@@ -88,6 +89,7 @@ export function Profile() {
 
       const response = await get('users/plan', token)
       readPlanInfo(response.text)
+      setPlanFetched(true)
 
     }
     catch (error: any) {
@@ -115,7 +117,8 @@ export function Profile() {
       const response = await get('users/me', token)
       readUserInfo(response.text)
       readCompanyInfo(response.text)
-      fetchPlan()
+      setUserFetched(true)
+
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -136,11 +139,33 @@ export function Profile() {
   }, [targetId, planInfo]);
 
 
+
+  const [userFetched, setUserFetched] = useState(false)
+
+  const [planFetched, setPlanFetched] = useState(false)
+
+
+  const onUserChange = () => {
+    setUserFetched(!userFetched)
+
+  }
+  const onPlanChange = () => {
+    setPlanFetched(!planFetched)
+
+  }
+
+
   useEffect(() => {
     disableScroll.off();
     fetchUserPage();
 
-  }, []);
+  }, [userFetched]);
+
+  useEffect(() => {
+    disableScroll.off();
+    fetchPlan();
+
+  }, [planFetched]);
 
 
 
@@ -150,16 +175,16 @@ export function Profile() {
         <Header loggedHeader={true} withPackage = {!(planInfo == null)}/>
       </div>
 
-      {userInfo && (<UserInfo savedUser={userInfo} token={token} />)}
+      {userInfo && (<UserInfo savedUser={userInfo} token={token} onChange={onUserChange} />)}
 
       <div className={styles.divider} />
 
 
-      {companyInfo && (<CompanyInfo savedCompany={companyInfo} token={token} />)}
+      {companyInfo && (<CompanyInfo savedCompany={companyInfo} token={token} onChange={onUserChange}/>)}
 
       <div className={styles.divider} />
 
-      <PackageInfo savedPlan = {planInfo} token={token} />
+      <PackageInfo savedPlan = {planInfo} token={token}  onChange={onPlanChange} />
 
 
 

@@ -74,12 +74,10 @@ export function PlanUser({ planUser, token, onChange }: Props) {
 
 
   return (
+    
     <div className={styles.background}>
-
-
+    
       <div className={styles.container}>
-
-
         <div className={styles.group}>
           <div className={styles.photo}>
             {/* <img src = {photo}/> */}
@@ -117,11 +115,14 @@ export function PlanUser({ planUser, token, onChange }: Props) {
         </div>
 
 
-
+       
       </div>
-
+      
       <div className={styles.divider} />
       {removeUserOpen ? <RemoveUserPopup planUser={planUser} token={token} closePopup={closeRemoveUserPopup} onChange={onChange} /> : null}
+
+     
+     
 
     </div>
 

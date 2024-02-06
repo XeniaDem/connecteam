@@ -11,9 +11,11 @@ type Props = {
   text: string;
   link?: string;
   onClick?: () => void;
-  onSelectedChange?: (newValue: boolean) => void;
+  onItemClicked: (newValue: boolean, name: string) => void;
+
 
   selected?: boolean;
+  
 
 
 
@@ -26,10 +28,17 @@ export function HeaderItem(props: Props) {
   //   props.ref.current?.scrollIntoView({behavior: 'smooth'});
   // };
 
+  const onClick = () => {
+    onClick && props.onClick()
+    props.onItemClicked(!props.selected, props.text);
+  
+
+    
+  }
 
   return (
     <a className={!props.selected ? styles.headerItem : styles.headerItemSelected}
-      href={props.link} onClick={props.onClick} >
+      href={props.link} onClick={onClick } >
 
       {props.text}
 

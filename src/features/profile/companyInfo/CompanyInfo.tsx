@@ -20,11 +20,12 @@ export type Company = {
 type Props = {
   token: string;
   savedCompany: Company;
+  onChange: () => void;
 
 }
 
 
-export function CompanyInfo({ savedCompany, token }: Props) {
+export function CompanyInfo({ savedCompany, token, onChange }: Props) {
 
 
 
@@ -80,6 +81,7 @@ export function CompanyInfo({ savedCompany, token }: Props) {
 
       alert(response.text)
       setIsDataChanging(!isDataChanging);
+      onChange()
 
     }
     catch (error: any) {

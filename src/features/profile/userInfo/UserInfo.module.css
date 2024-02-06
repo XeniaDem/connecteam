@@ -17,30 +17,6 @@
 
   
 }
-.containerDisabled {
-  
-
-  font-family: 'Work Sans Variable', sans-serif;
-
-  display: flex;
-
-  
-  
-  justify-content: center;
-
-  position: relative;
-  filter: blur(1px) brightness(0.5);
-
-  pointer-events: none;
-  overflow: hidden;
-  margin-top: 20px;
-  gap: 60px;
-  
-
-
-  
-}
-
 
 
 

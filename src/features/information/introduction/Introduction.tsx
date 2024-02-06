@@ -14,6 +14,13 @@ export function Introduction() {
   const navigate = useNavigate()
 
 
+  const start = () => {
+    const element = document.getElementById("packages");
+    element?.scrollIntoView();
+
+  }
+
+
   return (
     <div className={styles.container}>
       <div className={styles.ellipse1}>
@@ -49,7 +56,7 @@ export function Introduction() {
           </span>
 
         </div>
-        <div className={styles.start} onClick={() => navigate("#packages")}>
+        <div className={styles.start} onClick={start}>
           Начать
           <ArrowOutwardIcon htmlColor="FFF" />
 

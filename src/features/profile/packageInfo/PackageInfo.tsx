@@ -20,10 +20,11 @@ export type Plan = {
 type Props = {
   token: string;
   savedPlan: Plan | null;
+  onChange: () => void;
 
 }
 
-export function PackageInfo({savedPlan, token }: Props) {
+export function PackageInfo({savedPlan, token, onChange }: Props) {
 
 
 
