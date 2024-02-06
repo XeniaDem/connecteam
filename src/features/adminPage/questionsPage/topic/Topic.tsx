@@ -14,7 +14,7 @@ import DoneIcon from '@mui/icons-material/Done';
 
 export type TopicModel = {
   name: string;
-  questions: QuestionModel[];
+  questions?: QuestionModel[];
 
 }
 
@@ -27,7 +27,7 @@ type Props = {
 
 
 
-export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
+export function Topic({ savedTopic, token, onChange }: Props) {
 
   // useEffect(() => {
 
@@ -38,7 +38,6 @@ export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
   const [questionsOpen, setQuestionsOpen] = useState(false);
 
   const [topicEditing, setTopicEditing] = useState(false);
-
 
 
   const [topicName, setTopicName] = useState("");
@@ -57,8 +56,8 @@ export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
         }
         alert("topicchange")
         setTopicEditing(!topicEditing);
-       // changeCompanyInfo()
-          /// onChange() потом включить
+        // changeCompanyInfo()
+        /// onChange() потом включить
       }
       else {
         setTopicEditing(!topicEditing);
@@ -66,9 +65,8 @@ export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
       }
     }
 
-
-
   }
+
 
 
   useEffect(() => {
@@ -102,14 +100,14 @@ export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
             <input className={!topicEditing ? styles.name : styles.nameActive} placeholder={"Название темы"} disabled={!topicEditing}
               value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
           </div>
-   
+
 
 
 
         </div>
         <div className={styles.group}>
-        <div className={styles.count}>
-            (вопросов: {savedTopic.questions.length})
+          <div className={styles.count}>
+            (вопросов: {savedTopic.questions?.length})
           </div>
           <IconButton onClick={() => setQuestionsOpen(!questionsOpen)}>
 
@@ -131,23 +129,24 @@ export function Topic({ savedTopic: savedTopic, token, onChange }: Props) {
       </div>
 
       {questionsOpen ? (
-        <div>
+        <div className={styles.questions}>
           {savedTopic.questions?.map(question =>
             <div>
               <Question savedQuestion={question} onChange={onChange} />
-
             </div>
-
           )
-
           }
+           
         </div>
       ) : (
         null
-
       )}
+     
+
 
       <div className={styles.divider} />
+      
+
 
 
     </div>

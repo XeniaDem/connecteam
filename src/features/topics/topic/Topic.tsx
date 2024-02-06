@@ -1,10 +1,11 @@
 
 import React from "react";
-import { CheckBox } from "../../../../components/checkBox/CheckBox";
+import { CheckBox } from "../../../components/checkBox/CheckBox";
 import styles from "./Topic.module.css"
 
 import ellipse from "./ellipse.svg"
 import TopicIcon from '@mui/icons-material/Topic';
+import { TopicModel } from "../../adminPage/questionsPage/topic/Topic";
 
 
 
@@ -12,11 +13,8 @@ import TopicIcon from '@mui/icons-material/Topic';
 type Props = {
   name: string;
 
-  imageUrl?: URL;
 
   withCheckBox: boolean;
-
-  onClick?: () => void;
 
 
   selected?: boolean;
@@ -45,17 +43,12 @@ export function Topic(props: Props) {
 
   };
 
-  const nothing = () => {
-
-  };
-
-
 
 
   return (
     <div>
       <div className={!selected ? (!props.inactive ? styles.container : styles.inactive) : styles.selected}
-        onClick={(props.withCheckBox || props.inactive) ? nothing : handleChange}>
+        onClick={(props.withCheckBox || props.inactive) ? () => null : handleChange}>
 
         <div className={styles.icon}>
           <div className={styles.ellipse}>
@@ -64,8 +57,10 @@ export function Topic(props: Props) {
           <TopicIcon fontSize="medium" />
 
         </div>
-        <div className={styles.name}>
-          {props.name}
+        <div className={styles.text}>
+          <div className={styles.name}>
+            {props.name}
+          </div>
 
         </div>
 
@@ -74,18 +69,6 @@ export function Topic(props: Props) {
         ) : (
           <div />
         )}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
       </div>

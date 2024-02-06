@@ -131,7 +131,7 @@ export function QuestionsPage() {
         <div className={styles.title}>
           Список тем и вопросов
         </div>
-        <Button text={"Загрузить вопрос"} onClick={() => null} className={styles.addButton} />
+        <Button text={"Загрузить вопрос"} onClick={() => navigate("add_question")} className={styles.addButton} />
       </div>
 
 

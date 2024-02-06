@@ -5,7 +5,7 @@ import ellipse2 from "../ellipse2.svg"
 import exit from "../exit.svg"
 import dots from "../dots.svg"
 import { Players } from "../../startGame/players/Players"
-import { Topics } from "../../startGame/topics/Topics"
+import { Topics } from "../../topics/Topics"
 import { Button } from "../../../components/button/Button"
 
 

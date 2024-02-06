@@ -6,6 +6,7 @@ display: flex;
 
 align-items: center;
 
+
 gap: 40px;
 padding-left: 30px;
 
@@ -112,7 +113,12 @@ position: relative;
 }
 
 
-
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85vw;
+}
 
 
 

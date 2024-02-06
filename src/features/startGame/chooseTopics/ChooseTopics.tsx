@@ -5,7 +5,7 @@ import ellipse2 from "../ellipse2.svg"
 import crown from "../crown.svg"
 import exit from "../exit.svg"
 import { Players } from "../players/Players"
-import { Topics } from "../topics/Topics"
+import { Topics } from "../../topics/Topics"
 import { Button } from "../../../components/button/Button"
 import { InvitePopup } from "./InvitePopup/InvitePopup"
 
