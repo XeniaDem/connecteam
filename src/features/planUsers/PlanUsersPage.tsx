@@ -146,16 +146,6 @@ export function PlanUsersPage() {
         )}
 
 
-
-
-
-
-
-
-
-
-
-
       </div>
       {usersNum < 3 ? (
       <div className={styles.buttonContainer}>

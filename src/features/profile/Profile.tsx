@@ -125,6 +125,16 @@ export function Profile() {
 
   }
 
+  const { state } = useLocation();
+  const { targetId } = state || {};
+
+  useEffect(() => {
+    const element = document.getElementById(targetId);
+    if (element && planInfo) {
+      element.scrollIntoView();
+    }
+  }, [targetId, planInfo]);
+
 
   useEffect(() => {
     disableScroll.off();

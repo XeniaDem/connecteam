@@ -14,11 +14,12 @@ import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
 
 
+
 type Props = {
   name: string;
   // dateExpiry?: string;
   // access: string;
-
+  savedPlan: Plan | null;
 
 
 
@@ -113,7 +114,7 @@ export function PackageInfo({ name }: Props) {
               Дата истечения срока подписки {planInfo.expiryDate}
             </div>
 
-            <Button text={"Управлять пакетом"} onClick={() => (navigate("/profile#package_info"))} className={styles.button} />
+            <Button text={"Управлять пакетом"} onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
           </div>
@@ -140,7 +141,7 @@ export function PackageInfo({ name }: Props) {
               <div className={styles.footer}>
                 Дата истечения срока подписки {planInfo.expiryDate}
               </div>
-              <Button text={"Управлять пакетом"} onClick={() => (navigate("/profile#package_info"))} className={styles.button} />
+              <Button text={"Управлять пакетом"} onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
             </div>
@@ -170,7 +171,7 @@ export function PackageInfo({ name }: Props) {
                 Дата истечения срока подписки {planInfo.expiryDate}
               </div>
 
-              <Button text={"Управлять пакетом"} onClick={() => (navigate("/profile"))} className={styles.button} />
+              <Button text={"Управлять пакетом"} onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
             </div>

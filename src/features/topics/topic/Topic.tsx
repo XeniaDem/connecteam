@@ -17,7 +17,8 @@ type Props = {
   withCheckBox: boolean;
 
 
-  selected?: boolean;
+  selected: boolean;
+  onTopicClicked: (selected: boolean) => void;
   inactive?: boolean;
 
 
@@ -27,18 +28,16 @@ type Props = {
 
 Topic.defaultProps = { name: "Образование", withCheckBox: false }
 
-export function Topic(props: Props) {
+export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }: Props) {
   /*const players = [];
 
   for (let i = 0; i < props.playersNum; i++) {
     players.push(<Player />)
   }*/
 
-  const [selected, setSelected] = React.useState(props.selected);
 
   const handleChange = () => {
-    alert(selected)
-    setSelected(!selected);
+    onTopicClicked(!selected);
 
 
   };
@@ -47,8 +46,8 @@ export function Topic(props: Props) {
 
   return (
     <div>
-      <div className={!selected ? (!props.inactive ? styles.container : styles.inactive) : styles.selected}
-        onClick={(props.withCheckBox || props.inactive) ? () => null : handleChange}>
+      <div className={!selected ? (!inactive ? styles.container : styles.inactive) : styles.selected}
+        onClick={(withCheckBox || inactive) ? () => null : handleChange}>
 
         <div className={styles.icon}>
           <div className={styles.ellipse}>
@@ -59,12 +58,12 @@ export function Topic(props: Props) {
         </div>
         <div className={styles.text}>
           <div className={styles.name}>
-            {props.name}
+            {name}
           </div>
 
         </div>
 
-        {props.withCheckBox ? (
+        {withCheckBox ? (
           <CheckBox checked={selected} onClick={handleChange} />
         ) : (
           <div />

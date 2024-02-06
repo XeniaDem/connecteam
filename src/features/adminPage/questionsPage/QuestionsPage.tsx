@@ -55,7 +55,8 @@ export function QuestionsPage() {
 
       const topicModel = {
         name: "Обучение", //messageParsed.data[i].name
-        questions: questionModels
+        questions: questionModels,
+        id: i.toString()
 
       }
       topicModels.push(topicModel)

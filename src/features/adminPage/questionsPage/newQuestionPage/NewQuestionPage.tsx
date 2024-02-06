@@ -44,6 +44,7 @@ export function NewQuestionsPage(props: Props) {
 
       const topicModel = {
         name: "Обучение", //messageParsed.data[i].name
+        id: i.toString()
 
       }
       topicModels.push(topicModel)
@@ -91,7 +92,8 @@ export function NewQuestionsPage(props: Props) {
   const [questionText, setQuestionText] = useState("");
 
 
-  const [selected, setSelected] =  useState(false);
+  const [selectedTopicId, setSelectedTopicId] = useState("");
+
 
 
 
@@ -127,11 +129,24 @@ export function NewQuestionsPage(props: Props) {
         <div className={styles.topics}>
 
 
-          {topics?.map(topic =>
-            <div>
-              <Topic name={topic.name} withCheckBox={false} selected={selected} />
+          {topics?.map(topic => {
+            const onTopicClicked = (newValue: boolean) => {
+              if (!newValue) {
+                setSelectedTopicId("");
+              } else {
+                setSelectedTopicId(topic.id)
+              }
 
-            </div>
+            }
+
+            return (
+              <div>
+                <Topic name={topic.name} withCheckBox={false}
+                  selected={topic.id == selectedTopicId} onTopicClicked={onTopicClicked } />
+
+              </div>
+            )
+          }
 
           )
 

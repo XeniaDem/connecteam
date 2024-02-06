@@ -42,11 +42,13 @@
    
   }
   .subtitle {
-    color: #FFF;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 34.737px; /* 144.737% */
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 35px;
+    letter-spacing: -0.05em;
+    display: flex;
+    align-items: center;
+    color: #FFF; /* 144.737% */
     padding-bottom: 57px;
   }
 
@@ -99,8 +101,8 @@ box-shadow: none;
   align-items: center;
   justify-content: center;
 
-  width: 200.531px;
-  height: 46.667px;
+  width: 310.531px;
+  height: 67.667px;
   flex-shrink: 0;
   border-radius: 40.783px;
 background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));

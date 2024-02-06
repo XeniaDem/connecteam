@@ -43,7 +43,7 @@ export function Topics(props: Props) {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.line}>
+        {/* <div className={styles.line}>
           <Topic withCheckBox={props.withCheckBox} selected = {true} />
           <Topic withCheckBox={props.withCheckBox} selected = {true}/>
           <Topic withCheckBox={props.withCheckBox} />
@@ -65,7 +65,7 @@ export function Topics(props: Props) {
           <Topic withCheckBox={props.withCheckBox} inactive = {true}/>
 
 
-        </div>
+        </div> */}
 
 
 

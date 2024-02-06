@@ -100,7 +100,7 @@ export function UserPage() {
       <div className={styles.header}>
         <Header loggedHeader={true} withPackage = {!(access == "user")}/>
       </div>
-      <PackageInfo name={name} />
+      <PackageInfo name={name} savedPlan = {null}/>
       <LastGames id="games" />
 
     </div>
