@@ -168,6 +168,7 @@ margin-top: -1px;
 }
 
 .input {
+  font-family: 'Work Sans Variable', sans-serif;
   width: 285.531px;
 height: 46.667px;
 flex-shrink: 0;

@@ -34,12 +34,19 @@ export function CreateGame(props: Props) {
 
   const [gameName, setGameName] = useState("");
   const [gameDate, setGameDate] = useState("");
+  const [gameTime, setGameTime] = useState("");
 
 
   const getCreateErrorMessage = () => {
 
     if (gameName == "") {
-      return "Поле Название игры не может быть пустым"
+      return "Введите название игры"
+    }
+    if (gameDate == "") {
+      return "Выберите дату игры"
+    }
+    if (gameTime == "") {
+      return "Выберите время игры"
     }
 
     return null
@@ -50,6 +57,8 @@ export function CreateGame(props: Props) {
 
   const createGame = () => {
     setFormSubmitted(true);
+    alert("date " + gameDate)
+    alert("time " + gameTime)
     if (createErrorMessage != null) {
       return;
 
@@ -102,6 +111,7 @@ export function CreateGame(props: Props) {
     setAccess(access)
 
   }
+
 
   const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
@@ -172,8 +182,10 @@ export function CreateGame(props: Props) {
         <div className={styles.creation}>
           <div className={styles.items}>
             <input className={styles.input} placeholder="Название игры" disabled={gameCreated} value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
-            <input type="date" min={new Date().toISOString().split('T')[0]} className={styles.input} placeholder="Дата игры" disabled={gameCreated} />
-            <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated} />
+            <input type="date" min={new Date().toISOString().split('T')[0]}
+              className={styles.input} placeholder="Дата игры" disabled={gameCreated} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />
+            <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
+              value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} />
 
 
           </div>

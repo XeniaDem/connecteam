@@ -19,6 +19,7 @@ align-items: center;
 justify-content: center;
 }
 .input {
+  font-family: 'Work Sans Variable', sans-serif;
   border-radius: 20px;
 border: 1px solid var(--vd, #55C6F7);
 background: #1D1D1D;
@@ -45,6 +46,7 @@ border: 1px solid var(--vd, #5C5C5C);
 }
 
 .inputSmall {
+  font-family: 'Work Sans Variable', sans-serif;
   border-radius: 20px;
 border: 1px solid var(--vd, #55C6F7);
 background: #1D1D1D;

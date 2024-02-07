@@ -70,6 +70,7 @@ z-index: 1;
 }
 
 .input {
+  font-family: 'Work Sans Variable', sans-serif;
   border-radius: 28.075px;
 border: 1px solid var(--vd, #55C6F7);
 background: rgba(0, 0, 0, 0.1);

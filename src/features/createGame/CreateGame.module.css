@@ -141,6 +141,7 @@ input[type="date" i] {
   overflow: hidden;
   padding: 15px 26px;
   box-sizing: border-box;
+  color-scheme: dark;
   
 }
 
@@ -160,6 +161,8 @@ input[type="time" i] {
   overflow: hidden;
   padding: 15px 26px;
   box-sizing: border-box;
+  color-scheme: dark;
+  
 
 
 
@@ -169,9 +172,13 @@ input[type="time" i] {
 }
 
 ::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
+  cursor: pointer;
 
+}
+::-webkit-time-picker-indicator {
+  cursor: pointer;
+
+}
 
 
 .createButton {
