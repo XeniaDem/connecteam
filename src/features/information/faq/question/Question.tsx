@@ -4,8 +4,8 @@ import styles from "./Question.module.css"
 
 type Props = {
   text: string;
-  setIsAnswerHidden: (newValue: boolean) => void;
   isAnswerHidden: boolean;
+  onTopicClicked?: (newValue: boolean) => void;
 
 
 }
@@ -13,6 +13,12 @@ type Props = {
 Question.defaultProps = {text: "Вопрос"}
 
 export function Question(props: Props) {
+
+  const handleChange = () => {
+    props.onTopicClicked && props.onTopicClicked(!props.isAnswerHidden);
+
+
+  };
   return (
     <div>
       <div className={styles.container}>
@@ -20,9 +26,7 @@ export function Question(props: Props) {
       <div className={styles.text}>
          {props.text}
          </div>
-        <Button text={props.isAnswerHidden ? "+" : "−"} onClick={ ()=> {
-         props.setIsAnswerHidden(!props.isAnswerHidden)
-        }} className={styles.button} />
+        <Button text={props.isAnswerHidden ? "+" : "−"} onClick={handleChange} className={styles.button} />
       </div>
       
     </div>

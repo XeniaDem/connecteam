@@ -8,20 +8,22 @@ import { useState } from "react"
 
 
 type Props = {
+  id: string;
   question: string;
   answer: string;
+  onTopicClicked: (newValue: boolean) => void;
+  isAnswerHidden: boolean;
 
 }
 
 
 export function QuestionAnswer(props: Props) {
-  const [isAnswerHidden, setIsAnswerHidden] = useState(true)
   return (
 
     <div className={styles.container}>
-      <Question text={props.question} setIsAnswerHidden={setIsAnswerHidden} isAnswerHidden={isAnswerHidden}/>
-      {isAnswerHidden ? null :
-        <Answer text={props.answer} /> }
+      <Question text={props.question} isAnswerHidden={props.isAnswerHidden} onTopicClicked={() => props.onTopicClicked(props.isAnswerHidden)} />
+      {props.isAnswerHidden ? null :
+        <Answer text={props.answer} />}
     </div>
 
   )

@@ -163,7 +163,7 @@ export function Header(props: Props) {
         <div className={styles.person}>
           <img src={person} />
         </div>
-        {/* <HeaderItem text="Войти" link="/login" /> */}
+        <HeaderItem text="Войти" link="/login" />
       </div>
 
     </div >
