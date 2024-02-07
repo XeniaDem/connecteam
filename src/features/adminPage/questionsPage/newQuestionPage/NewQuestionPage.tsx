@@ -9,6 +9,9 @@ import { selectToken } from "../../../auth/authSlice";
 import { get } from "../../../../utils/api";
 import { Header } from "../../../header/Header";
 import { Button } from "../../../../components/button/Button";
+import ellipse from "./ellipse.svg"
+import disableScroll from 'disable-scroll';
+import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup";
 
 
 
@@ -91,10 +94,28 @@ export function NewQuestionsPage(props: Props) {
 
   const [questionText, setQuestionText] = useState("");
 
-
   const [selectedTopicId, setSelectedTopicId] = useState("");
 
 
+
+  const[newTopicOpen, setNewTopicOpen] = useState(false)
+
+
+
+
+  const openNewTopicPopup = () => {
+    disableScroll.on()
+    setNewTopicOpen(true)
+    
+
+  }
+  const closeNewTopicPopup = () => {
+    disableScroll.off()
+    setNewTopicOpen(false)
+
+
+
+  }
 
 
 
@@ -111,6 +132,13 @@ export function NewQuestionsPage(props: Props) {
   return (
     <div>
       <div className={styles.container}>
+        <svg width={0} height={0}>
+          <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+            <stop offset={0} stopColor="#55C6F7" />
+            <stop offset={1} stopColor="#2AF8BA" />
+          </linearGradient>
+        </svg>
+
         <div className={styles.header}>
           <Header adminHeader={true} />
         </div>
@@ -142,7 +170,7 @@ export function NewQuestionsPage(props: Props) {
             return (
               <div>
                 <Topic name={topic.name} withCheckBox={false}
-                  selected={topic.id == selectedTopicId} onTopicClicked={onTopicClicked } />
+                  selected={topic.id == selectedTopicId} onTopicClicked={onTopicClicked} />
 
               </div>
             )
@@ -151,6 +179,15 @@ export function NewQuestionsPage(props: Props) {
           )
 
           }
+          <div className={styles.newTopic} onClick={openNewTopicPopup}>
+            <div className={styles.plus}>
+              <div className={styles.ellipse}>
+                <img src={ellipse} />
+              </div>
+
+              +
+            </div>
+          </div>
 
         </div>
         <div className={styles.subtitle}>
@@ -170,6 +207,8 @@ export function NewQuestionsPage(props: Props) {
 
 
       </div>
+      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={()=> null}/> : null}
+
 
     </div>
   )

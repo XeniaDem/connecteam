@@ -16,11 +16,12 @@ type Props = {
   token: string;
   onChange: () => void;
 
-  topic: TopicModel;
 
 }
 
 export function NewTopicPopup(props: Props) {
+
+  const[topicName, setTopicName] = useState("");
 
 
 
@@ -57,6 +58,9 @@ export function NewTopicPopup(props: Props) {
 
             </div>
 
+            <input className={styles.input} placeholder={"Название темы"}
+              value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
+
 
 
 
@@ -64,7 +68,7 @@ export function NewTopicPopup(props: Props) {
 
           </div>
 
-          <Button text={"Сохранить"} onClick={() => null} className={styles.saveButton} />
+          <Button text={"Добавить тему"} onClick={() => null} className={styles.addButton} />
 
 
 
