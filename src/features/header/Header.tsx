@@ -102,7 +102,7 @@ export function Header(props: Props) {
           ) : (
             null
           )}
-          <HeaderItem text="Мои игры" link="#games"/>
+          <HeaderItem text="Мои игры" onClick={() => navigate("/user_page", { state: { targetId: "games" } })}/>
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")

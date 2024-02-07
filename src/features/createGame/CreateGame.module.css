@@ -51,6 +51,8 @@ backdrop-filter: blur(30.21428680419922px);
 padding: 45px;
 gap: 9px;
 position: relative;
+min-width: 340px;
+min-height: 220px;
 
 }
 
@@ -102,27 +104,74 @@ position: relative;
 }
 
 .input {
+  font-family: 'Work Sans Variable', sans-serif;
   width: 285.531px;
 height: 46.667px;
 border-radius: 40.783px;
 border: 1px solid var(--vd, #55C6F7);
 background: rgba(0, 0, 0, 0.1);
 padding: 15px 26px;
-font-size: 13.918px;
-font-style: normal;
+font-size: 14px;
 font-weight: 500;
-line-height: 22.616px; /* 162.5% */
+line-height: 23px;
+letter-spacing: 0em;
+
 box-sizing: border-box;
 color: #FFF;
 z-index: 1;
 outline: none;
+
 }
 .input:disabled {
   border: 1px solid var(--vd, #5C5C5C);
   
   
-  }
+}
+
+input[type="date" i] {
+  font-family: 'Work Sans Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0em;
   
+  padding-inline-start: 1px;
+  align-items: center;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 15px 26px;
+  box-sizing: border-box;
+  
+}
+
+
+
+
+
+
+input[type="time" i] {
+  font-family: 'Work Sans Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0em;
+  align-items: center;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 15px 26px;
+  box-sizing: border-box;
+
+
+
+
+
+
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 
 
 .createButton {

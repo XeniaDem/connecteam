@@ -11,7 +11,7 @@ type Props = {
   text: string;
   link?: string;
   onClick?: () => void;
-  onItemClicked: (newValue: boolean, name: string) => void;
+  onItemClicked?: (newValue: boolean, name: string) => void;
 
 
   selected?: boolean;
@@ -29,8 +29,8 @@ export function HeaderItem(props: Props) {
   // };
 
   const onClick = () => {
-    onClick && props.onClick()
-    props.onItemClicked(!props.selected, props.text);
+    props.onClick && props.onClick()
+    props.onItemClicked && props.onItemClicked(!props.selected, props.text);
   
 
     

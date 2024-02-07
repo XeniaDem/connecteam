@@ -93,6 +93,18 @@ export function UserPage() {
   }, []);
 
 
+  const { state } = useLocation();
+  const { targetId } = state || {};
+
+  useEffect(() => {
+    const element = document.getElementById(targetId);
+    if (element /*&& gamesInfo*/) {
+      element.scrollIntoView();
+      window.history.replaceState({}, '')
+    }
+  }, [targetId, /*&& gamesInfo*/]);
+
+
 
   return (
 

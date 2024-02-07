@@ -56,7 +56,7 @@ export function CreateGame(props: Props) {
 
     }
     else {
-    setGameCreated(true);
+      setGameCreated(true);
     }
   }
 
@@ -172,7 +172,9 @@ export function CreateGame(props: Props) {
         <div className={styles.creation}>
           <div className={styles.items}>
             <input className={styles.input} placeholder="Название игры" disabled={gameCreated} value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
-            <input className={styles.input} placeholder="Дата и время игры" disabled={gameCreated} />
+            <input type="date" min={new Date().toISOString().split('T')[0]} className={styles.input} placeholder="Дата игры" disabled={gameCreated} />
+            <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated} />
+
 
           </div>
 
