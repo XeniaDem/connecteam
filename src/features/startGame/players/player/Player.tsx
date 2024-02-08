@@ -5,7 +5,9 @@ import smallCrown from "./smallCrown.svg"
 import photo from "./samplePhoto.svg"
 import disconnected from "./disconnected.svg"
 import { Button } from "../../../../components/button/Button";
-
+import { InvitePopup } from "../../chooseTopics/InvitePopup/InvitePopup";
+import disableScroll from 'disable-scroll';
+import { useState } from "react";
 
 
 
@@ -25,6 +27,20 @@ Player.defaultProps = { isCreator: false, isYou: false, isAnswering: false, join
 
 
 export function Player(props: Props) {
+
+
+  const [inviteOpen, setInviteOpen] = useState(false);
+  
+  const openInvitePopup = () => {
+    disableScroll.on()
+    setInviteOpen(true)
+
+  }
+  const closeInvitePopup = () => {
+    disableScroll.off()
+    setInviteOpen(false)
+
+  }
 
   if (props.joined && props.connected) {
     return (
@@ -96,9 +112,11 @@ export function Player(props: Props) {
   }
   else if (!props.joined) {
     return (
-      <Button text={"+"} onClick={function (): void {
-        throw new Error("Function not implemented.")
-      }} className={styles.addButton} />
+      <div>
+        <Button text={"+"} onClick={openInvitePopup} className={styles.addButton} />
+        {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} /> : null}
+      </div>
+
     )
 
   }

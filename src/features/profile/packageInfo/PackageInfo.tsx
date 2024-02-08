@@ -14,6 +14,7 @@ export type Plan = {
   planType: string;
   expiryDate: string;
   planAccess: string;
+  planConfirmed: boolean;
 
 
 }
@@ -52,7 +53,7 @@ export function PackageInfo({savedPlan, token, onChange }: Props) {
           <div className={styles.title}>
             Доступ
           </div>
-          <PackageList isLogged = {true} planInfo={savedPlan}/>
+          <PackageList isLogged = {true} planInfo={savedPlan} onChange={onChange}/>
     
       </div>
     </div>

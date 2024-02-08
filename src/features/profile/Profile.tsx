@@ -66,6 +66,7 @@ export function Profile() {
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0,10),
       planAccess: messageParsed.plan_access,
+      planConfirmed: messageParsed.confirmed
 
     }
     setPlanInfo(planInfo);

@@ -129,6 +129,7 @@ position: relative;
 
 
 
+
 .icon {
   
   width: 46.476px;
@@ -162,6 +163,10 @@ line-height: 25.868px; /* 120% */
   left: -46px;
 }
 
+.checkBox {
+  margin-right: 30px;
+
+}
 
 
 

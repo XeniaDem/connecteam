@@ -5,6 +5,8 @@ import styles from "./PackageList.module.css"
 import tick from "./tick.svg"
 import { useEffect, useState } from "react";
 import { Plan } from "../profile/packageInfo/PackageInfo";
+import { ChoosePackagePopup } from "./choosePackagePopup/ChoosePackagePopup";
+import disableScroll from 'disable-scroll';
 
 type Props = {
   // basicActive?: boolean;
@@ -15,22 +17,46 @@ type Props = {
 
   planInfo?: Plan | null;
 
+  onChange?: () => void;
+
 
 }
 
 
 
 
-export function PackageList({ isLogged, planInfo }: Props) {
+export function PackageList({ isLogged, planInfo, onChange }: Props) {
   const navigate = useNavigate()
 
 
-  const choosePackage = () => {
+  const [choosePackageOpen, setChoosePackageOpen] = useState(false)
+
+  const openChoosePackagePopup = () => {
+    disableScroll.on()
+    setChoosePackageOpen(true)
+
+
+  }
+  const closeChoosePackagePopup = () => {
+    disableScroll.off()
+    setChoosePackageOpen(false)
+    setNewPlan("")
+    onChange && onChange()
+
+
+
+  }
+
+
+  const [newPlan, setNewPlan] = useState<string | undefined>();
+
+  const choosePackage = (type?: string) => {
 
     if (!isLogged) {
       navigate("/register")
     } else {
-      /////tbd
+      setNewPlan(type)
+      openChoosePackagePopup()
     }
 
   }
@@ -74,6 +100,7 @@ export function PackageList({ isLogged, planInfo }: Props) {
       return;
     }
 
+
   }
 
   useEffect(() => {
@@ -89,8 +116,13 @@ export function PackageList({ isLogged, planInfo }: Props) {
         <div className={isLogged ? styles.card : styles.highlighted}>
 
           {basicActive ? (
-            <div className={styles.nameActive}>
-              Простой
+            <div className={styles.up}>
+              <div className={styles.nameActive}>
+                Простой
+              </div>
+              <div className={styles.subtitle}>
+                {planInfo && planInfo.planConfirmed ? "" : "Ваша заявка находится на рассмотрении администратором."}
+              </div>
             </div>
           ) : (
             <div className={styles.name}>
@@ -136,24 +168,37 @@ export function PackageList({ isLogged, planInfo }: Props) {
 
 
           {basicActive ? (
-            <div className={styles.buttons}>
-              <div className={styles.expiry}>
-                Дата истечения срока подписки {planInfo?.expiryDate}
-              </div>
-              <Button text={"Отказаться"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.cancel} />
+            <div className={styles.down}>
+
+              {planInfo?.planConfirmed ? (
+                <div>
+                  <div className={styles.expiry}>
+                    Дата истечения срока подписки {planInfo?.expiryDate}
+                  </div>
+                  <div className={styles.down}>
+
+                    <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
+                  </div>
+                </div>
+              ) : (
+                <Button text={"Отменить заявку"} onClick={function (): void {
+                  throw new Error("Function not implemented.")
+                }} className={styles.cancel} />
+              )}
             </div>
 
           ) : (
-            <div className={styles.buttons}>
+            <div className={styles.down}>
               <div className={styles.offer}>
                 {isLogged ? "" : "Попробуйте бесплатный доступ на 14 дней!"}
               </div>
 
-        
-                <Button text={"Выбрать"} onClick={choosePackage} className={isLogged ? styles.inactive : styles.active} />
-          
+
+              <Button text={"Выбрать"} onClick={() => choosePackage("basic")} className={isLogged ? styles.inactive : styles.active} />
+
+
+
+
             </div>
           )}
 
@@ -166,9 +211,15 @@ export function PackageList({ isLogged, planInfo }: Props) {
         <div className={styles.card}>
 
           {advancedActive ? (
-            <div className={styles.nameActive}>
-              Расширенный
+            <div className={styles.up}>
+              <div className={styles.nameActive}>
+                Расширенный
+              </div>
+              <div className={styles.subtitle}>
+                {planInfo && planInfo.planConfirmed ? "" : "Ваша заявка находится на рассмотрении администратором."}
+              </div>
             </div>
+
           ) : (
             <div className={styles.name}>
               Расширенный
@@ -221,17 +272,31 @@ export function PackageList({ isLogged, planInfo }: Props) {
 
 
           {advancedActive ? (
-            <div className={styles.buttons}>
-              <div className={styles.expiry}>
-                Дата истечения срока подписки {planInfo?.expiryDate}
-              </div>
-              <Button text={"Отказаться"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.cancel} />
+            <div className={styles.down}>
+
+              {planInfo?.planConfirmed ? (
+                <div>
+                  <div className={styles.expiry}>
+                    Дата истечения срока подписки {planInfo?.expiryDate}
+                  </div>
+                  <div className={styles.down}>
+
+                    <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
+                  </div>
+                </div>
+              ) : (
+                <Button text={"Отменить заявку"} onClick={function (): void {
+                  throw new Error("Function not implemented.")
+                }} className={styles.cancel} />
+              )}
             </div>
 
           ) : (
-            <Button text={"Выбрать"} onClick={choosePackage} className={styles.inactive} />
+            <div>
+              <Button text={"Выбрать"} onClick={() => choosePackage("advanced")} className={styles.inactive} />
+
+            </div>
+
           )}
 
         </div>
@@ -240,8 +305,13 @@ export function PackageList({ isLogged, planInfo }: Props) {
         <div className={styles.card}>
 
           {premiumActive ? (
-            <div className={styles.nameActive}>
-              Широкий
+            <div className={styles.up}>
+              <div className={styles.nameActive}>
+                Широкий
+              </div>
+              <div className={styles.subtitle}>
+                {planInfo && planInfo.planConfirmed ? "" : "Ваша заявка находится на рассмотрении администратором."}
+              </div>
             </div>
           ) : (
             <div className={styles.name}>
@@ -303,33 +373,45 @@ export function PackageList({ isLogged, planInfo }: Props) {
 
 
           {premiumActive ? (
-            <div className={styles.buttons}>
-              <div className={styles.expiry}>
-                Дата истечения срока подписки {planInfo?.expiryDate}
-              </div>
-              {planInfo?.planAccess == "holder" ? (
+            <div className={styles.down}>
+              {planInfo?.planConfirmed ? (
+                <div >
 
-                <Button text={"Участники пакета"} onClick={showPlanUsers} className={styles.viewMembers} />
+                  <div className={styles.expiry}>
+                    Дата истечения срока подписки {planInfo?.expiryDate}
+                  </div>
+                  <div className={styles.down}>
+                    <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
 
+                    {planInfo?.planAccess == "holder" ? <Button text={"Участники пакета"} onClick={showPlanUsers} className={styles.viewMembers} /> : null}
+                  </div>
+                </div>
               ) : (
-                null
-
+                <Button text={"Отменить заявку"} onClick={function (): void {
+                  throw new Error("Function not implemented.")
+                }} className={styles.cancel} />
               )}
 
-              <Button text={"Отказаться"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.cancel} />
+
             </div>
 
           ) : (
-            <Button text={"Выбрать"} onClick={choosePackage} className={styles.inactive} />
+            <div>
+              <Button text={"Выбрать"} onClick={() => choosePackage("premium")} className={styles.inactive} />
+            </div>
           )}
         </div>
 
 
       </div>
+      {
+        choosePackageOpen ? <ChoosePackagePopup planType={newPlan} closePopup={closeChoosePackagePopup}
+          onChange={onChange != null ? onChange : () => null} /> : null
+      }
 
 
-    </div>
+
+
+    </div >
   )
 }

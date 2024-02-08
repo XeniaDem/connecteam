@@ -21,80 +21,46 @@ type Props = {
   // access: string;
   savedPlan: Plan | null;
 
+  onChange: () => void;
+
 
 
 }
 
 
 
-export function PackageInfo({ name }: Props) {
+export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
   const navigate = useNavigate()
 
   const token = useSelector(selectToken)
 
 
-
-  const [planInfo, setPlanInfo] = useState<Plan | null>(null)
-
-  const readPlanInfo = (message: any) => {
-    const messageParsed = JSON.parse(message);
-    const planInfo = {
-      planType: messageParsed.plan_type,
-      expiryDate: messageParsed.expiry_date.substring(0, 10),
-      planAccess: messageParsed.plan_access,
-
-    }
-    setPlanInfo(planInfo);
-
-  }
+  const [planType, setPlanType] = useState<string | undefined>()
+  const [expiryDate, setExpiryDate] = useState<string | undefined>()
+  const [planAccess, setPlanAccess] = useState<string | undefined>()
+  const [planConfirmed, setPlanConfirmed] = useState<boolean | undefined>()
 
 
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    setPlanInfo(null)
-    alert(content);
-
-  }
-
-
-
-  const fetchPlan = async () => {
-    try {
-
-      const response = await get('users/plan', token)
-      readPlanInfo(response.text)
-
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
-
-
-  }
 
 
 
   useEffect(() => {
-
-    fetchPlan()
-
-  }, []);
-
-
+    setPlanType(savedPlan?.planType)
+    setExpiryDate(savedPlan?.expiryDate)
+    setPlanAccess(savedPlan?.planAccess)
+    setPlanConfirmed(savedPlan?.planConfirmed)
 
 
-  if (!(planInfo == null)) {
 
-    if (planInfo?.planType == "basic") {
+  }, [savedPlan]);
+
+
+
+
+  if (!(savedPlan == null)) {
+
+    if (planType == "basic") {
       return (
         <div className={styles.container}>
           <div className={styles.icon}>
@@ -104,24 +70,30 @@ export function PackageInfo({ name }: Props) {
             Добро пожаловать, {name}!
           </div>
           <div className={styles.subtitle}>
-            Вам доступен пакет:
+            {planConfirmed ? "Вам доступен пакет:" : "Ваша заявка находится на рассмотрении администратором."}
           </div>
           <div className={styles.package}>
             <BasicPackage />
           </div>
           <div className={styles.footerContainer}>
-            <div className={styles.footer}>
-              Дата истечения срока подписки {planInfo.expiryDate}
-            </div>
+            {planConfirmed ? (
+              <div className={styles.footer}>
+                Дата истечения срока подписки {expiryDate}
+              </div>
+            ) : (
+              null
+            )
+            }
 
-            <Button text={"Управлять пакетом"} onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+            <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
+              onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
           </div>
         </div>
       )
     }
-    else if (planInfo?.planType == "advanced") {
+    else if (planType == "advanced") {
       return (
         <div>
           <div className={styles.container}>
@@ -132,16 +104,22 @@ export function PackageInfo({ name }: Props) {
               Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
-              Вам доступен пакет:
+              {planConfirmed ? "Вам доступен пакет:" : "Ваша заявка находится на рассмотрении администратором."}
             </div>
             <div className={styles.package}>
               <AdvancedPackage />
             </div>
             <div className={styles.footerContainer}>
-              <div className={styles.footer}>
-                Дата истечения срока подписки {planInfo.expiryDate}
-              </div>
-              <Button text={"Управлять пакетом"} onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              {planConfirmed ? (
+                <div className={styles.footer}>
+                  Дата истечения срока подписки {expiryDate}
+                </div>
+              ) : (
+                null
+              )
+              }
+              <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
+                onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
             </div>
@@ -149,7 +127,7 @@ export function PackageInfo({ name }: Props) {
         </div>
       )
     }
-    else if (planInfo?.planType == "premium") {
+    else if (planType == "premium") {
       return (
         <div>
           <div className={styles.container}>
@@ -160,18 +138,24 @@ export function PackageInfo({ name }: Props) {
               Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
-              Вам доступен пакет:
+              {planConfirmed ? "Вам доступен пакет:" : "Ваша заявка находится на рассмотрении администратором."}
             </div>
             <div className={styles.package}>
               <PremiumPackage />
             </div>
 
             <div className={styles.footerContainer}>
-              <div className={styles.footer}>
-                Дата истечения срока подписки {planInfo.expiryDate}
-              </div>
+              {planConfirmed ? (
+                <div className={styles.footer}>
+                  Дата истечения срока подписки {expiryDate}
+                </div>
+              ) : (
+                null
+              )
+              }
 
-              <Button text={"Управлять пакетом"} onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
+                onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
             </div>
@@ -183,7 +167,7 @@ export function PackageInfo({ name }: Props) {
   }
 
 
-  else if (planInfo == null) { ////////////////////////////////////////////////////
+  else if (savedPlan == null) { ////////////////////////////////////////////////////
     return (
 
       <div>
@@ -195,7 +179,7 @@ export function PackageInfo({ name }: Props) {
           <div className={styles.subtitle}>
             Выберите пакет:
           </div>
-          <PackageList isLogged={true} />
+          <PackageList isLogged={true} onChange={onChange}/>
         </div>
 
 

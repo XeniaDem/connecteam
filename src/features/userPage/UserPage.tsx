@@ -10,6 +10,9 @@ import { Header } from "../header/Header"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
 import { get } from "../../utils/api"
+import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
+import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
+import { Plan } from "../profile/packageInfo/PackageInfo"
 
 
 
@@ -28,7 +31,7 @@ export function UserPage() {
 
 
   const [name, setName] = useState("");
-  const [access, setAccess] = useState("");
+  const [planInfo, setPlanInfo] = useState<Plan | null>(null)
 
 
   const readAnswer = (message: any) => {
@@ -40,8 +43,8 @@ export function UserPage() {
 
     var name = messageParsed.first_name
     setName(name)
-    var access = messageParsed.access
-    setAccess(access)
+    // var access = messageParsed.access
+    // setAccess(access)
 
 
 
@@ -82,6 +85,50 @@ export function UserPage() {
 
   }
 
+  const readPlanInfo = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    const planInfo = {
+      planType: messageParsed.plan_type,
+      expiryDate: messageParsed.expiry_date.substring(0, 10),
+      planAccess: messageParsed.plan_access,
+      planConfirmed: messageParsed.confirmed ////////////
+
+    }
+    setPlanInfo(planInfo);
+
+  }
+
+
+  const fetchPlan = async () => {
+    try {
+
+      const response = await get('users/plan', token)
+      readPlanInfo(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
+
+  const [userFetched, setUserFetched] = useState(false)
+
+  const [planFetched, setPlanFetched] = useState(false)
+
+
+  const onUserChange = () => {
+    setUserFetched(!userFetched)
+
+  }
+  const onPlanChange = () => {
+    setPlanFetched(!planFetched)
+
+  }
 
 
   useEffect(() => {
@@ -90,7 +137,18 @@ export function UserPage() {
       navigate("/")
     }
     fetchUserPage();
-  }, []);
+
+  }, [userFetched]);
+
+  useEffect(() => {
+    disableScroll.off()
+    if (token == "") {
+      navigate("/")
+    }
+    fetchPlan();
+
+  }, [planFetched]);
+
 
 
   const { state } = useLocation();
@@ -110,10 +168,11 @@ export function UserPage() {
 
     <div className={styles.container}>
       <div className={styles.header}>
-        <Header loggedHeader={true} withPackage = {!(access == "user")}/>
+        <Header loggedHeader={true} withPackage = {!(planInfo == null)}/>
       </div>
-      <PackageInfo name={name} savedPlan = {null}/>
+      <PackageInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
+      <ChooseTopics/>
 
     </div>
   )

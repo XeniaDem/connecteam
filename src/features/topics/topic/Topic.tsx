@@ -16,7 +16,6 @@ type Props = {
 
   withCheckBox: boolean;
 
-
   selected: boolean;
   onTopicClicked: (selected: boolean) => void;
   inactive?: boolean;
@@ -28,11 +27,7 @@ type Props = {
 
 
 export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }: Props) {
-  /*const players = [];
 
-  for (let i = 0; i < props.playersNum; i++) {
-    players.push(<Player />)
-  }*/
 
 
   const handleChange = () => {
@@ -46,7 +41,7 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
   return (
     <div>
       <div className={!selected ? (!inactive ? styles.container : styles.inactive) : styles.selected}
-        onClick={(withCheckBox || inactive) ? () => null : handleChange}>
+        onClick={(inactive || withCheckBox) ? () => null : handleChange}>
 
         <div className={styles.icon}>
           <div className={styles.ellipse}>
@@ -63,7 +58,9 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
         </div>
 
         {withCheckBox ? (
-          <CheckBox checked={selected} onClick={handleChange} />
+          <div className={styles.checkBox}>
+            <CheckBox checked={selected} onClick={handleChange} />
+          </div>
         ) : (
           <div />
         )}
