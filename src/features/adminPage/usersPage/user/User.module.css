@@ -34,7 +34,6 @@
   gap: 50px;
 
 align-items: center;
-
 }
 
 
@@ -158,6 +157,7 @@ align-items: center;
 justify-content: center;
 display: flex;
 position:relative;
+gap: 10px;
 
 }
 
@@ -176,7 +176,20 @@ position:relative;
 
 }
 
+.status {
+  margin-top: 4px;
+}
+
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
 }
 
+.expiryDate {
+  min-width: 115px;
+  margin-left: -30px;
+  color: #595959;
+  font-size: 18px;
+font-weight: 600;
+line-height: 35px;
+letter-spacing: -0.05em;
+}

@@ -32,19 +32,20 @@ export function UserPopup(props: Props) {
 
 
   const readAccess = () => {
-    if (props.user.access == "user")
-      return ("Нет доступа")
-    if (props.user.access == "basic")
-      return ("Простой")
-    if (props.user.access == "advanced")
-      return ("Расширенный")
-    if (props.user.access == "premium")
-      return ("Широкий")
-    if (props.user.access == "admin")
+    if (props.user.access == "user") {
+      if (props.user.plan == undefined)
+        return ("Нет доступа")
+      if (props.user.plan?.planType == "basic")
+        return ("Простой")
+      if (props.user.plan?.planType == "advanced")
+        return ("Расширенный")
+      if (props.user.plan?.planType == "premium")
+        return ("Широкий")
+    } else if (props.user.access == "admin")
       return ("Администратор")
   }
 
-  const getAccess = (value: string) => {
+  const getAccess = (value: string) => { //////////////////////////////////////////
     if (value == "Нет доступа")
       return ("user")
     if (value == "Простой")
@@ -79,7 +80,7 @@ export function UserPopup(props: Props) {
 
   }
 
-  const changeAccess = async () => {
+  const changeAccess = async () => { ///////////////////////////////
 
     const data = {
       id: props.user.id.toString(),

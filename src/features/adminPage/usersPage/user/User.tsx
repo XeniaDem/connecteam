@@ -4,8 +4,18 @@ import { useEffect, useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import disableScroll from 'disable-scroll';
 import { UserPopup } from "../userPopup/UserPopup"
+import VerifiedIcon from '@mui/icons-material/Verified';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+
+export type PlanModel = {
+  userId: string;
+  planType: string;
+  expiryDate: string;
+  confirmed: string;
 
 
+
+}
 export type UserModel = {
   id: string;
   name: string;
@@ -14,6 +24,7 @@ export type UserModel = {
   photo: string;
   access: string;
   isYou?: boolean;
+  plan?: PlanModel;
 
 }
 
@@ -26,13 +37,7 @@ type Props = {
 
 
 
-export function User({ user, token, onChange}: Props) {
-
-  // useEffect(() => {
-
-  //   readAccess()
-
-  // }, []);
+export function User({ user, token, onChange }: Props) {
 
 
   const [userOpen, setUserOpen] = useState(false);
@@ -42,7 +47,7 @@ export function User({ user, token, onChange}: Props) {
   const openUserPopup = () => {
     disableScroll.on()
     setUserOpen(true)
-    
+
 
   }
   const closeUserPopup = () => {
@@ -55,16 +60,23 @@ export function User({ user, token, onChange}: Props) {
   }
 
   const readAccess = () => {
-    if (user.access == "user")
-      return ("Нет доступа")
-    if (user.access == "basic")
-      return ("Простой")
-    if (user.access == "advanced")
-      return ("Расширенный")
-    if (user.access == "premium")
-      return ("Широкий")
-    if (user.access == "admin")
+    if (user.access == "user") {
+      if (user.plan == undefined)
+        return ("Нет доступа")
+      if (user.plan?.planType == "basic")
+        return ("Простой")
+      if (user.plan?.planType == "advanced")
+        return ("Расширенный")
+      if (user.plan?.planType == "premium")
+        return ("Широкий")
+
+
+    } else if (user.access == "admin")
       return ("Администратор")
+
+
+
+
   }
 
 
@@ -94,7 +106,7 @@ export function User({ user, token, onChange}: Props) {
             </div>
 
           )}
-               <div className={styles.email}>
+          <div className={styles.email}>
             {user.email}
           </div>
 
@@ -107,8 +119,26 @@ export function User({ user, token, onChange}: Props) {
           </div>
           <div className={styles.access}>
 
+
             {readAccess()}
+
+            {(user.access == "user" && user.plan) ? (
+              <div className={styles.status}>
+                {user.plan?.confirmed ? <VerifiedIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                  : <NewReleasesIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />}
+              </div>
+            ) : (
+              null
+
+            )}
+
           </div>
+          <div className={styles.expiryDate}>
+            {user.plan?.confirmed ?  "до " + user.plan.expiryDate
+              :  <div className={styles.expiryDate}/>}
+          </div>
+
+
         </div>
 
 

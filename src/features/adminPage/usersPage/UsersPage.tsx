@@ -1,24 +1,12 @@
 
 import { Header } from "../../header/Header"
 import styles from "./UsersPage.module.css"
-import icon from "./icon.svg"
-import questions from "./questions.svg"
-import { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from "react"
-import { User, UserModel } from "./user/User"
+import { useEffect, useState } from "react"
+import { PlanModel, User, UserModel } from "./user/User"
 import { get } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
-import { JSX } from "react/jsx-runtime"
-import { UserPopup } from "./userPopup/UserPopup"
-import disableScroll from 'disable-scroll';
-
-
-type Props = {
-
-
-
-}
 
 
 
@@ -39,6 +27,7 @@ export function UsersPage() {
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
       var isYou = (messageParsed.data[i].id == id)
+      var plan = plans?.find((element) => element.userId == messageParsed.data[i].id);
       const userModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
@@ -46,14 +35,15 @@ export function UsersPage() {
         email: messageParsed.data[i].email,
         photo: messageParsed.data[i].profile_image, //////////////
         access: messageParsed.data[i].access,
-        isYou: isYou
+        isYou: isYou,
+        plan: plan
 
       }
       userModels.push(userModel)
 
     }
     setUsers(userModels)
-    setFetched(true)
+    setUsersFetched(true)
 
   }
 
@@ -72,8 +62,9 @@ export function UsersPage() {
   }
 
   const fetchUsers = async () => {
+    fetchPlans()
     if (id == "") {
-      setFetched(false);
+      setUsersFetched(false);
     }
  
     try {
@@ -89,11 +80,11 @@ export function UsersPage() {
 
 
   }
-  const [fetched, setFetched] = useState(false)
+  const [usersFetched, setUsersFetched] = useState(false)
 
 
   const onChange = () => {
-    setFetched(!fetched)
+    setUsersFetched(!usersFetched)
 
   }
 
@@ -104,7 +95,6 @@ export function UsersPage() {
   const readId = (message: any) => {
 
     var messageParsed = JSON.parse(message);
-    // alert(JSON.stringify(messageParsed));
    
     var id = messageParsed.id
     setId(id)
@@ -128,6 +118,45 @@ export function UsersPage() {
   }
 
 
+  const [plans, setPlans] = useState<PlanModel[] | null>(null)
+  const readPlans = (message: any) => {
+    
+    const messageParsed = JSON.parse(message);
+
+    const plansNum = (messageParsed.data.length);
+
+    const planModels = [];
+    for (let i = 0; i < plansNum; i++) {
+      const planModel = {
+        planType: messageParsed.data[i].plan_type,
+        userId: messageParsed.data[i].user_id,
+        expiryDate: messageParsed.data[i].expiry_date.substring(0,10),
+        confirmed: messageParsed.data[i].confirmed,
+
+
+      }
+      planModels.push(planModel)
+
+    }
+    setPlans(planModels)
+    setUsersFetched(true)
+
+  }
+
+  const fetchPlans = async () => {
+    try {
+      const response = await get('plans/users-plans', token)
+      readPlans(response.text)
+      return;
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
 
 
 
@@ -136,8 +165,11 @@ export function UsersPage() {
    
     fetchMe()
 
+
     fetchUsers()
-  }, [fetched]);
+
+
+  }, [usersFetched]);
 
   return (
     <div className={styles.container}>
