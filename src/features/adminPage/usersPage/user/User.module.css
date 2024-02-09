@@ -157,7 +157,7 @@ align-items: center;
 justify-content: center;
 display: flex;
 position:relative;
-gap: 10px;
+
 
 }
 
@@ -176,9 +176,17 @@ gap: 10px;
 
 }
 
+.accessText {
+  min-width: 120px;
+
+}
+
 .status {
   margin-top: 4px;
+
 }
+
+
 
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);

@@ -43,16 +43,7 @@ export function UserPage() {
 
     var name = messageParsed.first_name
     setName(name)
-    // var access = messageParsed.access
-    // setAccess(access)
 
-
-
-
-
-    // alert("data: " + "\n access: " + access + "\n company: " + companyName +
-    //   "\n name: " + name + " \n surname: " + surname +
-    //   "\n id: " + id + "\n image: " + image + "\n email: " + email + "\n phone: " + phone)
 
 
   }
@@ -102,7 +93,7 @@ export function UserPage() {
   const fetchPlan = async () => {
     try {
 
-      const response = await get('users/plan', token)
+      const response = await get('plans/current', token)
       readPlanInfo(response.text)
 
     }

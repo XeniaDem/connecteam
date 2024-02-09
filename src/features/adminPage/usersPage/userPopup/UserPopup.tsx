@@ -6,10 +6,11 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Field } from "../../../profile/field/Field";
 import { User, UserModel } from "../user/User";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { patch } from "../../../../utils/api";
+import { patch, post } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
+import { duration } from "@mui/material";
 
 
 
@@ -23,7 +24,7 @@ type Props = {
 
 export function UserPopup(props: Props) {
 
-  const [accessChanging, setAccessChanging] = useState(false)
+  const [planChanging, setPlanChanging] = useState(false)
 
 
 
@@ -41,11 +42,12 @@ export function UserPopup(props: Props) {
         return ("Расширенный")
       if (props.user.plan?.planType == "premium")
         return ("Широкий")
-    } else if (props.user.access == "admin")
-      return ("Администратор")
+    }
+    // } else if (props.user.access == "admin")
+    //   return ("Администратор")
   }
 
-  const getAccess = (value: string) => { //////////////////////////////////////////
+  const getPlan = (value: string) => { //////////////////////////////////////////
     if (value == "Нет доступа")
       return ("user")
     if (value == "Простой")
@@ -54,22 +56,34 @@ export function UserPopup(props: Props) {
       return ("advanced")
     if (value == "Широкий")
       return ("premium")
-    if (value == "Администратор")
-      return ("admin")
   }
-  const [newAccess, setNewAccess] = useState<string | undefined>("")
+  const [newPlan, setNewPlan] = useState<string | undefined>("")
 
-  const onDropDownValueChange = (value: { label: any; }) => {
+  const onPlanValueChange = (value: { label: any; }) => {
 
     if (value.label == readAccess()) {
-      setNewAccess("")
-      setAccessChanging(false)
+      setNewPlan("")
+      setPlanChanging(false)
       return;
     }
-    setNewAccess(getAccess(value.label))
-    setAccessChanging(true)
+    setNewPlan(getPlan(value.label))
+    setPlanChanging(true)
 
   }
+
+  const onPeriodChange = (value: { label: any; }) => {
+
+    if (value.label == "14 дней") {
+      setPeriod(14)
+    }
+    if (value.label == "30 дней") {
+      setPeriod(30)
+    }
+
+
+  }
+
+  const[period, setPeriod] = useState(14)
 
   const readChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
@@ -81,16 +95,17 @@ export function UserPopup(props: Props) {
   }
 
   const changeAccess = async () => { ///////////////////////////////
-
+    alert(period)
     const data = {
-      id: props.user.id.toString(),
-      access: newAccess
+      duration: period,
+      plan_type: newPlan
     }
     try {
 
-      const response = await patch('users/change-access', data, props.token)
-      setNewAccess("")
-      setAccessChanging(false)
+      const response = await post('plans/' + props.user.id.toString(), data, props.token)
+      alert(response.text)
+      setNewPlan("")
+      setPlanChanging(false)
       props.onChange()
       props.closePopup()
 
@@ -104,12 +119,12 @@ export function UserPopup(props: Props) {
   }
 
 
-  const packageOptions = [
-    'Нет доступа', 'Простой', 'Расширенный', 'Широкий', 'Администратор'
+  const planOptions = [
+    'Нет доступа', 'Простой', 'Расширенный', 'Широкий'
   ];
 
   const periodOptions = [
-    '14 дней', '1 месяц', '2 месяца'
+    '14 дней', '30 дней'
   ];
 
 
@@ -154,16 +169,29 @@ export function UserPopup(props: Props) {
             <div className={styles.fields}>
               <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name + " " + props.user.surname} />
               <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={props.user.email} />
-              <Field small={true} isDropDown={true} options={packageOptions} title={"Порог доступа"} dropDownValue={readAccess()} onDropDownValueChange={onDropDownValueChange} />
+              {props.user.access == "admin" ? (
+                <Field small={true} isInput={true} title={"Порог доступа"} disabled={true} value="Администратор" />
+              ) : (
+                <Field small={true} isDropDown={true} options={planOptions} title={"Порог доступа"}
+                  dropDownValue={readAccess()} onDropDownValueChange={onPlanValueChange} />
+              )}
 
 
-
-              {accessChanging && newAccess != "user" && newAccess != "admin" ? (
-                <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"} dropDownValue={periodOptions[0]} onDropDownValueChange={(() => null)} />
+              {planChanging && newPlan != "user" ? (
+                <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"}
+                  dropDownValue={periodOptions[0]} onDropDownValueChange={onPeriodChange} />
 
               ) : (
                 null
               )}
+              <div className={styles.makeAdmin}>
+                {props.user.access == "admin" ? (
+                  <Button text={"Убрать доступ администратора"} onClick={() => null} className={styles.footerButton} />
+                ) : (
+                  <Button text={"Назначить администратором"} onClick={() => null} className={styles.footerButton} />
+
+                )}
+              </div>
 
 
 
@@ -177,7 +205,7 @@ export function UserPopup(props: Props) {
 
         </div>
 
-        {accessChanging ? (
+        {planChanging ? (
           <Button text={"Сохранить"} onClick={changeAccess} className={styles.saveButton} />
 
         ) : (

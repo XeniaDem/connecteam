@@ -88,7 +88,7 @@ export function Profile() {
   const fetchPlan = async () => {
     try {
 
-      const response = await get('users/plan', token)
+      const response = await get('plans/current', token)
       readPlanInfo(response.text)
       setPlanFetched(true)
 

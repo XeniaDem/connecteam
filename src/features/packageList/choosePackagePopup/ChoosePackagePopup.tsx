@@ -33,15 +33,17 @@ export function ChoosePackagePopup(props: Props) {
 
   const onDropDownValueChange = (value: { label: any; }) => {
 
-    // if (value.label == readAccess()) {
-    //   setNewAccess("")
-    //   setAccessChanging(false)
-    //   return;
-    // }
-    // setNewAccess(getAccess(value.label))
-    // setAccessChanging(true)
+    if (value.label == "14 дней") {
+      setPeriod(14)
+    }
+    if (value.label == "30 дней") {
+      setPeriod(30)
+    }
+
 
   }
+
+  const[period, setPeriod] = useState(14)
 
   const readAccess = () => {
     if (props.planType == "user")
@@ -67,15 +69,15 @@ export function ChoosePackagePopup(props: Props) {
   }
 
   const sendRequest = async () => {
-
+alert(period)
     const data = {
-      duration: 30,
+      duration: period,
       plan_type: props.planType
 
     }
     try {
 
-      const response = await post('plans/purchase', data, token)
+      const response = await post('plans/', data, token)
 
       props.onChange()
       props.closePopup()
@@ -91,7 +93,7 @@ export function ChoosePackagePopup(props: Props) {
 
 
   const periodOptions = [
-    '14 дней', '1 месяц', '2 месяца'
+    '14 дней', '30 дней'
   ];
 
 
@@ -144,7 +146,7 @@ export function ChoosePackagePopup(props: Props) {
 
 
 
-            <Field small={true} isDropDown={true} options={periodOptions} title={""} dropDownValue={periodOptions[0]} onDropDownValueChange={(() => null)} />
+            <Field small={true} isDropDown={true} options={periodOptions} title={""} dropDownValue={periodOptions[0]} onDropDownValueChange={onDropDownValueChange} />
 
 
 

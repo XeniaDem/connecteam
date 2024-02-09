@@ -6,6 +6,9 @@ import disableScroll from 'disable-scroll';
 import { UserPopup } from "../userPopup/UserPopup"
 import VerifiedIcon from '@mui/icons-material/Verified';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 export type PlanModel = {
   userId: string;
@@ -91,8 +94,13 @@ export function User({ user, token, onChange }: Props) {
 
         <div className={styles.group}>
           <div className={styles.photo}>
-            {/* <img src = {photo}/> */}
-            {(user.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={user.photo} />}
+            {user.access == "admin" ? (
+              <SupervisorAccountIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> 
+
+            ) : (
+              (user.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={user.photo} />
+            )}
+            
           </div>
           {user.isYou ? (
             <div className={styles.nameActive}>
@@ -119,13 +127,14 @@ export function User({ user, token, onChange }: Props) {
           </div>
           <div className={styles.access}>
 
-
-            {readAccess()}
+            <div className={styles.accessText}>
+              {readAccess()}
+            </div>
 
             {(user.access == "user" && user.plan) ? (
               <div className={styles.status}>
-                {user.plan?.confirmed ? <VerifiedIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
-                  : <NewReleasesIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />}
+                {user.plan?.confirmed ? <CheckCircleIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                  : <ErrorIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />}
               </div>
             ) : (
               null
@@ -134,8 +143,8 @@ export function User({ user, token, onChange }: Props) {
 
           </div>
           <div className={styles.expiryDate}>
-            {user.plan?.confirmed ?  "до " + user.plan.expiryDate
-              :  <div className={styles.expiryDate}/>}
+            {user.plan?.confirmed ? "до " + user.plan.expiryDate
+              : <div className={styles.expiryDate} />}
           </div>
 
 

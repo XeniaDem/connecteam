@@ -64,7 +64,11 @@ export function UsersPage() {
   const fetchUsers = async () => {
     fetchPlans()
     if (id == "") {
-      setUsersFetched(false);
+      setUsersFetched(!usersFetched);
+    }
+    if (plans == null) {
+      setUsersFetched(!usersFetched);
+      return;
     }
  
     try {
