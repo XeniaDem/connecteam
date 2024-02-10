@@ -103,24 +103,20 @@ export function UserPopup(props: Props) {
     try {
       var response;
       if (newPlan == undefined) {
-        alert('plans/' + props.user.id.toString())
         response = await Delete('plans/' + props.user.id.toString(), props.token)
 
       } else {
         response = await post('plans/' + props.user.id.toString(), data, props.token)
 
       }
-      alert(response.text)
       setNewPlan("")
       setPlanChanging(false)
-      // props.onChange()
       props.closePopup()
 
 
     }
     catch (error: any) {
       readChangeError(error.response.text);
-      // alert(error.text)
       console.log("error:", error)
     }
   }

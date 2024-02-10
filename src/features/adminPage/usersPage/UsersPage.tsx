@@ -27,7 +27,8 @@ export function UsersPage() {
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
       var isYou = (messageParsed.data[i].id == id)
-      var plan = plans?.find((element) => element.userId == messageParsed.data[i].id);
+      if (plans)
+        var plan = plans?.find((element) => element.userId == messageParsed.data[i].id);
       const userModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
@@ -141,7 +142,12 @@ export function UsersPage() {
   const [plans, setPlans] = useState<PlanModel[] | null>(null)
   const readPlans = (message: any) => {
 
+
     const messageParsed = JSON.parse(message);
+    if (messageParsed.data == null) {
+      setPlans(null)
+      return;
+    }
 
     const plansNum = (messageParsed.data.length);
 
@@ -159,7 +165,7 @@ export function UsersPage() {
 
     }
     setPlans(planModels)
-    setUsersFetched(true)
+    // setUsersFetched(true)
 
   }
 
