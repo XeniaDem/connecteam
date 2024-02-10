@@ -10,6 +10,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material"
 import colors from "@mui/material/colors"
+import { PlanModel } from "../../usersPage/user/User"
+import { Delete, patch } from "../../../../utils/api"
 
 
 export type RequestModel = {
@@ -18,13 +20,12 @@ export type RequestModel = {
   surname: string;
   email: string;
   photo: string;
-  plan: string;
-  period: string;
+  plan: PlanModel;
 
 }
 
 type Props = {
-  request: RequestModel;
+  savedRequest: RequestModel;
   token: string;
   onChange: () => void;
 
@@ -32,7 +33,7 @@ type Props = {
 
 
 
-export function PlanRequest({ request, token, onChange }: Props) {
+export function PlanRequest({ savedRequest, token, onChange }: Props) {
 
   // useEffect(() => {
 
@@ -40,18 +41,71 @@ export function PlanRequest({ request, token, onChange }: Props) {
 
   // }, []);
 
+  const readChangeError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
 
 
+    alert(content);
+
+  }
+
+
+  const declinePlan = async () => {
+    try {
+
+      const response = await Delete('plans/' + savedRequest.id.toString(), token)
+      onChange()
+
+
+    }
+    catch (error: any) {
+      readChangeError(error.response.text);
+      console.log("error:", error)
+    }
+  }
+
+  const confirmPlan = async () => {
+    const data = {
+
+    }
+    try {
+
+       const response = await patch('plans/' + savedRequest.id.toString(), data, token)
+       onChange()
+
+
+
+    }
+    catch (error: any) {
+      readChangeError(error.response.text);
+      console.log("error:", error)
+    }
+  }
+
+
+
+  const [plan, setPlan] = useState<PlanModel>()
 
   const readRequest = () => {
 
-    if (request.plan == "basic")
+    if (plan?.planType == "basic")
       return ("Простой")
-    if (request.plan == "advanced")
+    if (plan?.planType == "advanced")
       return ("Расширенный")
-    if (request.plan == "premium")
+    if (plan?.planType == "premium")
       return ("Широкий")
   }
+
+
+
+  useEffect(() => {
+
+    disableScroll.off();
+    setPlan(savedRequest.plan)
+
+
+  }, [savedRequest]);
 
 
 
@@ -66,16 +120,16 @@ export function PlanRequest({ request, token, onChange }: Props) {
         <div className={styles.group}>
           <div className={styles.photo}>
             {/* <img src = {photo}/> */}
-            {(request.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={request.photo} />}
+            {(savedRequest.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedRequest.photo} />}
           </div>
 
           <div className={styles.name} >
-            {request.name} {" "} {request.surname}
+            {savedRequest.name} {" "} {savedRequest.surname}
           </div>
 
 
           <div className={styles.email}>
-            {request.email}
+            {savedRequest.email}
           </div>
 
 
@@ -90,15 +144,15 @@ export function PlanRequest({ request, token, onChange }: Props) {
             {readRequest()}
           </div>
           <div className={styles.period}>
-            {request.period}
+            {plan?.duration} дней
 
           </div>
           <div className={styles.controlButtons}>
-            <IconButton onClick={() => null}>
+            <IconButton onClick={confirmPlan}>
 
               <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>
-            <IconButton onClick={() => null}>
+            <IconButton onClick={declinePlan}>
 
               <ClearIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>

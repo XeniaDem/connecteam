@@ -9,8 +9,9 @@ import { get } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
-import { User, UserModel } from "../usersPage/user/User"
+import { PlanModel, User, UserModel } from "../usersPage/user/User"
 import { PlanRequest, RequestModel } from "./planRequest/PlanRequest"
+import { duration } from "@mui/material"
 
 
 
@@ -31,30 +32,9 @@ export function PlanRequestsPage() {
   const [requests, setRequests] = useState<RequestModel[] | null>(null)
 
 
-  const readRequests = (message: any) => {
-    const messageParsed = JSON.parse(message);
 
-    const requestNum = (messageParsed.data.length);
 
-    const requestModels = [];
-    for (let i = 0; i < requestNum; i++) {
-      const requestModel = {
-        id: messageParsed.data[i].id,
-        name: messageParsed.data[i].first_name,
-        surname: messageParsed.data[i].second_name,
-        email: messageParsed.data[i].email,
-        photo: messageParsed.data[i].profile_image,
-        plan: messageParsed.data[i].access,
-        period: "14 дней" /////////////////////
 
-      }
-      requestModels.push(requestModel)
-
-    }
-    setRequests(requestModels)
-    setFetched(true)
-
-  }
 
 
   const readServerError = (message: any) => {
@@ -70,10 +50,49 @@ export function PlanRequestsPage() {
 
   }
 
-  const fetchRequests = async () => {
+
+
+  const readUsers = (message: any) => {
+    const messageParsed = JSON.parse(message);
+
+    const usersNum = (messageParsed.data.length);
+
+    const requestModels = [];
+    for (let i = 0; i < usersNum; i++) {
+      if (requestedPlans)
+        var plan = requestedPlans?.find((element) => element.userId == messageParsed.data[i].id);
+      if (plan == undefined)
+        continue;
+      const requestModel = {
+        id: messageParsed.data[i].id,
+        name: messageParsed.data[i].first_name,
+        surname: messageParsed.data[i].second_name,
+        email: messageParsed.data[i].email,
+        photo: messageParsed.data[i].profile_image, //////////////
+        plan: plan
+
+      }
+      requestModels.push(requestModel)
+
+    }
+    setRequests(requestModels)
+    setUsersFetched(true)
+
+  }
+
+  function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const fetchUsers = async () => {
+
+    fetchPlans()
+    await delay(100);
+
+
     try {
-      const response = await get('users/list', token) ////////////////////////
-      readRequests(response.text)
+      const response = await get('users/list', token)
+      readUsers(response.text)
       return;
 
     }
@@ -84,11 +103,51 @@ export function PlanRequestsPage() {
 
 
   }
-  const [fetched, setFetched] = useState(false)
+
+  const [requestedPlans, setRequestedPlans] = useState<PlanModel[] | null>(null)
+  const readPlans = (message: any) => {
 
 
-  const onChange = () => {
-    setFetched(!fetched)
+    const messageParsed = JSON.parse(message);
+    if (messageParsed.data == null) {
+      setRequestedPlans(null)
+      return;
+    }
+
+    const plansNum = (messageParsed.data.length);
+
+    const planModels = [];
+    for (let i = 0; i < plansNum; i++) {
+      if (messageParsed.data[i].confirmed == true) {
+        continue;
+      }
+      const planModel = {
+        planType: messageParsed.data[i].plan_type,
+        userId: messageParsed.data[i].user_id,
+        expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),
+        confirmed: messageParsed.data[i].confirmed,
+        duration: messageParsed.data[i].duration
+      }
+      planModels.push(planModel)
+
+    }
+    setRequestedPlans(planModels)
+    // setUsersFetched(true)
+
+  }
+
+  const fetchPlans = async () => {
+    try {
+      const response = await get('plans/users-plans', token)
+      readPlans(response.text)
+      return;
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
 
   }
 
@@ -97,10 +156,25 @@ export function PlanRequestsPage() {
 
 
 
-  useEffect(() => {
+  const [usersFetched, setUsersFetched] = useState(false)
 
-    fetchRequests()
-  }, [fetched]);
+
+
+
+
+  const onUsersChange = () => {
+    setUsersFetched(!usersFetched)
+
+  }
+
+
+
+
+  useEffect(() => {
+    fetchUsers()
+
+
+  }, [usersFetched]);
 
   return (
     <div className={styles.container}>
@@ -118,18 +192,15 @@ export function PlanRequestsPage() {
       </div>
       <div className={styles.users}>
 
-
         {requests?.map(request =>
           <div>
-            <PlanRequest request={request} token = {token} onChange = {onChange} />
-
+            <PlanRequest savedRequest={request} token={token} onChange={onUsersChange} />
           </div>
 
         )
 
         }
 
-        {/* {userInfo && (<User user={userInfo} />)} */}
 
 
 

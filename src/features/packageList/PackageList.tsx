@@ -181,9 +181,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   </div>
                 </div>
               ) : (
-                <Button text={"Отменить заявку"} onClick={function (): void {
-                  throw new Error("Function not implemented.")
-                }} className={styles.cancel} />
+                null
               )}
             </div>
 
@@ -285,9 +283,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   </div>
                 </div>
               ) : (
-                <Button text={"Отменить заявку"} onClick={function (): void {
-                  throw new Error("Function not implemented.")
-                }} className={styles.cancel} />
+               null
               )}
             </div>
 
@@ -387,9 +383,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   </div>
                 </div>
               ) : (
-                <Button text={"Отменить заявку"} onClick={function (): void {
-                  throw new Error("Function not implemented.")
-                }} className={styles.cancel} />
+               null
               )}
 
 

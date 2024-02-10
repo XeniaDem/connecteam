@@ -15,6 +15,7 @@ export type PlanModel = {
   planType: string;
   expiryDate: string;
   confirmed: string;
+  duration?: string;
 
 
 }

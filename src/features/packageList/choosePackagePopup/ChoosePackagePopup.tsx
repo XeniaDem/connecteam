@@ -43,7 +43,7 @@ export function ChoosePackagePopup(props: Props) {
 
   }
 
-  const[period, setPeriod] = useState(14)
+  const [period, setPeriod] = useState(14)
 
   const readAccess = () => {
     if (props.planType == "user")
@@ -69,7 +69,6 @@ export function ChoosePackagePopup(props: Props) {
   }
 
   const sendRequest = async () => {
-alert(period)
     const data = {
       duration: period,
       plan_type: props.planType
@@ -77,7 +76,7 @@ alert(period)
     }
     try {
 
-      const response = await post('plans/', data, token)
+      const response = await post('plans/purchase', data, token)
 
       props.onChange()
       props.closePopup()
@@ -97,7 +96,7 @@ alert(period)
   ];
 
 
-  
+
   useEffect(() => {
 
 

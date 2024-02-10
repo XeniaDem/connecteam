@@ -71,21 +71,7 @@ export function UsersPage() {
     fetchMe()
     fetchPlans()
     await delay(100);
-    // if (plans == null) {
-    //   setUsersFetched(!usersFetched);
-    //   return;
 
-    // }
-
-
-    // if (id == "" || access == "") {
-    //   setUsersFetched(!usersFetched);
-
-    // }
-    // if (plans == null) {
-    //   setUsersFetched(!usersFetched);
-
-    // }
 
     try {
       const response = await get('users/list', token)
@@ -158,8 +144,6 @@ export function UsersPage() {
         userId: messageParsed.data[i].user_id,
         expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),
         confirmed: messageParsed.data[i].confirmed,
-
-
       }
       planModels.push(planModel)
 
