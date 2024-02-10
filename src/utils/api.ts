@@ -29,4 +29,13 @@ export const get = (url: string, token?: string) => {
      
  }
 
+ export const Delete = (url: string, token?: string) => {
+    return request.delete('http://localhost:5432/' + url)
+     .set('Access-Control-Allow-Origin', '*')
+     .set('Accept', 'application/json')
+     .set('Content-Type', 'application/json')
+     .set('Authorization', `Bearer ${token}`)
+     
+ }
+
  

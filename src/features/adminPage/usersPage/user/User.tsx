@@ -17,7 +17,6 @@ export type PlanModel = {
   confirmed: string;
 
 
-
 }
 export type UserModel = {
   id: string;
@@ -32,15 +31,16 @@ export type UserModel = {
 }
 
 type Props = {
-  user: UserModel;
+  savedUser: UserModel;
   token: string;
   onChange: () => void;
+  myAccess: string;
 
 }
 
 
 
-export function User({ user, token, onChange }: Props) {
+export function User({ savedUser, token, onChange, myAccess }: Props) {
 
 
   const [userOpen, setUserOpen] = useState(false);
@@ -62,25 +62,42 @@ export function User({ user, token, onChange }: Props) {
 
   }
 
+  const[access, setAccess] = useState("")
+  const[plan, setPlan] = useState <PlanModel | undefined> ()
+
+
+
   const readAccess = () => {
-    if (user.access == "user") {
-      if (user.plan == undefined)
+
+    if (access == "user") {
+      if (plan == undefined)
         return ("Нет доступа")
-      if (user.plan?.planType == "basic")
+      if (plan?.planType == "basic")
         return ("Простой")
-      if (user.plan?.planType == "advanced")
+      if (plan?.planType == "advanced")
         return ("Расширенный")
-      if (user.plan?.planType == "premium")
+      if (plan?.planType == "premium")
         return ("Широкий")
 
 
-    } else if (user.access == "admin")
+    } else if (access == "admin")
       return ("Администратор")
+    else if (access == "superadmin")
+      return "Гл. администратор"
 
 
 
 
   }
+
+  useEffect(() => {
+
+    disableScroll.off();
+    setAccess(savedUser.access)
+    setPlan(savedUser.plan)
+
+
+  }, [savedUser]);
 
 
 
@@ -94,28 +111,28 @@ export function User({ user, token, onChange }: Props) {
 
         <div className={styles.group}>
           <div className={styles.photo}>
-            {user.access == "admin" ? (
-              <SupervisorAccountIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> 
+            {access == "admin" || access == "superadmin" ?  (
+              <SupervisorAccountIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
             ) : (
-              (user.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={user.photo} />
+              (savedUser.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedUser.photo} />
             )}
-            
+
           </div>
-          {user.isYou ? (
+          {savedUser.isYou ? (
             <div className={styles.nameActive}>
-              {user.name} {" "} {user.surname} {"(Вы)"}
+              {savedUser.name} {" "} {savedUser.surname} {"(Вы)"}
             </div>
 
 
           ) : (
             <div className={styles.name} onClick={openUserPopup}>
-              {user.name} {" "} {user.surname}
+              {savedUser.name} {" "} {savedUser.surname}
             </div>
 
           )}
           <div className={styles.email}>
-            {user.email}
+            {savedUser.email}
           </div>
 
 
@@ -128,12 +145,12 @@ export function User({ user, token, onChange }: Props) {
           <div className={styles.access}>
 
             <div className={styles.accessText}>
-              {readAccess()}
+              {access  && readAccess()}
             </div>
 
-            {(user.access == "user" && user.plan) ? (
+            {(access == "user" && plan) ? (
               <div className={styles.status}>
-                {user.plan?.confirmed ? <CheckCircleIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                {plan?.confirmed ? <CheckCircleIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
                   : <ErrorIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />}
               </div>
             ) : (
@@ -143,7 +160,7 @@ export function User({ user, token, onChange }: Props) {
 
           </div>
           <div className={styles.expiryDate}>
-            {user.plan?.confirmed ? "до " + user.plan.expiryDate
+            {plan?.confirmed ? "до " + plan.expiryDate
               : <div className={styles.expiryDate} />}
           </div>
 
@@ -156,7 +173,7 @@ export function User({ user, token, onChange }: Props) {
 
       <div className={styles.divider} />
 
-      {userOpen ? <UserPopup user={user} token={token} closePopup={closeUserPopup} onChange={onChange} /> : null}
+      {userOpen ? <UserPopup user={savedUser} token={token} closePopup={closeUserPopup} onChange={onChange} myAccess={myAccess} /> : null}
 
     </div>
 

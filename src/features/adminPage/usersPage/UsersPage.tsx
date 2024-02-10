@@ -61,16 +61,31 @@ export function UsersPage() {
 
   }
 
+  function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
   const fetchUsers = async () => {
+
+    fetchMe()
     fetchPlans()
-    if (id == "") {
-      setUsersFetched(!usersFetched);
-    }
-    if (plans == null) {
-      setUsersFetched(!usersFetched);
-      return;
-    }
- 
+    await delay(100);
+    // if (plans == null) {
+    //   setUsersFetched(!usersFetched);
+    //   return;
+
+    // }
+
+
+    // if (id == "" || access == "") {
+    //   setUsersFetched(!usersFetched);
+
+    // }
+    // if (plans == null) {
+    //   setUsersFetched(!usersFetched);
+
+    // }
+
     try {
       const response = await get('users/list', token)
       readUsers(response.text)
@@ -84,24 +99,25 @@ export function UsersPage() {
 
 
   }
-  const [usersFetched, setUsersFetched] = useState(false)
 
 
-  const onChange = () => {
-    setUsersFetched(!usersFetched)
 
-  }
+
 
 
   const [id, setId] = useState("");
+  const [access, setAccess] = useState("")
 
 
-  const readId = (message: any) => {
+  const readIdAndAccess = (message: any) => {
 
     var messageParsed = JSON.parse(message);
-   
+
     var id = messageParsed.id
     setId(id)
+
+    var access = messageParsed.access
+    setAccess(access)
 
   }
 
@@ -110,7 +126,7 @@ export function UsersPage() {
     try {
 
       const response = await get('users/me', token)
-      readId(response.text)
+      readIdAndAccess(response.text)
 
     }
     catch (error: any) {
@@ -124,7 +140,7 @@ export function UsersPage() {
 
   const [plans, setPlans] = useState<PlanModel[] | null>(null)
   const readPlans = (message: any) => {
-    
+
     const messageParsed = JSON.parse(message);
 
     const plansNum = (messageParsed.data.length);
@@ -134,7 +150,7 @@ export function UsersPage() {
       const planModel = {
         planType: messageParsed.data[i].plan_type,
         userId: messageParsed.data[i].user_id,
-        expiryDate: messageParsed.data[i].expiry_date.substring(0,10),
+        expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),
         confirmed: messageParsed.data[i].confirmed,
 
 
@@ -165,15 +181,31 @@ export function UsersPage() {
 
 
 
+  const [usersFetched, setUsersFetched] = useState(false)
+
+
+
+  const onUsersChange = () => {
+    setUsersFetched(!usersFetched)
+
+  }
+
+
   useEffect(() => {
-   
-    fetchMe()
 
 
-    fetchUsers()
-
+    fetchUsers();
 
   }, [usersFetched]);
+
+
+
+
+  // useEffect(() => {
+
+  //   fetchUsers()
+
+  // }, [usersFetched]);
 
   return (
     <div className={styles.container}>
@@ -194,7 +226,7 @@ export function UsersPage() {
 
         {users?.map(user =>
           <div>
-            <User user={user} token = {token} onChange = {onChange}/>
+            <User savedUser={user} token={token} onChange={onUsersChange} myAccess={access} />
 
           </div>
 

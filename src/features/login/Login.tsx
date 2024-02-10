@@ -116,7 +116,7 @@ export function Login() {
       setLoginError("")
       // alert("token to send " + token)
       // navigate("/user_page", { state: { token: token } })
-      if (access == "admin")
+      if (access == "admin" || access == "superadmin")
         navigate("/admin_page")
       else
         navigate("/user_page")

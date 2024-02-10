@@ -6,7 +6,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Field } from "../../../profile/field/Field";
 import { User, UserModel } from "../user/User";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { patch, post } from "../../../../utils/api";
+import { Delete, patch, post } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
@@ -19,6 +19,7 @@ type Props = {
   user: UserModel;
   token: string;
   onChange: () => void;
+  myAccess: string;
 
 }
 
@@ -47,9 +48,9 @@ export function UserPopup(props: Props) {
     //   return ("Администратор")
   }
 
-  const getPlan = (value: string) => { //////////////////////////////////////////
+  const getPlan = (value: string) => {
     if (value == "Нет доступа")
-      return ("user")
+      return (undefined)
     if (value == "Простой")
       return ("basic")
     if (value == "Расширенный")
@@ -83,7 +84,7 @@ export function UserPopup(props: Props) {
 
   }
 
-  const[period, setPeriod] = useState(14)
+  const [period, setPeriod] = useState(14)
 
   const readChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
@@ -94,19 +95,25 @@ export function UserPopup(props: Props) {
 
   }
 
-  const changeAccess = async () => { ///////////////////////////////
-    alert(period)
+  const changePlan = async () => {
     const data = {
       duration: period,
       plan_type: newPlan
     }
     try {
+      var response;
+      if (newPlan == undefined) {
+        alert('plans/' + props.user.id.toString())
+        response = await Delete('plans/' + props.user.id.toString(), props.token)
 
-      const response = await post('plans/' + props.user.id.toString(), data, props.token)
+      } else {
+        response = await post('plans/' + props.user.id.toString(), data, props.token)
+
+      }
       alert(response.text)
       setNewPlan("")
       setPlanChanging(false)
-      props.onChange()
+      // props.onChange()
       props.closePopup()
 
 
@@ -126,6 +133,33 @@ export function UserPopup(props: Props) {
   const periodOptions = [
     '14 дней', '30 дней'
   ];
+
+  const changeAccess = async () => {
+    var newAccess;
+    if (props.user.access == "user")
+      newAccess = "admin"
+    else 
+      newAccess = "user"
+    const data = {
+      id: props.user.id.toString(),
+      access: newAccess
+    }
+    try {
+
+      const response = await patch('users/access', data, props.token)
+      setNewPlan("")
+      setPlanChanging(false)
+      // props.onChange()
+      props.closePopup()
+
+
+    }
+    catch (error: any) {
+      readChangeError(error.response.text);
+      // alert(error.text)
+      console.log("error:", error)
+    }
+  }
 
 
 
@@ -177,21 +211,25 @@ export function UserPopup(props: Props) {
               )}
 
 
-              {planChanging && newPlan != "user" ? (
+              {planChanging && newPlan != undefined ? (
                 <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"}
                   dropDownValue={periodOptions[0]} onDropDownValueChange={onPeriodChange} />
 
               ) : (
                 null
               )}
-              <div className={styles.makeAdmin}>
-                {props.user.access == "admin" ? (
-                  <Button text={"Убрать доступ администратора"} onClick={() => null} className={styles.footerButton} />
-                ) : (
-                  <Button text={"Назначить администратором"} onClick={() => null} className={styles.footerButton} />
+              {props.myAccess == "superadmin" ? (
+                <div className={styles.makeAdmin}>
 
-                )}
-              </div>
+                  <Button text={props.user.access == "admin" ? "Убрать доступ администратора" : "Назначить администратором"}
+                    onClick={changeAccess} className={styles.footerButton} />
+
+                </div>
+
+              ) : (
+                null
+              )}
+
 
 
 
@@ -206,7 +244,7 @@ export function UserPopup(props: Props) {
         </div>
 
         {planChanging ? (
-          <Button text={"Сохранить"} onClick={changeAccess} className={styles.saveButton} />
+          <Button text={"Сохранить"} onClick={changePlan} className={styles.saveButton} />
 
         ) : (
           null
