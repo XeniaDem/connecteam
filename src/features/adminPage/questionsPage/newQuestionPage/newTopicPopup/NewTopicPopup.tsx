@@ -8,6 +8,8 @@ import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
 import { TopicModel } from "../../topic/Topic";
+import { post } from "../../../../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,7 +23,62 @@ type Props = {
 
 export function NewTopicPopup(props: Props) {
 
-  const[topicName, setTopicName] = useState("");
+  const [topicName, setTopicName] = useState("");
+  const navigate = useNavigate()
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+
+  const getErrorMessage = () => {
+    if (topicName.trim() == "") {
+      return ("Введите название темы.")
+
+    }
+  }
+  var errorMessage = getErrorMessage()
+  const readServerError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+
+    if (content.includes("token is expired")) {
+      navigate("/login")
+      return ("Срок действия токена вышел.")
+
+    }
+    alert(content);
+
+  }
+
+
+
+
+
+
+  const addTopic = async () => {
+    setFormSubmitted(true)
+    if (errorMessage != null) {
+      return;
+    }
+    const data = {
+      title: topicName
+    }
+
+    try {
+      const response = await post('topics/', data, props.token)
+      alert(response.text)
+      props.closePopup()
+      return;
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
+
 
 
 
@@ -61,6 +118,11 @@ export function NewTopicPopup(props: Props) {
             <input className={styles.input} placeholder={"Название темы"}
               value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
 
+            {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
+              {errorMessage}
+
+            </div>)}
+
 
 
 
@@ -68,7 +130,7 @@ export function NewTopicPopup(props: Props) {
 
           </div>
 
-          <Button text={"Добавить тему"} onClick={() => null} className={styles.addButton} />
+          <Button text={"Добавить тему"} onClick={addTopic} className={styles.addButton} />
 
 
 

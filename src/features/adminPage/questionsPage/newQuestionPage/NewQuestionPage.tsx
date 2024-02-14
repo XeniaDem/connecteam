@@ -37,17 +37,18 @@ export function NewQuestionsPage(props: Props) {
 
 
   const readTopics = (message: any) => {
-    // const messageParsed = JSON.parse(message);
+    const messageParsed = JSON.parse(message);
 
-    const topicsNum = 5 // (messageParsed.data.length);
+    const topicsNum = messageParsed.data.length;
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
 
 
       const topicModel = {
-        name: "Обучение", //messageParsed.data[i].name
-        id: i.toString()
+        id: messageParsed.data[i].id,
+        name: messageParsed.data[i].title,
+
 
       }
       topicModels.push(topicModel)
@@ -72,12 +73,64 @@ export function NewQuestionsPage(props: Props) {
 
   }
 
-  const fetchTopics = async () => {
 
+  const fetchTopics = async () => {
     try {
-      const response = await get('users/list', token)
+      const response = await get('topics/', token)
       readTopics(response.text)
       return;
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+  }
+
+
+
+  const [questionText, setQuestionText] = useState("");
+
+  const [selectedTopicId, setSelectedTopicId] = useState("");
+
+
+
+  const [newTopicOpen, setNewTopicOpen] = useState(false)
+
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+
+  const getErrorMessage = () => {
+    if (questionText.trim() == "") {
+      return ("Введите текст вопроса.")
+
+    }
+    if (selectedTopicId == "") {
+      return ("Выберите тему для загрузки вопроса.")
+
+    }
+  }
+  var errorMessage = getErrorMessage()
+
+
+
+
+
+
+
+  const addQuestion = async () => {
+    setFormSubmitted(true)
+    if (errorMessage != null) {
+      return;
+    }
+    // const data = {
+    //   text: ///
+    // }
+
+    try {
+      // const response = await post('topics/', data, props.token)
+      // alert(response.text)
 
     }
     catch (error: any) {
@@ -91,27 +144,17 @@ export function NewQuestionsPage(props: Props) {
 
 
 
-
-  const [questionText, setQuestionText] = useState("");
-
-  const [selectedTopicId, setSelectedTopicId] = useState("");
-
-
-
-  const[newTopicOpen, setNewTopicOpen] = useState(false)
-
-
-
-
   const openNewTopicPopup = () => {
     disableScroll.on()
     setNewTopicOpen(true)
-    
+
+
 
   }
   const closeNewTopicPopup = () => {
     disableScroll.off()
     setNewTopicOpen(false)
+    setFetched(!fetched)
 
 
 
@@ -121,8 +164,7 @@ export function NewQuestionsPage(props: Props) {
 
 
   useEffect(() => {
-    readTopics("");
-
+    fetchTopics();
 
   }, [fetched]);
 
@@ -195,10 +237,14 @@ export function NewQuestionsPage(props: Props) {
         </div>
         <input className={styles.input} placeholder={"Текст вопроса"}
           value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
+        {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
+          {errorMessage}
+
+        </div>)}
 
 
         <div className={styles.buttonContainer}>
-          <Button text={"Загрузить вопрос"} onClick={() => null} className={styles.addButton} />
+          <Button text={"Загрузить вопрос"} onClick={addQuestion} className={styles.addButton} />
         </div>
 
 
@@ -207,7 +253,7 @@ export function NewQuestionsPage(props: Props) {
 
 
       </div>
-      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={()=> null}/> : null}
+      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={() => null} /> : null}
 
 
     </div>

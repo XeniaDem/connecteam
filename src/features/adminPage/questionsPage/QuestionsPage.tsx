@@ -34,9 +34,9 @@ export function QuestionsPage() {
 
 
   const readTopics = (message: any) => {
-    // const messageParsed = JSON.parse(message);
+    const messageParsed = JSON.parse(message);
 
-    const topicsNum = 5 // (messageParsed.data.length);
+    const topicsNum = messageParsed.data.length;
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
@@ -54,9 +54,10 @@ export function QuestionsPage() {
       }
 
       const topicModel = {
-        name: "Обучение", //messageParsed.data[i].name
+        id: messageParsed.data[i].id,
+        name: messageParsed.data[i].title,
         questions: questionModels,
-        id: i.toString()
+
 
       }
       topicModels.push(topicModel)
@@ -84,7 +85,7 @@ export function QuestionsPage() {
   const fetchTopics = async () => {
 
     try {
-      const response = await get('users/list', token)
+      const response = await get('topics/', token)
       readTopics(response.text)
       return;
 
@@ -112,7 +113,7 @@ export function QuestionsPage() {
 
 
   useEffect(() => {
-    readTopics("");
+    fetchTopics()
 
 
   }, [fetched]);

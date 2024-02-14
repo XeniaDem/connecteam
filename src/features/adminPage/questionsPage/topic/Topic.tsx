@@ -10,6 +10,7 @@ import { IconButton } from "@mui/material";
 import { Button } from "../../../../components/button/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
+import { Delete } from "../../../../utils/api";
 
 
 export type TopicModel = {
@@ -70,6 +71,33 @@ export function Topic({ savedTopic, token, onChange }: Props) {
   }
 
 
+  const readServerError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+
+    alert(content);
+
+  }
+
+  const deleteTopic = async () => {
+
+    try {
+      const response = await Delete('topics/' + savedTopic.id, token)
+      alert(response.text)
+      onChange()
+      
+      return;
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
 
   useEffect(() => {
 
@@ -121,7 +149,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
             )}
 
           </IconButton>
-          <Button text={"Удалить"} onClick={() => null} className={styles.deleteButton} />
+          <Button text={"Удалить"} onClick={deleteTopic} className={styles.deleteButton} />
 
 
         </div>
