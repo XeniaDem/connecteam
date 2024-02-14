@@ -1,3 +1,14 @@
+.header {
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  
+  
+  }
+
+
 .container {
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
@@ -66,6 +77,13 @@ box-sizing: border-box;
 color: #FFF;
 outline: none;
 }
+.errorMessage {
+  color: red;
+font-size: 14.972px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.33px; /* 162.5% */
+}
 
 
 .button {
@@ -90,6 +108,7 @@ margin-bottom: 16px;
 display: flex;
 gap: 12px;
 }
+
 .line {
   width: 114px;
 height: 1px;

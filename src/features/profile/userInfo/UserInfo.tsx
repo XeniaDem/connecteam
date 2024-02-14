@@ -11,9 +11,11 @@ import request from "superagent"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
-import { patch, post } from "../../../utils/api"
+import { get, patch, post } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import { PasswordPopup } from "./passwordPopup/PasswordPopup"
+import { useDispatch } from "react-redux"
+import { setToken } from "../../auth/authSlice"
 
 export type User = {
   name: string;
@@ -31,6 +33,8 @@ type Props = {
 }
 
 export function UserInfo({ savedUser, token, onChange }: Props) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
 
   const [name, setName] = useState("");
@@ -305,6 +309,25 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
 
 
+  const restorePassword = async () => { 
+    try {
+
+      const response = await get('users/password', token)
+
+      alert(response.text)
+      dispatch(setToken(""))
+      navigate("link_sent",{ state: { email: email } } )
+
+      
+
+    }
+    catch (error: any) {
+      alert(error.text)
+      console.log("error:", error)
+    }
+
+
+  }
 
 
  
@@ -370,6 +393,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
             <Button text={!isDataChanging ? "Редактировать данные" : "Сохранить"} onClick={handleDataChange} className={styles.footerButton} />
             <Button text={"Сменить пароль"} onClick={openChangePasswordPopup} className={styles.footerButton} />
+            <Button text={"Восстановить пароль"} onClick={restorePassword} className={styles.footerButton} />
 
           </div>
           <Field isInput={true} title={"Электронный адрес"} disabled={!isEmailChanging} value={email} onValueChange={setEmail} />

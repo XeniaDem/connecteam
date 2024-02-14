@@ -17,6 +17,7 @@ import { PlanUsersPage } from "./features/planUsers/PlanUsersPage"
 import { PlanRequestsPage } from "./features/adminPage/planRequestsPage/PlanRequestsPage"
 import { QuestionsPage } from "./features/adminPage/questionsPage/QuestionsPage"
 import { NewQuestionsPage } from "./features/adminPage/questionsPage/newQuestionPage/NewQuestionPage"
+import { LinkSent } from "./features/authProblem/linkSent/LinkSent"
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,14 @@ const router = createBrowserRouter([
   {
     path: "questions_page/add_question",
     element: <NewQuestionsPage/>,
+  },
+  {
+    path: "forgot_password/link_sent",
+    element: <LinkSent/>,
+  },
+  {
+    path: "profile/link_sent",
+    element: <LinkSent/>,
   },
 ]);
 

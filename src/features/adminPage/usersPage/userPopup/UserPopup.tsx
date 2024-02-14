@@ -5,12 +5,10 @@ import styles from "./userPopup.module.css"
 import LockIcon from '@mui/icons-material/Lock';
 import { Field } from "../../../profile/field/Field";
 import { User, UserModel } from "../user/User";
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { Delete, patch, post } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
-import { duration } from "@mui/material";
 
 
 

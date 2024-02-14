@@ -5,20 +5,34 @@ import ellipse1 from "../ellipse1.svg"
 import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory"
+import { Header } from "../../header/Header"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
 
-type Props = {
-  email: string;
 
-}
+export function LinkSent() {
+  const navigate = useNavigate()
 
-LinkSent.defaultProps = { email: "s*******2@y*****.ru"}
+  const { state } = useLocation();
+  const { email } = state || {};
 
-export function LinkSent(props: Props) {
+
+  const maskEmail = (email: string) => {
+    var name = email.split('@')[0]; 
+    var domen = email.split('@')[1]; 
+    var newName = name[0] + name.slice(0, name.length - 1).replace(/./g, '*')
+    // var newDomen = domen.slice(0, domen.length - 2).replace(/./g, '*') + domen.substring(domen.length - 2, domen.length)
+    return newName + "@" + domen;
+
+  }
+
   return (
     <div>
       <div className={styles.container}>
+        <div className={styles.header}>
+          <Header authHeader={true} />
+        </div>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -36,16 +50,17 @@ export function LinkSent(props: Props) {
 
         </div>
         <div className={styles.text}>
-        Мы отправили электронное письмо на адрес {" "}
-        <span className={styles.email}>
-        {props.email} 
-        </span>
-        {" "} со ссылкой для возврата в ваш аккаунт.
+          Мы отправили электронное письмо на адрес {" "}
+          <span className={styles.email}>
+            {/* {email.substr(0, 2) + email.slice(2, -2).replace(/./g, '*') + email.substr(-4)} */}
+            {maskEmail(email)}
+          </span>
+          {" "} с временным паролем.
 
         </div>
 
-        <Button text={"Хорошо"} onClick={function (): void {
-          throw new Error("Function not implemented.")
+        <Button text={"Хорошо"} onClick={() => {
+          navigate("/login")
         }} className={styles.button} />
       </div>
     </div>

@@ -1,25 +1,16 @@
 
 import { Header } from "../../header/Header"
 import styles from "./PlanRequestsPage.module.css"
-import icon from "./icon.svg"
-import questions from "./questions.svg"
-import { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { get } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
-import { PlanModel, User, UserModel } from "../usersPage/user/User"
+import { PlanModel} from "../usersPage/user/User"
 import { PlanRequest, RequestModel } from "./planRequest/PlanRequest"
-import { duration } from "@mui/material"
 
 
-
-type Props = {
-
-
-
-}
 
 
 

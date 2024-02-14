@@ -20,6 +20,7 @@ type Props = {
 export function Header(props: Props) {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [selectedItemName, setSelectedItemName] = useState("");
   const onItemClicked = (newValue: boolean, name: string) => {
@@ -79,7 +80,7 @@ export function Header(props: Props) {
 
     )
   }
-  const dispatch = useDispatch()
+
 
   if (props.loggedHeader) {
     return (

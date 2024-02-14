@@ -109,7 +109,7 @@ export function Profile() {
       return ("Срок действия токена вышел.")
 
     }
-    alert(content);
+    // alert(content);
 
   }
 
@@ -158,12 +158,18 @@ export function Profile() {
 
   useEffect(() => {
     disableScroll.off();
+    if (token == "") {
+      navigate("/")
+    }
     fetchUserPage();
 
   }, [userFetched]);
 
   useEffect(() => {
     disableScroll.off();
+    if (token == "") {
+      navigate("/")
+    }
     fetchPlan();
 
   }, [planFetched]);
