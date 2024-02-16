@@ -30,9 +30,6 @@ export function LinkSent() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <Header authHeader={true} />
-        </div>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -60,7 +57,7 @@ export function LinkSent() {
         </div>
 
         <Button text={"Хорошо"} onClick={() => {
-          navigate("/login")
+          navigate("/auth/login")
         }} className={styles.button} />
       </div>
     </div>

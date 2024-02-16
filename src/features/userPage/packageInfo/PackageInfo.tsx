@@ -85,7 +85,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
             }
 
             <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
-              onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
           </div>
@@ -118,7 +118,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               )
               }
               <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
-                onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
             </div>
@@ -154,7 +154,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               }
 
               <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
-                onClick={() => navigate("/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
 
 
             </div>

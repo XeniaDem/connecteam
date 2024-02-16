@@ -158,9 +158,6 @@ export function UserPage() {
   return (
 
     <div className={styles.container}>
-      <div className={styles.header}>
-        <Header loggedHeader={true} withPackage = {!(planInfo == null)}/>
-      </div>
       <PackageInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
       <ChooseTopics/>

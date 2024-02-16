@@ -192,9 +192,6 @@ export function Registration() {
     <div>
 
       <div className={styles.container}>
-        <div className={styles.header}>
-          <Header authHeader={true} />
-        </div>
 
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
@@ -252,7 +249,7 @@ export function Registration() {
 
           </div>
           <Button text={"Войти"} onClick={() => {
-            navigate("/login")
+            navigate("/auth/login")
           }} className={styles.footerButton} />
 
         </div>

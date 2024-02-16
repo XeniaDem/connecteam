@@ -5,13 +5,13 @@ import styles from "../Layout.module.css"
 
 
 
-export function AdminLayout() {
+export function AuthLayout() {
 
 
     return (
         <div>
             <div className={styles.header}>
-                <Header adminHeader={true} />
+                <Header authHeader={true} />
             </div>
             <Outlet />
 

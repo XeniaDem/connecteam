@@ -155,9 +155,9 @@ export function CreateGame(props: Props) {
 
   return (
     <div>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <Header loggedHeader={true} withPackage={true} />
-      </div>
+      </div> */}
       <div className={styles.container}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />

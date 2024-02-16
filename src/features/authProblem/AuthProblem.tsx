@@ -62,7 +62,7 @@ export function AuthProblem() {
       // const response = await post('auth/verify-user', data)
 
       // alert(response.text)
-      navigate("link_sent",{ state: { email: email } } )
+      navigate("link_sent", { state: { email: email } } )
 
 
 
@@ -79,9 +79,6 @@ export function AuthProblem() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <Header authHeader={true} />
-        </div>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -123,7 +120,7 @@ export function AuthProblem() {
         <div className={styles.footerContainer}>
 
           <Button text={"Создайте новый аккаунт"} onClick={() => {
-            navigate("/register")
+            navigate("/auth/register")
           }} className={styles.footerButton} />
 
         </div>

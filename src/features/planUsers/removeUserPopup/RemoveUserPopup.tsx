@@ -50,7 +50,7 @@ export function RemoveUserPopup(props: Props) {
             </div>
 
             <div className={styles.text}>
-              Вы точно хотите удалить пользователя <br /> {props.planUser.name} из участников плана?
+              Вы точно хотите удалить пользователя <br /> {props.planUser.name} из участников пакета?
             </div>
 
 

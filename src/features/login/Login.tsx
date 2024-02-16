@@ -212,9 +212,6 @@ export function Login() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <Header authHeader={true} />
-        </div>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
@@ -257,7 +254,7 @@ export function Login() {
         <div className={styles.footerContainer}>
 
           <Button text={"Забыли пароль?"} onClick={() => {
-            navigate("/forgot_password")
+            navigate("/auth/forgot_password")
           }} className={styles.footerButton} />
 
         </div>
@@ -267,7 +264,7 @@ export function Login() {
 
           </div>
           <Button text={"Зарегистрироваться"} onClick={() => {
-            navigate("/register")
+            navigate("/auth/register")
           }} className={styles.footerButton} />
 
         </div>

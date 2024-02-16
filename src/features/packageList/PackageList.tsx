@@ -53,7 +53,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
   const choosePackage = (type?: string) => {
 
     if (!isLogged) {
-      navigate("/register")
+      navigate("/auth/register")
     } else {
       setNewPlan(type)
       openChoosePackagePopup()
@@ -62,7 +62,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
   }
   const showPlanUsers = () => {
 
-    navigate("/plan_users")
+    navigate("/user_page/plan_users")
   }
 
   // const [withPackage, setWithPackage] = useState(false);

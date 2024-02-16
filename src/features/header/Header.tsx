@@ -88,15 +88,15 @@ export function Header(props: Props) {
 
 
           <HeaderItem text="Профиль" onClick={() => {
-            navigate("/profile")
+            navigate("/user_page/profile")
 
-          }}/>
+          }} selected={location.pathname.startsWith("/user_page/profile")}/>
           {props.withPackage ? (
             <HeaderItem text="Создать игру" onClick={() => {
-              navigate("/create_game")}}/>
+              navigate("/user_page/create_game")}} selected={location.pathname == "/user_page/create_game"}/>
           ) : (
             null
-          )}
+          ) }
           <HeaderItem text="Мои игры" onClick={() => navigate("/user_page", { state: { targetId: "games" } })}/>
         </div>
         <Button text={"Выход"} onClick={() => {
@@ -124,7 +124,7 @@ export function Header(props: Props) {
           }} />
         </div>
         <Button text={"Вход"} onClick={() => {
-          navigate("/login")
+          navigate("/auth/login")
         }} className={styles.authButton} />
 
 
@@ -150,7 +150,7 @@ export function Header(props: Props) {
       <HeaderItem text="Контакты" link="#contacts" />
       <div className={styles.headerButton}>
         <Button text={"Зарегистрироваться"} onClick={() => {
-          navigate("/register")
+          navigate("/auth/register")
         }} />
 
       </div>
@@ -158,7 +158,7 @@ export function Header(props: Props) {
         <div className={styles.person}>
           <img src={person} />
         </div>
-        <HeaderItem text="Войти" link="/login" />
+        <HeaderItem text="Войти" link="/auth/login" />
       </div>
 
     </div >

@@ -19,6 +19,8 @@ import { QuestionsPage } from "./features/adminPage/questionsPage/QuestionsPage"
 import { NewQuestionsPage } from "./features/adminPage/questionsPage/newQuestionPage/NewQuestionPage"
 import { LinkSent } from "./features/authProblem/linkSent/LinkSent"
 import { AdminLayout } from "./features/layouts/adminLayout/AdminLayout"
+import { AuthLayout } from "./features/layouts/authLayout/AuthLayout"
+import { UserLayout } from "./features/layouts/userLayout/UserLayout"
 
 const router = createBrowserRouter([
   {
@@ -27,30 +29,66 @@ const router = createBrowserRouter([
       <App />
     ),
   },
+
+
+
+
+
+
   {
-    path: "register",
-    element: <Registration />,
+    path: "auth",
+    element: <AuthLayout/>,
+
+    children: [
+      {
+        path: "register",
+        element: <Registration />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "forgot_password",
+        element: <AuthProblem />,
+      },
+      {
+        path: "forgot_password/link_sent",
+        element: <LinkSent/>,
+      },
+    ],
   },
-  {
-    path: "login",
-    element: <Login />,
-  },
-  {
-    path: "forgot_password",
-    element: <AuthProblem />,
-  },
-  {
-    path: "profile",
-    element: <Profile />,
-  },
-  {
-    path: "create_game",
-    element: <CreateGame />,
-  },
+
   {
     path: "user_page",
-    element: <UserPage/>,
+    element: <UserLayout/>,
+
+    children: [
+      {
+        path: "",
+        element: <UserPage/>,
+        // index: true
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "create_game",
+        element: <CreateGame />,
+      },
+      {
+        path: "plan_users",
+        element: <PlanUsersPage/>,
+      },
+      {
+        path: "profile/link_sent",
+        element: <LinkSent/>,
+      },
+
+    ],
   },
+
   {
     path: "admin",
     element: <AdminLayout/>,
@@ -81,25 +119,12 @@ const router = createBrowserRouter([
 
 
 
-  {
-    path: "plan_users",
-    element: <PlanUsersPage/>,
-  },
 
 
-  {
-    path: "create_game",
-    element: <CreateGame/>,
-  },
+
   
-  {
-    path: "forgot_password/link_sent",
-    element: <LinkSent/>,
-  },
-  {
-    path: "profile/link_sent",
-    element: <LinkSent/>,
-  },
+
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
