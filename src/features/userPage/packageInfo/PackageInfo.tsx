@@ -17,8 +17,7 @@ import { useSelector } from "react-redux"
 
 type Props = {
   name: string;
-  // dateExpiry?: string;
-  // access: string;
+
   savedPlan: Plan | null;
 
   onChange: () => void;

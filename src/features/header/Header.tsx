@@ -1,5 +1,5 @@
 
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Header.module.css"
 import logo from "./logo.svg"
@@ -21,23 +21,17 @@ export function Header(props: Props) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const [selectedItemName, setSelectedItemName] = useState("");
-  const onItemClicked = (newValue: boolean, name: string) => {
+  const location = useLocation()
 
 
-    
-    setSelectedItemName(name)
-
-
-
-  };
 
 
 
   if (props.adminHeader) {
 
+
     return (
+      
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.logo}>
@@ -51,13 +45,13 @@ export function Header(props: Props) {
 
             navigate("/questions_page")
 
-          }} selected={"Вопросы" == selectedItemName} onItemClicked={onItemClicked} />
+          }} selected={location.pathname == "/questions_page"}  />
 
           <HeaderItem text="Пользователи" onClick={() => {
             navigate("/users_page")
 
 
-          }} selected={"Пользователи" == selectedItemName} onItemClicked={onItemClicked} />
+          }} selected={location.pathname == "/users_page"} />
 
           <HeaderItem text="Запросы на пакет" onClick={() => {
 
@@ -66,7 +60,7 @@ export function Header(props: Props) {
 
 
 
-          }} selected={"Запросы на пакет" == selectedItemName} onItemClicked={onItemClicked} />
+          }} selected={location.pathname == "/plan_requests"}  />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
@@ -96,10 +90,10 @@ export function Header(props: Props) {
           <HeaderItem text="Профиль" onClick={() => {
             navigate("/profile")
 
-          }} onItemClicked={onItemClicked}/>
+          }}/>
           {props.withPackage ? (
             <HeaderItem text="Создать игру" onClick={() => {
-              navigate("/create_game")}} onItemClicked={onItemClicked}/>
+              navigate("/create_game")}}/>
           ) : (
             null
           )}

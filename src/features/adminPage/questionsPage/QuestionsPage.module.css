@@ -15,7 +15,7 @@
   padding-left: 81px;
   padding-right: 81px;
 
- 
+
 
 }
 
@@ -27,28 +27,29 @@
   top: 0;
   left: 0;
   z-index: 1;
-  
-  
-  }
 
-  .up {
-    margin-top: 187px;
-    display:flex;
-    justify-content: space-between;
-    padding-bottom: 57px;
-  }
+
+}
+
+.up {
+  margin-top: 187px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 57px;
+}
 
 
 .title {
   color: #FFF;
 
-font-size: 50px;
-font-style: normal;
-font-weight: 700;
-line-height: 71.925px; /* 143.851% */
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px;
+  /* 143.851% */
 
 
- 
+
 }
 
 .addButton {
@@ -61,9 +62,9 @@ line-height: 71.925px; /* 143.851% */
   height: 46.667px;
   flex-shrink: 0;
   border-radius: 40.783px;
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
 
-z-index: 1;
+  z-index: 1;
 
 }
 
@@ -78,4 +79,3 @@ z-index: 1;
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
 }
-

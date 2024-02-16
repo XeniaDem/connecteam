@@ -47,7 +47,7 @@ export function AuthProblem() {
     return content;
   }
 
-  const restorePassword = async () => {
+  const restorePassword = async () => { ////////////////////
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;
@@ -113,17 +113,11 @@ export function AuthProblem() {
         <Button text={"Отправить"} onClick={restorePassword} className={styles.button} />
         <div className={styles.footerContainer}>
 
-          <div className={styles.line}>
-
-
-          </div>
+          <div className={styles.line}/>
           <div className={styles.footerItem}>
-
             или
-
           </div>
-          <div className={styles.line}>
-          </div>
+          <div className={styles.line}/>
 
         </div>
         <div className={styles.footerContainer}>

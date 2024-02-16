@@ -15,16 +15,7 @@ import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup";
 
 
 
-
-
-type Props = {
-
-
-
-}
-
-
-export function NewQuestionsPage(props: Props) {
+export function NewQuestionsPage() {
 
 
   const navigate = useNavigate()
@@ -93,10 +84,7 @@ export function NewQuestionsPage(props: Props) {
 
   const [selectedTopicId, setSelectedTopicId] = useState("");
 
-
-
   const [newTopicOpen, setNewTopicOpen] = useState(false)
-
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -142,22 +130,15 @@ export function NewQuestionsPage(props: Props) {
   }
 
 
-
-
   const openNewTopicPopup = () => {
     disableScroll.on()
     setNewTopicOpen(true)
-
-
-
   }
+
   const closeNewTopicPopup = () => {
     disableScroll.off()
     setNewTopicOpen(false)
     setFetched(!fetched)
-
-
-
   }
 
 
@@ -246,11 +227,6 @@ export function NewQuestionsPage(props: Props) {
         <div className={styles.buttonContainer}>
           <Button text={"Загрузить вопрос"} onClick={addQuestion} className={styles.addButton} />
         </div>
-
-
-
-
-
 
       </div>
       {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={() => null} /> : null}

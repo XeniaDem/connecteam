@@ -43,7 +43,7 @@ export function Registration() {
       return "Некорректно введен адрес эл. почты"
     }
 
-    if (name.length < 1 || surname.length < 1) {
+    if (name.trim().length < 1 || surname.trim().length < 1) {
       return "Поля имя и фамилия не могут быть пустыми"
     }
 

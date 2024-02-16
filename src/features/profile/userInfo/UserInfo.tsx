@@ -69,10 +69,9 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
   };
   const getDataErrorMessage = () => {
 
-    if (name.length < 1 || surname.length < 1) {
+    if (name.trim().length < 1 || surname.trim().length < 1) {
       return "Поля имя и фамилия не могут быть пустыми"
     }
-
     return null
   }
 
@@ -82,10 +81,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
     alert(content)
-    // if (content.includes("Wrong verification code")) {
-    //   return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-
-    // }
 
     return content;
 
@@ -368,8 +363,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
           <ImagePicker isUser = {true}/>
  
         </div>
-
-
         <div className={styles.right}>
           {/* <div className={styles.settingsContainer}>
             <Button text={"Расширенные настройки  <"} onClick={function (): void {
