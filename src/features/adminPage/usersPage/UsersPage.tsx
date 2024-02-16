@@ -205,9 +205,9 @@ export function UsersPage() {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <Header adminHeader={true} />
-      </div>
+      </div> */}
       <div className={styles.title}>
         Список пользователей
       </div>

@@ -39,9 +39,9 @@ export function AdminPage() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <Header adminHeader={true} />
-      </div>
+      </div> */}
       <div className={styles.icon}>
         <img src={icon} />
       </div>

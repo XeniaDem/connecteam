@@ -166,7 +166,7 @@ export function NewQuestionsPage() {
           <Header adminHeader={true} />
         </div>
         <div className={styles.back}>
-          <Button text={""} onClick={() => { navigate("/questions_page") }} className={styles.backButton} />
+          <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
         </div>
         <div className={styles.title}>
           Загрузить вопрос

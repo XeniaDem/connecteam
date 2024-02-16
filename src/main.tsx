@@ -18,6 +18,7 @@ import { PlanRequestsPage } from "./features/adminPage/planRequestsPage/PlanRequ
 import { QuestionsPage } from "./features/adminPage/questionsPage/QuestionsPage"
 import { NewQuestionsPage } from "./features/adminPage/questionsPage/newQuestionPage/NewQuestionPage"
 import { LinkSent } from "./features/authProblem/linkSent/LinkSent"
+import { AdminLayout } from "./features/layouts/adminLayout/AdminLayout"
 
 const router = createBrowserRouter([
   {
@@ -51,33 +52,46 @@ const router = createBrowserRouter([
     element: <UserPage/>,
   },
   {
-    path: "admin_page",
-    element: <AdminPage/>,
+    path: "admin",
+    element: <AdminLayout/>,
+
+    children: [
+      {
+        element: <AdminPage/>,
+        index: true
+      },
+      {
+        path: "users_page",
+        element: <UsersPage />,
+      },
+      {
+        path: "plan_requests",
+        element: <PlanRequestsPage/>,
+      },
+      {
+        path: "questions_page",
+        element: <QuestionsPage/>,
+      },
+      {
+        path: "questions_page/add_question",
+        element: <NewQuestionsPage/>,
+      },
+    ],
   },
-  {
-    path: "users_page",
-    element: <UsersPage />,
-  },
+
+
+
   {
     path: "plan_users",
     element: <PlanUsersPage/>,
   },
-  {
-    path: "/plan_requests",
-    element: <PlanRequestsPage/>,
-  },
-  {
-    path: "questions_page",
-    element: <QuestionsPage/>,
-  },
+
+
   {
     path: "create_game",
     element: <CreateGame/>,
   },
-  {
-    path: "questions_page/add_question",
-    element: <NewQuestionsPage/>,
-  },
+  
   {
     path: "forgot_password/link_sent",
     element: <LinkSent/>,

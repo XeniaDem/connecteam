@@ -36,31 +36,31 @@ export function Header(props: Props) {
         <div className={styles.group}>
           <div className={styles.logo}>
             <img src={logo} onClick={() => {
-              navigate("/admin_page")
+              navigate("/admin")
             }} />
           </div>
 
 
           <HeaderItem text="Вопросы" onClick={() => {
 
-            navigate("/questions_page")
+            navigate("/admin/questions_page")
 
-          }} selected={location.pathname == "/questions_page"}  />
+          }} selected={location.pathname.startsWith("/admin/questions_page")}  />
 
           <HeaderItem text="Пользователи" onClick={() => {
-            navigate("/users_page")
+            navigate("/admin/users_page")
 
 
-          }} selected={location.pathname == "/users_page"} />
+          }} selected={location.pathname == "/admin/users_page"} />
 
           <HeaderItem text="Запросы на пакет" onClick={() => {
 
-            navigate("/plan_requests")
+            navigate("/admin/plan_requests")
 
 
 
 
-          }} selected={location.pathname == "/plan_requests"}  />
+          }} selected={location.pathname == "/admin/plan_requests"}  />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
