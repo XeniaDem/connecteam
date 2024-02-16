@@ -56,7 +56,7 @@ export function ChooseTopics(props: Props) {
 
   }
 
-  const [selectedTopicsIds, setSelectedTopicsIds] = useState<string[]> ([]);
+  const [selectedTopicsIds, setSelectedTopicsIds] = useState<string[]>([]);
   // var selectedTopicsIds: string[] = [];
 
 
@@ -68,7 +68,7 @@ export function ChooseTopics(props: Props) {
   }, [fetched]);
 
 
-
+  // console.log(selectedTopicsIds)
   return (
     <div>
       <div className={styles.container}>
@@ -98,21 +98,19 @@ export function ChooseTopics(props: Props) {
           {topics?.map(topic => {
             const onTopicClicked = (newValue: boolean) => {
               if (newValue) {
-                selectedTopicsIds.push(topic.id)
-                alert("1 " + selectedTopicsIds)
-                alert (selectedTopicsIds.includes(topic.id))
-     
-              
+                const newSelectedTopicsIds = [...selectedTopicsIds, topic.id]
+                setSelectedTopicsIds(newSelectedTopicsIds)
+
+
+
               } else {
-                alert("2 " + selectedTopicsIds)
-                const index = selectedTopicsIds.indexOf(topic.id);
-                if (index > -1) {
-                  selectedTopicsIds.splice(index, 1);
-           
-                }
+
+                const newSelectedTopicsIds = [...selectedTopicsIds].filter(topicId => topicId != topic.id)
+                setSelectedTopicsIds(newSelectedTopicsIds)
+
 
               }
-            
+
             }
 
             return (
@@ -137,7 +135,7 @@ export function ChooseTopics(props: Props) {
 
 
 
-        <Button text={"Выбрать все темы"} onClick={function (): void {
+        <Button text={"Выбрать все темы"} onClick={function (): void { //////////////////
           throw new Error("Function not implemented.")
         }} className={styles.allTopicsButton} />
 

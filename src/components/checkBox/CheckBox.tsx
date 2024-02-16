@@ -22,10 +22,10 @@ export function CheckBox(props: Props) {
 
 
   return (
-    <div className={styles.checkbox} onClick = {props.onClick}>
+    <div className={styles.checkbox}>
       <label className = {styles.label}>
         <input type="checkbox" checked={checked}
-          onChange={handleChange}  />
+          onChange={handleChange} onClick={props.onClick} />
 
 
         {
