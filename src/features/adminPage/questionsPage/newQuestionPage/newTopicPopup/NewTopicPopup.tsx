@@ -64,7 +64,7 @@ export function NewTopicPopup(props: Props) {
 
     try {
       const response = await post('topics/', data, props.token)
-      alert(response.text)
+      // alert(response.text)
       props.closePopup()
       return;
 

@@ -8,22 +8,13 @@ import ellipse2 from "./ellipse2.svg"
 import icon from "./icon.svg"
 import { InvitePopup } from "./invitePopup/InvitePopup"
 import disableScroll from 'disable-scroll';
-import { Header } from "../header/Header"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
 import { get } from "../../utils/api"
-import DateTimePicker from 'react-datetime-picker'
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-// import 'react-datetime-picker/dist/DateTimePicker.css';
-// import 'react-calendar/dist/Calendar.css';
-// import 'react-clock/dist/Clock.css';
 
 
-type Props = {
-}
-
-export function CreateGame(props: Props) {
+export function CreateGame() {
   const navigate = useNavigate();
 
 
@@ -61,7 +52,6 @@ export function CreateGame(props: Props) {
     alert("time " + gameTime)
     if (createErrorMessage != null) {
       return;
-
 
     }
     else {
@@ -155,9 +145,6 @@ export function CreateGame(props: Props) {
 
   return (
     <div>
-      {/* <div className={styles.header}>
-        <Header loggedHeader={true} withPackage={true} />
-      </div> */}
       <div className={styles.container}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />

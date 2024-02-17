@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./NewQuestionPage.module.css"
 import { Topic } from "../../../topics/topic/Topic";
 import { TopicModel } from "../topic/Topic";
@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../auth/authSlice";
 import { get } from "../../../../utils/api";
-import { Header } from "../../../header/Header";
 import { Button } from "../../../../components/button/Button";
 import ellipse from "./ellipse.svg"
 import disableScroll from 'disable-scroll';
@@ -15,7 +14,7 @@ import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup";
 
 
 
-export function NewQuestionsPage() {
+export function NewQuestionPage() {
 
 
   const navigate = useNavigate()
@@ -162,9 +161,6 @@ export function NewQuestionsPage() {
           </linearGradient>
         </svg>
 
-        <div className={styles.header}>
-          <Header adminHeader={true} />
-        </div>
         <div className={styles.back}>
           <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
         </div>

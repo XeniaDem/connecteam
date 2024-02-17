@@ -1,17 +1,7 @@
-.header {
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  
-  
-  }
-
 .container {
 
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 
   font-family: 'Work Sans Variable', sans-serif;
   gap: 50px;
@@ -23,15 +13,9 @@
 
 .divider {
 
-height: 1px;
-flex-shrink: 0;
-stroke-width: 1px;
-background: #5C5C5C;
+  height: 1px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  background: #5C5C5C;
 
 }
-
-
-
-
-
-

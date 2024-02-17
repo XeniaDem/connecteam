@@ -1,24 +1,12 @@
-
-import { Header } from "../../header/Header"
 import styles from "./QuestionsPage.module.css"
-import icon from "./icon.svg"
-import questions from "./questions.svg"
-import { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { get } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
-import { JSX } from "react/jsx-runtime"
-import disableScroll from 'disable-scroll';
 import { Topic, TopicModel } from "./topic/Topic"
-import { QuestionModel } from "./question/Question"
 import { Button } from "../../../components/button/Button"
 
-
-type Props = {
-
-
-}
 
 
 
@@ -126,9 +114,6 @@ export function QuestionsPage() {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-      {/* <div className={styles.header}>
-        <Header adminHeader={true} />
-      </div> */}
       <div className={styles.up}>
         <div className={styles.title}>
           Список тем и вопросов

@@ -1,24 +1,11 @@
-
-import { Header } from "../header/Header"
 import styles from "./PlanUsersPage.module.css"
-import icon from "./icon.svg"
-import questions from "./questions.svg"
-import { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { get } from "../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
 import { useNavigate } from "react-router-dom"
-import disableScroll from 'disable-scroll';
-import { User, UserModel } from "../adminPage/usersPage/user/User"
 import { Button } from "../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
-
-
-type Props = {
-
-
-
-}
 
 
 

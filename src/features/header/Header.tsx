@@ -5,16 +5,17 @@ import styles from "./Header.module.css"
 import logo from "./logo.svg"
 import person from "./person.svg"
 import { HeaderItem } from "./headerItem/HeaderItem"
-import { useDispatch } from "react-redux"
-import { setToken } from "../auth/authSlice"
-import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { selectToken, setToken } from "../auth/authSlice"
+import { useEffect, useState } from "react"
+import { get } from "../../utils/api"
+import { Plan } from "../profile/packageInfo/PackageInfo"
 
 
 type Props = {
   authHeader?: boolean;
   loggedHeader?: boolean;
   adminHeader?: boolean;
-  withPackage?: boolean;
 
 }
 export function Header(props: Props) {
@@ -22,6 +23,43 @@ export function Header(props: Props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
+
+
+  const token = useSelector(selectToken)
+  
+
+
+  const [planInfo, setPlanInfo] = useState<Plan | null>(null)
+
+
+  const readPlanInfo = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    const planInfo = {
+      planType: messageParsed.plan_type,
+      expiryDate: messageParsed.expiry_date.substring(0, 10),
+      planAccess: messageParsed.plan_access,
+      planConfirmed: messageParsed.confirmed ////////////
+
+    }
+    setPlanInfo(planInfo);
+
+  }
+
+
+  const fetchPlan = async () => {
+    try {
+
+      const response = await get('plans/current', token)
+      readPlanInfo(response.text)
+
+    }
+    catch (error: any) {
+      setPlanInfo(null)
+      console.log("error:", error)
+    }
+
+
+  }
 
 
 
@@ -77,6 +115,15 @@ export function Header(props: Props) {
 
 
   if (props.loggedHeader) {
+    useEffect(() => {
+      if (token == "") {
+        navigate("/")
+      }
+      fetchPlan();
+  
+    }, []);
+
+
     return (
       <div className={styles.container}>
         <div className={styles.group}>
@@ -91,7 +138,7 @@ export function Header(props: Props) {
             navigate("/user_page/profile")
 
           }} selected={location.pathname.startsWith("/user_page/profile")}/>
-          {props.withPackage ? (
+          {planInfo && planInfo.planConfirmed == true ? (
             <HeaderItem text="Создать игру" onClick={() => {
               navigate("/user_page/create_game")}} selected={location.pathname == "/user_page/create_game"}/>
           ) : (

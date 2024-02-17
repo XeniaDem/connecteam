@@ -16,41 +16,32 @@
   padding-left: 81px;
   padding-right: 81px;
 
- 
+
 
 }
-
-
-
-.header {
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  
-  
-  }
 
 
 .title {
   color: #FFF;
 
-font-size: 50px;
-font-style: normal;
-font-weight: 700;
-line-height: 71.925px; /* 143.851% */
-margin-top: 187px;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px;
+  /* 143.851% */
+  margin-top: 187px;
 
 
- 
+
 }
+
 .subtitle {
   color: #FFF;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
-  line-height: 34.737px; /* 144.737% */
+  line-height: 34.737px;
+  /* 144.737% */
   padding-bottom: 57px;
 }
 
@@ -70,12 +61,13 @@ margin-top: 187px;
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.39);
-font-size: 38.507px;
-font-style: normal;
-font-weight: 600;
-line-height: 140.76%; /* 27.457px */
-text-align: center;
-margin-top: 230px;
+  font-size: 38.507px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140.76%;
+  /* 27.457px */
+  text-align: center;
+  margin-top: 230px;
 
 }
 
@@ -91,31 +83,33 @@ margin-top: 230px;
   width: 60px;
   height: 60px;
   background-color: rgba(48, 48, 48, 0.93);
-font-size: 50px;
-font-style: normal;
-font-weight: 400;
-line-height: 41.007px; /* 143.851% */
-border-radius: 39px;
-justify-content: center;
-align-items:center;
-display: flex;
-box-sizing: border-box;
-padding: 3px 3px;
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-box-shadow: none;
-box-shadow: 
- 
-3px -3px 10px #55C6F7, 
--3px 3px 10px #2AF8BA;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 41.007px;
+  /* 143.851% */
+  border-radius: 39px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  box-sizing: border-box;
+  padding: 3px 3px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-shadow: none;
+  box-shadow:
+
+    3px -3px 10px #55C6F7,
+    -3px 3px 10px #2AF8BA;
 }
+
 .back {
   position: absolute;
   top: 211px;
   right: 100px;
-  
+
 }
 
 .backButton {
@@ -132,7 +126,8 @@ box-shadow:
   z-index: 1;
 
 }
+
 .backButton:hover {
-box-shadow: none;
+  box-shadow: none;
 
 }

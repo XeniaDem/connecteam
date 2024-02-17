@@ -5,10 +5,8 @@ import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { Button } from "../../components/button/Button"
 import { useNavigate } from "react-router-dom"
-import { Header } from "../header/Header"
 import validator from "validator"
 import { useState } from "react"
-import { post } from "../../utils/api"
 
 
 export function AuthProblem() {

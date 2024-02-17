@@ -8,10 +8,8 @@ import ellipse2 from "./ellipse2.svg"
 import { EmailConfirmationPopup } from "./emailConfirmationPopup/EmailConfirmationPopup"
 import { SuccessPopup } from "./successPopup/SuccessPopup"
 import { useNavigate } from "react-router-dom"
-import * as request from "superagent";
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
-import { Header } from "../header/Header"
 import { post } from "../../utils/api"
 
 
@@ -176,7 +174,6 @@ export function Registration() {
     }
     try {
       const response = await post('auth/verify-user', data)
-      alert(response.text)
       closeVerifyPopup()
       openSuccessPopup()
 

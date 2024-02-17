@@ -270,8 +270,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
     try {
 
       const response = await patch('users/change-email', data, token)
-
-      alert(response.text)
       closeVerifyPopup()
       setIsEmailChanging(!isEmailChanging);
       onChange()
@@ -309,7 +307,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
       const response = await get('users/password', token)
 
-      alert(response.text)
       dispatch(setToken(""))
       navigate("link_sent",{ state: { email: email } } )
 

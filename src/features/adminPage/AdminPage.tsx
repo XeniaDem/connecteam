@@ -1,14 +1,10 @@
 
-import { Header } from "../header/Header"
 import styles from "./AdminPage.module.css"
 import icon from "./icon.svg"
 import users from "./users.svg"
 import questions from "./questions.svg"
-import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { get } from "../../utils/api"
-import { useSelector } from "react-redux"
-import { selectToken } from "../auth/authSlice"
+
 
 
 type Props = {
@@ -25,23 +21,8 @@ export function AdminPage() {
 
 
 
-
-
-
-  // useEffect(() => {
-
-  //   fetchMe()
-
-  // }, []);
-
-
-
-
   return (
     <div className={styles.container}>
-      {/* <div className={styles.header}>
-        <Header adminHeader={true} />
-      </div> */}
       <div className={styles.icon}>
         <img src={icon} />
       </div>

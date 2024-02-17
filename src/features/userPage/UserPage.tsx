@@ -1,16 +1,12 @@
-
-import request from "superagent"
 import styles from "./UserPage.module.css"
 import { LastGames } from "./lastGames/LastGames"
 import { PackageInfo } from "./packageInfo/PackageInfo"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
-import { Header } from "../header/Header"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
 import { get } from "../../utils/api"
-import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
 import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
 import { Plan } from "../profile/packageInfo/PackageInfo"
 

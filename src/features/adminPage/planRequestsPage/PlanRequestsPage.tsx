@@ -1,5 +1,3 @@
-
-import { Header } from "../../header/Header"
 import styles from "./PlanRequestsPage.module.css"
 import { useEffect, useState } from "react"
 
@@ -175,9 +173,6 @@ export function PlanRequestsPage() {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-      {/* <div className={styles.header}>
-        <Header adminHeader={true} />
-      </div> */}
       <div className={styles.title}>
         Запросы на пакет
       </div>

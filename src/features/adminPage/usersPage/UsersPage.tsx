@@ -1,5 +1,3 @@
-
-import { Header } from "../../header/Header"
 import styles from "./UsersPage.module.css"
 import { useEffect, useState } from "react"
 import { PlanModel, User, UserModel } from "./user/User"
@@ -205,9 +203,6 @@ export function UsersPage() {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-      {/* <div className={styles.header}>
-        <Header adminHeader={true} />
-      </div> */}
       <div className={styles.title}>
         Список пользователей
       </div>
@@ -223,12 +218,6 @@ export function UsersPage() {
         )
 
         }
-
-        {/* {userInfo && (<User user={userInfo} />)} */}
-
-
-
-
 
 
       </div>

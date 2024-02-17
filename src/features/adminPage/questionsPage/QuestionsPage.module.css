@@ -20,17 +20,6 @@
 }
 
 
-
-.header {
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-
-
-}
-
 .up {
   margin-top: 187px;
   display: flex;

@@ -16,7 +16,7 @@ import { UsersPage } from "./features/adminPage/usersPage/UsersPage"
 import { PlanUsersPage } from "./features/planUsers/PlanUsersPage"
 import { PlanRequestsPage } from "./features/adminPage/planRequestsPage/PlanRequestsPage"
 import { QuestionsPage } from "./features/adminPage/questionsPage/QuestionsPage"
-import { NewQuestionsPage } from "./features/adminPage/questionsPage/newQuestionPage/NewQuestionPage"
+import { NewQuestionPage} from "./features/adminPage/questionsPage/newQuestionPage/NewQuestionPage"
 import { LinkSent } from "./features/authProblem/linkSent/LinkSent"
 import { AdminLayout } from "./features/layouts/adminLayout/AdminLayout"
 import { AuthLayout } from "./features/layouts/authLayout/AuthLayout"
@@ -65,9 +65,8 @@ const router = createBrowserRouter([
 
     children: [
       {
-        path: "",
         element: <UserPage/>,
-        // index: true
+        index: true
       },
       {
         path: "profile",
@@ -112,7 +111,7 @@ const router = createBrowserRouter([
       },
       {
         path: "questions_page/add_question",
-        element: <NewQuestionsPage/>,
+        element: <NewQuestionPage/>,
       },
     ],
   },

@@ -78,8 +78,6 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
     try {
 
       const response = await patch('users/company', data, token)
-
-      alert(response.text)
       setIsDataChanging(!isDataChanging);
       onChange()
 

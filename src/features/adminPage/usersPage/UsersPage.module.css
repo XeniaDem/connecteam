@@ -16,34 +16,25 @@
   padding-left: 81px;
   padding-right: 81px;
 
- 
+
 
 }
 
 
 
-.header {
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  
-  
-  }
-
 
 .title {
   color: #FFF;
 
-font-size: 50px;
-font-style: normal;
-font-weight: 700;
-line-height: 71.925px; /* 143.851% */
-margin-top: 187px;
-padding-bottom: 57px;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px;
+  /* 143.851% */
+  margin-top: 187px;
+  padding-bottom: 57px;
 
- 
+
 }
 
 
@@ -59,4 +50,3 @@ padding-bottom: 57px;
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
 }
-

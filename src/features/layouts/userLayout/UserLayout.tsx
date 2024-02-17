@@ -11,7 +11,7 @@ export function UserLayout() {
     return (
         <div>
             <div className={styles.header}>
-                <Header loggedHeader={true} withPackage = {true}/> 
+                <Header loggedHeader={true}/> 
             </div>
             <Outlet />
 
