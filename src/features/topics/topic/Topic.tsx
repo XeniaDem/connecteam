@@ -31,10 +31,9 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
 
 
   const handleChange = () => {
+
     onTopicClicked(!selected);
-
-
-
+    
   };
 
 
@@ -60,7 +59,7 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
 
         {withCheckBox ? (
           <div className={styles.checkBox}>
-            <CheckBox checked={selected} onClick={handleChange} />
+            <CheckBox checked={selected} setChecked={() => onTopicClicked(!selected)}/>
           </div>
         ) : (
           <div />

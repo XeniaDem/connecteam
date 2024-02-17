@@ -5,7 +5,6 @@ import ellipse2 from "../ellipse2.svg"
 import crown from "../crown.svg"
 import exit from "../exit.svg"
 import { Players } from "../players/Players"
-import { Topics } from "../../topics/Topics"
 import { Button } from "../../../components/button/Button"
 import { InvitePopup } from "./InvitePopup/InvitePopup"
 import { useEffect, useState } from "react"
@@ -60,6 +59,14 @@ export function ChooseTopics(props: Props) {
   // var selectedTopicsIds: string[] = [];
 
 
+  const chooseAllTopics = () => {
+    const newSelectedTopicsIds = [...Array(topics?.length).keys()]
+    setSelectedTopicsIds(newSelectedTopicsIds.map(String))
+
+
+  }
+
+
 
   useEffect(() => {
     readTopics("");
@@ -100,6 +107,7 @@ export function ChooseTopics(props: Props) {
               if (newValue) {
                 const newSelectedTopicsIds = [...selectedTopicsIds, topic.id]
                 setSelectedTopicsIds(newSelectedTopicsIds)
+           
 
 
 
@@ -135,13 +143,9 @@ export function ChooseTopics(props: Props) {
 
 
 
-        <Button text={"Выбрать все темы"} onClick={function (): void { //////////////////
-          throw new Error("Function not implemented.")
-        }} className={styles.allTopicsButton} />
+        <Button text={"Выбрать все темы"} onClick={chooseAllTopics} className={styles.allTopicsButton} />
 
-        <Button text={"Начать игру"} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className={styles.startButton} />
+        <Button text={"Начать игру"} onClick={() => alert(selectedTopicsIds)} className={styles.startButton} />
 
 
 

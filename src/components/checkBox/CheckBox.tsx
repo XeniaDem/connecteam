@@ -7,16 +7,18 @@ type Props = {
   text?: string;
   className?: string;
   checked?: boolean;
-  onClick?: () => void;
+  setChecked: (newValue: boolean) => void;
+
 
 }
 export function CheckBox(props: Props) {
 
-  const [checked, setChecked] = React.useState(props.checked);
+  // const [checked, setChecked] = React.useState(props.checked);
 
 
   const handleChange = () => {
-    setChecked(!checked);
+    props.setChecked(!props.checked);
+
     
   };
 
@@ -24,13 +26,13 @@ export function CheckBox(props: Props) {
   return (
     <div className={styles.checkbox}>
       <label className = {styles.label}>
-        <input type="checkbox" checked={checked}
-          onChange={handleChange} onClick={props.onClick} />
+        <input type="checkbox" checked={props.checked}
+          onChange={handleChange}/>
 
 
         {
 
-          (!checked) ? null :
+          (!props.checked) ? null :
 
           <div className={styles.check}>
             <img src={check} />
