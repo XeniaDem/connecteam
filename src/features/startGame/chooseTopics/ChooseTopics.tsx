@@ -23,11 +23,6 @@ ChooseTopics.defaultProps = { package: 3 }
 
 export function ChooseTopics(props: Props) {
 
-  const checkAll = () => {
-
-
-  };
-
   const [fetched, setFetched] = useState(false)
 
   const [topics, setTopics] = useState<TopicModel[] | null>(null)

@@ -2,17 +2,31 @@
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
-display: flex;
-flex-direction: column;
-min-height: 760px;
-align-items: center;
+  display: flex;
+  flex-direction: column;
 
-gap: 10px;
-padding-top: 60px;
-padding-bottom: 100px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 60px;
+  padding-bottom: 100px;
+  background-color: #171717;
 
 }
 
+
+.topics {
+
+  display: flex;
+  gap: 36px;
+  width: 90vw;
+  flex-wrap: wrap;
+  padding-bottom: 70px;
+  padding-top: 70px;
+  justify-content: center;
+
+
+}
 
 
 
@@ -20,10 +34,10 @@ padding-bottom: 100px;
   position: absolute;
   top: 80px;
   /* right: 80px; */
-  left: max( calc(100vw - 130px) , 1150px );
+  left: max(calc(100vw - 130px), 1150px);
 
 
-  
+
 }
 
 
@@ -32,35 +46,36 @@ padding-bottom: 100px;
   align-items: center;
   justify-content: center;
   width: 50px;
-height: 50px;
-padding: 0px;
-border: 4px solid transparent;
+  height: 50px;
+  padding: 0px;
+  border: 4px solid transparent;
 
   background: url("../exit.svg") no-repeat;
   z-index: 1;
 
 }
-.exitButton:hover{
 
-box-shadow: none;
+.exitButton:hover {
+
+  box-shadow: none;
 
 }
 
 .middle {
   display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin-top: 200px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
 }
 
 .title {
-
-color: #FFF;
-font-size: 50px;
-font-style: normal;
-font-weight: 700; 
-line-height: 60px;
+  margin-top: 30px;
+  color: #FFF;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 60px;
 }
 
 .dots {
@@ -73,8 +88,8 @@ line-height: 60px;
   height: 59.667px;
   flex-shrink: 0;
   border-radius: 40.783px;
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-z-index: 1;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  z-index: 1;
 }
 
 
@@ -82,8 +97,8 @@ z-index: 1;
 .ellipse1 {
   position: absolute;
   top: 0px;
-    left: 0px;
-    
+  left: 0px;
+
 }
 
 
@@ -91,13 +106,6 @@ z-index: 1;
 .ellipse2 {
   position: absolute;
   bottom: 0px;
-    right: 0px;
-    
+  right: 0px;
+
 }
-
-
-
-
-
-
-

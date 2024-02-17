@@ -19,32 +19,36 @@ export function CheckBox(props: Props) {
   const handleChange = () => {
     props.setChecked(!props.checked);
 
-    
+
   };
 
 
   return (
     <div className={styles.checkbox}>
-      <label className = {styles.label}>
+      <div className={styles.label}>
         <input type="checkbox" checked={props.checked}
-          onChange={handleChange}/>
-
-
-        {
-
-          (!props.checked) ? null :
-
-          <div className={styles.check}>
-            <img src={check} />
-            </div>
+          onChange={handleChange} />
 
 
 
 
-        }
+        <div className={styles.check}>
+          {
+            (!props.checked) ? null :
 
 
-      </label>
+              <img src={check} />
+          }
+
+
+
+
+
+
+        </div>
+
+
+      </div>
 
 
 

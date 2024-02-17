@@ -9,6 +9,7 @@ import { selectToken } from "../auth/authSlice"
 import { get } from "../../utils/api"
 import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
 import { Plan } from "../profile/packageInfo/PackageInfo"
+import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
 
 
 
@@ -157,6 +158,7 @@ export function UserPage() {
       <PackageInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
       <ChooseTopics/>
+      <ChooseTopic/>
 
     </div>
   )
