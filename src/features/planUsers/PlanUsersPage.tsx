@@ -91,59 +91,67 @@ export function PlanUsersPage() {
   }, [fetched]);
 
   return (
-    <div className={styles.container}>
-            <svg width={0} height={0}>
+    <div>
+  
+
+      <div className={styles.container}>
+
+
+        <div>
+        <svg width={0} height={0}>
         <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
           <stop offset={0} stopColor="#55C6F7" />
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-
-      <div className={styles.back}>
-        <Button text={""} onClick={() => { navigate(-1)}} className={styles.backButton} />
-      </div>
-      <div className={styles.title}>
-        Участники пакета
-      </div>
-      <div className={styles.subtitle}>
-        Доступно мест {3 - usersNum} / 3
-      </div>
-      <div className={styles.users}>
-
-
-        {planUsers != null ? (
-
-          planUsers?.map(user =>
-            <div>
-              <PlanUser planUser={user} token={token} onChange={onChange} />
-
-            </div>
-
-          )
+          <div className={styles.back}>
+            <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
+          </div>
+          <div className={styles.title}>
+            Участники пакета
+          </div>
+          <div className={styles.subtitle}>
+            Доступно мест {3 - usersNum} / 3
+          </div>
+          <div className={styles.users}>
 
 
-        ) : (
-          <div className={styles.empty}>
-            Вы пока не добавляли участников
+            {planUsers != null ? (
+
+              planUsers?.map(user =>
+                <div>
+                  <PlanUser planUser={user} token={token} onChange={onChange} />
+
+                </div>
+
+              )
+
+
+            ) : (
+              <div className={styles.empty}>
+                Вы пока не добавляли участников
+
+              </div>
+
+            )}
+
 
           </div>
+        </div>
+        {usersNum < 3 ? (
+          <div className={styles.buttonContainer}>
+            <Button text={"+"} onClick={() => null} className={styles.button} />
+
+          </div>
+        ) : (
+          null
 
         )}
 
 
-      </div>
-      {usersNum < 3 ? (
-      <div className={styles.buttonContainer}>
-        <Button text={"+"} onClick={() => null} className={styles.button} />
+
 
       </div>
-      ) : (
-        null
-
-      )}
-
-
-
     </div>
   )
 }

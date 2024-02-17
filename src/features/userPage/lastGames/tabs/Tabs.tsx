@@ -19,7 +19,7 @@ type Props = {
 export function Tabs(props: Props) {
 
     const [activeTab, setActiveTab] = useState(props.tabs[0].tabName);
-    const tab = props.tabs.find(tab => tab.tabName == activeTab )
+    const tab = props.tabs.find(tab => tab.tabName == activeTab)
 
 
 
@@ -34,10 +34,10 @@ export function Tabs(props: Props) {
                     {props.tabs.map(tab => {
                         const classname = cn(styles.tab, { [styles.activeTab]: (activeTab == tab.tabName) })
                         return (
-                            <div className={classname} onClick = {() => setActiveTab(tab.tabName)}>
-               
+                            <div className={classname} onClick={() => setActiveTab(tab.tabName)}>
+
                                 {tab.tabName}
-                             
+
                             </div>
                         )
                     })}

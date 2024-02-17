@@ -186,7 +186,7 @@ export function CreateGame() {
             </div>
 
           ) : (
-            <div />
+           null
           )}
 
           {!gameCreated ?
