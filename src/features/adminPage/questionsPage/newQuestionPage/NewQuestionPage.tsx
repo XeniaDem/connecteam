@@ -1,53 +1,23 @@
-
 import { useEffect, useState } from "react";
 import styles from "./NewQuestionPage.module.css"
 import { Topic } from "../../../topics/topic/Topic";
 import { TopicModel } from "../topic/Topic";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../auth/authSlice";
-import { get } from "../../../../utils/api";
 import { Button } from "../../../../components/button/Button";
-import ellipse from "./ellipse.svg"
-import disableScroll from 'disable-scroll';
-import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup";
+import { FilePicker } from "./filePicker/FilePicker";
 
 
 
 export function NewQuestionPage() {
 
 
+
   const navigate = useNavigate()
 
   const token = useSelector(selectToken)
 
-  const [fetched, setFetched] = useState(false)
-
-  const [topics, setTopics] = useState<TopicModel[] | null>(null)
-
-
-  const readTopics = (message: any) => {
-    const messageParsed = JSON.parse(message);
-
-    const topicsNum = messageParsed.data.length;
-
-    const topicModels = [];
-    for (let i = 0; i < topicsNum; i++) {
-
-
-      const topicModel = {
-        id: messageParsed.data[i].id,
-        name: messageParsed.data[i].title,
-
-
-      }
-      topicModels.push(topicModel)
-
-    }
-    setTopics(topicModels)
-    setFetched(true)
-
-  }
 
 
   const readServerError = (message: any) => {
@@ -64,26 +34,12 @@ export function NewQuestionPage() {
   }
 
 
-  const fetchTopics = async () => {
-    try {
-      const response = await get('topics/', token)
-      readTopics(response.text)
-      return;
-
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
-  }
 
 
 
   const [questionText, setQuestionText] = useState("");
 
-  const [selectedTopicId, setSelectedTopicId] = useState("");
 
-  const [newTopicOpen, setNewTopicOpen] = useState(false)
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -93,20 +49,13 @@ export function NewQuestionPage() {
       return ("Введите текст вопроса.")
 
     }
-    if (selectedTopicId == "") {
-      return ("Выберите тему для загрузки вопроса.")
-
-    }
   }
   var errorMessage = getErrorMessage()
 
 
 
 
-
-
-
-  const addQuestion = async () => {
+  const addQuestions = async () => {
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;
@@ -129,25 +78,19 @@ export function NewQuestionPage() {
   }
 
 
-  const openNewTopicPopup = () => {
-    disableScroll.on()
-    setNewTopicOpen(true)
-  }
 
-  const closeNewTopicPopup = () => {
-    disableScroll.off()
-    setNewTopicOpen(false)
-    setFetched(!fetched)
-  }
+  const [topic, setTopic] = useState<TopicModel>()
 
-
-
+  const { state } = useLocation();
 
   useEffect(() => {
-    fetchTopics();
+    if (state == null) {
+      navigate("/admin/questions_page")
+    }
+    setTopic(state.topic)
+    
 
-  }, [fetched]);
-
+  }, []);
 
 
 
@@ -165,55 +108,32 @@ export function NewQuestionPage() {
           <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
         </div>
         <div className={styles.title}>
-          Загрузить вопрос
+          Добавить вопросы
         </div>
         <div className={styles.subtitle}>
-          Выберите тему для вопроса
+          Выбранная тема
         </div>
 
 
 
-        <div className={styles.topics}>
-
-
-          {topics?.map(topic => {
-            const onTopicClicked = (newValue: boolean) => {
-              if (!newValue) {
-                setSelectedTopicId("");
-              } else {
-                setSelectedTopicId(topic.id)
-              }
-
-            }
-
-            return (
-              <div>
-                <Topic name={topic.name} withCheckBox={false}
-                  selected={topic.id == selectedTopicId} onTopicClicked={onTopicClicked} />
-
-              </div>
-            )
-          }
-
-          )
-
-          }
-          <div className={styles.newTopic} onClick={openNewTopicPopup}>
-            <div className={styles.plus}>
-              <div className={styles.ellipse}>
-                <img src={ellipse} />
-              </div>
-
-              +
-            </div>
-          </div>
-
+        <div className={styles.topic}>
+          {topic && <Topic name={topic.name} withCheckBox={false}
+            selected={true} onTopicClicked={() => null} />}
         </div>
+
+
+
         <div className={styles.subtitle}>
           Задайте вопрос
         </div>
-        <input className={styles.input} placeholder={"Текст вопроса"}
-          value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
+        <div className={styles.addQuestions}>
+          <textarea className={styles.textarea} placeholder={"Текст вопроса"}
+            value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
+          <div className={styles.filePicker}>
+            <FilePicker />
+          </div>
+
+        </div>
         {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
           {errorMessage}
 
@@ -221,11 +141,11 @@ export function NewQuestionPage() {
 
 
         <div className={styles.buttonContainer}>
-          <Button text={"Загрузить вопрос"} onClick={addQuestion} className={styles.addButton} />
+          <Button text={"Добавить вопросы"} onClick={addQuestions} className={styles.addButton} />
         </div>
 
       </div>
-      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={() => null} /> : null}
+     
 
 
     </div>

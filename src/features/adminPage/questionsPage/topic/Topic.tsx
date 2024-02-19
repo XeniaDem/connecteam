@@ -11,7 +11,8 @@ import { Button } from "../../../../components/button/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import { Delete } from "../../../../utils/api";
-
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from "react-router-dom";
 
 export type TopicModel = {
   name: string;
@@ -31,6 +32,7 @@ type Props = {
 
 
 export function Topic({ savedTopic, token, onChange }: Props) {
+  const navigate = useNavigate();
 
   // useEffect(() => {
 
@@ -83,9 +85,8 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
     try {
       const response = await Delete('topics/' + savedTopic.id, token)
-      alert(response.text)
       onChange()
-      
+
       return;
 
     }
@@ -159,23 +160,33 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       </div>
 
       {questionsOpen ? (
-        <div className={styles.questions}>
-          {savedTopic.questions?.map(question =>
-            <div>
-              <Question savedQuestion={question} onChange={onChange} />
-            </div>
-          )
-          }
-           
+        <div>
+          <div className={styles.questions}>
+            {savedTopic.questions?.map(question =>
+              <div>
+                <Question savedQuestion={question} onChange={onChange} />
+              </div>
+            )
+            }
+          </div>
+          <div className={styles.addButton}>
+          <IconButton onClick={() => navigate("add_question", { state: { topic: savedTopic} })}>
+            <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+
+          </IconButton>
+          </div>
+
         </div>
       ) : (
         null
       )}
-     
+
+
+
 
 
       <div className={styles.divider} />
-      
+
 
 
 

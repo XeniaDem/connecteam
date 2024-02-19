@@ -53,7 +53,7 @@ export function SuccessPopup(props: Props) {
 
 
 
-        <Button text={"Войти"} onClick = {() => {navigate("/login"); disableScroll.off()}} className={styles.button} />
+        <Button text={"Войти"} onClick = {() => {navigate("/auth/login"); disableScroll.off()}} className={styles.button} />
 
       </div>
 

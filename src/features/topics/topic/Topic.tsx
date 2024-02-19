@@ -59,7 +59,7 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
 
         {withCheckBox ? (
           <div className={styles.checkBox}>
-            <CheckBox checked={selected} setChecked={() => onTopicClicked(!selected)}/>
+            <CheckBox checked={selected} setChecked={() => onTopicClicked(!selected)} disabled = {inactive}/>
           </div>
         ) : (
           <div />

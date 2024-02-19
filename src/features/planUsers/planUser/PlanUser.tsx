@@ -1,13 +1,8 @@
-
 import styles from "./PlanUser.module.css"
-
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import disableScroll from 'disable-scroll';
-import DoneIcon from '@mui/icons-material/Done';
-import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material"
-import colors from "@mui/material/colors"
 import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 import { RemoveUserPopup } from "../removeUserPopup/RemoveUserPopup";
 
@@ -69,12 +64,7 @@ export function PlanUser({ planUser, token, onChange }: Props) {
 
 
   }
-  <svg width={0} height={0}>
-  <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
-    <stop offset={0} stopColor="#55C6F7" />
-    <stop offset={1} stopColor="#2AF8BA" />
-  </linearGradient>
-</svg>
+
 
 
 

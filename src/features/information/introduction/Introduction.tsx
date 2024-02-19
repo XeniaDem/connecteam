@@ -1,7 +1,5 @@
 
 import styles from "./Introduction.module.css"
-import connecteam from "./connecteam.svg"
-import autor from "./autor.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import element from "./element.svg"

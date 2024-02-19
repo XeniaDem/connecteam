@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./userPopup.module.css"
-import LockIcon from '@mui/icons-material/Lock';
 import { Field } from "../../../profile/field/Field";
 import { User, UserModel } from "../user/User";
 import { Delete, patch, post } from "../../../../utils/api";

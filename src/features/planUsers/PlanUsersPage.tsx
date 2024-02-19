@@ -96,7 +96,6 @@ export function PlanUsersPage() {
 
       <div className={styles.container}>
 
-
         <div>
         <svg width={0} height={0}>
         <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>

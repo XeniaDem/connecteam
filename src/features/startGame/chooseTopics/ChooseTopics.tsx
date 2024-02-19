@@ -10,20 +10,20 @@ import { InvitePopup } from "./InvitePopup/InvitePopup"
 import { useEffect, useState } from "react"
 import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
 import { Topic } from "../../topics/topic/Topic"
-
-type Props = {
-  package: number;
-
-
-
-}
-
-ChooseTopics.defaultProps = { package: 3 }
+import { Plan } from "../../profile/packageInfo/PackageInfo"
+import { selectToken } from "../../auth/authSlice"
+import { useSelector } from "react-redux"
+import { get } from "../../../utils/api"
+import { Shuffle } from "@mui/icons-material"
 
 
-export function ChooseTopics(props: Props) {
 
-  const [fetched, setFetched] = useState(false)
+export function ChooseTopics() {
+
+
+  const token = useSelector(selectToken)
+
+
 
   const [topics, setTopics] = useState<TopicModel[] | null>(null)
 
@@ -31,7 +31,7 @@ export function ChooseTopics(props: Props) {
   const readTopics = (message: any) => {
     // const messageParsed = JSON.parse(message);
 
-    const topicsNum = 5 // (messageParsed.data.length);
+    const topicsNum = 13 // (messageParsed.data.length);
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
@@ -46,28 +46,84 @@ export function ChooseTopics(props: Props) {
 
     }
     setTopics(topicModels)
-    setFetched(true)
 
   }
+
+
+  const [planInfo, setPlanInfo] = useState<Plan>();
+
+  const readServerError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+    alert(content);
+
+  }
+
+  const readPlanInfo = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    const planInfo = {
+      planType: messageParsed.plan_type,
+      expiryDate: messageParsed.expiry_date.substring(0, 10),
+      planAccess: messageParsed.plan_access,
+      planConfirmed: messageParsed.confirmed ////////////
+
+    }
+    setPlanInfo(planInfo);
+
+  }
+
+
+  const fetchPlan = async () => {
+    try {
+
+      const response = await get('plans/current', token)
+      readPlanInfo(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+  const getTopicLimit = () => {
+    if (planInfo?.planType == "basic")
+      return 3;
+    if (planInfo?.planType == "advanced")
+      return 5;
+    if (planInfo?.planType == "premium")
+      return 10;
+    return 0;
+  }
+
+  const topicLimit = getTopicLimit();
+
 
   const [selectedTopicsIds, setSelectedTopicsIds] = useState<string[]>([]);
   // var selectedTopicsIds: string[] = [];
 
+  const shuffle = (array: string[]) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
+
 
   const chooseAllTopics = () => {
-    const newSelectedTopicsIds = [...Array(topics?.length).keys()]
-    setSelectedTopicsIds(newSelectedTopicsIds.map(String))
+    const newSelectedTopicsIds = [...Array(topics?.length).keys()].map(String)
+
+    setSelectedTopicsIds(shuffle(newSelectedTopicsIds).slice(0, topicLimit))
 
 
   }
 
 
-
   useEffect(() => {
     readTopics("");
+    fetchPlan();
 
 
-  }, [fetched]);
+  }, []);
 
 
   // console.log(selectedTopicsIds)
@@ -93,6 +149,9 @@ export function ChooseTopics(props: Props) {
         <div className={styles.title}>
           Выберите темы для игры
         </div>
+        <div className={styles.subtitle}>
+          Доступно тем {topicLimit - selectedTopicsIds.length} / {topicLimit}
+        </div>
 
         <div className={styles.topics}>
 
@@ -102,7 +161,7 @@ export function ChooseTopics(props: Props) {
               if (newValue) {
                 const newSelectedTopicsIds = [...selectedTopicsIds, topic.id]
                 setSelectedTopicsIds(newSelectedTopicsIds)
-           
+
 
 
 
@@ -119,7 +178,8 @@ export function ChooseTopics(props: Props) {
             return (
               <div>
                 <Topic name={topic.name} withCheckBox={true}
-                  selected={selectedTopicsIds.includes(topic.id)} onTopicClicked={onTopicClicked} />
+                  selected={selectedTopicsIds.includes(topic.id)} onTopicClicked={onTopicClicked}
+                  inactive={!selectedTopicsIds.includes(topic.id) && (topicLimit - selectedTopicsIds.length <= 0)} />
 
               </div>
             )
@@ -138,7 +198,8 @@ export function ChooseTopics(props: Props) {
 
 
 
-        <Button text={"Выбрать все темы"} onClick={chooseAllTopics} className={styles.allTopicsButton} />
+        <Button text={"Выбрать случайные " + topicLimit + (topicLimit == 3 ? " темы" : " тем" )} 
+        onClick={chooseAllTopics} className={styles.allTopicsButton} />
 
         <Button text={"Начать игру"} onClick={() => alert(selectedTopicsIds)} className={styles.startButton} />
 

@@ -1,9 +1,6 @@
 
 import { useState } from "react"
-import { Button } from "../../../components/button/Button"
 import styles from "./Faq.module.css"
-import { Answer } from "./answer/Answer"
-import { Question } from "./question/Question"
 import { QuestionAnswer } from "./questionAnswer/QuestionAnswer"
 
 

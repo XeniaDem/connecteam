@@ -2,20 +2,7 @@
 import styles from "./About.module.css"
 import photo from "./photo.svg"
 import rectangle from "./rectangle.svg"
-import {useRef} from 'react';
-
 export function About() {
-
-  // const about = useRef(null);
-
-  // const about = forwardRef((props, ref) => {
-  //   return (
-  //     <div ref={ref}>
-  //       <h1>Results</h1>
-  //     </div>
-  //   );
-  // });
-
 
   return (
     <div className={styles.container} id = "about">

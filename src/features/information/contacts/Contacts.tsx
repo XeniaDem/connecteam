@@ -1,5 +1,3 @@
-
-import { Button } from "../../../components/button/Button"
 import styles from "./Contacts.module.css"
 import logo from "./logo.svg"
 

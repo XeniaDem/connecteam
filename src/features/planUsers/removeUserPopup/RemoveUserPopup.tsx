@@ -1,13 +1,7 @@
-
-import { useState } from "react";
 import { Button } from "../../../components/button/Button"
 import styles from "./RemoveUserPopup.module.css"
-import LockIcon from '@mui/icons-material/Lock';
-
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
-import defaultPhoto from "./photo.svg"
 import { PlanUserModel } from "../planUser/PlanUser";
 
 

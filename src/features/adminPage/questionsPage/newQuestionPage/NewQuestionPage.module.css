@@ -46,17 +46,6 @@
 }
 
 
-.topics {
-
-  display: flex;
-  gap: 36px;
-  width: 95vw;
-  flex-wrap: wrap;
-  padding-bottom: 70px;
-
-
-}
-
 .back {
   position: absolute;
   top: 211px;
@@ -84,8 +73,12 @@
 
 }
 
+.topic {
+  padding-bottom: 57px;
+}
+
 .buttonContainer {
-  padding-bottom: 81px;
+  padding-bottom: 60px;
 }
 
 
@@ -96,8 +89,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 310.531px;
-  height: 67.667px;
+  width: 250.531px;
+  height: 50.667px;
   flex-shrink: 0;
   border-radius: 40.783px;
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
@@ -107,7 +100,7 @@
 
 }
 
-.input {
+.textarea {
   font-family: 'Work Sans Variable', sans-serif;
   font-size: 20px;
   font-weight: 500;
@@ -119,14 +112,28 @@
   border: 1px solid #55C6F7;
   border-radius: 20px;
   background: none;
-  height: 40px;
   padding: 5px 25px;
 
   outline: none;
   margin-top: -30px;
+  width: 80vw;
 
+
+  
+
+
+  resize: none;
 }
 
+
+
+
+.addQuestions {
+  display: flex;
+}
+.filePicker {
+  margin-top: -18px;
+}
 .errorMessage {
   color: red;
   font-size: 14.972px;

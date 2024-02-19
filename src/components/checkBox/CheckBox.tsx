@@ -8,6 +8,7 @@ type Props = {
   className?: string;
   checked?: boolean;
   setChecked: (newValue: boolean) => void;
+  disabled?: boolean;
 
 
 }
@@ -27,7 +28,7 @@ export function CheckBox(props: Props) {
     <div className={styles.checkbox}>
       <div className={styles.label}>
         <input type="checkbox" checked={props.checked}
-          onChange={handleChange} />
+          onChange={handleChange} disabled = {props.disabled}/>
 
 
 

@@ -9,7 +9,6 @@ import { useState } from "react"
 import validator from "validator"
 import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
-import { SuccessPopup } from "../registration/successPopup/SuccessPopup"
 import { useDispatch } from "react-redux"
 import { setToken } from "../auth/authSlice"
 import { post } from "../../utils/api"
@@ -33,7 +32,6 @@ export function Login() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [verifyOpen, setVerifyOpen] = useState(false);
 
-  const [successOpen, setSuccessOpen] = useState(false);
 
 
   const openVerifyPopup = () => {
@@ -161,11 +159,6 @@ export function Login() {
   const [verifySubmitted, setVerifySubmitted] = useState(false)
   const [verifyError, setVerifyError] = useState("")
 
-  const openSuccessPopup = () => {
-    disableScroll.on()
-    setSuccessOpen(true)
-
-  }
   const readVerifyError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
@@ -195,7 +188,6 @@ export function Login() {
 
       setVerifyOpen(false)
       login()
-      openSuccessPopup()
 
     }
     catch (error: any) {
@@ -271,7 +263,6 @@ export function Login() {
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
 
-      {successOpen ? <SuccessPopup isLogin={true} /> : null}
     </div>
   )
 }

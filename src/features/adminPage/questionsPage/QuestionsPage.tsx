@@ -6,6 +6,8 @@ import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
 import { Topic, TopicModel } from "./topic/Topic"
 import { Button } from "../../../components/button/Button"
+import disableScroll from 'disable-scroll';
+import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup"
 
 
 
@@ -85,6 +87,19 @@ export function QuestionsPage() {
 
 
   }
+  const [newTopicOpen, setNewTopicOpen] = useState(false)
+
+  const openNewTopicPopup = () => {
+    disableScroll.on()
+    setNewTopicOpen(true)
+  }
+
+  const closeNewTopicPopup = () => {
+    disableScroll.off()
+    setNewTopicOpen(false)
+    setFetched(!fetched)
+  }
+
 
 
 
@@ -118,7 +133,7 @@ export function QuestionsPage() {
         <div className={styles.title}>
           Список тем и вопросов
         </div>
-        <Button text={"Загрузить вопрос"} onClick={() => navigate("add_question")} className={styles.addButton} />
+        <Button text={"Добавить тему"} onClick={openNewTopicPopup} className={styles.addButton} />
       </div>
 
 
@@ -136,6 +151,7 @@ export function QuestionsPage() {
         }
 
       </div>
+      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={() => null} /> : null}
 
 
     </div>

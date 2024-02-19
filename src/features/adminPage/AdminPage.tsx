@@ -6,15 +6,6 @@ import questions from "./questions.svg"
 import { useNavigate } from "react-router-dom"
 
 
-
-type Props = {
-
-
-
-}
-
-
-
 export function AdminPage() {
   const navigate = useNavigate()
 
