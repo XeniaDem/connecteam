@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./NewTopicPopup.module.css"
@@ -20,7 +19,6 @@ type Props = {
 export function NewTopicPopup(props: Props) {
 
   const [topicName, setTopicName] = useState("");
-  const navigate = useNavigate()
   const [formSubmitted, setFormSubmitted] = useState(false);
 
 
@@ -57,13 +55,6 @@ export function NewTopicPopup(props: Props) {
 
 
   }
-
-
-
-
-
-
-
 
 
   return (
@@ -104,20 +95,9 @@ export function NewTopicPopup(props: Props) {
 
             </div>)}
 
-
-
-
-
-
           </div>
 
           <Button text={"Добавить тему"} onClick={addTopic} className={styles.addButton} />
-
-
-
-
-
-
 
         </div>
 

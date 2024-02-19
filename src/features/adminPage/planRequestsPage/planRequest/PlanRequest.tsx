@@ -1,15 +1,10 @@
-
 import styles from "./PlanRequest.module.css"
-import photo from "./photo.svg"
-import users from "./users.svg"
-import questions from "./questions.svg"
 import { useEffect, useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import disableScroll from 'disable-scroll';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material"
-import colors from "@mui/material/colors"
 import { PlanModel } from "../../usersPage/user/User"
 import { Delete, patch, readServerError } from "../../../../utils/api"
 

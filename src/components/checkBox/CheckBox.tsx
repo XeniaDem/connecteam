@@ -1,7 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
 import styles from "./CheckBox.module.css"
-import cn from 'classnames';
-import React from "react";
 import check from './check.svg'
 type Props = {
   text?: string;
@@ -13,8 +10,6 @@ type Props = {
 
 }
 export function CheckBox(props: Props) {
-
-  // const [checked, setChecked] = React.useState(props.checked);
 
 
   const handleChange = () => {
@@ -30,40 +25,18 @@ export function CheckBox(props: Props) {
         <input type="checkbox" checked={props.checked}
           onChange={handleChange} disabled = {props.disabled}/>
 
-
-
-
         <div className={styles.check}>
           {
             (!props.checked) ? null :
-
-
               <img src={check} />
           }
-
-
-
-
-
 
         </div>
 
 
       </div>
 
-
-
-
-
-
-
-
     </div>
-
-
-
-
-
 
   )
 }

@@ -1,7 +1,5 @@
 import styles from "./HeaderItem.module.css"
 
-
-
 type Props = {
   text: string;
   link?: string;
@@ -15,8 +13,6 @@ export function HeaderItem(props: Props) {
       href={props.link} onClick={props.onClick } >
 
       {props.text}
-
-
 
     </a>
   )

@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Login.module.css"
@@ -54,21 +53,19 @@ export function Login() {
 
   var errorMessage = getErrorMessage()
 
-  // const [token, setToken] = useState("");
 
 
   const readLoginError = (message: any) => {
-    // alert(message)
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("User is not verified")) {
+    if (content.includes("user is not verified")) {
       verifyEmail()
       openVerifyPopup()
       return ("Эл. адрес не верифицирован")
 
     }
-    if (content.includes("Invalid login data")) {
+    if (content.includes("invalid login data")) {
       return ("Неверный логин или пароль. Попробуйте еще раз")
     }
 
@@ -86,8 +83,6 @@ export function Login() {
 
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
-
-    // setToken(content)
     token = messageParsed.token;
     dispatch(setToken(token));
 
@@ -110,8 +105,6 @@ export function Login() {
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
       setLoginError("")
-      // alert("token to send " + token)
-      // navigate("/user_page", { state: { token: token } })
       if (access == "admin" || access == "superadmin")
         navigate("/admin")
       else
@@ -163,7 +156,7 @@ export function Login() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("Wrong verification code")) {
+    if (content.includes("wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
 
     }

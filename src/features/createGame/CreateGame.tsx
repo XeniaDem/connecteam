@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react"
 import { Button } from "../../components/button/Button"
 import styles from "./CreateGame.module.css"
@@ -46,7 +45,7 @@ export function CreateGame() {
 
 
 
-  const createGame = () => {
+  const createGame = () => { //////////////////////////
     setFormSubmitted(true);
     alert("date " + gameDate)
     alert("time " + gameTime)
@@ -164,8 +163,6 @@ export function CreateGame() {
 
           </div>
 
-
-          {/* <Button text={"Создать игру"} onClick={createGame} className={styles.createButton} disabled = {gameCreated} /> */}
           {formSubmitted && (createErrorMessage) ? (
             <div className={styles.errorMessage}>
               {createErrorMessage}
@@ -189,8 +186,6 @@ export function CreateGame() {
 
 
 
-
-
           {!gameCreated ? null :
             <div className={styles.items} >
               <Button text={"Добавить участника"} onClick={openInvitePopup} className={styles.inviteButton} />
@@ -201,17 +196,9 @@ export function CreateGame() {
         </div>
 
 
-
-
-
       </div>
       {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} /> : null}
       {copyOpen ? <CopyPopup /> : null}
-      <div className={styles.calenarContainer}>
-        {/* <DateTimePicker onChange={onChange} value={value} calendarClassName={styles.calendar} tileClassName={styles.tile}
-         nextLabel = {<NavigateNextIcon htmlColor="FFF"/>}
-          nextAriaLabel = {"knj"} /> */}
-      </div>
 
 
     </div>

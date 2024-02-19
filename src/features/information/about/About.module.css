@@ -1,6 +1,6 @@
 .container {
-  
-  
+
+
 
   font-family: 'Work Sans Variable', sans-serif;
   display: flex;
@@ -10,13 +10,14 @@
 
 .text {
   color: #FFF;
- 
+
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 30px; /* 125% */
-  
-  
+  line-height: 30px;
+  /* 125% */
+
+
   padding-right: 6px;
 }
 
@@ -27,7 +28,7 @@
   padding-left: 54px;
   padding-top: 76px;
   width: 20%;
-  
+
 }
 
 
@@ -39,41 +40,42 @@
   width: 70%;
   position: relative;
   flex-shrink: 0;
- 
+
 
 }
 
 .rectangle {
   position: absolute;
   width: 304.637px;
-height: 33.374px;
-flex-shrink: 0;
-top: 204px;
-right: 464px;
+  height: 33.374px;
+  flex-shrink: 0;
+  top: 204px;
+  right: 464px;
 
 }
 
 .title {
   color: #FFF;
 
-font-size: 50px;
-font-style: normal;
-font-weight: 700;
-line-height: 71.925px; /* 143.851% */
- 
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px;
+  /* 143.851% */
+
 }
 
 
 .name {
 
-font-size: 24px;
-font-style: normal;
-font-weight: 600;
-line-height: 30px; /* 125% */
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  /* 125% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
 }
-

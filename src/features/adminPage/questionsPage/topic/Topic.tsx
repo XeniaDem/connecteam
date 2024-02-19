@@ -1,8 +1,5 @@
-
 import styles from "./Topic.module.css"
 import { useEffect, useState } from "react"
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import disableScroll from 'disable-scroll';
 import { Question, QuestionModel } from "../question/Question";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -34,12 +31,6 @@ type Props = {
 export function Topic({ savedTopic, token, onChange }: Props) {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-
-  //   readAccess()
-
-  // }, []);
-
   const [questionsOpen, setQuestionsOpen] = useState(false);
 
   const [topicEditing, setTopicEditing] = useState(false);
@@ -61,7 +52,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
         }
         alert("topicchange")
         setTopicEditing(!topicEditing);
-        // changeCompanyInfo()
+        // changeTopic()
         /// onChange() потом включить
       }
       else {
@@ -113,13 +104,9 @@ export function Topic({ savedTopic, token, onChange }: Props) {
             ) : (
               <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
             )}
-
-
-
           </IconButton>
 
           <div >
-            {/* {topic.name} */}
             <input className={!topicEditing ? styles.name : styles.nameActive} placeholder={"Название темы"} disabled={!topicEditing}
               value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
           </div>
@@ -174,13 +161,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       )}
 
 
-
-
-
       <div className={styles.divider} />
-
-
-
 
     </div>
 

@@ -132,37 +132,13 @@ export function ChoosePackagePopup(props: Props) {
 
 
           <div className={styles.fields}>
-
-
-
-
             <Field small={true} isDropDown={true} options={periodOptions} title={""} dropDownValue={periodOptions[0]} onDropDownValueChange={onDropDownValueChange} />
-
-
-
-
-
-
           </div>
-
-
-
-
-
 
         </div>
 
 
         <Button text={"Отправить запрос"} onClick={sendRequest} className={styles.saveButton} />
-
-
-
-
-
-
-
-
-
 
       </div>
 

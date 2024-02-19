@@ -1,12 +1,10 @@
-
-
 .back {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
 
 
-} 
+}
 
 
 
@@ -19,15 +17,6 @@
   justify-content: space-between;
   align-items: center;
 
-  
-
-
-
-
-  /*border-radius: 50px 0px 0px 50px;*/
-
-
- 
 }
 
 
@@ -35,7 +24,7 @@
   display: flex;
   gap: 50px;
 
-align-items: center;
+  align-items: center;
 
 }
 
@@ -44,28 +33,28 @@ align-items: center;
 .name {
 
 
-font-size: 25px;
-font-weight: 500;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
-color: #FFF;
-/* width: 280px; */
-margin-left: -35px;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  color: #FFF;
+  /* width: 280px; */
+  margin-left: -35px;
 
-border: none;
-background: none;
+  border: none;
+  background: none;
 
 }
 
 .nameActive {
   font-size: 25px;
-font-weight: 500;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
   background-clip: text;
   -webkit-background-clip: text;
@@ -81,13 +70,13 @@ align-items: center;
 
 .count {
   font-size: 25px;
-font-weight: 500;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
-color: #5C5C5C;
-margin-right: -35px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  color: #5C5C5C;
+  margin-right: -35px;
 
 }
 
@@ -101,39 +90,40 @@ margin-right: -35px;
 
 
 .text {
-font-size: 21px;
-font-weight: 500;
-line-height: 30px;
-letter-spacing: -0.05em;
-text-align: center;
-display: flex;
-align-items: center;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: -0.05em;
+  text-align: center;
+  display: flex;
+  align-items: center;
 
-color: #FFF;
+  color: #FFF;
 }
 
 
 
 .deleteButton {
   width: 150px;
-height: 44.76px;
-border-radius: 51.39px;
+  height: 44.76px;
+  border-radius: 51.39px;
 
-/*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
-background: rgba(217, 217, 217, 0.1);
-backdrop-filter: blur(7.552681922912598px);
-color: #FFF;
-font-size: 17.955px;
-font-style: normal;
-font-weight: 500;
-line-height: 133.125%; /* 23.902px */
-letter-spacing: -0.718px;
+  /*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(7.552681922912598px);
+  color: #FFF;
+  font-size: 17.955px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.125%;
+  /* 23.902px */
+  letter-spacing: -0.718px;
 
-text-align: center;
-align-items: center;
-justify-content: center;
-display: flex;
-margin-left: -30px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-left: -30px;
 
 }
 
@@ -143,12 +133,11 @@ margin-left: -30px;
 
 .addButton {
 
-margin-top: -15px;
-margin-left: 28px;
+  margin-top: -15px;
+  margin-left: 28px;
 }
 
 
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
 }
-

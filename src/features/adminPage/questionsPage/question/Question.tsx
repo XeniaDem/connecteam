@@ -1,11 +1,6 @@
-
 import styles from "./Question.module.css"
 import { useEffect, useState } from "react"
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import disableScroll from 'disable-scroll';
 import { Button } from "../../../../components/button/Button";
-import DeleteIcon from '@mui/icons-material/Delete';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
@@ -34,7 +29,7 @@ export function Question({ savedQuestion, onChange }: Props) {
   const [questionText, setQuestionText] = useState("");
 
 
-  const handleTopicEdit = () => {
+  const handleQuestionEdit = () => {
     if (!questionEditing) {
       setQuestionEditing(!questionEditing);
     }
@@ -47,7 +42,7 @@ export function Question({ savedQuestion, onChange }: Props) {
         }
         alert("questionchange")
         setQuestionEditing(!questionEditing);
-        // changeCompanyInfo()
+        // changeQuestion()
         /// onChange() потом включить
       }
       else {
@@ -68,11 +63,6 @@ export function Question({ savedQuestion, onChange }: Props) {
   }, [savedQuestion]);
 
 
-
-
-
-
-
   return (
 
 
@@ -85,17 +75,7 @@ export function Question({ savedQuestion, onChange }: Props) {
         </div>
 
         <div className={styles.smallGroup}>
-          {/* <div className={styles.text}>
-              {savedQuestion.text}
-            </div>
-            <IconButton onClick={() => null}>
-              <EditIcon fontSize="medium" htmlColor="#5C5C5C" />
-
-
-            </IconButton> */}
-
-          {/* {topic.name} */}
-          <IconButton onClick={handleTopicEdit}>
+          <IconButton onClick={handleQuestionEdit}>
             {!questionEditing ? (<EditIcon fontSize="medium" htmlColor="#5C5C5C" />
             ) : (
               <DoneIcon fontSize="medium" htmlColor="#5C5C5C" />
@@ -108,18 +88,11 @@ export function Question({ savedQuestion, onChange }: Props) {
             value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
 
 
-
-
-
         </div>
-
-
-
 
       </div>
       <div className={styles.group}>
         <Button text={"Удалить"} onClick={() => null} className={styles.deleteButton} />
-        {/* <DeleteOutlineIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> */}
 
 
 

@@ -1,13 +1,11 @@
 
 import { Field } from "../field/Field"
 import styles from "./UserInfo.module.css"
-import defaultPhoto from "../photo.svg"
 import ellipse1 from "../ellipse1.svg"
 import { Button } from "../../../components/button/Button"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ChangePasswordPopup } from "./changePasswordPopup/ChangePasswordPopup"
 import disableScroll from 'disable-scroll';
-import request from "superagent"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
@@ -104,13 +102,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
   }
 
 
-
-
-
-
-
-
-
   const [isEmailChanging, setIsEmailChanging] = React.useState(false);
 
   const [passwordOpen, setPasswordOpen] = useState(false);
@@ -181,13 +172,14 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
   const readVerifyError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
-
-    if (content.includes("Email is already taken")) {
-      return ("Введенный эл. адрес уже используется другим пользователем.")
-    }
-    if (content.includes("Wrong password")) {
+    if (content.includes("wrong password")) {
       return ("Пароль неверен. Пожалуйста, попробуйте еще раз.")
     }
+
+    if (content.includes("email is already taken")) {
+      return ("Введенный эл. адрес уже используется другим пользователем.")
+    }
+
     return content;
 
   }
@@ -197,7 +189,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
     if (passwordError != null) {
       return;
     }
-    // setVerifySubmitted(true)
     const data = {
       email: email,
       password: password
@@ -242,7 +233,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
   const readEmailChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message;
-    if (content.includes("Wrong verification code")) {
+    if (content.includes("wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
 
     }
@@ -311,11 +302,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
   }
 
 
- 
-
-
-
-
 
   useEffect(() => {
   
@@ -329,9 +315,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
 
   }, [savedUser]);
-
-
-
 
   return (
     <div>

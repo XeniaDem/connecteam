@@ -82,56 +82,6 @@ export function LastGames(props: Props) {
         </div> */}
 
 
-        <div className={styles.gamesType}>
-
-          {/* <div className={styles.myGames}>
-            <Button text={"Мои"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.myButton} />
-          </div>
-          <div className={styles.attendedGames}>
-
-
-          </div> */}
-
-
-
-
-        </div>
-        {/* <div className={styles.games}>
-
-          <div className={styles.game}>
-            <div className={styles.gameInfo}>
-              <Button text={"Игра"} onClick={function (): void {
-                throw new Error("Function not implemented.")
-              }} className={styles.gameButton} />
-              <div className={styles.gameDate}>
-                19.10.2023
-
-              </div>
-            </div>
-            <div className={styles.gameStatus}>
-              Завершена
-
-            </div>
-          </div>
-          <div className={styles.divider}>
-
-
-          </div>
-
-
-
-
-
-
-
-
-
-
-        </div> */}
-
-
       </div>
     </div>
   )

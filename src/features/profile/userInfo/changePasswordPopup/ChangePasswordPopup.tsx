@@ -44,7 +44,7 @@ export function ChangePasswordPopup(props: Props) {
   const readChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
-    if (content.includes("Wrong old password")) {
+    if (content.includes("wrong old password")) {
       return ("Текущий пароль неверен. Пожалуйста, попробуйте еще раз")
 
     }

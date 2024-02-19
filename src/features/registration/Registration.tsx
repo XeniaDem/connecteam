@@ -155,7 +155,7 @@ export function Registration() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("Wrong verification code")) {
+    if (content.includes("wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
 
     }

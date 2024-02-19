@@ -16,14 +16,6 @@ type Props = {
 
 export function RemoveUserPopup(props: Props) {
 
-
-
-
-
-
-
-
-
   return (
 
     <div>
@@ -54,20 +46,11 @@ export function RemoveUserPopup(props: Props) {
               <Button text={"Да"} onClick={() => null} className={styles.okButton} />
               <Button text={"Отмена"} onClick={props.closePopup} className={styles.cancelButton} />
             </div>
-
-
-
-
-
-
-
-
-
           </div>
 
         </div>
 
       </div>
-    </div >
+    </div>
   )
 }

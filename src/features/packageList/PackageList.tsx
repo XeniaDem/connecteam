@@ -9,20 +9,11 @@ import { ChoosePackagePopup } from "./choosePackagePopup/ChoosePackagePopup";
 import disableScroll from 'disable-scroll';
 
 type Props = {
-  // basicActive?: boolean;
-  // advancedActive?: boolean;
-  // premiumActive?: boolean;
 
   isLogged: boolean;
-
   planInfo?: Plan | null;
-
   onChange?: () => void;
-
-
 }
-
-
 
 
 export function PackageList({ isLogged, planInfo, onChange }: Props) {
@@ -190,13 +181,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
               <div className={styles.offer}>
                 {isLogged ? "" : "Попробуйте бесплатный доступ на 14 дней!"}
               </div>
-
-
               <Button text={"Выбрать"} onClick={() => choosePackage("basic")} className={isLogged ? styles.inactive : styles.active} />
-
-
-
-
             </div>
           )}
 
@@ -207,7 +192,6 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
 
 
         <div className={styles.card}>
-
           {advancedActive ? (
             <div className={styles.up}>
               <div className={styles.nameActive}>
@@ -402,9 +386,6 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
         choosePackageOpen ? <ChoosePackagePopup planType={newPlan} closePopup={closeChoosePackagePopup}
           onChange={onChange != null ? onChange : () => null} /> : null
       }
-
-
-
 
     </div >
   )

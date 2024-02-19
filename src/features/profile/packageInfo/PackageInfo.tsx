@@ -1,7 +1,4 @@
-
-import { Field } from "../field/Field"
 import styles from "./PackageInfo.module.css"
-import photo from "../photo.svg"
 import ellipse1 from "../ellipse1.svg"
 import ellipse2 from "../ellipse2.svg"
 import ellipse3 from "../ellipse3.svg"
@@ -25,7 +22,7 @@ type Props = {
 
 }
 
-export function PackageInfo({savedPlan, token, onChange }: Props) {
+export function PackageInfo({savedPlan, onChange }: Props) {
 
 
 

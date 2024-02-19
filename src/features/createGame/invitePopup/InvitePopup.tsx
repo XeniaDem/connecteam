@@ -29,9 +29,9 @@ export function InvitePopup(props: Props) {
   var emailErrorMessage = getEmailErrorMessage()
 
 
-  const sendInvite = () => {
+  const sendInvite = () => { ///////////////////////////////
     setFormSubmitted(true)
-    if (emailErrorMessage != "") {
+    if (emailErrorMessage != null) {
       return;
     }
 
@@ -53,8 +53,6 @@ export function InvitePopup(props: Props) {
         Укажите электронный адрес приглашаемого пользователя
         </div>
 
-
-
         <input className={styles.input} placeholder="Эл. адрес" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
 
         {formSubmitted && (emailErrorMessage) ? (
@@ -66,8 +64,6 @@ export function InvitePopup(props: Props) {
           ) : (
             <div />
           )}
-
-
 
         <Button text={"Отправить"} onClick={sendInvite} className={styles.sendButton} />
 
