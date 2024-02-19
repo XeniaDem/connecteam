@@ -4,7 +4,7 @@ import { Button } from "../../../../components/button/Button"
 import styles from "./NewTopicPopup.module.css"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
-import { post } from "../../../../utils/api";
+import { post, readServerError } from "../../../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 
@@ -31,21 +31,6 @@ export function NewTopicPopup(props: Props) {
     }
   }
   var errorMessage = getErrorMessage()
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    alert(content);
-
-  }
-
-
-
 
 
 

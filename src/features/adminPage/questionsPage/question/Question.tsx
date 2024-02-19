@@ -28,15 +28,8 @@ type Props = {
 
 export function Question({ savedQuestion, onChange }: Props) {
 
-  // useEffect(() => {
-
-  //   readAccess()
-
-  // }, []);
 
   const [questionEditing, setQuestionEditing] = useState(false);
-
-
 
   const [questionText, setQuestionText] = useState("");
 

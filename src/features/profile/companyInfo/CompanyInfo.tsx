@@ -6,7 +6,7 @@ import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
-import { patch } from "../../../utils/api"
+import { patch, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 
 export type Company = {
@@ -55,18 +55,6 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
   };
 
 
-  const readInfoChangeError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-    alert(content)
-    // if (content.includes("Wrong verification code")) {
-    //   return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-
-    // }
-
-    return content;
-
-  }
 
   const changeCompanyInfo = async () => { //меняет данные компании
 
@@ -83,7 +71,7 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      readInfoChangeError(error.response.text);
+      readServerError(error.response.text);
       console.log("error:", error)
     }
 

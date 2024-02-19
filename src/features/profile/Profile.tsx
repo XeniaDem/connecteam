@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
-import { get } from "../../utils/api"
+import { get, readServerError } from "../../utils/api"
 
 
 
@@ -71,17 +71,6 @@ export function Profile() {
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
   const fetchPlan = async () => {
     try {
 
@@ -95,18 +84,6 @@ export function Profile() {
       console.log("error:", error)
     }
 
-
-  }
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    // alert(content);
 
   }
 

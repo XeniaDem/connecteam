@@ -7,6 +7,7 @@ import { Button } from "../../components/button/Button"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { useState } from "react"
+import { get, readServerError } from "../../utils/api"
 
 
 export function AuthProblem() {
@@ -29,22 +30,6 @@ export function AuthProblem() {
 
   var errorMessage = getErrorMessage()
 
-  const readRestoreError = (message: any) => {
-    // alert(message)
-
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("User is not verified")) {
-
-    }
-    if (content.includes("Invalid login data")) {
-      return ("Неверный логин или пароль. Попробуйте еще раз")
-    }
-
-    return content;
-  }
-
   const restorePassword = async () => { ////////////////////
     setFormSubmitted(true)
     if (errorMessage != null) {
@@ -57,7 +42,7 @@ export function AuthProblem() {
     }
     try {
 
-      // const response = await post('auth/verify-user', data)
+      // const response = await get('auth/password', data)
 
       // alert(response.text)
       navigate("link_sent", { state: { email: email } } )
@@ -66,7 +51,7 @@ export function AuthProblem() {
 
     }
     catch (error: any) {
-      errorMessage = readRestoreError(error.response.text)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 

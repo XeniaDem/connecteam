@@ -6,7 +6,7 @@ import LockIcon from '@mui/icons-material/Lock';
 
 
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { patch, post } from "../../../utils/api";
+import { patch, post, readServerError } from "../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
@@ -59,15 +59,6 @@ export function ChoosePackagePopup(props: Props) {
   }
 
 
-  const readSendError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-
-    alert(content);
-
-  }
-
   const sendRequest = async () => {
     const data = {
       duration: period,
@@ -84,7 +75,7 @@ export function ChoosePackagePopup(props: Props) {
 
     }
     catch (error: any) {
-      readSendError(error.response.text);
+      readServerError(error.response.text);
       // alert(error.text)
       console.log("error:", error)
     }

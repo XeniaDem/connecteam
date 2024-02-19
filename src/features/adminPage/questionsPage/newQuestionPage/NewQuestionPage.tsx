@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../../auth/authSlice";
 import { Button } from "../../../../components/button/Button";
 import { FilePicker } from "./filePicker/FilePicker";
+import { readServerError } from "../../../../utils/api";
 
 
 
@@ -19,26 +20,7 @@ export function NewQuestionPage() {
   const token = useSelector(selectToken)
 
 
-
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    alert(content);
-
-  }
-
-
-
-
-
   const [questionText, setQuestionText] = useState("");
-
 
 
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -89,6 +71,15 @@ export function NewQuestionPage() {
     }
     setTopic(state.topic)
     
+
+  }, []);
+
+
+
+  useEffect(() => {
+    if (token == "") {
+      navigate("/")
+    }
 
   }, []);
 

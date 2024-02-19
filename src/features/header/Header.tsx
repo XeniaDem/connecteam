@@ -8,7 +8,7 @@ import { HeaderItem } from "./headerItem/HeaderItem"
 import { useDispatch, useSelector } from "react-redux"
 import { selectToken, setToken } from "../auth/authSlice"
 import { useEffect, useState } from "react"
-import { get } from "../../utils/api"
+import { get, readServerError } from "../../utils/api"
 import { Plan } from "../profile/packageInfo/PackageInfo"
 
 
@@ -54,7 +54,7 @@ export function Header(props: Props) {
 
     }
     catch (error: any) {
-      setPlanInfo(null)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
-import { get } from "../../utils/api"
+import { get, readServerError } from "../../utils/api"
 import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
 import { Plan } from "../profile/packageInfo/PackageInfo"
 import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
@@ -17,14 +17,8 @@ export function UserPage() {
 
   const navigate = useNavigate();
 
-
-  // const { state } = useLocation();
-  // const { token } = state;
   const token = useSelector(selectToken)
   
-
-
-
 
 
   const [name, setName] = useState("");
@@ -34,10 +28,7 @@ export function UserPage() {
   const readAnswer = (message: any) => {
 
     var messageParsed = JSON.parse(message);
-    // alert(JSON.stringify(messageParsed));
     console.log(JSON.stringify(messageParsed));
-
-
     var name = messageParsed.first_name
     setName(name)
 
@@ -45,18 +36,6 @@ export function UserPage() {
 
   }
 
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    // alert(content);
-
-  }
 
   const fetchUserPage = async () => {
     try {

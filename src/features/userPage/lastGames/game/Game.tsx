@@ -1,10 +1,5 @@
 
 import styles from "./Game.module.css"
-import photo from "./photo.svg"
-import users from "./users.svg"
-import questions from "./questions.svg"
-import { useEffect, useState } from "react"
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
 export type GameModel = {
@@ -22,12 +17,6 @@ type Props = {
 
 
 export function Game({ game }: Props) {
-
-  // useEffect(() => {
-
-  //   readAccess()
-
-  // }, []);
 
 
   return (

@@ -1,20 +1,16 @@
-
 import styles from "./ChooseTopics.module.css"
 import ellipse1 from "../ellipse1.svg"
 import ellipse2 from "../ellipse2.svg"
-import crown from "../crown.svg"
-import exit from "../exit.svg"
 import { Players } from "../players/Players"
 import { Button } from "../../../components/button/Button"
-import { InvitePopup } from "./InvitePopup/InvitePopup"
 import { useEffect, useState } from "react"
 import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
 import { Topic } from "../../topics/topic/Topic"
 import { Plan } from "../../profile/packageInfo/PackageInfo"
 import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
-import { get } from "../../../utils/api"
-import { Shuffle } from "@mui/icons-material"
+import { get, readServerError } from "../../../utils/api"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -22,6 +18,7 @@ export function ChooseTopics() {
 
 
   const token = useSelector(selectToken)
+  const navigate = useNavigate()
 
 
 
@@ -52,20 +49,13 @@ export function ChooseTopics() {
 
   const [planInfo, setPlanInfo] = useState<Plan>();
 
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-    alert(content);
-
-  }
-
   const readPlanInfo = (message: any) => {
     const messageParsed = JSON.parse(message);
     const planInfo = {
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0, 10),
       planAccess: messageParsed.plan_access,
-      planConfirmed: messageParsed.confirmed ////////////
+      planConfirmed: messageParsed.confirmed
 
     }
     setPlanInfo(planInfo);
@@ -101,6 +91,9 @@ export function ChooseTopics() {
   const topicLimit = getTopicLimit();
 
 
+
+
+
   const [selectedTopicsIds, setSelectedTopicsIds] = useState<string[]>([]);
   // var selectedTopicsIds: string[] = [];
 
@@ -109,7 +102,7 @@ export function ChooseTopics() {
   };
 
 
-  const chooseAllTopics = () => {
+  const chooseRandomTopics = () => {
     const newSelectedTopicsIds = [...Array(topics?.length).keys()].map(String)
 
     setSelectedTopicsIds(shuffle(newSelectedTopicsIds).slice(0, topicLimit))
@@ -117,11 +110,30 @@ export function ChooseTopics() {
 
   }
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const getStartError = () => {
+    if (selectedTopicsIds.length < 3)
+      return "Выберите хотя бы 3 темы";
+
+
+  }
+
+  const startError = getStartError();
+
 
   useEffect(() => {
     readTopics("");
     fetchPlan();
 
+
+  }, []);
+
+
+
+  useEffect(() => {
+    if (token == "") {
+      navigate("/")
+    }
 
   }, []);
 
@@ -161,18 +173,10 @@ export function ChooseTopics() {
               if (newValue) {
                 const newSelectedTopicsIds = [...selectedTopicsIds, topic.id]
                 setSelectedTopicsIds(newSelectedTopicsIds)
-
-
-
-
               } else {
-
                 const newSelectedTopicsIds = [...selectedTopicsIds].filter(topicId => topicId != topic.id)
                 setSelectedTopicsIds(newSelectedTopicsIds)
-
-
               }
-
             }
 
             return (
@@ -184,37 +188,20 @@ export function ChooseTopics() {
               </div>
             )
           }
-
           )
-
           }
 
         </div>
 
+        <Button text={"Выбрать случайные " + topicLimit + (topicLimit == 3 ? " темы" : " тем")}
+          onClick={chooseRandomTopics} className={styles.randomTopicsButton} />
 
+        {startError && formSubmitted && (<div className={styles.errorMessage}>
+          {startError}
 
+        </div>)}
 
-
-
-
-
-        <Button text={"Выбрать случайные " + topicLimit + (topicLimit == 3 ? " темы" : " тем" )} 
-        onClick={chooseAllTopics} className={styles.allTopicsButton} />
-
-        <Button text={"Начать игру"} onClick={() => alert(selectedTopicsIds)} className={styles.startButton} />
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <Button text={"Начать игру"} onClick={() => setFormSubmitted(true)} className={styles.startButton} />
 
       </div>
 

@@ -83,8 +83,7 @@ export function Registration() {
 
     setId(id)
   }
-  const readServerError = (message: any) => {
-    // alert(message)
+  const readRegistrationError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
@@ -118,7 +117,7 @@ export function Registration() {
 
     }
     catch (error: any) {
-      setRegistrationError(readServerError(error.response.text))
+      setRegistrationError(readRegistrationError(error.response.text))
       console.log("error:", error)
     }
 

@@ -1,6 +1,6 @@
 import styles from "./QuestionsPage.module.css"
 import { useEffect, useState } from "react"
-import { get } from "../../../utils/api"
+import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
@@ -59,18 +59,6 @@ export function QuestionsPage() {
   }
 
 
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    alert(content);
-
-  }
 
   const fetchTopics = async () => {
 
@@ -113,6 +101,14 @@ export function QuestionsPage() {
 
 
 
+
+
+  useEffect(() => {
+    if (token == "") {
+      navigate("/")
+    }
+
+  }, []);
 
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import { IconButton } from "@mui/material";
 import { Button } from "../../../../components/button/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
-import { Delete } from "../../../../utils/api";
+import { Delete, readServerError } from "../../../../utils/api";
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 
@@ -72,14 +72,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
   }
 
-
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    alert(content);
-
-  }
 
   const deleteTopic = async () => {
 

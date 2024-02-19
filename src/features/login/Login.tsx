@@ -57,7 +57,7 @@ export function Login() {
   // const [token, setToken] = useState("");
 
 
-  const readServerError = (message: any) => {
+  const readLoginError = (message: any) => {
     // alert(message)
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
@@ -119,7 +119,7 @@ export function Login() {
 
     }
     catch (error: any) {
-      setLoginError(readServerError(error.response.text))
+      setLoginError(readLoginError(error.response.text))
       console.log("error:", error)
     }
 

@@ -1,6 +1,6 @@
 import styles from "./PlanUsersPage.module.css"
 import { useEffect, useState } from "react"
-import { get } from "../../utils/api"
+import { get, readServerError } from "../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
 import { useNavigate } from "react-router-dom"
@@ -46,18 +46,6 @@ export function PlanUsersPage() {
   }
 
 
-  const readServerError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("token is expired")) {
-      navigate("/login")
-      return ("Срок действия токена вышел.")
-
-    }
-    alert(content);
-
-  }
 
   const fetchPlanUsers = async () => {
     try {
@@ -89,6 +77,14 @@ export function PlanUsersPage() {
 
     fetchPlanUsers()
   }, [fetched]);
+
+
+  useEffect(() => {
+    if (token == "") {
+      navigate("/")
+    }
+
+  }, []);
 
   return (
     <div>

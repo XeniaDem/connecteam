@@ -28,14 +28,6 @@ type Props = {
 
 export function PlanUser({ planUser, token, onChange }: Props) {
 
-  // useEffect(() => {
-
-  //   readAccess()
-
-  // }, []);
-
-
-
 
   const readPlan = () => {
 

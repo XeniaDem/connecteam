@@ -11,7 +11,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material"
 import colors from "@mui/material/colors"
 import { PlanModel } from "../../usersPage/user/User"
-import { Delete, patch } from "../../../../utils/api"
+import { Delete, patch, readServerError } from "../../../../utils/api"
 
 
 export type RequestModel = {
@@ -35,20 +35,6 @@ type Props = {
 
 export function PlanRequest({ savedRequest, token, onChange }: Props) {
 
-  // useEffect(() => {
-
-  //   readAccess()
-
-  // }, []);
-
-  const readChangeError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-
-    alert(content);
-
-  }
 
 
   const declinePlan = async () => {
@@ -60,7 +46,7 @@ export function PlanRequest({ savedRequest, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      readChangeError(error.response.text);
+      readServerError(error.response.text);
       console.log("error:", error)
     }
   }
@@ -78,7 +64,7 @@ export function PlanRequest({ savedRequest, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      readChangeError(error.response.text);
+      readServerError(error.response.text);
       console.log("error:", error)
     }
   }

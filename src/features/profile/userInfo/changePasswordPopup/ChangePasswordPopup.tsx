@@ -70,7 +70,6 @@ export function ChangePasswordPopup(props: Props) {
     }
     catch (error: any) {
       setServerError(readChangeError(error.response.text));
-      // alert(error.text)
       console.log("error:", error)
     }
   }

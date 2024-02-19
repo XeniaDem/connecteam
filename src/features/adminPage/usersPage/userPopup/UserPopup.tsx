@@ -4,7 +4,7 @@ import { Button } from "../../../../components/button/Button"
 import styles from "./userPopup.module.css"
 import { Field } from "../../../profile/field/Field";
 import { User, UserModel } from "../user/User";
-import { Delete, patch, post } from "../../../../utils/api";
+import { Delete, patch, post, readServerError } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
@@ -83,14 +83,6 @@ export function UserPopup(props: Props) {
 
   const [period, setPeriod] = useState(14)
 
-  const readChangeError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-
-    alert(content);
-
-  }
 
   const changePlan = async () => {
     const data = {
@@ -113,7 +105,7 @@ export function UserPopup(props: Props) {
 
     }
     catch (error: any) {
-      readChangeError(error.response.text);
+      readServerError(error.response.text);
       console.log("error:", error)
     }
   }
@@ -148,8 +140,7 @@ export function UserPopup(props: Props) {
 
     }
     catch (error: any) {
-      readChangeError(error.response.text);
-      // alert(error.text)
+      readServerError(error.response.text);
       console.log("error:", error)
     }
   }

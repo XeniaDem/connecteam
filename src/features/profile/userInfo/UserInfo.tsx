@@ -11,7 +11,7 @@ import request from "superagent"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
-import { get, patch, post } from "../../../utils/api"
+import { get, patch, post, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
@@ -77,15 +77,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
   var dataErrorMessage = getDataErrorMessage()
 
-  const readInfoChangeError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-    alert(content)
-
-    return content;
-
-  }
-
   const changeUserInfo = async () => { //меняет данные юзера
 
     const data = {
@@ -105,7 +96,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      readInfoChangeError(error.response.text)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 
@@ -250,8 +241,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
   const readEmailChangeError = (message: any) => {
     var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-    alert(content)
+    var content = messageParsed.message;
     if (content.includes("Wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
 
@@ -277,7 +267,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      // alert(error.text)
       setVerifyError(readEmailChangeError(error.response.text))
       console.log("error:", error)
     }
@@ -314,7 +303,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      alert(error.text)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 

@@ -4,14 +4,22 @@ import icon from "./icon.svg"
 import users from "./users.svg"
 import questions from "./questions.svg"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { selectToken } from "../auth/authSlice"
 
 
 export function AdminPage() {
   const navigate = useNavigate()
+  const token = useSelector(selectToken)
 
 
+  useEffect(() => {
+    if (token == "") {
+      navigate("/")
+    }
 
-
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.icon}>

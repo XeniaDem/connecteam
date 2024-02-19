@@ -38,4 +38,12 @@ export const get = (url: string, token?: string) => {
      
  }
 
+ export const readServerError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message;
+
+    alert(content)
+
+ }
+
  
