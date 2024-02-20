@@ -99,18 +99,6 @@ export function QuestionsPage() {
 
 
 
-
-
-
-
-  useEffect(() => {
-    if (token == "") {
-      navigate("/")
-    }
-
-  }, []);
-
-
   useEffect(() => {
     fetchTopics()
 

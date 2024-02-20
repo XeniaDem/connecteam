@@ -1,4 +1,5 @@
 import request from "superagent"
+import { signIn } from "../features/auth/authSlice"
 
 export const post = <T extends Object>(url: string, body: T, token?: string) => {
    return request.post('http://localhost:5432/' + url)
@@ -10,12 +11,24 @@ export const post = <T extends Object>(url: string, body: T, token?: string) => 
     
 }
 
-export const get = (url: string, token?: string) => {
-    return request.get('http://localhost:5432/' + url)
+export const get = async (url: string, token?: string) => {
+    try {
+    const response = await request.get('http://localhost:5432/' + url)
      .set('Access-Control-Allow-Origin', '*')
      .set('Accept', 'application/json')
      .set('Content-Type', 'application/json')
      .set('Authorization', `Bearer ${token}`)
+     if (response.status == 401) {
+        document.location.href = "/auth/login"
+     } 
+     return response;
+    } catch (error: any) {
+        if (error.status == 401) {
+            document.location.href = "/auth/login"
+         } 
+         throw error;
+
+    }
      
  }
 
@@ -41,8 +54,8 @@ export const get = (url: string, token?: string) => {
  export const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message;
+    alert(content);
 
-    alert(content)
 
  }
 

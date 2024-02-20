@@ -27,16 +27,11 @@ type Props = {
 
 
 }
-Field.defaultProps = {options: ['Нет доступа', 'Простой',  'Расширенный', 'Широкий','Администратор']}
+Field.defaultProps = {options: ['Нет доступа', 'Простой',  'Расширенный', 'Широкий']}
 
 
 export function Field(this: any, props: Props) {
 
-
-  const options = [
-    'Нет доступа', 'Простой',  'Расширенный', 'Широкий','Администратор'
-  ];
-  const defaultOption = options[0];
 
 
 
@@ -64,7 +59,7 @@ export function Field(this: any, props: Props) {
             // arrowClosed={<span className={styles.arrowClosed} />}
             // arrowOpen={<span className={styles.arrowOpen} />}
             
-            options={props.options} onChange={props.onDropDownValueChange} value={props.dropDownValue} placeholder="Select an option" />
+            options = {props.options} onChange={props.onDropDownValueChange} value={props.dropDownValue} placeholder="Select an option" />
         ) : (
           null
         )}

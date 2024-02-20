@@ -31,19 +31,19 @@ export function ChoosePackagePopup(props: Props) {
   const token = useSelector(selectToken)
 
 
-  const onDropDownValueChange = (value: { label: any; }) => {
+  // const onDropDownValueChange = (value: { label: any; }) => {
 
-    if (value.label == "14 дней") {
-      setPeriod(14)
-    }
-    if (value.label == "30 дней") {
-      setPeriod(30)
-    }
+  //   if (value.label == "14 дней") {
+  //     setPeriod(14)
+  //   }
+  //   if (value.label == "30 дней") {
+  //     setPeriod(30)
+  //   }
 
 
-  }
+  // }
 
-  const [period, setPeriod] = useState(14)
+  const [period, setPeriod] = useState(30)
 
   const readAccess = () => {
     if (props.planType == "user")
@@ -82,16 +82,13 @@ export function ChoosePackagePopup(props: Props) {
   }
 
 
-  const periodOptions = [
-    '14 дней', '30 дней'
-  ];
+  // const periodOptions = [
+  //   '14 дней', '30 дней'
+  // ];
 
 
 
-  useEffect(() => {
 
-
-  }, []);
 
 
 
@@ -126,14 +123,14 @@ export function ChoosePackagePopup(props: Props) {
 
           </div>
           <div className={styles.subtitle}>
-            Выберите период доступа
+             Период доступа {<br/>} <span className={styles.duration}>30 дней</span>
 
           </div>
 
 
-          <div className={styles.fields}>
+          {/* <div className={styles.fields}>
             <Field small={true} isDropDown={true} options={periodOptions} title={""} dropDownValue={periodOptions[0]} onDropDownValueChange={onDropDownValueChange} />
-          </div>
+          </div> */}
 
         </div>
 

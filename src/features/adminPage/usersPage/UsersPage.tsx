@@ -140,7 +140,7 @@ export function UsersPage() {
 
   const fetchPlans = async () => {
     try {
-      const response = await get('plans/users-plans', token)
+      const response = await get('plans/', token)
       readPlans(response.text)
       return;
 

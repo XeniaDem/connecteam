@@ -1,11 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Header } from "../../header/Header";
 import styles from "../Layout.module.css"
+import { useCheckAuth } from "../../../app/hooks/useCheckAuth";
 
 
 
 
 export function UserLayout() {
+
+    useCheckAuth();
 
 
     return (

@@ -11,15 +11,7 @@ import { selectToken } from "../auth/authSlice"
 
 export function AdminPage() {
   const navigate = useNavigate()
-  const token = useSelector(selectToken)
 
-
-  useEffect(() => {
-    if (token == "") {
-      navigate("/")
-    }
-
-  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.icon}>

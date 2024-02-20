@@ -6,7 +6,7 @@ import logo from "./logo.svg"
 import person from "./person.svg"
 import { HeaderItem } from "./headerItem/HeaderItem"
 import { useDispatch, useSelector } from "react-redux"
-import { selectToken, setToken } from "../auth/authSlice"
+import { selectToken, signIn } from "../auth/authSlice"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
 import { Plan } from "../profile/packageInfo/PackageInfo"
@@ -102,7 +102,7 @@ export function Header(props: Props) {
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
-          dispatch(setToken(""))
+          dispatch(signIn({token: "", access: ""}))
         }} className={styles.authButton} />
 
 
@@ -148,7 +148,7 @@ export function Header(props: Props) {
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
-          dispatch(setToken(""))
+          dispatch(signIn({token: "", access: ""}))
         }} className={styles.authButton} />
 
 

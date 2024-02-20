@@ -140,12 +140,6 @@ export function PlanRequestsPage() {
 
 
 
-  useEffect(() => {
-    if (token == "") {
-      navigate("/")
-    }
-
-  }, []);
 
 
   useEffect(() => {

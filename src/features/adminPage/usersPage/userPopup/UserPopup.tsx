@@ -25,6 +25,12 @@ export function UserPopup(props: Props) {
   const [planChanging, setPlanChanging] = useState(false)
 
 
+  var today = new Date();
+  var tomorrow = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0]
+
+  const [expiryDate, setExpiryDate] = useState(tomorrow);
+
+
 
 
 
@@ -85,8 +91,9 @@ export function UserPopup(props: Props) {
 
 
   const changePlan = async () => {
+
     const data = {
-      duration: period,
+      expiry_date: new Date(expiryDate),
       plan_type: newPlan
     }
     try {
@@ -115,15 +122,11 @@ export function UserPopup(props: Props) {
     'Нет доступа', 'Простой', 'Расширенный', 'Широкий'
   ];
 
-  const periodOptions = [
-    '14 дней', '30 дней'
-  ];
-
   const changeAccess = async () => {
     var newAccess;
     if (props.user.access == "user")
       newAccess = "admin"
-    else 
+    else
       newAccess = "user"
     const data = {
       id: props.user.id.toString(),
@@ -134,7 +137,6 @@ export function UserPopup(props: Props) {
       const response = await patch('users/access', data, props.token)
       setNewPlan("")
       setPlanChanging(false)
-      // props.onChange()
       props.closePopup()
 
 
@@ -145,6 +147,26 @@ export function UserPopup(props: Props) {
     }
   }
 
+
+
+
+  // const getDuration = () => {
+  //   // const today = new Date().toISOString().split('T')[0]
+  //   let today = new Date()
+  //   let expiry = new Date(expiryDate)
+
+  //   let timeDuration =
+  //     expiry.getTime() - today.getTime();
+
+  //   // Calculating the no. of days between
+  //   // two dates
+  //   let daysDuration =
+  //     Math.round
+  //       (timeDuration / (1000 * 3600 * 24));
+
+  //   return (daysDuration)
+
+  // }
 
 
 
@@ -196,8 +218,15 @@ export function UserPopup(props: Props) {
 
 
               {planChanging && newPlan != undefined ? (
-                <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"}
-                  dropDownValue={periodOptions[0]} onDropDownValueChange={onPeriodChange} />
+                // <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"}
+                //   dropDownValue={periodOptions[0]} onDropDownValueChange={onPeriodChange} />
+                <div className={styles.expiry}>
+                  <div className={styles.text}>
+                    Дата истечения
+                  </div>
+                  <input type="date" min={tomorrow}
+                    className={styles.input} placeholder="Дата игры" value={expiryDate} onChange={(event) => { setExpiryDate(event.target.value) }} />
+                </div>
 
               ) : (
                 null
@@ -215,16 +244,8 @@ export function UserPopup(props: Props) {
               )}
 
 
-
-
             </div>
           </div>
-
-
-
-
-
-
         </div>
 
         {planChanging ? (
@@ -233,16 +254,6 @@ export function UserPopup(props: Props) {
         ) : (
           null
         )}
-
-
-
-
-
-
-
-
-
-
       </div>
 
     </div>

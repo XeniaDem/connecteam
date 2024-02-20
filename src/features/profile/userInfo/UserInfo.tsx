@@ -13,7 +13,7 @@ import { get, patch, post, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
-import { setToken } from "../../auth/authSlice"
+import { signIn } from "../../auth/authSlice"
 
 export type User = {
   name: string;
@@ -287,7 +287,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
       const response = await get('users/password', token)
 
-      dispatch(setToken(""))
+      dispatch(signIn({token: "", access: ""}))
       navigate("link_sent",{ state: { email: email } } )
 
       

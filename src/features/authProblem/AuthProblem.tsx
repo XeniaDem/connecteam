@@ -7,7 +7,7 @@ import { Button } from "../../components/button/Button"
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { useState } from "react"
-import { get, readServerError } from "../../utils/api"
+import { patch} from "../../utils/api"
 
 
 export function AuthProblem() {
@@ -30,6 +30,20 @@ export function AuthProblem() {
 
   var errorMessage = getErrorMessage()
 
+  const [restoreError, setRestoreError] = useState("")
+
+  const readRestoreError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message;
+    if (content.includes("not exist")) {
+      return "Пользователя с таким эл. адресом не существует"
+
+    }
+    return content;
+
+
+  }
+
   const restorePassword = async () => { ////////////////////
     setFormSubmitted(true)
     if (errorMessage != null) {
@@ -42,16 +56,15 @@ export function AuthProblem() {
     }
     try {
 
-      // const response = await get('auth/password', data)
+      const response = await patch('auth/password', data)
 
-      // alert(response.text)
-      navigate("link_sent", { state: { email: email } } )
+      navigate("link_sent", { state: { email: email } })
 
 
 
     }
     catch (error: any) {
-      readServerError(error.response.text)
+      setRestoreError(readRestoreError(error.response.text))
       console.log("error:", error)
     }
 
@@ -90,14 +103,22 @@ export function AuthProblem() {
           {errorMessage}
 
         </div>)}
+        {formSubmitted && restoreError ? (
+          <div className={styles.errorMessage}>
+            {restoreError}
+          </div>
+
+        ) : (
+          <div />
+        )}
         <Button text={"Отправить"} onClick={restorePassword} className={styles.button} />
         <div className={styles.footerContainer}>
 
-          <div className={styles.line}/>
+          <div className={styles.line} />
           <div className={styles.footerItem}>
             или
           </div>
-          <div className={styles.line}/>
+          <div className={styles.line} />
 
         </div>
         <div className={styles.footerContainer}>

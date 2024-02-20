@@ -166,10 +166,10 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
                   </div>
-                  <div className={styles.down}>
+                  {/* <div className={styles.down}>
 
                     <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 null
@@ -261,10 +261,10 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
                   </div>
-                  <div className={styles.down}>
+                  {/* <div className={styles.down}>
 
                     <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                null
@@ -361,7 +361,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                     Дата истечения срока подписки {planInfo?.expiryDate}
                   </div>
                   <div className={styles.down}>
-                    <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
+                    {/* <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} /> */}
 
                     {planInfo?.planAccess == "holder" ? <Button text={"Участники пакета"} onClick={showPlanUsers} className={styles.viewMembers} /> : null}
                   </div>

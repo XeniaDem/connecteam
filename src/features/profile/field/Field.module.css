@@ -11,57 +11,60 @@
   color: #FFF;
   display: flex;
 
-font-size: 21.13px;
-font-style: normal;
-font-weight: 700;
-line-height: 37.94px; /* 139.844% */
-align-items: center;
-justify-content: center;
+  font-size: 21.13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 37.94px;
+  /* 139.844% */
+  align-items: center;
+  justify-content: center;
 }
+
 .input {
   font-family: 'Work Sans Variable', sans-serif;
   border-radius: 20px;
-border: 1px solid var(--vd, #55C6F7);
-background: #1D1D1D;
-width: 426px;
-height: 50px;
-flex-shrink: 0;
-align-items: center;
-color: #FFF;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 22.375px;
-padding-left: 20px;
-outline: none;
-z-index: 1;
+  border: 1px solid var(--vd, #55C6F7);
+  background: #1D1D1D;
+  width: 426px;
+  height: 50px;
+  flex-shrink: 0;
+  align-items: center;
+  color: #FFF;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
+  padding-left: 20px;
+  outline: none;
+  z-index: 1;
 
 
 }
 
 .input:disabled {
-border: 1px solid var(--vd, #5C5C5C);
+  border: 1px solid var(--vd, #5C5C5C);
 
 
 }
 
 .inputSmall {
   font-family: 'Work Sans Variable', sans-serif;
-  border-radius: 20px;
-border: 1px solid var(--vd, #55C6F7);
-background: #1D1D1D;
-width: 266px;
-height: 50px;
-flex-shrink: 0;
-align-items: center;
-color: #FFF;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 22.375px;
-padding-left: 20px;
-outline: none;
-z-index: 1;
+  border: 1px solid var(--vd, #55C6F7);
+  background: none;
+
+  height: 50px;
+  width: 285.531px;
+  border-radius: 40.783px;
+  flex-shrink: 0;
+  align-items: center;
+  color: #FFF;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
+  padding-left: 20px;
+  outline: none;
+  z-index: 1;
 
 }
 
@@ -72,60 +75,57 @@ z-index: 1;
 .textarea {
   font-family: 'Work Sans Variable', sans-serif;
   border-radius: 20px;
-border: 1px solid var(--vd, #55C6F7);
-background: #1D1D1D;
-width: 426px;
-height: 100px;
-flex-shrink: 0;
-align-items: center;
-color: #FFF;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 22.375px;
-padding-left: 20px;
-padding-top: 15px;
-outline: none;
-z-index: 1;
-resize:none;
+  border: 1px solid var(--vd, #55C6F7);
+  background: #1D1D1D;
+  width: 426px;
+  height: 100px;
+  flex-shrink: 0;
+  align-items: center;
+  color: #FFF;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
+  padding-left: 20px;
+  padding-top: 15px;
+  outline: none;
+  z-index: 1;
+  resize: none;
 
 }
 
 .textarea:disabled {
   border: 1px solid var(--vd, #5C5C5C);
-  
-  
-  }
+
+
+}
 
 
 
 
 
-  .control {
-    position: relative;
-    background-color: #1D1D1D;
+.control {
+  position: relative;
+  background: none;
 
-    width: 287px;
-    height: 54px;
-    border-radius: 20px;
-    border: 1px solid #55C6F7 ;
+  width: 287.531px;
+  height: 52px;
+  border-radius: 40.783px;
+  border: 1px solid #55C6F7;
 
-    font-family: 'Work Sans Variable', sans-serif;
-    font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 22.375px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
 
-    /* border: none; */
-    box-sizing: border-box;
-    color: #FFF;
-    cursor: default;
-    outline: none;
-    padding-left: 20px;
-    padding-top: 15px;
-    transition: all 200ms ease;
-    align-items: center;
-  }
+  color: #FFF;
+  cursor: default;
+  outline: none;
+  padding-left: 20px;
+  transition: all 200ms ease;
+  display: flex;
+  align-items: center;
+}
 
 
 .menu {
@@ -133,22 +133,21 @@ line-height: 22.375px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   font-family: 'Work Sans Variable', sans-serif;
   font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 22.375px;
-padding-left: 20px;
-padding-top: 15px;
-padding-bottom: 15px;
-justify-content: center;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: center;
 
-  box-sizing: border-box;
   margin-top: 5px;
   max-height: 250px;
   overflow-y: auto;
   /* position: absolute; */
-  width: 287px;
+  width: 285.531px;
   gap: 10px;
-  background-color: #1D1D1D;
+
   border-radius: 20px;
 
   color: #FFF;
@@ -159,7 +158,7 @@ justify-content: center;
 }
 
 .arrow {
-  border-color: #55C6F7 transparent transparent;
+  border-color: #FFF transparent transparent;
   border-style: solid;
   border-width: 5px 5px 0;
   content: ' ';
@@ -170,11 +169,3 @@ justify-content: center;
   top: 22px;
   width: 0;
 }
-
-
-
-
-
-
-
-

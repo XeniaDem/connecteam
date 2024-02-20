@@ -9,7 +9,7 @@ import validator from "validator"
 import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { useDispatch } from "react-redux"
-import { setToken } from "../auth/authSlice"
+import { Access, signIn } from "../auth/authSlice"
 import { post } from "../../utils/api"
 
 
@@ -76,15 +76,15 @@ export function Login() {
   const [loginError, setLoginError] = useState("")
 
   const dispatch = useDispatch()
-  let token = ""
+ 
   let access = ""
 
   const saveAccessAndToken = (message: any) => {
 
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
-    token = messageParsed.token;
-    dispatch(setToken(token));
+    const token = messageParsed.token;
+    dispatch(signIn({token: token, access: access as Access}));
 
   }
 
