@@ -7,7 +7,7 @@ import { IconButton } from "@mui/material";
 import { Button } from "../../../../components/button/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
-import { Delete, readServerError } from "../../../../utils/api";
+import { Delete, patch, readServerError } from "../../../../utils/api";
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 
@@ -52,8 +52,8 @@ export function Topic({ savedTopic, token, onChange }: Props) {
         }
         alert("topicchange")
         setTopicEditing(!topicEditing);
-        // changeTopic()
-        /// onChange() потом включить
+        editTopic()
+
       }
       else {
         setTopicEditing(!topicEditing);
@@ -65,12 +65,31 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
 
   const deleteTopic = async () => {
+  
 
     try {
       const response = await Delete('topics/' + savedTopic.id, token)
       onChange()
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
 
-      return;
+
+  }
+
+  const editTopic = async () => {
+    alert(topicName)
+    const data = {
+      title: topicName
+    }
+
+    try {
+      const response = await patch('topics/' + savedTopic.id, data, token)
+      onChange()
+
+     
 
     }
     catch (error: any) {
@@ -110,10 +129,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
             <input className={!topicEditing ? styles.name : styles.nameActive} placeholder={"Название темы"} disabled={!topicEditing}
               value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
           </div>
-
-
-
-
         </div>
         <div className={styles.group}>
           <div className={styles.count}>
@@ -149,10 +164,10 @@ export function Topic({ savedTopic, token, onChange }: Props) {
             }
           </div>
           <div className={styles.addButton}>
-          <IconButton onClick={() => navigate("add_question", { state: { topic: savedTopic} })}>
-            <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <IconButton onClick={() => navigate("add_question", { state: { topic: savedTopic } })}>
+              <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
-          </IconButton>
+            </IconButton>
           </div>
 
         </div>

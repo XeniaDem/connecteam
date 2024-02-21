@@ -26,11 +26,16 @@ export function QuestionsPage() {
   const readTopics = (message: any) => {
     const messageParsed = JSON.parse(message);
 
+    if (messageParsed.data == null) {
+      setTopics(null)
+      return;
+    }
+
     const topicsNum = messageParsed.data.length;
+
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
-
 
       const questionsNum = 5 // (messageParsed.data[i].length);
       const questionModels = [];
@@ -54,7 +59,6 @@ export function QuestionsPage() {
 
     }
     setTopics(topicModels)
-    setFetched(true)
 
   }
 
@@ -62,10 +66,10 @@ export function QuestionsPage() {
 
   const fetchTopics = async () => {
 
+
     try {
       const response = await get('topics/', token)
       readTopics(response.text)
-      return;
 
     }
     catch (error: any) {
@@ -123,19 +127,31 @@ export function QuestionsPage() {
 
       <div className={styles.topics}>
 
-
-        {topics?.map(topic =>
-          <div>
-            <Topic savedTopic={topic} token={token} onChange={onChange} />
-
+        {topics == null ? (
+          <div className={styles.empty}>
+          Пока не было загружено ни одной темы
           </div>
 
-        )
+        ) : (
 
-        }
+          (topics?.map(topic =>
+            <div>
+              <Topic savedTopic={topic} token={token} onChange={onChange} />
+
+            </div>
+
+          ))
+
+
+
+
+        )}
+
+
+
 
       </div>
-      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} onChange={() => null} /> : null}
+      {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} /> : null}
 
 
     </div>

@@ -4,14 +4,12 @@ import styles from "./NewTopicPopup.module.css"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { post, readServerError } from "../../../../utils/api";
-import { useNavigate } from "react-router-dom";
 
 
 
 type Props = {
   closePopup: () => void;
   token: string;
-  onChange: () => void;
 
 
 }
@@ -45,7 +43,6 @@ export function NewTopicPopup(props: Props) {
       const response = await post('topics/', data, props.token)
       // alert(response.text)
       props.closePopup()
-      return;
 
     }
     catch (error: any) {

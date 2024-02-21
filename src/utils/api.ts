@@ -1,62 +1,90 @@
 import request from "superagent"
 import { signIn } from "../features/auth/authSlice"
 
-export const post = <T extends Object>(url: string, body: T, token?: string) => {
-   return request.post('http://localhost:5432/' + url)
-    .set('Access-Control-Allow-Origin', '*')
-    .set('Accept', 'application/json')
-    .set('Content-Type', 'application/json')
-    .set('Authorization', `Bearer ${token}`)
-    .send(body)
-    
+export const post = async <T extends Object>(url: string, body: T, token?: string) => {
+    try {
+        const response = await request.post('http://localhost:5432/' + url)
+            .set('Access-Control-Allow-Origin', '*')
+            .set('Accept', 'application/json')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+            .send(body)
+        return response;
+    } catch (error: any) {
+        if (error.status == 401) {
+            document.location.href = "/auth/login"
+        }
+        throw error;
+
+    }
+
 }
 
 export const get = async (url: string, token?: string) => {
     try {
-    const response = await request.get('http://localhost:5432/' + url)
-     .set('Access-Control-Allow-Origin', '*')
-     .set('Accept', 'application/json')
-     .set('Content-Type', 'application/json')
-     .set('Authorization', `Bearer ${token}`)
-     if (response.status == 401) {
-        document.location.href = "/auth/login"
-     } 
-     return response;
+        const response = await request.get('http://localhost:5432/' + url)
+            .set('Access-Control-Allow-Origin', '*')
+            .set('Accept', 'application/json')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+        //  if (response.status == 401) {
+        //     document.location.href = "/auth/login"
+        //  } 
+        return response;
     } catch (error: any) {
         if (error.status == 401) {
             document.location.href = "/auth/login"
-         } 
-         throw error;
+        }
+        throw error;
 
     }
-     
- }
 
- export const patch = <T extends Object>(url: string, body: T, token?: string) => {
-    return request.patch('http://localhost:5432/' + url)
-     .set('Access-Control-Allow-Origin', '*')
-     .set('Accept', 'application/json')
-     .set('Content-Type', 'application/json')
-     .set('Authorization', `Bearer ${token}`)
-     .send(body)
-     
- }
+}
 
- export const Delete = (url: string, token?: string) => {
-    return request.delete('http://localhost:5432/' + url)
-     .set('Access-Control-Allow-Origin', '*')
-     .set('Accept', 'application/json')
-     .set('Content-Type', 'application/json')
-     .set('Authorization', `Bearer ${token}`)
-     
- }
+export const patch = async <T extends Object>(url: string, body: T, token?: string) => {
+    try {
+        const response = await request.patch('http://localhost:5432/' + url)
+            .set('Access-Control-Allow-Origin', '*')
+            .set('Accept', 'application/json')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+            .send(body)
 
- export const readServerError = (message: any) => {
+        return response;
+    } catch (error: any) {
+        if (error.status == 401) {
+            document.location.href = "/auth/login"
+        }
+        throw error;
+
+    }
+
+}
+
+export const Delete = async (url: string, token?: string) => {
+    try {
+        const response = await request.delete('http://localhost:5432/' + url)
+            .set('Access-Control-Allow-Origin', '*')
+            .set('Accept', 'application/json')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+        return response;
+    } catch (error: any) {
+        if (error.status == 401) {
+            document.location.href = "/auth/login"
+        }
+        throw error;
+
+    }
+
+}
+
+export const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message;
-    alert(content);
+    console.log(content)
+   
 
 
- }
+}
 
- 

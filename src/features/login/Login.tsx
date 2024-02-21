@@ -59,7 +59,7 @@ export function Login() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("user is not verified")) {
+    if (content.includes("User is not verified")) {
       verifyEmail()
       openVerifyPopup()
       return ("Эл. адрес не верифицирован")

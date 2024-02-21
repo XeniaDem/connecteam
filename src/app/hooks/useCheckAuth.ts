@@ -10,7 +10,7 @@ export const useCheckAuth = () => {
   
     useEffect(() => {
       if (token == "") {
-        navigate("/")
+        navigate("/auth/login")
       }
   
     }, []);
