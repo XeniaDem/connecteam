@@ -33,15 +33,14 @@ export type UserModel = {
 
 type Props = {
   savedUser: UserModel;
-  token: string;
   onChange: () => void;
-  myAccess: string;
+
 
 }
 
 
 
-export function User({ savedUser, token, onChange, myAccess }: Props) {
+export function User({ savedUser, onChange}: Props) {
 
 
   const [userOpen, setUserOpen] = useState(false);
@@ -174,7 +173,7 @@ export function User({ savedUser, token, onChange, myAccess }: Props) {
 
       <div className={styles.divider} />
 
-      {userOpen ? <UserPopup user={savedUser} token={token} closePopup={closeUserPopup} onChange={onChange} myAccess={myAccess} /> : null}
+      {userOpen ? <UserPopup savedUser={savedUser} closePopup={closeUserPopup} onChange={onChange} /> : null}
 
     </div>
 

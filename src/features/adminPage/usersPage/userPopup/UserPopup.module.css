@@ -57,6 +57,7 @@
 }
 
 .errorMessage {
+  margin-bottom: -20px;
   color: red;
   font-size: 14.972px;
   font-style: normal;
@@ -246,7 +247,7 @@
 
 .ellipse1 {
   position: absolute;
-  bottom: -124px;
+  bottom: -130px;
   right: -63px;
 }
 

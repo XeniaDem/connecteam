@@ -1,54 +1,54 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./userPopup.module.css"
 import { Field } from "../../../profile/field/Field";
-import { User, UserModel } from "../user/User";
+import { PlanModel, User, UserModel } from "../user/User";
 import { Delete, patch, post, readServerError } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import defaultPhoto from "./photo.svg"
+import { useSelector } from "react-redux";
+import { selectAccess, selectToken } from "../../../auth/authSlice";
 
 
 
 type Props = {
   closePopup: () => void;
-  user: UserModel;
-  token: string;
+  savedUser: UserModel;
   onChange: () => void;
-  myAccess: string;
 
 }
 
-export function UserPopup(props: Props) {
-
-  const [planChanging, setPlanChanging] = useState(false)
-
-
+export function UserPopup({ savedUser, closePopup }: Props) {
   var today = new Date();
   var tomorrow = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0]
 
-  const [expiryDate, setExpiryDate] = useState(tomorrow);
+  const token = useSelector(selectToken)
+  const myAccess = useSelector(selectAccess)
 
 
+  const [access, setAccess] = useState("")
+  const [planType, setPlanType] = useState<string | undefined>("")
+  const [expiryDate, setExpiryDate] = useState<string | undefined>("")
 
 
+  const [planChanging, setPlanChanging] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
 
 
   const readAccess = () => {
-    if (props.user.access == "user") {
-      if (props.user.plan == undefined)
+    if (access == "user") {
+      if (planType == undefined)
         return ("Нет доступа")
-      if (props.user.plan?.planType == "basic")
+      if (planType == "basic")
         return ("Простой")
-      if (props.user.plan?.planType == "advanced")
+      if (planType == "advanced")
         return ("Расширенный")
-      if (props.user.plan?.planType == "premium")
+      if (planType == "premium")
         return ("Широкий")
     }
-    // } else if (props.user.access == "admin")
-    //   return ("Администратор")
   }
 
   const getPlan = (value: string) => {
@@ -61,53 +61,50 @@ export function UserPopup(props: Props) {
     if (value == "Широкий")
       return ("premium")
   }
-  const [newPlan, setNewPlan] = useState<string | undefined>("")
 
   const onPlanValueChange = (value: { label: any; }) => {
 
     if (value.label == readAccess()) {
-      setNewPlan("")
+      // setNewPlan("")
       setPlanChanging(false)
       return;
     }
-    setNewPlan(getPlan(value.label))
+    setPlanType(getPlan(value.label))
     setPlanChanging(true)
 
   }
 
-  const onPeriodChange = (value: { label: any; }) => {
 
-    if (value.label == "14 дней") {
-      setPeriod(14)
+  const getErrorMessage = () => {
+
+    if (expiryDate == undefined) {
+      return ("Выберите дату истечения пакета")
     }
-    if (value.label == "30 дней") {
-      setPeriod(30)
-    }
-
-
+    return null
   }
-
-  const [period, setPeriod] = useState(14)
-
-
+  var errorMessage = getErrorMessage()
   const changePlan = async () => {
+    setFormSubmitted(true)
+    if (errorMessage != null) {
+      return;
 
+    }
     const data = {
-      expiry_date: new Date(expiryDate),
-      plan_type: newPlan
+      expiry_date: expiryDate && new Date(expiryDate),
+      plan_type: planType
     }
     try {
       var response;
-      if (newPlan == undefined) {
-        response = await Delete('plans/' + props.user.id.toString(), props.token)
+      if (planType == undefined) {
+        response = await Delete('plans/' + savedUser.id.toString(), token)
 
       } else {
-        response = await post('plans/' + props.user.id.toString(), data, props.token)
+        response = await post('plans/' + savedUser.id.toString(), data, token)
 
       }
-      setNewPlan("")
+      // setNewPlan("")
       setPlanChanging(false)
-      props.closePopup()
+      closePopup()
 
 
     }
@@ -124,20 +121,20 @@ export function UserPopup(props: Props) {
 
   const changeAccess = async () => {
     var newAccess;
-    if (props.user.access == "user")
+    if (access == "user")
       newAccess = "admin"
     else
       newAccess = "user"
     const data = {
-      id: props.user.id.toString(),
+      id: savedUser.id.toString(),
       access: newAccess
     }
     try {
 
-      const response = await patch('users/access', data, props.token)
-      setNewPlan("")
+      const response = await patch('users/access', data, token)
+      // setNewPlan("")
       setPlanChanging(false)
-      props.closePopup()
+      closePopup()
 
 
     }
@@ -146,6 +143,15 @@ export function UserPopup(props: Props) {
       console.log("error:", error)
     }
   }
+
+
+  useEffect(() => {
+
+    setAccess(savedUser.access)
+    setPlanType(savedUser.plan?.planType)
+    setExpiryDate(savedUser.plan?.confirmed ? savedUser.plan?.expiryDate : undefined)
+
+  }, [savedUser]);
 
 
 
@@ -169,9 +175,6 @@ export function UserPopup(props: Props) {
   // }
 
 
-
-
-
   return (
 
 
@@ -181,7 +184,7 @@ export function UserPopup(props: Props) {
 
 
         <div className={styles.close}>
-          <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
+          <Button text={""} onClick={closePopup} className={styles.closeButton} />
         </div>
 
 
@@ -196,7 +199,7 @@ export function UserPopup(props: Props) {
 
             </div>
             <div className={styles.photo}>
-              {(props.user.photo == "") ? <img src={defaultPhoto} /> : <img src={props.user.photo} />}
+              {(savedUser.photo == "") ? <img src={defaultPhoto} /> : <img src={savedUser.photo} />}
 
             </div>
 
@@ -207,9 +210,9 @@ export function UserPopup(props: Props) {
               <img src={ellipse1} />
             </div>
             <div className={styles.fields}>
-              <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={props.user.name + " " + props.user.surname} />
-              <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={props.user.email} />
-              {props.user.access == "admin" ? (
+              <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={savedUser.name + " " + savedUser.surname} />
+              <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={savedUser.email} />
+              {access == "admin" ? (
                 <Field small={true} isInput={true} title={"Порог доступа"} disabled={true} value="Администратор" />
               ) : (
                 <Field small={true} isDropDown={true} options={planOptions} title={"Порог доступа"}
@@ -217,24 +220,25 @@ export function UserPopup(props: Props) {
               )}
 
 
-              {planChanging && newPlan != undefined ? (
-                // <Field small={true} isDropDown={true} options={periodOptions} title={"Период доступа"}
-                //   dropDownValue={periodOptions[0]} onDropDownValueChange={onPeriodChange} />
+              {planType ? (
+
                 <div className={styles.expiry}>
                   <div className={styles.text}>
                     Дата истечения
                   </div>
                   <input type="date" min={tomorrow}
-                    className={styles.input} placeholder="Дата игры" value={expiryDate} onChange={(event) => { setExpiryDate(event.target.value) }} />
+                    className={styles.input} placeholder="Дата истечения" value={expiryDate}
+                    onChange={(event) => { setExpiryDate(event.target.value); setPlanChanging(true) }} />
                 </div>
 
               ) : (
                 null
               )}
-              {props.myAccess == "superadmin" ? (
+
+              {myAccess == "superadmin" ? (
                 <div className={styles.makeAdmin}>
 
-                  <Button text={props.user.access == "admin" ? "Убрать доступ администратора" : "Назначить администратором"}
+                  <Button text={access == "admin" ? "Убрать доступ администратора" : "Назначить администратором"}
                     onClick={changeAccess} className={styles.footerButton} />
 
                 </div>
@@ -244,10 +248,20 @@ export function UserPopup(props: Props) {
               )}
 
 
+
             </div>
           </div>
         </div>
 
+        {formSubmitted && (errorMessage) ? (
+            <div className={styles.errorMessage}>
+              {errorMessage}
+
+            </div>
+
+          ) : (
+           null
+          )}
         {planChanging ? (
           <Button text={"Сохранить"} onClick={changePlan} className={styles.saveButton} />
 

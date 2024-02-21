@@ -10,8 +10,6 @@ import { useNavigate } from "react-router-dom"
 
 export function UsersPage() {
 
-  const navigate = useNavigate()
-
   const token = useSelector(selectToken)
 
   const [users, setUsers] = useState<UserModel[] | null>(null)
@@ -78,18 +76,15 @@ export function UsersPage() {
 
 
   const [id, setId] = useState("");
-  const [access, setAccess] = useState("")
 
 
-  const readIdAndAccess = (message: any) => {
+  const readId = (message: any) => {
 
     var messageParsed = JSON.parse(message);
 
     var id = messageParsed.id
     setId(id)
 
-    var access = messageParsed.access
-    setAccess(access)
 
   }
 
@@ -98,7 +93,7 @@ export function UsersPage() {
     try {
 
       const response = await get('users/me', token)
-      readIdAndAccess(response.text)
+      readId(response.text)
 
     }
     catch (error: any) {
@@ -198,7 +193,7 @@ export function UsersPage() {
 
         {users?.map(user =>
           <div>
-            <User savedUser={user} token={token} onChange={onUsersChange} myAccess={access} />
+            <User savedUser={user} onChange={onUsersChange} />
 
           </div>
 
