@@ -21,8 +21,8 @@ export function NewTopicPopup(props: Props) {
 
 
   const getErrorMessage = () => {
-    if (topicName.trim() == "") {
-      return ("Введите название темы.")
+    if (topicName.trim().length < 3) {
+      return ("Название темы должно содержать хотя бы 3 символа")
 
     }
   }

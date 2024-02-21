@@ -4,7 +4,7 @@ import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
-import { PlanModel} from "../usersPage/user/User"
+import { PlanModel } from "../usersPage/user/User"
 import { PlanRequest, RequestModel } from "./planRequest/PlanRequest"
 
 
@@ -29,7 +29,7 @@ export function PlanRequestsPage() {
 
     const requestModels = [];
     for (let i = 0; i < usersNum; i++) {
-      if (requestedPlans)
+      if (requestedPlans && requestedPlans.length > 0)
         var plan = requestedPlans?.find((element) => element.userId == messageParsed.data[i].id);
       if (plan == undefined)
         continue;
@@ -161,15 +161,27 @@ export function PlanRequestsPage() {
       </div>
       <div className={styles.users}>
 
-        {requests?.map(request =>
-          <div>
-            <PlanRequest savedRequest={request} token={token} onChange={onUsersChange} />
+
+
+        {requests == null || requests.length == 0 ? (
+          <div className={styles.empty}>
+            Пока не было отправлено ни одного запроса
           </div>
 
-        )
+        ) : (
 
-        }
+          (requests?.map(request =>
+            <div>
+              <PlanRequest savedRequest={request} token={token} onChange={onUsersChange} />
+            </div>
+
+          )
+
+          )
+
+        )}
       </div>
+
 
 
     </div>

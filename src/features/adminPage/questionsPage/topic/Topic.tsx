@@ -47,7 +47,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
     if (topicEditing) {
 
       if (savedTopic.name != topicName) {
-        if (topicName == "") {
+        if (topicName.trim().length < 3) {
           return;
         }
         alert("topicchange")

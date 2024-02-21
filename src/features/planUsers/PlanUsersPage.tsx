@@ -6,6 +6,8 @@ import { selectToken } from "../auth/authSlice"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
+import disableScroll from 'disable-scroll';
+import { InvitePopup } from "./InvitePopup/InvitePopup"
 
 
 
@@ -66,6 +68,24 @@ export function PlanUsersPage() {
 
   const onChange = () => {
     setFetched(!fetched)
+
+  }
+
+  const [inviteUserOpen, setInviteUserOpen] = useState(false);
+
+
+
+  const openInviteUserPopup = () => {
+    disableScroll.on()
+    setInviteUserOpen(true)
+
+  }
+  const closeInviteUserPopup = () => {
+    disableScroll.off()
+    setInviteUserOpen(false)
+    onChange()
+
+
 
   }
 
@@ -135,7 +155,7 @@ export function PlanUsersPage() {
         </div>
         {usersNum < 3 ? (
           <div className={styles.buttonContainer}>
-            <Button text={"+"} onClick={() => null} className={styles.button} />
+            <Button text={"+"} onClick={openInviteUserPopup} className={styles.button} />
 
           </div>
         ) : (
@@ -147,6 +167,7 @@ export function PlanUsersPage() {
 
 
       </div>
+      {inviteUserOpen ? <InvitePopup token={token} closePopup={closeInviteUserPopup} /> : null}
     </div>
   )
 }
