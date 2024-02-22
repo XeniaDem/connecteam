@@ -1,16 +1,14 @@
-
-
 .container {
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 24px;
-background-color: #171717;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  background-color: #171717;
 
 
 
@@ -20,45 +18,49 @@ background-color: #171717;
 .title {
 
 
-color: #FFF;
-font-size: 50px;
-font-style: normal;
-font-weight: 700;
-line-height: 19.481px; /* 38.962% */
+  color: #FFF;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 19.481px;
+  /* 38.962% */
 }
 
 
 .creation {
   display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   border-radius: 23px;
 
-background: var(--black, rgba(0, 0, 0, 0.10));
-backdrop-filter: blur(30.21428680419922px);
+  background: var(--black, rgba(0, 0, 0, 0.10));
+  backdrop-filter: blur(30.21428680419922px);
 
-padding: 45px;
-gap: 9px;
-position: relative;
-min-width: 340px;
-min-height: 220px;
+  padding: 45px;
+  gap: 9px;
+  position: relative;
+  min-width: 340px;
+  min-height: 220px;
 
 }
 
 .creation::before {
-  border-radius:  23px;
+  border-radius: 23px;
   border: 0.5px solid transparent;
-  padding: 10px; 
+  padding: 10px;
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
-  -webkit-mask: /*4*/
-     linear-gradient(#fff 0 0) padding-box, 
-     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; /*5'*/
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
+  /*3*/
+  -webkit-mask:
+    /*4*/
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  /*5'*/
 
 }
 
@@ -70,67 +72,70 @@ min-height: 220px;
   font-size: 36.157px;
   font-style: normal;
   font-weight: 500;
-  line-height: 52.332px; /* 144.737% */
+  line-height: 52.332px;
+  /* 144.737% */
 }
 
 
 
 .items {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 10px;
-  text-align:center;
-  
+  text-align: center;
+
 }
 
 .text {
-  text-align:center;
+  text-align: center;
   color: #FFF;
 
   font-size: 18.157px;
   font-style: normal;
   font-weight: 500;
-  line-height: 38.332px; /* 144.737% */
+  line-height: 38.332px;
+  /* 144.737% */
 
 }
 
 .input {
   font-family: 'Work Sans Variable', sans-serif;
   width: 285.531px;
-height: 46.667px;
-border-radius: 40.783px;
-border: 1px solid var(--vd, #55C6F7);
-background: rgba(0, 0, 0, 0.1);
-padding-left: 20px;
-padding-right: 5px;
-font-size: 14px;
-font-weight: 500;
-line-height: 23px;
-letter-spacing: 0em;
+  height: 46.667px;
+  border-radius: 40.783px;
+  border: 1px solid var(--vd, #55C6F7);
+  background: rgba(0, 0, 0, 0.1);
+  padding-left: 20px;
+  padding-right: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0em;
 
-box-sizing: border-box;
-color: #FFF;
-z-index: 1;
-outline: none;
+  box-sizing: border-box;
+  color: #FFF;
+  z-index: 1;
+  outline: none;
 
 }
+
 .input:disabled {
   border: 1px solid var(--vd, #5C5C5C);
-  
-  
+
+
 }
 
 
 
-input[type="date" i] {
-
-  align-items: center;
-  display: inline-flex;
+input[type="date"i] {
+  /* display: inline-flex; */
   overflow: hidden;
   padding-left: 20px;
   /* box-sizing: border-box; */
   color-scheme: dark;
-  
+  cursor: pointer;
+  z-index: 100;
+
 }
 
 
@@ -138,14 +143,14 @@ input[type="date" i] {
 
 
 
-input[type="time" i] {
+input[type="time"i] {
 
   align-items: center;
   display: inline-flex;
   overflow: hidden;
   padding-left: 20px;
   color-scheme: dark;
-  
+
 
 
 
@@ -156,6 +161,7 @@ input[type="time" i] {
   cursor: pointer;
 
 }
+
 ::-webkit-time-picker-indicator {
   cursor: pointer;
 
@@ -167,10 +173,11 @@ input[type="time" i] {
   height: 46.667px;
   flex-shrink: 0;
   border-radius: 40.783px;
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-margin-top: 16px;
-z-index: 1;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  margin-top: 16px;
+  z-index: 1;
 }
+
 /* .createButton:disabled {
 background:red;
 } */
@@ -181,29 +188,32 @@ background:red;
   width: 285.531px;
   height: 46.667px;
   border-radius: 40.783px;
-border: 1px solid var(--vd, #55C6F7);
-z-index: 1;
+  border: 1px solid var(--vd, #55C6F7);
+  z-index: 1;
 
 
 
-font-size: 13.918px;
-font-style: normal;
-font-weight: 600;
-line-height: 22.616px; /* 162.5% */
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+  font-size: 13.918px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22.616px;
+  /* 162.5% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
 
 }
+
 .errorMessage {
   color: red;
-font-size: 14.972px;
-font-style: normal;
-font-weight: 500;
-line-height: 24.33px; /* 162.5% */
-padding: 0px;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+  padding: 0px;
 
 }
 
@@ -213,8 +223,8 @@ padding: 0px;
 .ellipse1 {
   position: absolute;
   top: 0px;
-    left: 0px;
-    
+  left: 0px;
+
 }
 
 
@@ -222,19 +232,19 @@ padding: 0px;
 .ellipse2 {
   position: absolute;
   bottom: 0px;
-    right: 0px;
-    
+  right: 0px;
+
 }
 
 .icon {
   position: absolute;
   bottom: 0px;
-    right: 0px;
+  right: 0px;
 }
 
 
 .calendar {
-  color:#FFF;
+  color: #FFF;
   text-decoration: none;
   text-align: center;
 
@@ -250,7 +260,7 @@ padding: 0px;
   background-color: #171717;
 
   font-family: 'Work Sans Variable', sans-serif;
- color: #FFF;
+  color: #FFF;
   font-size: 13px;
   font-weight: 500;
   line-height: 22px;
@@ -258,10 +268,7 @@ padding: 0px;
   padding: 5px;
   border: none;
 
-  
-  
+
+
 
 }
-
-
-

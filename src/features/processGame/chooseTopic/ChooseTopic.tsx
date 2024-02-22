@@ -88,6 +88,18 @@ export function ChooseTopic(props: Props) {
     }
 
     const [selectedTopicId, setSelectedTopicId] = useState("");
+
+
+
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const getStartError = () => {
+      if (selectedTopicId == "")
+        return "Выберите тему раунда";
+  
+  
+    }
+  
+    const startError = getStartError();
     // var selectedTopicsIds: string[] = [];
 
 
@@ -146,9 +158,13 @@ export function ChooseTopic(props: Props) {
             }
 
           </div>
+          {startError && formSubmitted && (<div className={styles.errorMessage}>
+            {startError}
+
+          </div>)}
 
 
-          <Button text={"Начать раунд"} onClick={() => alert(selectedTopicId)} className={styles.startButton} />
+          <Button text={"Начать раунд"} onClick={() => setFormSubmitted(true)} className={styles.startButton} />
 
 
 

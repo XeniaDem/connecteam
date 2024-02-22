@@ -14,9 +14,6 @@ import { get, readServerError } from "../../utils/api"
 
 export function Profile() {
 
-  const navigate = useNavigate();
-
-
   const token = useSelector(selectToken)
 
   const [userInfo, setUserInfo] = useState<User | null>(null)
@@ -59,7 +56,7 @@ export function Profile() {
     const messageParsed = JSON.parse(message);
     const planInfo = {
       planType: messageParsed.plan_type,
-      expiryDate: messageParsed.expiry_date.substring(0,10),
+      expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
       planConfirmed: messageParsed.confirmed
 
@@ -101,15 +98,7 @@ export function Profile() {
 
   }
 
-  const { state } = useLocation();
-  const { targetId } = state || {};
 
-  useEffect(() => {
-    const element = document.getElementById(targetId);
-    if (element && planInfo) {
-      element.scrollIntoView();
-    }
-  }, [targetId, planInfo]);
 
 
 
@@ -130,21 +119,26 @@ export function Profile() {
 
   useEffect(() => {
     disableScroll.off();
-    if (token == "") {
-      navigate("/")
-    }
     fetchUserPage();
 
   }, [userFetched]);
 
   useEffect(() => {
     disableScroll.off();
-    if (token == "") {
-      navigate("/")
-    }
     fetchPlan();
 
   }, [planFetched]);
+
+
+  const { state } = useLocation();
+  const { targetId } = state || {};
+
+  useEffect(() => {
+    const element = document.getElementById(targetId);
+    if (element && planInfo) {
+      element.scrollIntoView();
+    }
+  }, [targetId, planInfo]);
 
 
 

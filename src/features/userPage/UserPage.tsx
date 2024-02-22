@@ -15,8 +15,6 @@ import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
 
 export function UserPage() {
 
-  const navigate = useNavigate();
-
   const token = useSelector(selectToken)
   
 
@@ -56,7 +54,7 @@ export function UserPage() {
     const messageParsed = JSON.parse(message);
     const planInfo = {
       planType: messageParsed.plan_type,
-      expiryDate: messageParsed.expiry_date.substring(0, 10),
+      expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
       planConfirmed: messageParsed.confirmed ////////////
 

@@ -160,7 +160,7 @@ export function User({ savedUser, onChange}: Props) {
 
           </div>
           <div className={styles.expiryDate}>
-            {plan?.confirmed ? "до " + plan.expiryDate
+            {plan?.confirmed ? "до " + new Date(plan.expiryDate).toLocaleDateString()
               : <div className={styles.expiryDate} />}
           </div>
 

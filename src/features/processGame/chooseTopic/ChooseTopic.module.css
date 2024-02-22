@@ -109,3 +109,14 @@
   right: 0px;
 
 }
+
+.errorMessage {
+
+  margin-top: -33px;
+  color: red;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+}

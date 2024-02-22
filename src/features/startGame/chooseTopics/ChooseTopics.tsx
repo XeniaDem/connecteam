@@ -130,13 +130,6 @@ export function ChooseTopics() {
 
 
 
-  useEffect(() => {
-    if (token == "") {
-      navigate("/")
-    }
-
-  }, []);
-
 
   // console.log(selectedTopicsIds)
   return (

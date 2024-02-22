@@ -173,7 +173,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
     if (content.includes("wrong password")) {
-      return ("Пароль неверен. Пожалуйста, попробуйте еще раз.")
+      return ("Пароль неверен. Пожалуйста, попробуйте еще раз")
     }
 
     if (content.includes("email is already taken")) {

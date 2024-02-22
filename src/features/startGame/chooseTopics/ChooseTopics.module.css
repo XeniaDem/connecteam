@@ -127,6 +127,8 @@
 }
 
 .errorMessage {
+ 
+  margin-bottom: -15px;
   color: red;
   font-size: 14.972px;
   font-style: normal;

@@ -142,6 +142,7 @@ z-index: 1;
 }
 .copied {
   margin-top: 10px;
+  margin-bottom: -30px;
   color: white;
   font-size: 13.918px;
   font-style: normal;
