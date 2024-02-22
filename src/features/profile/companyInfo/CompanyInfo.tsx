@@ -4,10 +4,11 @@ import styles from "./CompanyInfo.module.css"
 import defaultPhoto from "../photo.svg"
 import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { patch, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
+import useAutosizeTextArea from "../../../app/hooks/useAutoResizeTextArea"
 
 export type Company = {
   name: string;
@@ -93,8 +94,10 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
     setWebsite(savedCompany.website)
     setAbout(savedCompany.about)
     setPhoto(savedCompany.photo)
+ 
 
   }, [savedCompany]);
+
 
 
 

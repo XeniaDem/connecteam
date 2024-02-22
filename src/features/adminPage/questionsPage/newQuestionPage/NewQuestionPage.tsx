@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./NewQuestionPage.module.css"
 import { Topic } from "../../../topics/topic/Topic";
 import { TopicModel } from "../topic/Topic";
@@ -8,6 +8,7 @@ import { selectToken } from "../../../auth/authSlice";
 import { Button } from "../../../../components/button/Button";
 import { FilePicker } from "./filePicker/FilePicker";
 import { readServerError } from "../../../../utils/api";
+import useAutosizeTextArea from "../../../../app/hooks/useAutoResizeTextArea";
 
 
 
@@ -74,6 +75,10 @@ export function NewQuestionPage() {
 
   }, []);
 
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  useAutosizeTextArea(textAreaRef.current, questionText);
+
 
 
 
@@ -111,7 +116,7 @@ export function NewQuestionPage() {
         </div>
         <div className={styles.addQuestions}>
           <textarea className={styles.textarea} placeholder={"Текст вопроса"}
-            value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
+            value={questionText} onChange={(event) => setQuestionText(event.target.value)} ref={textAreaRef}/>
           <div className={styles.filePicker}>
             <FilePicker />
           </div>

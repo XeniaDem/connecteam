@@ -1,7 +1,8 @@
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./Field.module.css"
 import Dropdown, { Group, Option } from 'react-dropdown';
+import useAutosizeTextArea from "../../../app/hooks/useAutoResizeTextArea";
 // import 'react-dropdown/style.css';
 
 
@@ -33,9 +34,6 @@ Field.defaultProps = {options: ['Нет доступа', 'Простой',  'Р�
 export function Field(this: any, props: Props) {
 
 
-
-
-
   return (
     <div className={styles.container}>
       <div className={styles.name}>
@@ -50,7 +48,7 @@ export function Field(this: any, props: Props) {
         )}
         {props.isTextArea ? (
           <textarea className={styles.textarea} placeholder={props.placeholder} disabled={props.disabled}
-            value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }} />
+            value={props.value} onChange={(event) => { props.onValueChange?.(event.target.value) }} maxLength={256}/>
         ) : (
           null
         )}
