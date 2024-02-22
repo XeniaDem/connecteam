@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router-dom";
 import styles from "./Game.module.css"
 
 
@@ -17,6 +18,7 @@ type Props = {
 
 
 export function Game({ game }: Props) {
+  const navigate = useNavigate()
 
 
   return (
@@ -25,7 +27,7 @@ export function Game({ game }: Props) {
       <div className={styles.container}>
 
         <div className={styles.group}>
-          <div className={styles.name}>
+          <div className={styles.name} onClick={() => navigate("game_results")}>
             {game.name}
           </div>
           <div className={styles.date}>

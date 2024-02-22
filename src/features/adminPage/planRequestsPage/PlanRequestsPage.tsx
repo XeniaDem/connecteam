@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
-import { useNavigate } from "react-router-dom"
 import { PlanModel } from "../usersPage/user/User"
 import { PlanRequest, RequestModel } from "./planRequest/PlanRequest"
 
@@ -13,14 +12,9 @@ import { PlanRequest, RequestModel } from "./planRequest/PlanRequest"
 
 export function PlanRequestsPage() {
 
-  const navigate = useNavigate()
-
   const token = useSelector(selectToken)
 
   const [requests, setRequests] = useState<RequestModel[] | null>(null)
-
-
-
 
   const readUsers = (message: any) => {
     const messageParsed = JSON.parse(message);
@@ -123,23 +117,12 @@ export function PlanRequestsPage() {
 
 
 
-
-
-
   const [usersFetched, setUsersFetched] = useState(false)
-
-
-
-
 
   const onUsersChange = () => {
     setUsersFetched(!usersFetched)
 
   }
-
-
-
-
 
 
   useEffect(() => {
@@ -175,15 +158,10 @@ export function PlanRequestsPage() {
               <PlanRequest savedRequest={request} token={token} onChange={onUsersChange} />
             </div>
 
-          )
-
-          )
+          ))
 
         )}
       </div>
-
-
-
     </div>
   )
 }

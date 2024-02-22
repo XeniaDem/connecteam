@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./userPopup.module.css"
 import { Field } from "../../../profile/field/Field";
-import { PlanModel, User, UserModel } from "../user/User";
+import { UserModel } from "../user/User";
 import { Delete, patch, post, readServerError } from "../../../../utils/api";
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
@@ -21,7 +21,7 @@ type Props = {
 }
 
 export function UserPopup({ savedUser, closePopup }: Props) {
-  var today = new Date();
+  var today = new Date()
   var tomorrow = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0]
 
   const token = useSelector(selectToken)
@@ -38,17 +38,17 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
 
 
-  const readAccess = () => {
-    if (access == "user") {
-      if (planType == undefined)
-        return ("Нет доступа")
-      if (planType == "basic")
-        return ("Простой")
-      if (planType == "advanced")
-        return ("Расширенный")
-      if (planType == "premium")
-        return ("Широкий")
-    }
+  const readPlan = () => {
+
+    if (planType == undefined)
+      return ("Нет доступа")
+    if (planType == "basic")
+      return ("Простой")
+    if (planType == "advanced")
+      return ("Расширенный")
+    if (planType == "premium")
+      return ("Широкий")
+
   }
 
   const getPlan = (value: string) => {
@@ -64,7 +64,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
   const onPlanValueChange = (value: { label: any; }) => {
 
-    if (value.label == readAccess()) {
+    if (value.label == readPlan()) {
       // setNewPlan("")
       setPlanChanging(false)
       return;
@@ -186,9 +186,6 @@ export function UserPopup({ savedUser, closePopup }: Props) {
         <div className={styles.close}>
           <Button text={""} onClick={closePopup} className={styles.closeButton} />
         </div>
-
-
-
         <div className={styles.body}>
           <div className={styles.left}>
             <div className={styles.ellipse2}>
@@ -212,11 +209,12 @@ export function UserPopup({ savedUser, closePopup }: Props) {
             <div className={styles.fields}>
               <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={savedUser.name + " " + savedUser.surname} />
               <Field small={true} isInput={true} title={"Электронный адрес"} disabled={true} value={savedUser.email} />
-              {access == "admin" ? (
-                <Field small={true} isInput={true} title={"Порог доступа"} disabled={true} value="Администратор" />
+              {access != "user" ? (
+                <Field small={true} isInput={true} title={"Порог доступа"} disabled={true}
+                  value={access == "admin" ? "Администратор" : "Гл. Администратор"} />
               ) : (
                 <Field small={true} isDropDown={true} options={planOptions} title={"Порог доступа"}
-                  dropDownValue={readAccess()} onDropDownValueChange={onPlanValueChange} />
+                  dropDownValue={readPlan()} onDropDownValueChange={onPlanValueChange} />
               )}
 
 
@@ -254,14 +252,14 @@ export function UserPopup({ savedUser, closePopup }: Props) {
         </div>
 
         {formSubmitted && (errorMessage) ? (
-            <div className={styles.errorMessage}>
-              {errorMessage}
+          <div className={styles.errorMessage}>
+            {errorMessage}
 
-            </div>
+          </div>
 
-          ) : (
-           null
-          )}
+        ) : (
+          null
+        )}
         {planChanging ? (
           <Button text={"Сохранить"} onClick={changePlan} className={styles.saveButton} />
 

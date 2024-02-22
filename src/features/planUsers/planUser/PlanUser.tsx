@@ -58,9 +58,6 @@ export function PlanUser({ planUser, token, onChange }: Props) {
   }
 
 
-
-
-
   return (
     
     <div className={styles.background}>

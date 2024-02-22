@@ -21,6 +21,7 @@ import { LinkSent } from "./features/authProblem/linkSent/LinkSent"
 import { AdminLayout } from "./features/layouts/adminLayout/AdminLayout"
 import { AuthLayout } from "./features/layouts/authLayout/AuthLayout"
 import { UserLayout } from "./features/layouts/userLayout/UserLayout"
+import { GameResults } from "./features/gameResults/GameResults"
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
         element: <NewQuestionPage/>,
       },
     ],
+  },
+  {
+    path: "user_page/game_results",
+    element: <GameResults/>,
   },
 
 

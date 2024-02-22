@@ -1,0 +1,69 @@
+
+
+
+
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  height: 82px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+
+.group {
+  display: flex;
+  gap: 50px;
+
+  align-items: center;
+
+}
+
+
+
+.name {
+
+
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  border: none;
+
+}
+
+
+
+.result {
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: -0.05em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  color: rgba(255, 255, 255, 0.39);
+}
+
+
+
+
+.questions {
+  padding-bottom: 10px;
+}
+
+
+
+.divider {
+  border: 1px solid rgba(89, 89, 89, 1);
+}

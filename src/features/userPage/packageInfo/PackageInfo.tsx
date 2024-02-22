@@ -9,7 +9,6 @@ import { Button } from "../../../components/button/Button"
 import { Plan } from "../../profile/packageInfo/PackageInfo"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { get } from "../../../utils/api"
 import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
 
@@ -31,8 +30,6 @@ type Props = {
 export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
   const navigate = useNavigate()
-
-  const token = useSelector(selectToken)
 
 
   const [planType, setPlanType] = useState<string | undefined>()

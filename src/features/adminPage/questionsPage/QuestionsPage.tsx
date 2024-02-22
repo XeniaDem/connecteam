@@ -141,10 +141,6 @@ export function QuestionsPage() {
             </div>
 
           ))
-
-
-
-
         )}
 
 

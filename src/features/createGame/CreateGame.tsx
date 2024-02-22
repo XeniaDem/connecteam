@@ -84,10 +84,9 @@ export function CreateGame() {
 
 
   const [name, setName] = useState("");
-  const [access, setAccess] = useState("");
 
 
-  const readAnswer = (message: any) => {
+  const readName = (message: any) => {
 
     var messageParsed = JSON.parse(message);
     // alert(JSON.stringify(messageParsed));
@@ -96,17 +95,16 @@ export function CreateGame() {
 
     var name = messageParsed.first_name
     setName(name)
-    var access = messageParsed.access
-    setAccess(access)
+
 
   }
 
 
-  const fetchUserPage = async () => {
+  const fetchMe = async () => {
     try {
 
       const response = await get('users/me', token)
-      readAnswer(response.text)
+      readName(response.text)
 
     }
     catch (error: any) {
@@ -124,7 +122,7 @@ export function CreateGame() {
     if (token == "") {
       navigate("/")
     }
-    fetchUserPage();
+    fetchMe();
   }, []);
 
 

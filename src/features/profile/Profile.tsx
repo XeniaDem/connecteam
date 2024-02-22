@@ -16,8 +16,6 @@ export function Profile() {
 
   const navigate = useNavigate();
 
-  // const { state } = useLocation();
-  // const { token } = state;
 
   const token = useSelector(selectToken)
 
@@ -162,7 +160,7 @@ export function Profile() {
 
       <div className={styles.divider} />
 
-      <PackageInfo savedPlan = {planInfo} token={token}  onChange={onPlanChange} />
+      <PackageInfo savedPlan = {planInfo} onChange={onPlanChange} />
 
 
 

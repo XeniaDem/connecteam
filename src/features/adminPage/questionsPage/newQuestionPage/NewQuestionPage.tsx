@@ -76,14 +76,6 @@ export function NewQuestionPage() {
 
 
 
-  useEffect(() => {
-    if (token == "") {
-      navigate("/")
-    }
-
-  }, []);
-
-
 
   return (
     <div>

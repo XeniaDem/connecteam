@@ -16,7 +16,6 @@ export type Plan = {
 
 }
 type Props = {
-  token: string;
   savedPlan: Plan | null;
   onChange: () => void;
 

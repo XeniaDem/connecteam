@@ -4,8 +4,6 @@ import { PlanModel, User, UserModel } from "./user/User"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
-import { useNavigate } from "react-router-dom"
-
 
 
 export function UsersPage() {
@@ -69,12 +67,6 @@ export function UsersPage() {
 
 
   }
-
-
-
-
-
-
   const [id, setId] = useState("");
 
 
@@ -103,7 +95,6 @@ export function UsersPage() {
 
 
   }
-
 
   const [plans, setPlans] = useState<PlanModel[] | null>(null)
   const readPlans = (message: any) => {
@@ -169,14 +160,6 @@ export function UsersPage() {
   }, [usersFetched]);
 
 
-
-
-  // useEffect(() => {
-
-  //   fetchUsers()
-
-  // }, [usersFetched]);
-
   return (
     <div className={styles.container}>
       <svg width={0} height={0}>
@@ -194,13 +177,9 @@ export function UsersPage() {
         {users?.map(user =>
           <div>
             <User savedUser={user} onChange={onUsersChange} />
-
           </div>
 
-        )
-
-        }
-
+        )}
 
       </div>
 
