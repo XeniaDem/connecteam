@@ -241,14 +241,14 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                 Возможность приглашать в одну игру до 5 игроков
               </div>
             </div>
-            <div className={styles.textBox}>
+            {/* <div className={styles.textBox}>
               <div className={styles.tick}>
                 <img src={tick} />
               </div>
               <div className={styles.text}>
                 Возможность выбора тем для конкректной игры
               </div>
-            </div>
+            </div> */}
           </div>
 
 
@@ -340,14 +340,14 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                 Возможность добавлять в одну игру до 7 игроков
               </div>
             </div>
-            <div className={styles.textBox}>
+            {/* <div className={styles.textBox}>
               <div className={styles.tick}>
                 <img src={tick} />
               </div>
               <div className={styles.text}>
                 Возможность выбора тем для конкректной игры
               </div>
-            </div>
+            </div> */}
           </div>
 
 

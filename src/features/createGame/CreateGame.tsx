@@ -47,8 +47,8 @@ export function CreateGame() {
 
   const createGame = () => { //////////////////////////
     setFormSubmitted(true);
-    alert("date " + gameDate)
-    alert("time " + gameTime)
+    // alert("date " + gameDate)
+    // alert("time " + gameTime)
     if (createErrorMessage != null) {
       return;
 
@@ -89,10 +89,6 @@ export function CreateGame() {
   const readName = (message: any) => {
 
     var messageParsed = JSON.parse(message);
-    // alert(JSON.stringify(messageParsed));
-    console.log(JSON.stringify(messageParsed));
-
-
     var name = messageParsed.first_name
     setName(name)
 
@@ -115,6 +111,14 @@ export function CreateGame() {
 
   }
 
+
+  // const getMinTime = () => {
+  //   if (gameDate == new Date().toISOString().split('T')[0]) {
+  //     return new Date().toTimeString().split(' ')[0]
+  //   } else {
+  //     return undefined
+  //   }
+  // }
 
 
   useEffect(() => {
@@ -153,8 +157,10 @@ export function CreateGame() {
         <div className={styles.creation}>
           <div className={styles.items}>
             <input className={styles.input} placeholder="Название игры" disabled={gameCreated} value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
+            
             <input type="date" min={new Date().toISOString().split('T')[0]}
               className={styles.input} placeholder="Дата игры" disabled={gameCreated} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />
+            
             <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
               value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} />
 

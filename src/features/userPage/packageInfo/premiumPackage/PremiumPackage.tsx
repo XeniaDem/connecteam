@@ -53,14 +53,14 @@ export function PremiumPackage() {
               Возможность приглашать в одну игру до 7 игроков
               </div>
             </div>
-            <div className={styles.textBox}>
+            {/* <div className={styles.textBox}>
               <div className={styles.tick}>
                 <img src={tick} />
               </div>
               <div className={styles.text}>
               Возможность выбора темы для конкректной игры
               </div>
-            </div>
+            </div> */}
 
           </div>
 

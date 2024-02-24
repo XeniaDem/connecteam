@@ -1,38 +1,20 @@
-
 import styles from "./Result.module.css"
-
-
-import { Button } from "../../../components/button/Button";
-
-
+import { DetailedResultModel } from "../detailedResult/DetailedResult";
 
 
 type Props = {
-  name: string;
-  isYou: boolean;
-  score: number;
-  style?: React.CSSProperties;
-
-
-
+  savedResult: DetailedResultModel;
 }
 
-Result.defaultProps = { isYou: false, name: "Ксения", score: 40 }
 
-
-export function Result(props: Props) {
-
-
+export function Result({savedResult}: Props) {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.rectangle} style={{height: props.score * 4}}>
-          {props.score}
+        <div className={styles.rectangle} style={{height: savedResult.result * 4}}>
+          {savedResult.result}
         </div>
-
-
-
-        {props.isYou ? (
+        {savedResult.isYou ? (
 
           <div className={styles.nameYou}>
             Вы
@@ -41,23 +23,13 @@ export function Result(props: Props) {
         ) : (
 
           <div className={styles.name}>
-            {props.name}
+            {savedResult.name}
           </div>
 
 
         )
         }
       </div>
-
-
-
-
-
-
-
-
     </div>
   )
-
-
 }

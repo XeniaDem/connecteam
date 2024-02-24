@@ -16,10 +16,9 @@ type Props = {
   date: string;
 
   isCreator: boolean;
-  ownResult?: number;
 }
 
-GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: false, ownResult: 40 }
+GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
 
 export function GameResults(props: Props) {
 
@@ -103,6 +102,7 @@ export function GameResults(props: Props) {
 
   }
 
+
   useEffect(() => {
     if (props.isCreator)
       readDetailedResults("")
@@ -162,18 +162,17 @@ export function GameResults(props: Props) {
             </div>
             {props.isCreator ? (
               <div className={styles.allResults}>
-                <Result isYou={true} />
-                <Result isYou={true} score={50} />
-                <Result score={50} />
-                <Result score={60} />
-                <Result />
-                <Result />
-                <Result />
-                <Result />
+                {detailedResults?.map(result =>
+                  <div>
+                    <Result savedResult={result} />
+
+                  </div>
+
+                )}
               </div>
             ) : (
               <div className={styles.singleResult}>
-                {props.ownResult} баллов
+                {myDetailedResult && myDetailedResult.result + " баллов"}
               </div>
             )}
           </div>
@@ -196,7 +195,7 @@ export function GameResults(props: Props) {
             <div className={styles.subtitle}>
               Баллы за вопросы:
             </div>
-             {myDetailedResult && <DetailedResult savedDetailedResult={myDetailedResult} />}
+            {myDetailedResult && <DetailedResult savedDetailedResult={myDetailedResult} />}
           </div>
 
         )}
