@@ -1,4 +1,5 @@
 
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 import { Button } from "../../../components/button/Button"
 import styles from "./KnowMore.module.css"
 import at from "./at.svg"
@@ -7,26 +8,25 @@ import ellipse2 from "./ellipse2.svg"
 
 export function KnowMore() {
 
-
+  const isMobile = useIsMobile()
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.at}>
+        { !isMobile && <div className={styles.at}>
           <img src={at} />
-        </div>
+        </div>}
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
         </div>
-        <div className={styles.ellipse2}>
+        {!isMobile && <div className={styles.ellipse2}>
           <img src={ellipse2} />
-        </div>
+        </div>}
 
         <div className={styles.up}>
 
           <div className={styles.title}>
             Узнать подробности
           </div>
-
 
         </div>
         <div className={styles.down}>

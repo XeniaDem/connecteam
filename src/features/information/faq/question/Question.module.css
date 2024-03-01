@@ -41,7 +41,12 @@ display: flex;
 box-sizing: border-box;
 padding: 3px 3px;
 }
+@media (max-width: 768px) {
+  .container {
+    width: 80vw;
 
+  }
+}
 
 
 

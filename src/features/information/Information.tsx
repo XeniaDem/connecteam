@@ -1,4 +1,5 @@
 
+import { useIsMobile } from "../../app/hooks/useIsMobile"
 import styles from "./Information.module.css"
 import { About } from "./about/About"
 import { BecomeMember } from "./becomeMember/BecomeMember"
@@ -16,8 +17,8 @@ import disableScroll from 'disable-scroll';
 
 export function Information() {
 
-  disableScroll.off()
 
+  const isMobile = useIsMobile()
 
   return (
     <div className={styles.container}>
@@ -27,7 +28,7 @@ export function Information() {
       <WhoPlay />
       <WhyNeed />
       <KnowMore />
-      <WhatIs />
+      {!isMobile && <WhatIs />}
       <RealGames />
       <Packages />
       {/* <BecomeMember /> */}

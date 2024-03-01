@@ -8,8 +8,10 @@ import logo5 from "./logo5.svg"
 import vector from "./vector.svg"
 import ellipse from "./ellipse.svg"
 import pentagon from "./pentagon.svg"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 export function WhoPlay() {
+  const isMobile = useIsMobile();
 
 
   return (
@@ -18,15 +20,20 @@ export function WhoPlay() {
         В нашу игру играют
       </div>
       <div className={styles.line}>
-        <div className={styles.vector}>
-          <img src={vector} />
-        </div>
-        <div className={styles.ellipse}>
-          <img src={ellipse} />
-        </div>
-        <div className={styles.pentagon}>
-          <img src={pentagon} />
-        </div>
+
+        {!isMobile &&
+          <div>
+            <div className={styles.vector}>
+              <img src={vector} />
+            </div>
+            <div className={styles.ellipse}>
+              <img src={ellipse} />
+            </div>
+            <div className={styles.pentagon}>
+              <img src={pentagon} />
+            </div>
+          </div>
+        }
         <div className={styles.card}>
           <div className={styles.logo}>
             <img src={logo1} />

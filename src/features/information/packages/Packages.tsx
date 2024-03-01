@@ -3,10 +3,12 @@ import styles from "./Packages.module.css"
 import rectangle from "./rectangle.svg"
 import ellipse1 from "./ellipse1.svg"
 import { PackageList } from "../../packageList/PackageList"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 
 export function Packages() {
 
+  const isMobile = useIsMobile()
 
   return (
     <div id = "packages">
@@ -17,9 +19,9 @@ export function Packages() {
         Выбор из трех пакетов
       </div>
       <div className={styles.container}>
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
-        </div>
+        </div>}
         <div className={styles.rectangle}>
           <img src={rectangle} />
         </div>

@@ -351,3 +351,14 @@
 
 
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 0px;
+    flex-direction: column;
+
+  }
+  .offer {
+    margin-top: 0px;
+  }
+}

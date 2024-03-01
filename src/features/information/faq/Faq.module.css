@@ -52,6 +52,14 @@ background-size: 100%;
     
 }
 
+@media (max-width: 768px) {
+  .questions {
+    margin-top: 20px;
+    padding: 0px;
+    align-items: center;
+  }
+}
+
 
 
 

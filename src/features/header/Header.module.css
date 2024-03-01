@@ -15,11 +15,7 @@
 
 
 }
-@media (max-width: 768px) {
-  .container {
-    flex-wrap: wrap;
-  }
-}
+
 
 .group {
   display: flex;
@@ -80,4 +76,14 @@ line-height: 28px; /* 175% */
 .login {
   display: flex;
   gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .headerButton {
+    margin-left: 0px;
+  }
 }

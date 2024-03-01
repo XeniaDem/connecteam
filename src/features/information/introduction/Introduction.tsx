@@ -22,9 +22,9 @@ export function Introduction() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.ellipse1}>
+      {!isMobile && <div className={styles.ellipse1}>
         <img src={ellipse1} />
-      </div>
+      </div>}
       <div className={styles.ellipse2}>
         <img src={ellipse2} />
       </div>

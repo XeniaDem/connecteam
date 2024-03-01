@@ -50,7 +50,6 @@ export function WhatIs() {
                 </div>
                 <div className={styles.text}>
                   У вас есть понимание того, что вы хотите как можно быстрее и эффективнее встроить в работу нового сотрудника
-
                 </div>
               </div>
               <div className={styles.textBox}>
@@ -59,12 +58,9 @@ export function WhatIs() {
                 </div>
                 <div className={styles.text}>
                   У вас есть понимание, что фундаментом для достижения результата является эффективное взаимодействие на уровне человек-человек, и только затем инструкции и регламенты
-
                 </div>
               </div>
-
             </div>
-
           </div>
           <div className={styles.card}>
             <div className={styles.cardLeft}>
@@ -122,11 +118,7 @@ export function WhatIs() {
                     </div>
                     <div className={styles.text}>
                       Возможность более эффективного управления
-
-
-
                     </div>
-
                   </div>
                   <div className={styles.textBox}>
                     <div className={styles.tick}>
@@ -134,10 +126,7 @@ export function WhatIs() {
                     </div>
                     <div className={styles.text}>
                       Повышение внутренней мотивации на достижение результатов
-
-
                     </div>
-
                   </div>
 
                   <div className={styles.textBox}>
@@ -167,13 +156,9 @@ export function WhatIs() {
 
         <div className={styles.middle}>
           <div className={styles.rectangle}>
- 
-                
                 <img src={rectangle1} />
                 <img src={rectangle2} />
                 <img src={rectangle3} />
-
-
           </div>
 
         </div>
