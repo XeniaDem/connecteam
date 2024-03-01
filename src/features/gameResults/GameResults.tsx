@@ -165,7 +165,6 @@ export function GameResults(props: Props) {
                 {detailedResults?.map(result =>
                   <div>
                     <Result savedResult={result} />
-
                   </div>
 
                 )}

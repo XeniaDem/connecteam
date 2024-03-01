@@ -59,13 +59,7 @@ export function AdvancedPackage() {
               </div> */}
 
             </div>
-
         </div>
-
       </div>
     )
-  
-
-
-  
 }

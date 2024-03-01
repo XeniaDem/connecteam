@@ -29,9 +29,6 @@ export function UserPage() {
     console.log(JSON.stringify(messageParsed));
     var name = messageParsed.first_name
     setName(name)
-
-
-
   }
 
 

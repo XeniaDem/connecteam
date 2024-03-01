@@ -6,10 +6,10 @@ import element from "./element.svg"
 import star from "./star.svg"
 import line from "./line.svg"
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import { useNavigate } from "react-router-dom"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 export function Introduction() {
-  const navigate = useNavigate()
+  const isMobile = useIsMobile()
 
 
   const start = () => {
@@ -18,6 +18,7 @@ export function Introduction() {
 
   }
 
+  console.log(isMobile)
 
   return (
     <div className={styles.container}>
@@ -61,24 +62,18 @@ export function Introduction() {
         </div>
       </div>
 
-      <div className={styles.right}>
-        <div className={styles.element}>
-          <img src={element} />
-          <div className={styles.star}>
-            <img src={star} />
+      {!isMobile && (<div className={styles.element}>
+        <img src={element} />
+        <div className={styles.star}>
+          <img src={star} />
 
-          </div>
-          <div className={styles.line}>
-            <img src={line} />
-
-          </div>
+        </div>
+        <div className={styles.line}>
+          <img src={line} />
 
         </div>
 
-
-
-
-      </div>
+      </div>)}
 
 
 
