@@ -21,6 +21,12 @@ export function WhoPlay() {
         <div className={styles.vector}>
           <img src={vector} />
         </div>
+        <div className={styles.ellipse}>
+          <img src={ellipse} />
+        </div>
+        <div className={styles.pentagon}>
+          <img src={pentagon} />
+        </div>
         <div className={styles.card}>
           <div className={styles.logo}>
             <img src={logo1} />
@@ -54,15 +60,6 @@ export function WhoPlay() {
             Чтобы быстрее влиться в коллектив и адаптироваться в нем
           </div>
         </div>
-
-      </div>
-      <div className={styles.line}>
-        <div className={styles.ellipse}>
-          <img src={ellipse} />
-        </div>
-        <div className={styles.pentagon}>
-          <img src={pentagon} />
-        </div>
         <div className={styles.card}>
           <div className={styles.logo}>
             <img src={logo4} />
@@ -85,6 +82,7 @@ export function WhoPlay() {
             Чтобы получить больше информации друг о друге и укрепить связи
           </div>
         </div>
+
       </div>
 
     </div>

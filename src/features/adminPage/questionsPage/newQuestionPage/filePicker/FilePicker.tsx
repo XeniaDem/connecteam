@@ -16,17 +16,26 @@ import { PropaneSharp } from '@mui/icons-material';
 
 
 type Props = {
+    onFilesSelected?: (files: File[]) => void;
+
 }
 
 
 export function FilePicker(props: Props) {
 
 
-    const { openFilePicker, filesContent, loading, errors } = useFilePicker({
+
+    const { openFilePicker, filesContent, loading, errors, } = useFilePicker({
 
         readAs: 'DataURL',
-        accept: 'text/*',
+        accept: ['.txt', '.pdf'],
         multiple: false,
+        onFilesSelected: ({ plainFiles, filesContent, errors }) => {
+            // this callback is always called, even if there are errors
+            const files : File[] = plainFiles
+            props.onFilesSelected?.(files)
+            // console.log('onFilesSelected', plainFiles, filesContent, errors);
+          },
         // validators: [
         //   new FileAmountLimitValidator({ max: 1 }),
         //   new FileTypeValidator(['jpg', 'png']),

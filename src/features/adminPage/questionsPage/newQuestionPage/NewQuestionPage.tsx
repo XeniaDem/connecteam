@@ -78,7 +78,23 @@ export function NewQuestionPage() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useAutosizeTextArea(textAreaRef.current, questionText);
+  
+  const showSelectedFile = (files: File[]) => {
+    let reader = new FileReader();
 
+    const file = files[0];
+    reader.onload = (e: any) => {
+      const fileContent = e.target.result;
+      // console.log(file);
+      setQuestionText(fileContent)
+      
+    };
+
+    // reader.onerror = (e) => alert(e.target.error.name);
+    reader.readAsText(file);
+
+
+  }
 
 
 
@@ -118,7 +134,7 @@ export function NewQuestionPage() {
           <textarea className={styles.textarea} placeholder={"Текст вопроса"}
             value={questionText} onChange={(event) => setQuestionText(event.target.value)} ref={textAreaRef}/>
           <div className={styles.filePicker}>
-            <FilePicker />
+            <FilePicker onFilesSelected={showSelectedFile}/>
           </div>
 
         </div>

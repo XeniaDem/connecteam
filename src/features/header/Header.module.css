@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+
   justify-content: space-between;
   gap: 87px;
   min-height: 102px;
@@ -14,6 +14,11 @@
 
 
 
+}
+@media (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+  }
 }
 
 .group {
