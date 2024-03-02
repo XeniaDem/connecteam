@@ -9,6 +9,8 @@ import {
     ImageDimensionsValidator,
 } from 'use-file-picker/validators';
 import { useState } from 'react';
+import { useIsMobile } from '../../../app/hooks/useIsMobile';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
 
@@ -17,6 +19,7 @@ type Props = {
 }
 
 export function ImagePicker(props: Props) {
+    const isMobile = useIsMobile()
 
 
     const { openFilePicker, filesContent, loading, errors } = useFilePicker({
@@ -56,7 +59,8 @@ export function ImagePicker(props: Props) {
             <div className={styles.container}>
 
                 <div className={styles.photo}>
-                    <img src={photo == "" ? defaultPhoto : photo} />
+                    {!isMobile && <img src={photo == "" ? defaultPhoto : photo} />}
+                    {isMobile &&  (photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={photo} />}
                     
 
                 </div>

@@ -9,6 +9,7 @@ import disableScroll from 'disable-scroll';
 import { patch, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import useAutosizeTextArea from "../../../app/hooks/useAutoResizeTextArea"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 export type Company = {
   name: string;
@@ -29,6 +30,7 @@ type Props = {
 export function CompanyInfo({ savedCompany, token, onChange }: Props) {
 
 
+  const isMobile = useIsMobile()
 
   const [name, setName] = useState<undefined | string>('');
   const [website, setWebsite] = useState<undefined | string>('');
@@ -94,7 +96,7 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
     setWebsite(savedCompany.website)
     setAbout(savedCompany.about)
     setPhoto(savedCompany.photo)
- 
+
 
   }, [savedCompany]);
 
@@ -105,28 +107,35 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
     <div>
 
       <div className={styles.container}>
-      <div className={styles.ellipse2}>
-            <img src={ellipse2} />
-          </div>
+        {!isMobile && <div className={styles.ellipse2}>
+          <img src={ellipse2} />
+        </div>}
 
-        <div className={styles.left}>
+        {!isMobile && <div className={styles.left}>
           <div className={styles.title}>
             Компания
           </div>
-          <ImagePicker isUser = {false}/>
+          <ImagePicker isUser={false} />
 
-        </div>
+        </div>}
 
 
         <div className={styles.right}>
+          {isMobile && <div>
+            <div className={styles.title}>
+              Компания
+            </div>
+            <ImagePicker isUser={false} />
 
-          <Field  isInput = {true} title={"Название компании"}  placeholder="Название" disabled={!isDataChanging} value = {name} onValueChange={setName}/>
-          <Field  isInput = {true} title={"Веб-сайт компании"}  placeholder="Веб-сайт"disabled={!isDataChanging} value = {website} onValueChange={setWebsite}/>
-          <Field  isTextArea = {true} title={"О компании"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value = {about} onValueChange={setAbout}/>
+          </div>}
+
+          <Field isInput={true} title={"Название компании"} placeholder="Название" disabled={!isDataChanging} value={name} onValueChange={setName} />
+          <Field isInput={true} title={"Веб-сайт компании"} placeholder="Веб-сайт" disabled={!isDataChanging} value={website} onValueChange={setWebsite} />
+          <Field isTextArea={true} title={"О компании"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} />
 
           <div className={styles.footerButtons}>
 
-          <Button text = {!isDataChanging ? "Редактировать данные" : "Сохранить"} onClick={handleDataChange} className={styles.footerButton} />
+            <Button text={!isDataChanging ? "Редактировать данные" : "Сохранить"} onClick={handleDataChange} className={styles.footerButton} />
 
           </div>
 

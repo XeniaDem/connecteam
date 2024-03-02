@@ -14,6 +14,7 @@ import { ImagePicker } from "../imagePicker/ImagePicker"
 import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
 import { signIn } from "../../auth/authSlice"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 export type User = {
   name: string;
@@ -33,6 +34,7 @@ type Props = {
 export function UserInfo({ savedUser, token, onChange }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const isMobile = useIsMobile()
 
 
   const [name, setName] = useState("");
@@ -57,7 +59,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
       else if ((savedUser.name != name) || (savedUser.surname != surname) || (savedUser.about != about)) {
         alert("datachange")
         changeUserInfo()
-       
+
       }
       else {
         setIsDataChanging(!isDataChanging);
@@ -90,7 +92,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
       setIsDataChanging(!isDataChanging);
       onChange()
-     
+
 
     }
     catch (error: any) {
@@ -254,7 +256,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
       closeVerifyPopup()
       setIsEmailChanging(!isEmailChanging);
       onChange()
-      
+
 
     }
     catch (error: any) {
@@ -282,15 +284,15 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
 
 
-  const restorePassword = async () => { 
+  const restorePassword = async () => {
     try {
 
       const response = await get('users/password', token)
 
-      dispatch(signIn({token: "", access: ""}))
-      navigate("link_sent",{ state: { email: email } } )
+      dispatch(signIn({ token: "", access: "" }))
+      navigate("link_sent", { state: { email: email } })
 
-      
+
 
     }
     catch (error: any) {
@@ -304,7 +306,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
 
   useEffect(() => {
-  
+
     disableScroll.off();
     setName(savedUser.name)
     setSurname(savedUser.surname)
@@ -320,24 +322,32 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
     <div>
 
       <div className={styles.container} >
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
-        </div>
+        </div>}
 
-        <div className={styles.left}>
+        {!isMobile && <div className={styles.left}>
           <div className={styles.title}>
             Личные данные
           </div>
 
-          <ImagePicker isUser = {true}/>
- 
-        </div>
+          <ImagePicker isUser={true} />
+
+        </div>}
         <div className={styles.right}>
           {/* <div className={styles.settingsContainer}>
             <Button text={"Расширенные настройки  <"} onClick={function (): void {
               throw new Error("Function not implemented.")
             }} className={styles.settingsButton} />
           </div> */}
+          {isMobile && <div>
+            <div className={styles.title}>
+              Личные данные
+            </div>
+
+            <ImagePicker isUser={true} />
+
+          </div>}
 
           <Field isInput={true} title={"Имя"} disabled={!isDataChanging} value={name} onValueChange={setName} />
           <Field isInput={true} title={"Фамилия"} disabled={!isDataChanging} value={surname} onValueChange={setSurname} />

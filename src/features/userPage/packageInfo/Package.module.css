@@ -73,4 +73,24 @@ align-items: center;
   width: 450px;
 
 }
+@media (max-width: 768px) {
+  .text {
+    width: auto;
+    font-size: 15px;
+    line-height: normal;
+    padding-right: 10px;
+  }
+  .textBoxes {
+    margin-left: 30px;
+    gap:5px;
+  }
+  .name {
+    margin-left: 30px;
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: normal;
 
+  }
+  
+
+}

@@ -109,3 +109,19 @@
   top: -525px;
   right: 0px;
 }
+@media (max-width: 768px) {
+  .title {
+    font-size: 30px;
+    line-height: normal;
+
+  }
+  .right {
+    margin-top: 0px;
+    gap: 10px;
+  }
+  .footerButton {
+    padding: 0px;
+    font-size: 10px;
+  }
+}
+

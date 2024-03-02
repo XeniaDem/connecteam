@@ -94,4 +94,9 @@ line-height: 28px; /* 175% */
   .authButton {
     padding: 5px;
   }
+
+  .group {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 }

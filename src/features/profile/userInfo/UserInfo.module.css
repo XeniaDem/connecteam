@@ -178,5 +178,18 @@ margin-top: -57px;
   top: 0px;
   left: -50px;
 }
+@media (max-width: 768px) {
+  .title {
+    font-size: 30px;
+    line-height: normal;
 
-
+  }
+  .right {
+    margin-top: 100px;
+    gap: 10px;
+  }
+  .footerButton {
+    padding: 0px;
+    font-size: 10px;
+  }
+}

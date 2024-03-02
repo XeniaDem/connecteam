@@ -126,8 +126,8 @@ export function UserPage() {
     <div className={styles.container}>
       <PackageInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
-      <ChooseTopics/>
-      <ChooseTopic/>
+      {/* <ChooseTopics/>
+      <ChooseTopic/> */}
 
     </div>
   )

@@ -20,13 +20,6 @@ export function Tabs(props: Props) {
 
     const [activeTab, setActiveTab] = useState(props.tabs[0].tabName);
     const tab = props.tabs.find(tab => tab.tabName == activeTab)
-
-
-
-
-
-
-
     return (
         <div className={styles.container}>
             <div className={styles.header}>

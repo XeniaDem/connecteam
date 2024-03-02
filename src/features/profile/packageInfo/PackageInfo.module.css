@@ -95,6 +95,18 @@ line-height: 32.132px; /* 229.09% */
   bottom: 0px;
   left: -80px;
 }
+@media (max-width: 768px) {
+  .container {
+    padding-bottom: 10px;
+
+
+  }
+  .title {
+    font-size: 30px;
+    line-height: normal;
+    z-index: 1;
+  }
+}
 
 
 

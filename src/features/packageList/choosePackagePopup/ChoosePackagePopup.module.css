@@ -245,3 +245,39 @@ bottom: 0; */
   -webkit-mask-composite: xor;
 
 }
+@media (max-width: 768px) {
+  .container {
+    width:200px;
+    height: auto;
+    gap:8px;
+    align-items: center;
+    justify-content: center;
+
+
+  }
+  .title {
+    font-size: 20px;
+    line-height: normal;
+
+  }
+  .name {
+    margin: 0px;
+    width: auto;
+    padding: 10px;
+    height: auto;
+
+
+  }
+  .inputSmall::-webkit-input-placeholder {
+    font-size: 10px;
+  }
+  .saveButton {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+
+
+  }
+}

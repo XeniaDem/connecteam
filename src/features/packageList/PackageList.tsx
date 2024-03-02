@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Plan } from "../profile/packageInfo/PackageInfo";
 import { ChoosePackagePopup } from "./choosePackagePopup/ChoosePackagePopup";
 import disableScroll from 'disable-scroll';
+import { useIsMobile } from "../../app/hooks/useIsMobile";
+import CheckIcon from '@mui/icons-material/Check';
 
 type Props = {
 
@@ -17,6 +19,7 @@ type Props = {
 
 
 export function PackageList({ isLogged, planInfo, onChange }: Props) {
+  const isMobile = useIsMobile()
   const navigate = useNavigate()
 
 
@@ -103,6 +106,12 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
 
   return (
     <div>
+             <svg width={0} height={0}>
+          <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+            <stop offset={0} stopColor="#55C6F7" />
+            <stop offset={1} stopColor="#2AF8BA" />
+          </linearGradient>
+        </svg>
       <div className={styles.container}>
         <div className={isLogged ? styles.card : styles.highlighted}>
 

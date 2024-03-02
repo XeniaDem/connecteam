@@ -61,7 +61,25 @@ box-shadow: none;
 
 }
 
+@media (max-width: 768px) {
+  .container {
+    gap:10px;
+  }
+  .photo {
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+    border-width: 3px;
 
+
+  }
+  .photo::before {
+    border-width: 3px;
+  }
+  .footerButton {
+    font-size: 10px;
+  }
+}
 
 
 

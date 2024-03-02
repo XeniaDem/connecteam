@@ -10,6 +10,7 @@ import { selectToken, signIn } from "../auth/authSlice"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
 import { Plan } from "../profile/packageInfo/PackageInfo"
+import { useIsMobile } from "../../app/hooks/useIsMobile"
 
 
 type Props = {
@@ -26,7 +27,7 @@ export function Header(props: Props) {
 
 
   const token = useSelector(selectToken)
-  
+
 
 
   const [planInfo, setPlanInfo] = useState<Plan | null>(null)
@@ -69,7 +70,7 @@ export function Header(props: Props) {
 
 
     return (
-      
+
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.logo}>
@@ -83,7 +84,7 @@ export function Header(props: Props) {
 
             navigate("/admin/questions_page")
 
-          }} selected={location.pathname.startsWith("/admin/questions_page")}  />
+          }} selected={location.pathname.startsWith("/admin/questions_page")} />
 
           <HeaderItem text="Пользователи" onClick={() => {
             navigate("/admin/users_page")
@@ -98,11 +99,11 @@ export function Header(props: Props) {
 
 
 
-          }} selected={location.pathname == "/admin/plan_requests"}  />
+          }} selected={location.pathname == "/admin/plan_requests"} />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
-          dispatch(signIn({token: "", access: ""}))
+          dispatch(signIn({ token: "", access: "" }))
         }} className={styles.authButton} />
 
 
@@ -120,8 +121,9 @@ export function Header(props: Props) {
         navigate("/")
       }
       fetchPlan();
-  
+
     }, []);
+    const isMobile = useIsMobile()
 
 
     return (
@@ -137,19 +139,25 @@ export function Header(props: Props) {
           <HeaderItem text="Профиль" onClick={() => {
             navigate("/user_page/profile")
 
-          }} selected={location.pathname.startsWith("/user_page/profile")}/>
+          }} selected={location.pathname.startsWith("/user_page/profile")} />
           {planInfo && planInfo.planConfirmed == true ? (
             <HeaderItem text="Создать игру" onClick={() => {
-              navigate("/user_page/create_game")}} selected={location.pathname == "/user_page/create_game"}/>
+              navigate("/user_page/create_game")
+            }} selected={location.pathname == "/user_page/create_game"} />
           ) : (
             null
-          ) }
-          <HeaderItem text="Мои игры" onClick={() => navigate("/user_page", { state: { targetId: "games" } })} link="#games"/>
+          )}
+          <HeaderItem text="Мои игры" onClick={() => navigate("/user_page", { state: { targetId: "games" } })} link="#games" />
+          {isMobile && <Button text={"Выход"} onClick={() => {
+            navigate("/")
+            dispatch(signIn({ token: "", access: "" }))
+          }} className={styles.authButton} />}
         </div>
-        <Button text={"Выход"} onClick={() => {
-          navigate("/")
-          dispatch(signIn({token: "", access: ""}))
-        }} className={styles.authButton} />
+        {!isMobile && <Button text={"Выход"} onClick={() => {
+            navigate("/")
+            dispatch(signIn({ token: "", access: "" }))
+          }} className={styles.authButton} />}
+
 
 
       </div>
@@ -191,7 +199,7 @@ export function Header(props: Props) {
           navigate("/")
         }} />
       </div>
-      <HeaderItem text="О проекте" link="#about"/>
+      <HeaderItem text="О проекте" link="#about" />
       <HeaderItem text="Как играть" link="#real_games" />
       <HeaderItem text="FAQ" link="#faq" />
       <HeaderItem text="Контакты" link="#contacts" />

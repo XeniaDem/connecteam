@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 
 
@@ -29,6 +30,7 @@ type Props = {
 
 export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
+  const isMobile = useIsMobile()
   const navigate = useNavigate()
 
 
@@ -59,9 +61,9 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
     if (planType == "basic") {
       return (
         <div className={styles.container}>
-          <div className={styles.icon}>
+          {!isMobile && <div className={styles.icon}>
             <img src={icon} />
-          </div>
+          </div>}
           <div className={styles.title}>
             Добро пожаловать, {name}!
           </div>
@@ -93,9 +95,9 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
       return (
         <div>
           <div className={styles.container}>
-            <div className={styles.icon}>
-              <img src={icon} />
-            </div>
+          {!isMobile && <div className={styles.icon}>
+            <img src={icon} />
+          </div>}
             <div className={styles.title}>
               Добро пожаловать, {name}!
             </div>
@@ -127,9 +129,9 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
       return (
         <div>
           <div className={styles.container}>
-            <div className={styles.icon}>
-              <img src={icon} />
-            </div>
+          {!isMobile && <div className={styles.icon}>
+            <img src={icon} />
+          </div>}
             <div className={styles.title}>
               Добро пожаловать, {name}!
             </div>
