@@ -25,6 +25,21 @@ font-weight: 500;
 line-height: 24.505px; /* 119.444% */
 }
 
+@media (max-width: 768px) {
+  .container {
+    width: 71vw;
+    padding: 12px 21px;
+    margin-top: 10px;
+
+  }
+  .text {
+    font-size: 10px;
+    line-height: normal;
+    
+
+  }
+
+}
 
 
 

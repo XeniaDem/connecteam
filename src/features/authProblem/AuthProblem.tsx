@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom"
 import validator from "validator"
 import { useState } from "react"
 import { patch} from "../../utils/api"
+import { useIsMobile } from "../../app/hooks/useIsMobile"
 
 
 export function AuthProblem() {
 
   const navigate = useNavigate()
+  const isMobile = useIsMobile()
 
   const [email, setEmail] = useState("")
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -75,14 +77,14 @@ export function AuthProblem() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
-        </div>
-        <div className={styles.ellipse2}>
+        </div>}
+        {!isMobile && <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
-        </div>
+        </div>}
         <div className={styles.padlock}>
           <img src={padlock} />
 

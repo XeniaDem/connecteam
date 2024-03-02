@@ -48,5 +48,22 @@ padding-top: 8px;
     left: 0px;
 }
 
+@media (max-width: 768px) {
+  .title {
+    font-size: 30px;
+    padding-top: 10px;
+    line-height: normal;
+
+  }
+  .subtitle {
+    font-size: 20px;
+    line-height: normal;
+  }
+  .container {
+    padding-bottom: 0px;
+    flex-wrap: wrap;
+    padding-top: 30px;
+  }
+}
 
 

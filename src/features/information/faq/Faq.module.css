@@ -53,10 +53,19 @@ background-size: 100%;
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-bottom: 10px;
+  }
   .questions {
     margin-top: 20px;
     padding: 0px;
     align-items: center;
+  }
+  .title {
+    font-size: 30px;
+    padding-top: 10px;
+    line-height: normal;
+
   }
 }
 

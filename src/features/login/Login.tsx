@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Login.module.css"
 import connecteam from "./connecteam.svg"
+import logo from "./logo.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { useState } from "react"
@@ -11,11 +12,14 @@ import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/E
 import { useDispatch } from "react-redux"
 import { Access, signIn } from "../auth/authSlice"
 import { post } from "../../utils/api"
+import { useIsMobile } from "../../app/hooks/useIsMobile"
 
 
 export function Login() {
 
   const navigate = useNavigate()
+
+  const isMobile = useIsMobile()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -194,16 +198,16 @@ export function Login() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
-        </div>
-        <div className={styles.ellipse2}>
+        </div>}
+        {!isMobile && <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
-        </div>
+        </div>}
         <div className={styles.connecteam}>
-          <img src={connecteam} />
+          {!isMobile ? <img src={connecteam}/> :  <img src={logo} />}
 
         </div>
 

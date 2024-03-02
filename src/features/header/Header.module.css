@@ -82,8 +82,16 @@ line-height: 28px; /* 175% */
   .container {
     flex-wrap: wrap;
     gap: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .headerButton {
     margin-left: 0px;
+  }
+  .logo {
+    padding-right: 5px;
+  }
+  .authButton {
+    padding: 5px;
   }
 }

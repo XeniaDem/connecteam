@@ -164,3 +164,14 @@
   right: 0px;
 
 }
+
+@media (max-width: 768px) {
+  .padlock {
+    margin-top: 56px;
+
+
+  }
+  .text {
+    max-width: 300px;
+  }
+}

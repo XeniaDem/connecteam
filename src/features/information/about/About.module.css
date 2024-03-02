@@ -87,4 +87,19 @@
     margin: 30px;
     gap: 10px;
   }
+
+  .title {
+    font-size: 30px;
+    line-height: normal;
+
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: normal;
+  }
+  .name {
+    font-size: 20px;
+    line-height: normal;
+  }
 }

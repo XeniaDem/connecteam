@@ -5,11 +5,13 @@ import ellipse1 from "../ellipse1.svg"
 import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import { useLocation, useNavigate } from "react-router-dom"
+import { useIsMobile } from "../../../app/hooks/useIsMobile"
 
 
 
 
 export function LinkSent() {
+  const isMobile = useIsMobile()
   const navigate = useNavigate()
 
   const { state } = useLocation();
@@ -28,14 +30,14 @@ export function LinkSent() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
-        </div>
-        <div className={styles.ellipse2}>
+        </div>}
+        {!isMobile && <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
-        </div>
+        </div>}
         <div className={styles.padlock}>
           <img src={padlock} />
 

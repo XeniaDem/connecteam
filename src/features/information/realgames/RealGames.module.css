@@ -63,12 +63,18 @@ flex-shrink: 0;
   }
   .video {
     height: 300px;
+    margin-top: 0px;
   }
   .text {
     width: auto;
     height: auto;
     align-items: center;
     justify-content: center;
+  }
+  .title {
+    font-size: 30px;
+    padding-top: 30px;
+    line-height: normal;
   }
 }
 

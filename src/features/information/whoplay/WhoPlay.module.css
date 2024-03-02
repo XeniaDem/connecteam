@@ -20,7 +20,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 28px;
-  max-width: 80vw;
+  max-width: 90vw;
   margin: 0 auto;
 
   padding-top: 56px;
@@ -163,4 +163,37 @@
   padding-top: 14px;
   padding-left: 50px;
   padding-right: 50px;
+}
+
+@media (max-width: 768px) {
+
+  .title {
+    padding-top: 0px;
+    font-size: 30px;
+    line-height: normal;
+
+  }
+  .card {
+    width: 160px;
+    height: 80px;
+    padding-top: 15px;
+  }
+  .line {
+    padding-top: 15px;
+  }
+  .who {
+    padding-top: 0px;
+    font-size: 15px;
+    line-height: normal;
+    letter-spacing: -1px;
+
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+
+
 }

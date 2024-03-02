@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Button } from "../../components/button/Button"
 import styles from "./Registration.module.css"
 import connecteam from "./connecteam.svg"
+import logo from "./logo.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { EmailConfirmationPopup } from "./emailConfirmationPopup/EmailConfirmationPopup"
@@ -11,9 +12,11 @@ import { useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
 import { post } from "../../utils/api"
+import { useIsMobile } from "../../app/hooks/useIsMobile"
 
 
 export function Registration() {
+  const isMobile = useIsMobile()
   const navigate = useNavigate()
 
   const [email, setEmail] = useState("")
@@ -189,16 +192,16 @@ export function Registration() {
 
       <div className={styles.container}>
 
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
-        </div>
-        <div className={styles.ellipse2}>
+        </div>}
+        {!isMobile && <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
-        </div>
+        </div>}
         <div className={styles.connecteam}>
-          <img src={connecteam} />
+        {!isMobile ? <img src={connecteam}/> :  <img src={logo} />}
 
         </div>
 

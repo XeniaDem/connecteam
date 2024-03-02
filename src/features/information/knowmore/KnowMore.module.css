@@ -148,7 +148,7 @@
   .container {
     height: auto;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 50px;
     gap: 10px;
     align-items: center;
     padding: 30px;
@@ -159,10 +159,16 @@
     align-items: center;
     padding: 0px;
   }
+  .input {
+    width: 200px;
+    height: 40px;
+    font-size: 15px;
+    line-height: normal;
+  }
 
   .button {
-    height: 53px;
-    width: 210px;
+    height: 40px;
+    width: 200px;
     margin-top: 10px;
   }
 
@@ -175,9 +181,12 @@
 
   .title {
     padding: 0px;
+    font-size: 30px;
+    line-height: normal;
   }
 
   .up {
     justify-content: center;
   }
+
 }

@@ -163,13 +163,42 @@
   .container {
     align-items: center;
     flex-direction: column;
+    gap: 10px;
     /* margin: 30px;
     gap: 10px; */
   }
+  .title {
+    font-size: 30px;
+    line-height: normal;
+    padding-top: 20px;
+    margin-bottom: 30px;
+
+  }
 
   .card {
-    width: 95vw;
-    height: auto;
+    width: 80vw;
+    height: 100px;
+    gap: 10px;
+  }
+  .cardRight {
+
+    justify-content: center;
+  }
+  .why {
+    padding: 0px;
+    font-size: 16px;
+    line-height: normal;
+
+  }
+  .text {
+    font-size: 10px;
+    line-height: normal;
+
+  }
+  .number {
+    font-size: 40px;
+    line-height: normal;
+
   }
 
 }

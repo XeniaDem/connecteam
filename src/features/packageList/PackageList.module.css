@@ -37,6 +37,7 @@
   text-align: center;
 
 }
+
 .name {
   width: 275px;
   height: 57.4px;
@@ -355,10 +356,76 @@
 @media (max-width: 768px) {
   .container {
     padding-top: 0px;
-    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
 
   }
+
   .offer {
     margin-top: 0px;
+    font-size: 10px;
+    line-height: normal;
+    text-wrap: wrap;
+    padding: 0px;
+    width: 140px;
+
+  }
+
+  .card {
+    width: 150px;
+    padding-bottom: 10px;
+  }
+
+  .highlighted {
+    width: 150px;
+    padding-bottom: 10px;
+
+  }
+
+  .name {
+    width: 100px;
+    height: 30px;
+    font-size: 10px;
+    margin-top: -15px;
+  }
+
+  .textBoxes {
+    margin-top: 10px;
+  }
+
+  .textBox {
+    width: 150px;
+    min-height: 10px;
+  }
+
+  .tick {
+    padding-left: 5px;
+  }
+
+  .text {
+    padding-right: 0px;
+    font-size: 8px;
+    line-height: normal;
+  }
+
+  .inactive {
+    margin-top: 5px;
+    width: 100px;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+    line-height: normal;
+    padding: 0px;
+  }
+
+  .active {
+    margin-top: 5px;
+    width: 100px;
+    height: 20px;
+    font-size: 10px;
+    align-items: center;
+    line-height: normal;
+    padding: 0px;
+
   }
 }

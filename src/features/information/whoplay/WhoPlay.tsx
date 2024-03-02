@@ -41,9 +41,9 @@ export function WhoPlay() {
           <div className={styles.who}>
             Собственники бизнеса
           </div>
-          <div className={styles.text}>
+          {!isMobile && <div className={styles.text}>
             Чтобы понимать, кто работает в их компании и дает результат
-          </div>
+          </div>}
         </div>
         <div className={styles.card}>
           <div className={styles.logo}>
@@ -52,9 +52,9 @@ export function WhoPlay() {
           <div className={styles.who}>
             Руководители
           </div>
-          <div className={styles.text}>
+          {!isMobile && <div className={styles.text}>
             Чтобы понимать, как выстраивать взаимодействие внутри отдела
-          </div>
+          </div>}
         </div>
         <div className={styles.card}>
           <div className={styles.logo}>
@@ -63,9 +63,9 @@ export function WhoPlay() {
           <div className={styles.who}>
             Новые сотрудники
           </div>
-          <div className={styles.text}>
+          {!isMobile && <div className={styles.text}>
             Чтобы быстрее влиться в коллектив и адаптироваться в нем
-          </div>
+          </div>}
         </div>
         <div className={styles.card}>
           <div className={styles.logo}>
@@ -74,9 +74,9 @@ export function WhoPlay() {
           <div className={styles.who}>
             Между отделами
           </div>
-          <div className={styles.text}>
+          {!isMobile && <div className={styles.text}>
             Чтобы улучшить понимание и взаимодействие
-          </div>
+          </div>}
         </div>
         <div className={styles.card}>
           <div className={styles.logo}>
@@ -85,9 +85,9 @@ export function WhoPlay() {
           <div className={styles.who}>
             Сотрудники отдела
           </div>
-          <div className={styles.text}>
+          {!isMobile &&<div className={styles.text}>
             Чтобы получить больше информации друг о друге и укрепить связи
-          </div>
+          </div>}
         </div>
 
       </div>
