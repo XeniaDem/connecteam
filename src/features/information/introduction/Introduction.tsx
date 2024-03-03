@@ -7,9 +7,11 @@ import star from "./star.svg"
 import line from "./line.svg"
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
+
 
 export function Introduction() {
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
 
   const start = () => {

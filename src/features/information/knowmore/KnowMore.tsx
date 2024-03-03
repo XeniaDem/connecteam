@@ -5,10 +5,11 @@ import styles from "./KnowMore.module.css"
 import at from "./at.svg"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
+import {isMobile} from 'react-device-detect';
 
 export function KnowMore() {
 
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
   return (
     <div>
       <div className={styles.container}>

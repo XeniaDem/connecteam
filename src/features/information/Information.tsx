@@ -14,11 +14,13 @@ import { WhatIs } from "./whatIs/WhatIs"
 import { WhoPlay } from "./whoPlay/WhoPlay"
 import { WhyNeed } from "./whyNeed/WhyNeed"
 import disableScroll from 'disable-scroll';
+import {isMobile} from 'react-device-detect';
+
 
 export function Information() {
 
 
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
   return (
     <div className={styles.container}>

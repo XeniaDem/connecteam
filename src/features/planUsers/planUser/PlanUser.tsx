@@ -5,6 +5,7 @@ import disableScroll from 'disable-scroll';
 import { IconButton } from "@mui/material"
 import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 import { RemoveUserPopup } from "../removeUserPopup/RemoveUserPopup";
+import { useIsMobile } from "../../../app/hooks/useIsMobile";
 
 
 export type PlanUserModel = {
@@ -27,6 +28,7 @@ type Props = {
 
 
 export function PlanUser({ planUser, token, onChange }: Props) {
+  const isMobile = useIsMobile()
 
 
   const readPlan = () => {
@@ -66,7 +68,7 @@ export function PlanUser({ planUser, token, onChange }: Props) {
         <div className={styles.group}>
           <div className={styles.photo}>
             {/* <img src = {photo}/> */}
-            {(planUser.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={planUser.photo} />}
+            {(planUser.photo == "") ? <PhotoCameraIcon fontSize={!isMobile ? "large" : "small"} sx={{ fill: "url(#linearColors)" }} /> : <img src={planUser.photo} />}
           </div>
 
           <div className={styles.name} >
@@ -74,21 +76,21 @@ export function PlanUser({ planUser, token, onChange }: Props) {
           </div>
 
 
-          <div className={styles.email}>
+          {!isMobile && <div className={styles.email}>
             {planUser.email}
-          </div>
+          </div>}
 
 
 
         </div>
         <div className={styles.group}>
-          <div className={styles.text}>
+          {!isMobile && <div className={styles.text}>
             Доступ:
-          </div>
-          <div className={styles.plan}>
+          </div>}
+          {!isMobile && <div className={styles.plan}>
 
             {readPlan()}
-          </div>
+          </div>}
 
           <div className={styles.controlButtons}>
             <IconButton onClick={openRemoveUserPopup}>

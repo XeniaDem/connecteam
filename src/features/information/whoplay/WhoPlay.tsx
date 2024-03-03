@@ -9,9 +9,10 @@ import vector from "./vector.svg"
 import ellipse from "./ellipse.svg"
 import pentagon from "./pentagon.svg"
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 export function WhoPlay() {
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
 
 
   return (

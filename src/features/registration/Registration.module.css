@@ -187,8 +187,12 @@
 }
 @media (max-width: 768px) {
   .connecteam {
-    margin-top: 56px;
+    margin-top: 120px;
 
 
+  }
+  .container {
+    height: auto;
+    min-height: 100vh;
   }
 }

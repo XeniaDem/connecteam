@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
 import { Plan } from "../profile/packageInfo/PackageInfo"
 import { useIsMobile } from "../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 
 type Props = {
@@ -123,7 +124,7 @@ export function Header(props: Props) {
       fetchPlan();
 
     }, []);
-    const isMobile = useIsMobile()
+    // const isMobile = useIsMobile()
 
 
     return (

@@ -133,3 +133,23 @@
   box-shadow: none;
 
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .title {
+    font-size: 30px;
+    line-height: normal;
+    margin-top: 100px;
+
+
+  }
+  .subtitle {
+    font-size: 20px;
+    line-height: normal;
+    padding-bottom: 20px;
+  }
+
+}

@@ -247,7 +247,7 @@ bottom: 0; */
 }
 @media (max-width: 768px) {
   .container {
-    width:200px;
+    width: 75vw;
     height: auto;
     gap:8px;
     align-items: center;

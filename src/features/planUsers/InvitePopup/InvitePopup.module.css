@@ -164,3 +164,42 @@
 
 
 }
+@media (max-width: 768px) {
+  .container {
+    width: 75vw;
+    height: auto;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    padding-top: 20px;
+    top: 85%;
+
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: normal;
+  }
+  .subtitle {
+    text-align: center;
+  }
+  .link {
+    width: 70vw;
+    line-break:anywhere;
+
+  }
+
+  .copyButton {
+    height: auto;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+
+  }
+  .copied {
+    margin-top: 0px;
+  }
+
+
+}

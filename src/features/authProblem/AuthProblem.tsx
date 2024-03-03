@@ -85,10 +85,10 @@ export function AuthProblem() {
           <img src={ellipse2} />
 
         </div>}
-        <div className={styles.padlock}>
+        {!isMobile && <div className={styles.padlock}>
           <img src={padlock} />
 
-        </div>
+        </div>}
         <div className={styles.title}>
           Возникли проблемы с входом в систему?
 

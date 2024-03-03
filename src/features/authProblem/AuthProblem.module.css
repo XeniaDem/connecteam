@@ -166,12 +166,13 @@
 }
 
 @media (max-width: 768px) {
-  .padlock {
-    margin-top: 56px;
-
-
+  .title {
+    font-size: 20px;
+    line-height: normal;
   }
+
   .text {
     max-width: 300px;
   }
+
 }

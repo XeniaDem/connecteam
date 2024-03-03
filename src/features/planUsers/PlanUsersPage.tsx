@@ -8,6 +8,7 @@ import { Button } from "../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
 import disableScroll from 'disable-scroll';
 import { InvitePopup } from "./InvitePopup/InvitePopup"
+import { useIsMobile } from "../../app/hooks/useIsMobile"
 
 
 
@@ -20,6 +21,8 @@ export function PlanUsersPage() {
   const [planUsers, setPlanUsers] = useState<PlanUserModel[] | null>(null)
 
   const [usersNum, setUsersNum] = useState(0)
+
+  const isMobile = useIsMobile()
 
 
   const readPlanUsers = (message: any) => {
@@ -119,9 +122,9 @@ export function PlanUsersPage() {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-          <div className={styles.back}>
+          {!isMobile && <div className={styles.back}>
             <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
-          </div>
+          </div>}
           <div className={styles.title}>
             Участники пакета
           </div>

@@ -4,9 +4,10 @@ import styles from "./WhyNeed.module.css"
 import arrow1 from "./arrow1.svg"
 import arrow2 from "./arrow2.svg"
 import rectangle from "./rectangle.svg"
+import {isMobile} from 'react-device-detect';
 
 export function WhyNeed() {
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
   if (isMobile) {
     return (
       <div>
