@@ -3,9 +3,11 @@ import { useIsMobile } from "../../../app/hooks/useIsMobile"
 import styles from "./About.module.css"
 import photo from "./photo.svg"
 import rectangle from "./rectangle.svg"
-import {isMobile} from 'react-device-detect';
+import {isMobile, isTablet} from 'react-device-detect';
 export function About() {
   // const isMobile = useIsMobile()
+  // console.log("mob " + isMobile)
+  // console.log("tab" + isTablet)
   if (isMobile) {
     return (
       <div className={styles.container} id="about">

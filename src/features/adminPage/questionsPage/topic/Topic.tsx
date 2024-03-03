@@ -7,13 +7,13 @@ import { IconButton } from "@mui/material";
 import { Button } from "../../../../components/button/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
-import { Delete, patch, readServerError } from "../../../../utils/api";
+import { Delete, get, patch, readServerError } from "../../../../utils/api";
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 
 export type TopicModel = {
   name: string;
-  questions?: QuestionModel[];
+  // questions?: QuestionModel[];
   id: string;
 
 
@@ -65,7 +65,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
 
   const deleteTopic = async () => {
-  
+
 
     try {
       const response = await Delete('topics/' + savedTopic.id, token)
@@ -89,7 +89,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       const response = await patch('topics/' + savedTopic.id, data, token)
       onChange()
 
-     
+
 
     }
     catch (error: any) {
@@ -99,8 +99,63 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
 
   }
+  const [questions, setQuestions] = useState<QuestionModel[] | null>(null)
+  const readQuestions = (message: any) => {
+    const messageParsed = JSON.parse(message);
+
+    if (messageParsed.data == null) {
+      setQuestions(null);
+      return;
+    }
+    const questionsNum = messageParsed.data.length;
+    const questionModels = [];
+    for (let j = 0; j < questionsNum; j++) {
+      const questionModel = {
+        number: j + 1,
+        id: messageParsed.data[j].id,
+        text: messageParsed.data[j].content
+
+      }
+      questionModels.push(questionModel)
+    }
+    setQuestions(questionModels);
 
 
+  }
+
+  const fetchQuestions = async () => {
+
+    try {
+      const response = await get('topics/' + savedTopic.id + "/questions/", token)
+      readQuestions(response.text)
+      setQuestionsOpen(true)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+
+  }
+  const changeQuestionsOpen = async () => {
+    if (!questionsOpen) {
+      fetchQuestions()
+      
+    }
+    else {
+
+      setQuestionsOpen(false)
+    }
+
+
+  }
+
+  const onQuestionsChange = async () => {
+    fetchQuestions()
+
+  }
 
   useEffect(() => {
 
@@ -131,10 +186,10 @@ export function Topic({ savedTopic, token, onChange }: Props) {
           </div>
         </div>
         <div className={styles.group}>
-          <div className={styles.count}>
-            (вопросов: {savedTopic.questions?.length})
-          </div>
-          <IconButton onClick={() => setQuestionsOpen(!questionsOpen)}>
+          {/* <div className={styles.count}>
+            (вопросов: {savedTopic.questions ? savedTopic.questions.length : 0})
+          </div> */}
+          <IconButton onClick={() => changeQuestionsOpen()}>
 
             {!questionsOpen ? (
               <KeyboardArrowLeftIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
@@ -156,11 +211,11 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       {questionsOpen ? (
         <div>
           <div className={styles.questions}>
-            {savedTopic.questions?.map(question =>
+            {questions ? questions.map(question =>
               <div>
-                <Question savedQuestion={question} onChange={onChange} />
+                <Question savedQuestion={question} onChange={onQuestionsChange} />
               </div>
-            )
+            ) : <div className={styles.empty}> Пока не было добавлено вопросов</div>
             }
           </div>
           <div className={styles.addButton}>

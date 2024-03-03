@@ -28,7 +28,7 @@ export function FilePicker(props: Props) {
     const { openFilePicker, filesContent, loading, errors, } = useFilePicker({
 
         readAs: 'DataURL',
-        accept: ['.txt', '.pdf'],
+        accept: ['.txt'],
         multiple: false,
         onFilesSelected: ({ plainFiles, filesContent, errors }) => {
             // this callback is always called, even if there are errors

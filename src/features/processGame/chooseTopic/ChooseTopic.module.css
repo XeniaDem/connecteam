@@ -120,3 +120,41 @@
   line-height: 24.33px;
   /* 162.5% */
 }
+
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+  .container {
+    padding-bottom: 20px;
+  }
+  .title {
+    margin-top: 10px;
+    font-size: 30px;
+    line-height: normal;
+    text-align: center;
+
+  }
+  .subtitle {
+    font-size: 20px;
+    line-height: normal;
+  }
+  .topics {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap:10px;
+  }
+  .startButton {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 0px;
+
+  }
+  .randomTopicsButton {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    padding: 5px;
+
+  }
+
+}

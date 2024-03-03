@@ -153,6 +153,47 @@ z-index: 1;
 }
 
 
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+  .container {
+    width: 75vw;
+    height: auto;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    padding-top: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: normal;
+  }
+  .subtitle {
+    text-align: center;
+  }
+  .link {
+    width: 70vw;
+    line-break:anywhere;
+
+  }
+
+  .copyButton {
+    height: auto;
+    width: auto;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+
+  }
+  .copied {
+    margin-top: 5px;
+    margin-bottom: -10px;
+  }
+
+
+}
+
+
 
 
 

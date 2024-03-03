@@ -170,6 +170,43 @@ line-height: 25.868px; /* 120% */
 
 
 
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+  .name {
+    font-size: 15px;
+    line-height: normal;
+    width: auto;
+
+  }
+  .text {
+    width: auto;
+  }
+  .container {
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    gap:10px;
+  }
+  .inactive {
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    gap:10px;
+
+  }
+  .selected {
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    gap:10px;
+  }
+  .checkBox {
+    margin: 0;
+  }
+
+}
+
+
+
 
 
 

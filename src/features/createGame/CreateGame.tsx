@@ -195,7 +195,7 @@ export function CreateGame() {
             <div className={styles.items} >
               <Button text={"Добавить участника"} onClick={openInvitePopup} className={styles.inviteButton} />
 
-              <Button text={"Скопировать сслыку на игру"} onClick={openCopyPopup} className={styles.inviteButton} />
+              <Button text={"Скопировать ссылку на игру"} onClick={openCopyPopup} className={styles.inviteButton} />
             </div>
           }
         </div>

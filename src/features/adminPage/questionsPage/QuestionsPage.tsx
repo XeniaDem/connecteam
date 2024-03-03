@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import { selectToken } from "../../auth/authSlice"
 import { useNavigate } from "react-router-dom"
 import { Topic, TopicModel } from "./topic/Topic"
+import { QuestionModel } from "./question/Question"
 import { Button } from "../../../components/button/Button"
 import disableScroll from 'disable-scroll';
 import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup"
@@ -21,9 +22,12 @@ export function QuestionsPage() {
   const [fetched, setFetched] = useState(false)
 
   const [topics, setTopics] = useState<TopicModel[] | null>(null)
+  function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 
-  const readTopics = (message: any) => {
+  const readTopics = async (message: any) => {
     const messageParsed = JSON.parse(message);
 
     if (messageParsed.data == null) {
@@ -36,22 +40,23 @@ export function QuestionsPage() {
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
+      // fetchQuestions(messageParsed.data[i].id)
 
-      const questionsNum = 5 // (messageParsed.data[i].length);
-      const questionModels = [];
-      for (let j = 0; j < questionsNum; j++) {
-        const questionModel = {
-          number: j + 1,
-          text: "Как составлять расписание?", //messageParsed.data[i].questions[j].text
+      // const questionsNum = 5 // (messageParsed.data[i].length);
+      // const questionModels = [];
+      // for (let j = 0; j < questionsNum; j++) {
+      //   const questionModel = {
+      //     number: j + 1,
+      //     text: "Как составлять расписание?", //messageParsed.data[i].questions[j].text
 
-        }
-        questionModels.push(questionModel)
-      }
+      //   }
+      //   questionModels.push(questionModel)
+      // }
 
       const topicModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].title,
-        questions: questionModels,
+        questions: undefined,
 
 
       }
@@ -79,6 +84,42 @@ export function QuestionsPage() {
 
 
   }
+
+  // const [questions, setQuestions] = useState<QuestionModel[] | undefined>(undefined)
+  // const readQuestions = (message: any) => {
+  //   const messageParsed = JSON.parse(message);
+
+  //   if (messageParsed.data == null) {
+  //     return undefined;
+  //   }
+  //   const questionsNum = messageParsed.data.length;
+  //   const questionModels = [];
+  //   for (let j = 0; j < questionsNum; j++) {
+  //     const questionModel = {
+  //       number: j + 1,
+  //       text: messageParsed.data[j].content
+
+  //     }
+  //     questionModels.push(questionModel)
+  //   }
+  //   setQuestions(questionModels);
+
+
+  // }
+  // const fetchQuestions = async (topicId: number) => {
+  //   try {
+  //     const response = await get('topics/' + topicId + "/questions/", token)
+  //     readQuestions(response.text)
+
+  //   }
+  //   catch (error: any) {
+  //     readServerError(error.response.text)
+  //     console.log("error:", error)
+  //   }
+  //   return null;
+
+
+  // }
   const [newTopicOpen, setNewTopicOpen] = useState(false)
 
   const openNewTopicPopup = () => {
@@ -129,7 +170,7 @@ export function QuestionsPage() {
 
         {topics == null ? (
           <div className={styles.empty}>
-          Пока не было загружено ни одной темы
+            Пока не было загружено ни одной темы
           </div>
 
         ) : (

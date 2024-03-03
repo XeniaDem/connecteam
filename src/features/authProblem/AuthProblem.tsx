@@ -9,12 +9,14 @@ import validator from "validator"
 import { useState } from "react"
 import { patch} from "../../utils/api"
 import { useIsMobile } from "../../app/hooks/useIsMobile"
+import {isMobile, isTablet} from 'react-device-detect';
+
 
 
 export function AuthProblem() {
 
   const navigate = useNavigate()
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
   const [email, setEmail] = useState("")
   const [formSubmitted, setFormSubmitted] = useState(false);

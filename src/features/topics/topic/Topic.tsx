@@ -6,6 +6,7 @@ import styles from "./Topic.module.css"
 import ellipse from "./ellipse.svg"
 import TopicIcon from '@mui/icons-material/Topic';
 import { TopicModel } from "../../adminPage/questionsPage/topic/Topic";
+import {isMobile} from 'react-device-detect';
 
 
 
@@ -43,13 +44,13 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
       <div className={!selected ? (!inactive ? styles.container : styles.inactive) : styles.selected}
         onClick={(inactive || withCheckBox) ? () => null : handleChange}>
 
-        <div className={styles.icon}>
+        {!isMobile && <div className={styles.icon}>
           <div className={styles.ellipse}>
             <img src={ellipse} />
           </div>
           <TopicIcon fontSize="medium" />
 
-        </div>
+        </div>}
         <div className={styles.text}>
           <div className={styles.name}>
             {name}

@@ -4,12 +4,16 @@ import { Button } from "../../../../components/button/Button";
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
+import { Delete, patch, readServerError } from "../../../../utils/api";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../../auth/authSlice";
 
 
 
 export type QuestionModel = {
   text: string;
   number: number;
+  id: number;
 
 }
 
@@ -23,6 +27,7 @@ type Props = {
 
 export function Question({ savedQuestion, onChange }: Props) {
 
+  const token = useSelector(selectToken)
 
   const [questionEditing, setQuestionEditing] = useState(false);
 
@@ -42,8 +47,8 @@ export function Question({ savedQuestion, onChange }: Props) {
         }
         alert("questionchange")
         setQuestionEditing(!questionEditing);
-        // changeQuestion()
-        /// onChange() потом включить
+        editQuestion()
+        onChange()
       }
       else {
         setQuestionEditing(!questionEditing);
@@ -53,6 +58,36 @@ export function Question({ savedQuestion, onChange }: Props) {
 
 
 
+  }
+
+
+  const deleteQuestion = async () => {
+    try {
+      const response = await Delete ('questions/' + savedQuestion.id, token)
+      onChange()
+  
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+   
+  }
+
+  const editQuestion = async () => {
+    const data = {
+      new_content: questionText
+    }
+    try {
+      const response = await patch ('questions/' + savedQuestion.id, data, token)
+      onChange()
+  
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+   
   }
 
 
@@ -92,7 +127,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
       </div>
       <div className={styles.group}>
-        <Button text={"Удалить"} onClick={() => null} className={styles.deleteButton} />
+        <Button text={"Удалить"} onClick={deleteQuestion} className={styles.deleteButton} />
 
 
 

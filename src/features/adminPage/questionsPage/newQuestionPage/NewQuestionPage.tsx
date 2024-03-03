@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../../auth/authSlice";
 import { Button } from "../../../../components/button/Button";
 import { FilePicker } from "./filePicker/FilePicker";
-import { readServerError } from "../../../../utils/api";
+import { post, readServerError } from "../../../../utils/api";
 import useAutosizeTextArea from "../../../../app/hooks/useAutoResizeTextArea";
 
 
@@ -21,14 +21,14 @@ export function NewQuestionPage() {
   const token = useSelector(selectToken)
 
 
-  const [questionText, setQuestionText] = useState("");
+  const [questionsText, setQuestionsText] = useState("");
 
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
 
   const getErrorMessage = () => {
-    if (questionText.trim() == "") {
+    if (questionsText.trim() == "") {
       return ("Введите текст вопроса.")
 
     }
@@ -43,19 +43,27 @@ export function NewQuestionPage() {
     if (errorMessage != null) {
       return;
     }
-    // const data = {
-    //   text: ///
-    // }
+    const questions = questionsText.split("\n")
 
-    try {
-      // const response = await post('topics/', data, props.token)
-      // alert(response.text)
+    for (let i = 0; i < questions.length; i++) {
+      const data = {
+        content: questions[i]
+      }
 
+      try {
+        const response = await post('topics/' + topic?.id + "/questions/", data, token)
+
+        setFormSubmitted(false)
+        setQuestionsText("")
+        navigate(-1);
+
+      }
+      catch (error: any) {
+        readServerError(error.response.text)
+        console.log("error:", error)
+      }
     }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
+
 
 
   }
@@ -71,14 +79,14 @@ export function NewQuestionPage() {
       navigate("/admin/questions_page")
     }
     setTopic(state.topic)
-    
+
 
   }, []);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  useAutosizeTextArea(textAreaRef.current, questionText);
-  
+  useAutosizeTextArea(textAreaRef.current, questionsText);
+
   const showSelectedFile = (files: File[]) => {
     let reader = new FileReader();
 
@@ -86,8 +94,8 @@ export function NewQuestionPage() {
     reader.onload = (e: any) => {
       const fileContent = e.target.result;
       // console.log(file);
-      setQuestionText(fileContent)
-      
+      setQuestionsText(fileContent)
+
     };
 
     // reader.onerror = (e) => alert(e.target.error.name);
@@ -95,9 +103,6 @@ export function NewQuestionPage() {
 
 
   }
-
-
-
   return (
     <div>
       <div className={styles.container}>
@@ -132,9 +137,9 @@ export function NewQuestionPage() {
         </div>
         <div className={styles.addQuestions}>
           <textarea className={styles.textarea} placeholder={"Текст вопроса"}
-            value={questionText} onChange={(event) => setQuestionText(event.target.value)} ref={textAreaRef}/>
+            value={questionsText} onChange={(event) => setQuestionsText(event.target.value)} ref={textAreaRef} />
           <div className={styles.filePicker}>
-            <FilePicker onFilesSelected={showSelectedFile}/>
+            <FilePicker onFilesSelected={showSelectedFile} />
           </div>
 
         </div>
@@ -149,7 +154,7 @@ export function NewQuestionPage() {
         </div>
 
       </div>
-     
+
 
 
     </div>

@@ -9,6 +9,7 @@ import { Button } from "../../../components/button/Button"
 import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
 import { useEffect, useState } from "react"
 import { Topic } from "../../topics/topic/Topic"
+import { isMobile } from 'react-device-detect';
 
 
 type Props = {
@@ -95,10 +96,10 @@ export function ChooseTopic(props: Props) {
     const getStartError = () => {
       if (selectedTopicId == "")
         return "Выберите тему раунда";
-  
-  
+
+
     }
-  
+
     const startError = getStartError();
     // var selectedTopicsIds: string[] = [];
 
@@ -113,19 +114,19 @@ export function ChooseTopic(props: Props) {
     return (
       <div>
         <div className={styles.container}>
-          <div className={styles.ellipse1}>
+          {!isMobile && <div className={styles.ellipse1}>
             <img src={ellipse1} />
 
-          </div>
-          <div className={styles.ellipse2}>
+          </div>}
+          {!isMobile && <div className={styles.ellipse2}>
             <img src={ellipse2} />
 
-          </div>
-          <div className={styles.exit}>
+          </div>}
+          {!isMobile && <div className={styles.exit}>
             <Button text={""} onClick={function (): void {
               throw new Error("Function not implemented.")
             }} className={styles.exitButton} />
-          </div>
+          </div>}
 
           <Players />
 

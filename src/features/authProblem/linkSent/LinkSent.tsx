@@ -6,12 +6,13 @@ import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 
 
 
 export function LinkSent() {
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
   const navigate = useNavigate()
 
   const { state } = useLocation();
@@ -38,10 +39,10 @@ export function LinkSent() {
           <img src={ellipse2} />
 
         </div>}
-        <div className={styles.padlock}>
+        {!isMobile && <div className={styles.padlock}>
           <img src={padlock} />
 
-        </div>
+        </div>}
         <div className={styles.title}>
           Ссылка отправлена
 

@@ -152,3 +152,41 @@
   z-index: 1;
 
 }
+
+
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+  .container {
+    width: 75vw;
+    height: auto;
+    gap:8px;
+    align-items: center;
+    justify-content: center;
+
+
+  }
+  .title {
+    font-size: 20px;
+    line-height: normal;
+
+  }
+  .name {
+    margin: 0px;
+    width: auto;
+    padding: 10px;
+    height: auto;
+
+
+  }
+  .inputSmall::-webkit-input-placeholder {
+    font-size: 10px;
+  }
+  .sendButton {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+
+
+  }
+}

@@ -167,12 +167,23 @@
 
 @media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
   .title {
-    font-size: 20px;
-    line-height: normal;
+    margin-top: 120px;
+
+  }
+  .text {
+    width: auto;
   }
 
-  .text {
-    max-width: 300px;
+  .container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+}
+
+@media (max-height:768px) and (orientation:landscape){ 
+  .container {
+    padding-bottom: 20px;
   }
 
 }
