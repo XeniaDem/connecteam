@@ -4,11 +4,12 @@ import rectangle from "./rectangle.svg"
 import ellipse1 from "./ellipse1.svg"
 import { PackageList } from "../../packageList/PackageList"
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 
 export function Packages() {
 
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
   return (
     <div id = "packages">

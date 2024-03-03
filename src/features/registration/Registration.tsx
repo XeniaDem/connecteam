@@ -13,10 +13,11 @@ import disableScroll from 'disable-scroll';
 import validator from 'validator'
 import { post } from "../../utils/api"
 import { useIsMobile } from "../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 
 export function Registration() {
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
   const navigate = useNavigate()
 
   const [email, setEmail] = useState("")

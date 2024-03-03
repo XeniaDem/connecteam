@@ -10,6 +10,7 @@ import { patch, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import useAutosizeTextArea from "../../../app/hooks/useAutoResizeTextArea"
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 export type Company = {
   name: string;
@@ -30,7 +31,7 @@ type Props = {
 export function CompanyInfo({ savedCompany, token, onChange }: Props) {
 
 
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
   const [name, setName] = useState<undefined | string>('');
   const [website, setWebsite] = useState<undefined | string>('');

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectToken } from "../auth/authSlice"
 import { get, readServerError } from "../../utils/api"
+import {isMobile} from 'react-device-detect';
 
 
 export function CreateGame() {
@@ -134,14 +135,14 @@ export function CreateGame() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
-        </div>
-        <div className={styles.ellipse2}>
+        </div>}
+        {!isMobile && <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
-        </div>
+        </div>}
         <div className={styles.icon}>
           <img src={icon} />
 

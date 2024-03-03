@@ -81,7 +81,7 @@ margin-left: 55px;
   border: 0.5px solid;
   border-image: linear-gradient(90deg, #55C6F7, #2AF8BA) 1;
 }
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
 
   .container {
     height: auto;

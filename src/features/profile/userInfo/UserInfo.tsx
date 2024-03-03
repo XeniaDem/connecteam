@@ -15,6 +15,7 @@ import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
 import { signIn } from "../../auth/authSlice"
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 export type User = {
   name: string;
@@ -34,7 +35,7 @@ type Props = {
 export function UserInfo({ savedUser, token, onChange }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
 
   const [name, setName] = useState("");

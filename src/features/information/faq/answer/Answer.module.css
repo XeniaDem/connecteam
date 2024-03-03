@@ -25,7 +25,7 @@ font-weight: 500;
 line-height: 24.505px; /* 119.444% */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
   .container {
     width: 71vw;
     padding: 12px 21px;

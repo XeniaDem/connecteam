@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
 import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 
 
@@ -30,7 +31,7 @@ type Props = {
 
 export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
   const navigate = useNavigate()
 
 

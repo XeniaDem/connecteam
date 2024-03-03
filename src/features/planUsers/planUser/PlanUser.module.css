@@ -131,7 +131,7 @@ position:relative;
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
 }
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
   .container {
     height: auto;
   }

@@ -174,9 +174,9 @@
   right: 0px;
 
 }
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
   .connecteam {
-    margin-top: 56px;
+    margin-top: 120px;
 
 
   }
@@ -184,4 +184,11 @@
     height: auto;
     min-height: 100vh;
   }
+}
+
+@media (max-height:768px) and (orientation:landscape){ 
+  .container {
+    padding-bottom: 20px;
+  }
+
 }

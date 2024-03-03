@@ -3,6 +3,7 @@ import styles from "./RemoveUserPopup.module.css"
 import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { PlanUserModel } from "../planUser/PlanUser";
+import {isMobile} from 'react-device-detect';
 
 
 
@@ -29,12 +30,12 @@ export function RemoveUserPopup(props: Props) {
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
           <div className={styles.body}>
-            <div className={styles.ellipse1}>
+            {!isMobile && <div className={styles.ellipse1}>
               <img src={ellipse1} />
-            </div>
-            <div className={styles.ellipse2}>
+            </div>}
+            {!isMobile && <div className={styles.ellipse2}>
               <img src={ellipse2} />
-            </div>
+            </div>}
 
             <div className={styles.text}>
               Вы точно хотите удалить пользователя <br /> {props.planUser.name} из участников пакета?

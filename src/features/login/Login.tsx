@@ -13,13 +13,14 @@ import { useDispatch } from "react-redux"
 import { Access, signIn } from "../auth/authSlice"
 import { post } from "../../utils/api"
 import { useIsMobile } from "../../app/hooks/useIsMobile"
+import {isMobile} from 'react-device-detect';
 
 
 export function Login() {
 
   const navigate = useNavigate()
 
-  const isMobile = useIsMobile()
+  // const isMobile = useIsMobile()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")

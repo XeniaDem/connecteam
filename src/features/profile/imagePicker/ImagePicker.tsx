@@ -11,6 +11,7 @@ import {
 import { useState } from 'react';
 import { useIsMobile } from '../../../app/hooks/useIsMobile';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import {isMobile} from 'react-device-detect';
 
 
 
@@ -19,7 +20,7 @@ type Props = {
 }
 
 export function ImagePicker(props: Props) {
-    const isMobile = useIsMobile()
+    // const isMobile = useIsMobile()
 
 
     const { openFilePicker, filesContent, loading, errors } = useFilePicker({
