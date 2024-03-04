@@ -9,10 +9,8 @@ import { Button } from "../../../components/button/Button"
 import { Plan } from "../../profile/packageInfo/PackageInfo"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { selectToken } from "../../auth/authSlice"
-import { useSelector } from "react-redux"
-import { useIsMobile } from "../../../app/hooks/useIsMobile"
 import {isMobile} from 'react-device-detect';
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 
@@ -31,7 +29,7 @@ type Props = {
 
 export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
-  // const isMobile = useIsMobile()
+  const isSmall = useIsSmall(1110)
   const navigate = useNavigate()
 
 
@@ -62,7 +60,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
     if (planType == "basic") {
       return (
         <div className={styles.container}>
-          {!isMobile && <div className={styles.icon}>
+          {!isMobile && !isSmall && <div className={styles.icon}>
             <img src={icon} />
           </div>}
           <div className={styles.title}>
@@ -96,7 +94,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
       return (
         <div>
           <div className={styles.container}>
-          {!isMobile && <div className={styles.icon}>
+          {!isMobile && !isSmall && <div className={styles.icon}>
             <img src={icon} />
           </div>}
             <div className={styles.title}>
@@ -130,7 +128,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
       return (
         <div>
           <div className={styles.container}>
-          {!isMobile && <div className={styles.icon}>
+          {!isMobile && !isSmall && <div className={styles.icon}>
             <img src={icon} />
           </div>}
             <div className={styles.title}>

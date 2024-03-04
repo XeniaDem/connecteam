@@ -1,6 +1,6 @@
 .container {
   font-family: 'Work Sans Variable', sans-serif;
-  gap: 150px;
+  gap: 90px;
   display: flex;
 
 
@@ -179,4 +179,37 @@
   -webkit-mask-composite: xor;
   /*5'*/
 
+}
+
+@media (max-width: 1250px) {
+  .left {
+    gap:30px;
+
+  }
+  .card {
+    height: auto;
+    width: auto;
+  }
+}
+@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+
+  .title {
+    font-size: 30px;
+    line-height: normal;
+
+  }
+
+  .cardTitle {
+    font-size: 20px;
+    line-height: normal;
+
+  }
+  .cardTitleRight {
+    font-size: 20px;
+    line-height: normal;
+
+  }
+  .text {
+    font-size: 13px;
+  }
 }

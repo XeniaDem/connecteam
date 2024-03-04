@@ -10,8 +10,7 @@ import { selectToken, signIn } from "../auth/authSlice"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
 import { Plan } from "../profile/packageInfo/PackageInfo"
-import { useIsMobile } from "../../app/hooks/useIsMobile"
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 
 type Props = {
@@ -155,9 +154,9 @@ export function Header(props: Props) {
           }} className={styles.authButton} />}
         </div>
         {!isMobile && <Button text={"Выход"} onClick={() => {
-            navigate("/")
-            dispatch(signIn({ token: "", access: "" }))
-          }} className={styles.authButton} />}
+          navigate("/")
+          dispatch(signIn({ token: "", access: "" }))
+        }} className={styles.authButton} />}
 
 
 
@@ -204,17 +203,19 @@ export function Header(props: Props) {
       <HeaderItem text="Как играть" link="#real_games" />
       <HeaderItem text="FAQ" link="#faq" />
       <HeaderItem text="Контакты" link="#contacts" />
-      <div className={styles.headerButton}>
-        <Button text={"Зарегистрироваться"} onClick={() => {
-          navigate("/auth/register")
-        }} />
+      <div className={styles.group}>
+        <div className={styles.headerButton}>
+          <Button text={"Зарегистрироваться"} onClick={() => {
+            navigate("/auth/register")
+          }} />
 
-      </div>
-      <div className={styles.login}>
-        <div className={styles.person}>
-          <img src={person} />
         </div>
-        <HeaderItem text="Войти" link="/auth/login" />
+        <div className={styles.login}>
+          <div className={styles.person}>
+            <img src={person} />
+          </div>
+          <HeaderItem text="Войти" link="/auth/login" />
+        </div>
       </div>
 
     </div >

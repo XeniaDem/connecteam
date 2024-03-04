@@ -10,6 +10,7 @@ import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
 import { useEffect, useState } from "react"
 import { Topic } from "../../topics/topic/Topic"
 import { isMobile } from 'react-device-detect';
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 type Props = {
@@ -23,21 +24,22 @@ ChooseTopic.defaultProps = { isCreator: true }
 
 
 export function ChooseTopic(props: Props) {
+  const isSmall = useIsSmall(768)
   if (!props.isCreator) {
     return (
       <div>
         <div className={styles.container}>
-          <div className={styles.ellipse1}>
-            <img src={ellipse1} />
+        {!isMobile && !isSmall && <div className={styles.ellipse1}>
+          <img src={ellipse1} />
 
-          </div>
-          <div className={styles.ellipse2}>
-            <img src={ellipse2} />
+        </div>}
+        {!isMobile && !isSmall && <div className={styles.ellipse2}>
+          <img src={ellipse2} />
 
-          </div>
-          <div className={styles.exit}>
+        </div>}
+          {/* <div className={styles.exit}>
             <img src={exit} />
-          </div>
+          </div> */}
 
           <Players />
           <div className={styles.middle}>
@@ -114,19 +116,19 @@ export function ChooseTopic(props: Props) {
     return (
       <div>
         <div className={styles.container}>
-          {!isMobile && <div className={styles.ellipse1}>
-            <img src={ellipse1} />
+        {!isMobile && !isSmall && <div className={styles.ellipse1}>
+          <img src={ellipse1} />
 
-          </div>}
-          {!isMobile && <div className={styles.ellipse2}>
-            <img src={ellipse2} />
+        </div>}
+        {!isMobile && !isSmall && <div className={styles.ellipse2}>
+          <img src={ellipse2} />
 
-          </div>}
-          {!isMobile && <div className={styles.exit}>
+        </div>}
+          {/* {!isMobile && <div className={styles.exit}>
             <Button text={""} onClick={function (): void {
               throw new Error("Function not implemented.")
             }} className={styles.exitButton} />
-          </div>}
+          </div>} */}
 
           <Players />
 

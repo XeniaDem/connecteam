@@ -5,7 +5,6 @@ import disableScroll from 'disable-scroll';
 import { IconButton } from "@mui/material"
 import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 import { RemoveUserPopup } from "../removeUserPopup/RemoveUserPopup";
-import { useIsMobile } from "../../../app/hooks/useIsMobile";
 import {isMobile} from 'react-device-detect';
 
 

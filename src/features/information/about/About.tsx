@@ -1,5 +1,3 @@
-
-import { useIsMobile } from "../../../app/hooks/useIsMobile"
 import styles from "./About.module.css"
 import photo from "./photo.svg"
 import rectangle from "./rectangle.svg"

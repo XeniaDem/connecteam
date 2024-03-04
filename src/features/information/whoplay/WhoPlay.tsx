@@ -8,11 +8,12 @@ import logo5 from "./logo5.svg"
 import vector from "./vector.svg"
 import ellipse from "./ellipse.svg"
 import pentagon from "./pentagon.svg"
-import { useIsMobile } from "../../../app/hooks/useIsMobile"
 import {isMobile} from 'react-device-detect';
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 export function WhoPlay() {
-  // const isMobile = useIsMobile();
+  const isSmall = useIsSmall(768);
+
 
 
   return (
@@ -22,7 +23,7 @@ export function WhoPlay() {
       </div>
       <div className={styles.line}>
 
-        {!isMobile &&
+        {!isMobile && 
           <div>
             <div className={styles.vector}>
               <img src={vector} />
@@ -42,7 +43,7 @@ export function WhoPlay() {
           <div className={styles.who}>
             Собственники бизнеса
           </div>
-          {!isMobile && <div className={styles.text}>
+          {!isMobile && !isSmall && <div className={styles.text}>
             Чтобы понимать, кто работает в их компании и дает результат
           </div>}
         </div>
@@ -53,7 +54,7 @@ export function WhoPlay() {
           <div className={styles.who}>
             Руководители
           </div>
-          {!isMobile && <div className={styles.text}>
+          {!isMobile && !isSmall && <div className={styles.text}>
             Чтобы понимать, как выстраивать взаимодействие внутри отдела
           </div>}
         </div>
@@ -64,7 +65,7 @@ export function WhoPlay() {
           <div className={styles.who}>
             Новые сотрудники
           </div>
-          {!isMobile && <div className={styles.text}>
+          {!isMobile && !isSmall && <div className={styles.text}>
             Чтобы быстрее влиться в коллектив и адаптироваться в нем
           </div>}
         </div>
@@ -75,7 +76,7 @@ export function WhoPlay() {
           <div className={styles.who}>
             Между отделами
           </div>
-          {!isMobile && <div className={styles.text}>
+          {!isMobile && !isSmall && <div className={styles.text}>
             Чтобы улучшить понимание и взаимодействие
           </div>}
         </div>
@@ -86,7 +87,7 @@ export function WhoPlay() {
           <div className={styles.who}>
             Сотрудники отдела
           </div>
-          {!isMobile &&<div className={styles.text}>
+          {!isMobile && !isSmall && <div className={styles.text}>
             Чтобы получить больше информации друг о друге и укрепить связи
           </div>}
         </div>

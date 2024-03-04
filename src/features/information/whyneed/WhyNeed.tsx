@@ -1,5 +1,4 @@
-
-import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import { useIsSmall } from "../../../app/hooks/useIsSmall";
 import styles from "./WhyNeed.module.css"
 import arrow1 from "./arrow1.svg"
 import arrow2 from "./arrow2.svg"
@@ -8,7 +7,8 @@ import {isMobile} from 'react-device-detect';
 
 export function WhyNeed() {
   // const isMobile = useIsMobile()
-  if (isMobile) {
+  const isSmall = useIsSmall(1130);
+  if (isMobile || isSmall) {
     return (
       <div>
         <div className={styles.title}>

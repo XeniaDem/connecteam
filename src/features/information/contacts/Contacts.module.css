@@ -5,6 +5,7 @@
   height: 250px;
   padding: 50px;
   justify-content: space-between;
+  flex-wrap: wrap;
 
 }
 

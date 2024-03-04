@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
 import { post } from "../../utils/api"
-import { useIsMobile } from "../../app/hooks/useIsMobile"
 import {isMobile} from 'react-device-detect';
 
 

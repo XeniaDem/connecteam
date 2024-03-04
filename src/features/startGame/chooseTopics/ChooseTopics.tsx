@@ -12,6 +12,7 @@ import { useSelector } from "react-redux"
 import { get, readServerError } from "../../../utils/api"
 import { useNavigate } from "react-router-dom"
 import {isMobile} from 'react-device-detect';
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 
@@ -20,6 +21,7 @@ export function ChooseTopics() {
 
   const token = useSelector(selectToken)
   const navigate = useNavigate()
+  const isSmall = useIsSmall(768)
 
 
 
@@ -136,19 +138,19 @@ export function ChooseTopics() {
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && <div className={styles.ellipse1}>
+        {!isMobile && !isSmall && <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
         </div>}
-        {!isMobile && <div className={styles.ellipse2}>
+        {!isMobile && !isSmall && <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
         </div>}
-        {!isMobile && <div className={styles.exit}>
+        {/* {!isMobile && <div className={styles.exit}>
           <Button text={""} onClick={function (): void {
             throw new Error("Function not implemented.")
           }} className={styles.exitButton} />
-        </div>}
+        </div>} */}
 
         <Players />
 

@@ -70,6 +70,8 @@
   padding-right: 172px;
   justify-content: space-between;
   margin-top: 56px;
+  flex-wrap: wrap;
+  gap:10px;
 
 }
 
@@ -122,6 +124,7 @@
   border-radius: 39.336px;
   box-sizing: border-box;
   z-index: 1;
+  min-height: 53px;
 }
 
 
@@ -170,6 +173,7 @@
     height: 40px;
     width: 200px;
     margin-top: 10px;
+    min-height: auto;
   }
 
   .down {

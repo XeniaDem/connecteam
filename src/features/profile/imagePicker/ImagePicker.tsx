@@ -9,7 +9,6 @@ import {
     ImageDimensionsValidator,
 } from 'use-file-picker/validators';
 import { useState } from 'react';
-import { useIsMobile } from '../../../app/hooks/useIsMobile';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import {isMobile} from 'react-device-detect';
 

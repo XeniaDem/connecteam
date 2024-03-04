@@ -6,12 +6,13 @@ import element from "./element.svg"
 import star from "./star.svg"
 import line from "./line.svg"
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import { useIsMobile } from "../../../app/hooks/useIsMobile"
+
 import {isMobile} from 'react-device-detect';
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 export function Introduction() {
-  // const isMobile = useIsMobile()
+  const isSmall = useIsSmall(1392)
 
 
   const start = () => {
@@ -20,7 +21,7 @@ export function Introduction() {
 
   }
 
-  console.log(isMobile)
+  console.log(isSmall)
 
   return (
     <div className={styles.container}>
@@ -64,7 +65,7 @@ export function Introduction() {
         </div>
       </div>
 
-      {!isMobile && (<div className={styles.element}>
+      {!isMobile && !isSmall && (<div className={styles.element}>
         <img src={element} />
         <div className={styles.star}>
           <img src={star} />

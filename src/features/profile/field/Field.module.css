@@ -174,7 +174,7 @@
   width: 0;
 }
 
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 821px) and (orientation:portrait) , (max-height:821px) and (orientation:landscape){
   .input {
     width: auto;
     height: 30px;

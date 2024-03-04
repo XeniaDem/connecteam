@@ -8,7 +8,6 @@ import { Button } from "../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
 import disableScroll from 'disable-scroll';
 import { InvitePopup } from "./InvitePopup/InvitePopup"
-import { useIsMobile } from "../../app/hooks/useIsMobile"
 import {isMobile} from 'react-device-detect';
 
 

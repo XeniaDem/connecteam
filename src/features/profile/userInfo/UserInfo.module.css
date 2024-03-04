@@ -9,7 +9,7 @@
 
   position: relative;
   margin-top: 30px;
-  gap: 60px;
+  /* gap: 60px; */
 
   padding-bottom: 50px;
  
@@ -178,10 +178,14 @@ margin-top: -57px;
   top: 0px;
   left: -50px;
 }
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 821px) and (orientation:portrait) , (max-height:821px) and (orientation:landscape){
+  .container {
+    padding-right: 20px;
+  }
   .title {
     font-size: 30px;
     line-height: normal;
+    margin-top: 10px;
 
   }
   .right {

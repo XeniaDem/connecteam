@@ -3,14 +3,15 @@
   align-items: center;
 
   justify-content: space-between;
-  gap: 87px;
+  /* gap: 87px; */
+  gap: 10px;
   min-height: 102px;
   border-radius: 0px 0px 20px 20px;
   box-shadow: 0px 4px 13.2px 0px rgba(0, 0, 0, 0.25);
-  padding-left: 54px;
-  padding-right: 54px;
+  padding: 0px 54px;
   background-color: #171717;
   z-index: 1;
+  flex-wrap: wrap;
 
 
 
@@ -19,8 +20,10 @@
 
 .group {
   display: flex;
-  gap: 60px;
+  /* gap: 60px; */
+  gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
 
 }
 
@@ -45,7 +48,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: 22.375px; /* 139.844% */
-  margin-left: 350px;
+  /* margin-left: 350px; */
 }
 
 .authButton {
@@ -82,8 +85,7 @@ line-height: 28px; /* 175% */
   .container {
     flex-wrap: wrap;
     gap: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0px 20px;
   }
   .headerButton {
     margin-left: 0px;

@@ -1,5 +1,4 @@
-
-import { useIsMobile } from "../../../app/hooks/useIsMobile"
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 import { Button } from "../../../components/button/Button"
 import styles from "./KnowMore.module.css"
 import at from "./at.svg"
@@ -9,11 +8,11 @@ import {isMobile} from 'react-device-detect';
 
 export function KnowMore() {
 
-  // const isMobile = useIsMobile()
+  const isSmall = useIsSmall(1130)
   return (
     <div>
       <div className={styles.container}>
-        { !isMobile && <div className={styles.at}>
+        {!isMobile && !isSmall && <div className={styles.at}>
           <img src={at} />
         </div>}
         <div className={styles.ellipse1}>

@@ -63,9 +63,6 @@ export function NewQuestionPage() {
         console.log("error:", error)
       }
     }
-
-
-
   }
 
 

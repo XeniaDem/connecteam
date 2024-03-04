@@ -95,7 +95,7 @@ line-height: 32.132px; /* 229.09% */
   bottom: 0px;
   left: -80px;
 }
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 821px) and (orientation:portrait) , (max-height:821px) and (orientation:landscape){
   .container {
     padding-bottom: 10px;
 

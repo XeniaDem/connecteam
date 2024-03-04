@@ -40,25 +40,10 @@ export function QuestionsPage() {
 
     const topicModels = [];
     for (let i = 0; i < topicsNum; i++) {
-      // fetchQuestions(messageParsed.data[i].id)
-
-      // const questionsNum = 5 // (messageParsed.data[i].length);
-      // const questionModels = [];
-      // for (let j = 0; j < questionsNum; j++) {
-      //   const questionModel = {
-      //     number: j + 1,
-      //     text: "Как составлять расписание?", //messageParsed.data[i].questions[j].text
-
-      //   }
-      //   questionModels.push(questionModel)
-      // }
 
       const topicModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].title,
-        questions: undefined,
-
-
       }
       topicModels.push(topicModel)
 
@@ -85,41 +70,6 @@ export function QuestionsPage() {
 
   }
 
-  // const [questions, setQuestions] = useState<QuestionModel[] | undefined>(undefined)
-  // const readQuestions = (message: any) => {
-  //   const messageParsed = JSON.parse(message);
-
-  //   if (messageParsed.data == null) {
-  //     return undefined;
-  //   }
-  //   const questionsNum = messageParsed.data.length;
-  //   const questionModels = [];
-  //   for (let j = 0; j < questionsNum; j++) {
-  //     const questionModel = {
-  //       number: j + 1,
-  //       text: messageParsed.data[j].content
-
-  //     }
-  //     questionModels.push(questionModel)
-  //   }
-  //   setQuestions(questionModels);
-
-
-  // }
-  // const fetchQuestions = async (topicId: number) => {
-  //   try {
-  //     const response = await get('topics/' + topicId + "/questions/", token)
-  //     readQuestions(response.text)
-
-  //   }
-  //   catch (error: any) {
-  //     readServerError(error.response.text)
-  //     console.log("error:", error)
-  //   }
-  //   return null;
-
-
-  // }
   const [newTopicOpen, setNewTopicOpen] = useState(false)
 
   const openNewTopicPopup = () => {

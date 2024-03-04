@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 
 export type TopicModel = {
   name: string;
-  // questions?: QuestionModel[];
   id: string;
 
 

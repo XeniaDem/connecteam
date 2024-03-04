@@ -1,5 +1,3 @@
-
-import { useIsMobile } from "../../app/hooks/useIsMobile"
 import styles from "./Information.module.css"
 import { About } from "./about/About"
 import { BecomeMember } from "./becomeMember/BecomeMember"

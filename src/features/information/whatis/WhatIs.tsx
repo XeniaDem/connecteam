@@ -10,9 +10,13 @@ import connecteam from "./connecteam.svg"
 import person from "./person.svg"
 import question from "./question.svg"
 import flag from "./flag.svg"
+import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 export function WhatIs() {
+  const isSmall = useIsSmall(1250)
+
+
 
 
   return (
@@ -62,6 +66,55 @@ export function WhatIs() {
               </div>
             </div>
           </div>
+
+          {isSmall && <div className={styles.card}>
+            <div className={styles.cardLeft}>
+              <div className={styles.cardTitleRight}>
+                Зачем
+              </div>
+              <div className={styles.line2}>
+                <img src={line1} />
+              </div>
+              <div className={styles.textBox}>
+                <div className={styles.tick}>
+                  <img src={tick} />
+                </div >
+                <div className={styles.text}>
+                  Ускорение адаптации нового сотрудника в коллективе
+                </div>
+              </div>
+              <div className={styles.textBox}>
+                <div className={styles.tick}>
+                  <img src={tick} />
+                </div>
+                <div className={styles.text}>
+                  Формирование понимания о ценностях нового сотрудника, его жизненных принципах, целях, задачах, увлечениях и приоритетах
+
+
+                </div>
+              </div>
+              <div className={styles.textBox}>
+                <div className={styles.tick}>
+                  <img src={tick} />
+                </div>
+                <div className={styles.text}>
+                  Экономия ресурсов, снижение рисков неоправданных ожиданий
+
+
+                </div>
+              </div>
+            </div>
+            <div className={styles.cardRight}>
+              <div className={styles.icon}>
+                <img src={question} />
+              </div>
+
+            </div>
+
+          </div>}
+
+
+
           <div className={styles.card}>
             <div className={styles.cardLeft}>
               <div className={styles.icon}>
@@ -154,19 +207,19 @@ export function WhatIs() {
           </div>
         </div>
 
-        <div className={styles.middle}>
+        {!isSmall && <div className={styles.middle}>
           <div className={styles.rectangle}>
-                <img src={rectangle1} />
-                <img src={rectangle2} />
-                <img src={rectangle3} />
+            <img src={rectangle1} />
+            <img src={rectangle2} />
+            <img src={rectangle3} />
           </div>
 
-        </div>
+        </div>}
 
-        <div className={styles.right}>
+        {!isSmall && <div className={styles.right}>
           <div className={styles.card}>
-          <div className={styles.cardLeft}>
-          <div className={styles.cardTitleRight}>
+            <div className={styles.cardLeft}>
+              <div className={styles.cardTitleRight}>
                 Зачем
               </div>
               <div className={styles.line2}>
@@ -177,7 +230,7 @@ export function WhatIs() {
                   <img src={tick} />
                 </div >
                 <div className={styles.text}>
-                Ускорение адаптации нового сотрудника в коллективе
+                  Ускорение адаптации нового сотрудника в коллективе
                 </div>
               </div>
               <div className={styles.textBox}>
@@ -185,7 +238,7 @@ export function WhatIs() {
                   <img src={tick} />
                 </div>
                 <div className={styles.text}>
-                Формирование понимания о ценностях нового сотрудника, его жизненных принципах, целях, задачах, увлечениях и приоритетах
+                  Формирование понимания о ценностях нового сотрудника, его жизненных принципах, целях, задачах, увлечениях и приоритетах
 
 
                 </div>
@@ -195,21 +248,21 @@ export function WhatIs() {
                   <img src={tick} />
                 </div>
                 <div className={styles.text}>
-                Экономия ресурсов, снижение рисков неоправданных ожиданий
+                  Экономия ресурсов, снижение рисков неоправданных ожиданий
 
 
                 </div>
               </div>
             </div>
             <div className={styles.cardRight}>
-            <div className={styles.icon}>
+              <div className={styles.icon}>
                 <img src={question} />
               </div>
 
             </div>
 
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   )

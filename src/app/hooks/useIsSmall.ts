@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-const getIsMobile = () => window.screen.width <= 768;
-
-export function useIsMobile() {
 
 
-    const [isMobile, setIsMobile] = useState(getIsMobile());
+export function useIsSmall(border: number) {
+    const getIsSmall = () => window.innerWidth <= border;
+
+
+    const [isSmall, setIsSmall] = useState(getIsSmall());
 
     useEffect(() => {
         const onResize = () => {
-            setIsMobile(getIsMobile());
+            setIsSmall(getIsSmall());
         }
 
         window.addEventListener("resize", onResize);
@@ -18,5 +19,5 @@ export function useIsMobile() {
         }
     }, []);
     
-    return isMobile;
+    return isSmall;
 }

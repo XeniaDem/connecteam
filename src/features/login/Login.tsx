@@ -12,7 +12,6 @@ import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/E
 import { useDispatch } from "react-redux"
 import { Access, signIn } from "../auth/authSlice"
 import { post } from "../../utils/api"
-import { useIsMobile } from "../../app/hooks/useIsMobile"
 import {isMobile} from 'react-device-detect';
 
 

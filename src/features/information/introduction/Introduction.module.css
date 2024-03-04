@@ -22,19 +22,13 @@
   position: absolute;
   top: 75px;
   left: 0px;
-  width: 252px;
-  height: 250px;
-  flex-shrink: 0;
 }
 
 .ellipse2 {
   position: absolute;
   top: 400px;
-  right: 203px;
-  width: 335.763px;
-  height: 333.098px;
+  right: 0px;
 
-  flex-shrink: 0;
 }
 
 .left {
@@ -197,6 +191,14 @@
     line-height: normal;
 
   }
+  .ellipse1 {
+    top: -70px;
+    left: -33px;
+  }
+  /* .ellipse2 {
+    top: 270px;
+    right: 0px;
+  } */
 
 
 
