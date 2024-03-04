@@ -11,11 +11,12 @@
 
 .container {
   font-family: 'Work Sans Variable', sans-serif;
-  height: 82px;
+  min-height: 82px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 
 }
 

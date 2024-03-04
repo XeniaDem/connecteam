@@ -1,6 +1,6 @@
 .container {
   font-family: 'Work Sans Variable', sans-serif;
-  height: 50px;
+  min-height: 50px;
 
   display: flex;
   justify-content: space-between;
@@ -8,6 +8,7 @@
 
   padding-left: 15px;
   padding-right: 15px;
+  flex-wrap: wrap;
 
 
 
@@ -21,7 +22,7 @@
 
 .group {
   display: flex;
-  gap: 80px;
+  /* gap: 80px; */
 
   align-items: center;
 
@@ -45,26 +46,31 @@
   color: #FFF;
   border: none;
   background: none;
+  width: 86px;
 }
 
 .text {
+  margin-top: 23px;
+  font-family: 'Work Sans Variable', sans-serif;
   font-size: 20px;
   font-weight: 500;
-  line-height: 35px;
   letter-spacing: -0.05em;
 
 
   color: #FFF;
   border: none;
   background: none;
-  min-width: 400px;
+  resize: none;
+  /* padding-left: 18px;
+  padding-right: 18px; */
+  width: 700px;
 
 }
 
 .textActive {
+  font-family: 'Work Sans Variable', sans-serif;
   font-size: 20px;
   font-weight: 500;
-  line-height: 35px;
   letter-spacing: -0.05em;
   display: flex;
   align-items: center;
@@ -76,8 +82,10 @@
   border: 1px solid #55C6F7;
   caret-color: #FFF;
   border-radius: 60px;
-  padding: 5px 25px;
-  min-width: 400px;
+  resize: none;
+  padding-left: 18px;
+  padding-right: 18px;
+  width: 700px;
 
 }
 
@@ -93,6 +101,7 @@
   border: none;
   background: none;
   z-index: 1;
+  padding: 0px;
 
 
 }

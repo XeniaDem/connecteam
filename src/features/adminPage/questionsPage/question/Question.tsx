@@ -63,15 +63,15 @@ export function Question({ savedQuestion, onChange }: Props) {
 
   const deleteQuestion = async () => {
     try {
-      const response = await Delete ('questions/' + savedQuestion.id, token)
+      const response = await Delete('questions/' + savedQuestion.id, token)
       onChange()
-  
+
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-   
+
   }
 
   const editQuestion = async () => {
@@ -79,15 +79,15 @@ export function Question({ savedQuestion, onChange }: Props) {
       new_content: questionText
     }
     try {
-      const response = await patch ('questions/' + savedQuestion.id, data, token)
+      const response = await patch('questions/' + savedQuestion.id, data, token)
       onChange()
-  
+
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-   
+
   }
 
 
@@ -98,9 +98,31 @@ export function Question({ savedQuestion, onChange }: Props) {
   }, [savedQuestion]);
 
 
+  useEffect(() => {
+
+    document.onkeypress = function (event) {
+
+      const e = event || window.event;
+
+      if (e.keyCode == 13) {
+
+        e.preventDefault();
+      }
+
+
+
+    }
+
+  }, []);
+
+
+
+
+
+
+
+
   return (
-
-
     <div className={styles.container}>
 
 
@@ -119,7 +141,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
 
           </IconButton>
-          <input className={!questionEditing ? styles.text : styles.textActive} placeholder={"Текст вопроса"} disabled={!questionEditing}
+          <textarea className={!questionEditing ? styles.text : styles.textActive} placeholder={"Текст вопроса"} disabled={!questionEditing}
             value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
 
 
