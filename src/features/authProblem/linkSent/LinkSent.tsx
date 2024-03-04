@@ -5,7 +5,6 @@ import ellipse1 from "../ellipse1.svg"
 import ellipse2 from "../ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useIsMobile } from "../../../app/hooks/useIsSmall"
 import {isMobile} from 'react-device-detect';
 
 

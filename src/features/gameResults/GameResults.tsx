@@ -9,6 +9,8 @@ import { Result } from "./result/Result"
 import { DetailedResult, DetailedResultModel } from "./detailedResult/DetailedResult"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import GroupsIcon from '@mui/icons-material/Groups';
+import { isMobile, isTablet } from "react-device-detect"
 
 
 type Props = {
@@ -18,7 +20,7 @@ type Props = {
   isCreator: boolean;
 }
 
-GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
+GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: false}
 
 export function GameResults(props: Props) {
 
@@ -37,7 +39,7 @@ export function GameResults(props: Props) {
     //   return;
     // }
 
-    const detailedResultsNum = 5; // messageParsed.data.length;
+    const detailedResultsNum = 10; // messageParsed.data.length;
 
 
     const detailedResultsModels = [];
@@ -125,9 +127,9 @@ export function GameResults(props: Props) {
             <stop offset={1} stopColor="#2AF8BA" />
           </linearGradient>
         </svg>
-        <div className={styles.ellipse1}>
+        {!isMobile && <div className={styles.ellipse1}>
           <img src={ellipse1} />
-        </div>
+        </div>}
         <div className={styles.ellipse2}>
           <img src={ellipse2} />
         </div>
@@ -143,7 +145,7 @@ export function GameResults(props: Props) {
         <div className={styles.middle}>
           <div className={styles.playersContainer}>
             <div className={styles.icon}>
-              <img src={players} />
+              {(!isMobile) ? <img src={players} /> : <GroupsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> }
             </div>
             <div className={styles.playerList}>
               <div className={styles.subtitle}>

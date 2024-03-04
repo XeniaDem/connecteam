@@ -10,7 +10,8 @@ import {
 } from 'use-file-picker/validators';
 import { useState } from 'react';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import {isMobile} from 'react-device-detect';
+import {isMobile, isTablet} from 'react-device-detect';
+import { useIsSmall } from '../../../app/hooks/useIsSmall';
 
 
 
@@ -20,6 +21,7 @@ type Props = {
 
 export function ImagePicker(props: Props) {
     // const isMobile = useIsMobile()
+    const isSmall = useIsSmall(821)
 
 
     const { openFilePicker, filesContent, loading, errors } = useFilePicker({
@@ -52,6 +54,7 @@ export function ImagePicker(props: Props) {
         return <div>Error...</div>;
     }
 
+    console.log(isTablet)
     return (
 
         <div>
@@ -59,8 +62,8 @@ export function ImagePicker(props: Props) {
             <div className={styles.container}>
 
                 <div className={styles.photo}>
-                    {!isMobile && <img src={photo == "" ? defaultPhoto : photo} />}
-                    {isMobile &&  (photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={photo} />}
+                    {(!isMobile && !isSmall) && <img src={photo == "" ? defaultPhoto : photo} />}
+                    {(isMobile || isSmall) &&  ((photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={photo} />)}
                     
 
                 </div>

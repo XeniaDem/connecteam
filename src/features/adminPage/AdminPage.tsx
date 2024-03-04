@@ -4,16 +4,19 @@ import icon from "./icon.svg"
 import users from "./users.svg"
 import questions from "./questions.svg"
 import { useNavigate } from "react-router-dom"
+import { useIsSmall } from "../../app/hooks/useIsSmall"
+import { isMobile } from "react-device-detect"
 
 
 export function AdminPage() {
   const navigate = useNavigate()
+  const isSmall = useIsSmall(1110)
 
   return (
     <div className={styles.container}>
-      <div className={styles.icon}>
+      {!isMobile && !isSmall && <div className={styles.icon}>
         <img src={icon} />
-      </div>
+      </div>}
       <div className={styles.title}>
         Приветствуем Вас на <br /> странице администратора!
       </div>

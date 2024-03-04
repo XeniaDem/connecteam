@@ -8,12 +8,11 @@ import logo5 from "./logo5.svg"
 import vector from "./vector.svg"
 import ellipse from "./ellipse.svg"
 import pentagon from "./pentagon.svg"
-import {isMobile} from 'react-device-detect';
+import {isMobile, isTablet} from 'react-device-detect';
 import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 export function WhoPlay() {
-  const isSmall = useIsSmall(768);
-
+  const isSmall = useIsSmall(767);
 
 
   return (
