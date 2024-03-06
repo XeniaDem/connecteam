@@ -9,8 +9,8 @@ import { Button } from "../../../components/button/Button"
 import { Plan } from "../../profile/packageInfo/PackageInfo"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import {isMobile} from 'react-device-detect';
-import { useIsSmall } from "../../../app/hooks/useIsSmall"
+import { isMobile } from 'react-device-detect';
+import { useGetDimensions } from "../../../app/hooks/useGetDimensions"
 
 
 
@@ -29,14 +29,14 @@ type Props = {
 
 export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
-  const isSmall = useIsSmall(1110)
+  const width = useGetDimensions()[0]
   const navigate = useNavigate()
 
 
   const [planType, setPlanType] = useState<string | undefined>()
   const [expiryDate, setExpiryDate] = useState<string | undefined>()
   const [planAccess, setPlanAccess] = useState<string | undefined>()
-  const [planConfirmed, setPlanConfirmed] = useState<boolean | undefined>()
+  const [planStatus, setPlanStatus] = useState<string | undefined>()
 
 
 
@@ -46,7 +46,8 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
     setPlanType(savedPlan?.planType)
     setExpiryDate(savedPlan?.expiryDate)
     setPlanAccess(savedPlan?.planAccess)
-    setPlanConfirmed(savedPlan?.planConfirmed)
+    setPlanStatus(savedPlan?.status)
+    // alert(savedPlan?.status)
 
 
 
@@ -60,20 +61,22 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
     if (planType == "basic") {
       return (
         <div className={styles.container}>
-          {!isMobile && !isSmall && <div className={styles.icon}>
+          {!isMobile && width > 1110 && <div className={styles.icon}>
             <img src={icon} />
           </div>}
           <div className={styles.title}>
             Добро пожаловать, {name}!
           </div>
           <div className={styles.subtitle}>
-            {planConfirmed ? "Вам доступен пакет:" : "Ваша заявка находится на рассмотрении администратором."}
+            {planStatus == "active" ? "Вам доступен пакет:" : null}
+            {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
+            {planStatus == "expired" ? "Срок действия плана истек." : null}
           </div>
           <div className={styles.package}>
             <BasicPackage />
           </div>
           <div className={styles.footerContainer}>
-            {planConfirmed ? (
+            {planStatus == "active" ? (
               <div className={styles.footer}>
                 Дата истечения срока подписки {expiryDate}
               </div>
@@ -81,9 +84,29 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               null
             )
             }
+            {planStatus == "active" ? (
+              <Button text={"Управлять пакетом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+            ) : (
+              null
+            )
+            }
+            {planStatus == "on_confirm" ? (
+              <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+            ) : (
+              null
+            )
+            }
+            {planStatus == "expired" ? (
+              <Button text={"Продлить"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+            ) : (
+              null
+            )
+            }
 
-            <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
-              onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+
+
+
+
 
 
           </div>
@@ -94,20 +117,22 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
       return (
         <div>
           <div className={styles.container}>
-          {!isMobile && !isSmall && <div className={styles.icon}>
-            <img src={icon} />
-          </div>}
+            {!isMobile && width > 1110 && <div className={styles.icon}>
+              <img src={icon} />
+            </div>}
             <div className={styles.title}>
               Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
-              {planConfirmed ? "Вам доступен пакет:" : "Ваша заявка находится на рассмотрении администратором."}
+              {planStatus == "active" ? "Вам доступен пакет:" : null}
+              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
+              {planStatus == "expired" ? "Срок действия плана истек." : null}
             </div>
             <div className={styles.package}>
               <AdvancedPackage />
             </div>
             <div className={styles.footerContainer}>
-              {planConfirmed ? (
+              {planStatus == "active" ? (
                 <div className={styles.footer}>
                   Дата истечения срока подписки {expiryDate}
                 </div>
@@ -115,8 +140,24 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
                 null
               )
               }
-              <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
-                onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              {planStatus == "active" ? (
+                <Button text={"Управлять пакетом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              ) : (
+                null
+              )
+              }
+              {planStatus == "on_confirm" ? (
+                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              ) : (
+                null
+              )
+              }
+              {planStatus == "expired" ? (
+                <Button text={"Продлить"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              ) : (
+                null
+              )
+              }
 
 
             </div>
@@ -128,21 +169,23 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
       return (
         <div>
           <div className={styles.container}>
-          {!isMobile && !isSmall && <div className={styles.icon}>
-            <img src={icon} />
-          </div>}
+            {!isMobile && width > 1110 && <div className={styles.icon}>
+              <img src={icon} />
+            </div>}
             <div className={styles.title}>
               Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
-              {planConfirmed ? "Вам доступен пакет:" : "Ваша заявка находится на рассмотрении администратором."}
+              {planStatus == "active" ? "Вам доступен пакет:" : null}
+              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
+              {planStatus == "expired" ? "Срок действия плана истек." : null}
             </div>
             <div className={styles.package}>
               <PremiumPackage />
             </div>
 
             <div className={styles.footerContainer}>
-              {planConfirmed ? (
+              {planStatus == "active" ? (
                 <div className={styles.footer}>
                   Дата истечения срока подписки {expiryDate}
                 </div>
@@ -151,8 +194,24 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               )
               }
 
-              <Button text={planConfirmed ? "Управлять пакетом" : "Изменить заявку"}
-                onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              {planStatus == "active" ? (
+                <Button text={"Управлять пакетом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              ) : (
+                null
+              )
+              }
+              {planStatus == "on_confirm" ? (
+                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              ) : (
+                null
+              )
+              }
+              {planStatus == "expired" ? (
+                <Button text={"Продлить"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              ) : (
+                null
+              )
+              }
 
 
             </div>
@@ -176,7 +235,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
           <div className={styles.subtitle}>
             Выберите пакет:
           </div>
-          <PackageList isLogged={true} onChange={onChange}/>
+          <PackageList isLogged={true} onChange={onChange} />
         </div>
 
 

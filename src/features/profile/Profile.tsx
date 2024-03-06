@@ -58,7 +58,7 @@ export function Profile() {
       planType: messageParsed.plan_type,
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
-      planConfirmed: messageParsed.confirmed
+      status: messageParsed.status
 
     }
     setPlanInfo(planInfo);

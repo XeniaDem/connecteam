@@ -165,7 +165,7 @@
 
 }
 
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .title {
     margin-top: 120px;
 
@@ -178,10 +178,16 @@
     height: auto;
     min-height: 100vh;
   }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
+  }
 
 }
 
-@media (max-height:768px) and (orientation:landscape){ 
+@media (max-height:763px) and (orientation:landscape){ 
   .container {
     padding-bottom: 20px;
   }

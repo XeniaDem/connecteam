@@ -20,10 +20,11 @@
 
 .group {
   display: flex;
-  /* gap: 60px; */
-  gap: 20px;
+  gap: 60px;
+  /* gap: 20px; */
   align-items: center;
   flex-wrap: wrap;
+  row-gap: 0px;
 
 }
 
@@ -81,7 +82,7 @@ line-height: 28px; /* 175% */
   gap: 6px;
 }
 
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
     flex-wrap: wrap;
     gap: 10px;

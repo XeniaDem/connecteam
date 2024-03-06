@@ -10,7 +10,6 @@ import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
 import { useEffect, useState } from "react"
 import { Topic } from "../../topics/topic/Topic"
 import { isMobile } from 'react-device-detect';
-import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 type Props = {
@@ -24,19 +23,18 @@ ChooseTopic.defaultProps = { isCreator: true }
 
 
 export function ChooseTopic(props: Props) {
-  const isSmall = useIsSmall(768)
   if (!props.isCreator) {
     return (
       <div>
         <div className={styles.container}>
-        {!isMobile && !isSmall && <div className={styles.ellipse1}>
-          <img src={ellipse1} />
+          <div className={styles.ellipse1}>
+            <img src={ellipse1} />
 
-        </div>}
-        {!isMobile && !isSmall && <div className={styles.ellipse2}>
-          <img src={ellipse2} />
+          </div>
+          <div className={styles.ellipse2}>
+            <img src={ellipse2} />
 
-        </div>}
+          </div>
           {/* <div className={styles.exit}>
             <img src={exit} />
           </div> */}
@@ -116,14 +114,14 @@ export function ChooseTopic(props: Props) {
     return (
       <div>
         <div className={styles.container}>
-        {!isMobile && !isSmall && <div className={styles.ellipse1}>
-          <img src={ellipse1} />
+          <div className={styles.ellipse1}>
+            <img src={ellipse1} />
 
-        </div>}
-        {!isMobile && !isSmall && <div className={styles.ellipse2}>
-          <img src={ellipse2} />
+          </div>
+          <div className={styles.ellipse2}>
+            <img src={ellipse2} />
 
-        </div>}
+          </div>
           {/* {!isMobile && <div className={styles.exit}>
             <Button text={""} onClick={function (): void {
               throw new Error("Function not implemented.")

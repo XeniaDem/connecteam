@@ -73,7 +73,7 @@ align-items: center;
   width: 450px;
 
 }
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .text {
     width: auto;
     font-size: 15px;

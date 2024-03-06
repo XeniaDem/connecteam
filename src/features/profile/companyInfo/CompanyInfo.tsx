@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { patch, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 export type Company = {
@@ -29,7 +29,7 @@ type Props = {
 
 export function CompanyInfo({ savedCompany, token, onChange }: Props) {
 
-  const isSmall = useIsSmall(821)
+  // const isSmall = useIsSmall(821)
 
   const [name, setName] = useState<undefined | string>('');
   const [website, setWebsite] = useState<undefined | string>('');
@@ -106,9 +106,9 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
     <div>
 
       <div className={styles.container}>
-        {!isMobile && !isSmall && <div className={styles.ellipse2}>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
-        </div>}
+        </div>
 
         {!isMobile && <div className={styles.left}>
           <div className={styles.title}>

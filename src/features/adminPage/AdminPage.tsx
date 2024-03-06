@@ -4,17 +4,17 @@ import icon from "./icon.svg"
 import users from "./users.svg"
 import questions from "./questions.svg"
 import { useNavigate } from "react-router-dom"
-import { useIsSmall } from "../../app/hooks/useIsSmall"
 import { isMobile } from "react-device-detect"
+import { useGetDimensions } from "../../app/hooks/useGetDimensions"
 
 
 export function AdminPage() {
   const navigate = useNavigate()
-  const isSmall = useIsSmall(1110)
+  const width = useGetDimensions()[0]
 
   return (
     <div className={styles.container}>
-      {!isMobile && !isSmall && <div className={styles.icon}>
+      {!isMobile && width > 1110 && <div className={styles.icon}>
         <img src={icon} />
       </div>}
       <div className={styles.title}>

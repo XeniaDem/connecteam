@@ -154,7 +154,7 @@
 }
 
 
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
     width: 75vw;
     height: auto;

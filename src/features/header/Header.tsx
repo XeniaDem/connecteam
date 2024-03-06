@@ -39,7 +39,7 @@ export function Header(props: Props) {
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0, 10),
       planAccess: messageParsed.plan_access,
-      planConfirmed: messageParsed.confirmed ////////////
+      status: messageParsed.status ////////////
 
     }
     setPlanInfo(planInfo);
@@ -140,7 +140,7 @@ export function Header(props: Props) {
             navigate("/user_page/profile")
 
           }} selected={location.pathname.startsWith("/user_page/profile")} />
-          {planInfo && planInfo.planConfirmed == true ? (
+          {planInfo && planInfo.status == "active" ? (
             <HeaderItem text="Создать игру" onClick={() => {
               navigate("/user_page/create_game")
             }} selected={location.pathname == "/user_page/create_game"} />

@@ -165,7 +165,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
 
   return (
-    <div className={styles.background}>
+    <div>
 
 
       <div className={styles.container}>

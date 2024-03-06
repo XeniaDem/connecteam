@@ -126,6 +126,9 @@
     padding: 0px;
     font-size: 10px;
   }
+  .ellipse2 {
+    display: none;
+  }
 }
 
 @media (min-width: 821px) and (max-width: 1024px ) and (orientation:portrait) , (min-height: 821px) and (max-height: 1024px ) and (orientation:landscape){

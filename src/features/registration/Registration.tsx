@@ -257,7 +257,7 @@ export function Registration() {
       {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-      {successOpen ? <SuccessPopup /> : null}
+      {successOpen ? <SuccessPopup email = {email} password={password} /> : null}
     </div>
   )
 }

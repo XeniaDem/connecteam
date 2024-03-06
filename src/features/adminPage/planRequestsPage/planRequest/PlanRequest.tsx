@@ -35,7 +35,7 @@ export function PlanRequest({ savedRequest, token, onChange }: Props) {
   const declinePlan = async () => {
     try {
 
-      const response = await Delete('plans/' + savedRequest.id.toString(), token)
+      const response = await Delete('plans/cancel/' + savedRequest.id.toString(), token)
       onChange()
 
 

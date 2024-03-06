@@ -49,11 +49,13 @@ export function UserPage() {
 
   const readPlanInfo = (message: any) => {
     const messageParsed = JSON.parse(message);
+    // alert(JSON.stringify(messageParsed))
     const planInfo = {
       planType: messageParsed.plan_type,
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
-      planConfirmed: messageParsed.confirmed ////////////
+      status: messageParsed.status, ////////////
+      invitationCode: messageParsed.invitation_code
 
     }
     setPlanInfo(planInfo);

@@ -82,14 +82,14 @@ export function PlanRequestsPage() {
 
     const planModels = [];
     for (let i = 0; i < plansNum; i++) {
-      if (messageParsed.data[i].confirmed == true) {
+      if (messageParsed.data[i].status == "active") {
         continue;
       }
       const planModel = {
         planType: messageParsed.data[i].plan_type,
         userId: messageParsed.data[i].user_id,
         expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),
-        confirmed: messageParsed.data[i].confirmed,
+        status: messageParsed.data[i].status,
         duration: messageParsed.data[i].duration
       }
       planModels.push(planModel)
@@ -102,7 +102,7 @@ export function PlanRequestsPage() {
 
   const fetchPlans = async () => {
     try {
-      const response = await get('plans/', token)
+      const response = await get('plans/active', token)
       readPlans(response.text)
       return;
 

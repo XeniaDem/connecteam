@@ -1,4 +1,4 @@
-import { useIsSmall } from "../../../app/hooks/useIsSmall";
+import { useGetDimensions } from "../../../app/hooks/useGetDimensions";
 import styles from "./WhyNeed.module.css"
 import arrow1 from "./arrow1.svg"
 import arrow2 from "./arrow2.svg"
@@ -6,9 +6,8 @@ import rectangle from "./rectangle.svg"
 import {isMobile} from 'react-device-detect';
 
 export function WhyNeed() {
-  // const isMobile = useIsMobile()
-  const isSmall = useIsSmall(1130);
-  if (isMobile || isSmall) {
+  const width = useGetDimensions()[0];
+  if (isMobile || width <= 1130 ) {
     return (
       <div>
         <div className={styles.title}>

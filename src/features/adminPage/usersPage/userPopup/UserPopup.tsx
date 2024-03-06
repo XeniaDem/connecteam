@@ -149,7 +149,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
     setAccess(savedUser.access)
     setPlanType(savedUser.plan?.planType)
-    setExpiryDate(savedUser.plan?.confirmed ? savedUser.plan?.expiryDate : undefined)
+    setExpiryDate(savedUser.plan?.status == "active" ? savedUser.plan?.expiryDate : undefined)
 
   }, [savedUser]);
 

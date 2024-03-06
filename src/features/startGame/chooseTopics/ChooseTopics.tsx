@@ -11,8 +11,7 @@ import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
 import { get, readServerError } from "../../../utils/api"
 import { useNavigate } from "react-router-dom"
-import {isMobile} from 'react-device-detect';
-import { useIsSmall } from "../../../app/hooks/useIsSmall"
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -21,7 +20,6 @@ export function ChooseTopics() {
 
   const token = useSelector(selectToken)
   const navigate = useNavigate()
-  const isSmall = useIsSmall(768)
 
 
 
@@ -58,7 +56,7 @@ export function ChooseTopics() {
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0, 10),
       planAccess: messageParsed.plan_access,
-      planConfirmed: messageParsed.confirmed
+      status: messageParsed.status
 
     }
     setPlanInfo(planInfo);
@@ -138,14 +136,14 @@ export function ChooseTopics() {
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && !isSmall && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
 
-        </div>}
-        {!isMobile && !isSmall && <div className={styles.ellipse2}>
+        </div>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
 
-        </div>}
+        </div>
         {/* {!isMobile && <div className={styles.exit}>
           <Button text={""} onClick={function (): void {
             throw new Error("Function not implemented.")

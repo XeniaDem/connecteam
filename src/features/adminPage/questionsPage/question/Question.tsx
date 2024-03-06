@@ -7,6 +7,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { Delete, patch, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../auth/authSlice";
+import { useGetDimensions } from "../../../../app/hooks/useGetDimensions";
 
 
 
@@ -28,6 +29,7 @@ type Props = {
 export function Question({ savedQuestion, onChange }: Props) {
 
   const token = useSelector(selectToken)
+  const width = useGetDimensions()[0]
 
   const [questionEditing, setQuestionEditing] = useState(false);
 
@@ -117,6 +119,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
 
 
+  console.log(width)
 
 
 
@@ -142,7 +145,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
           </IconButton>
           <textarea className={!questionEditing ? styles.text : styles.textActive} placeholder={"Текст вопроса"} disabled={!questionEditing}
-            value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} />
+            value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} style={ width > 748 ? {width: 0.7 * width} : {width: 350}} />
 
 
         </div>

@@ -100,7 +100,9 @@ export function UsersPage() {
   const readPlans = (message: any) => {
 
 
+
     const messageParsed = JSON.parse(message);
+    // alert(JSON.stringify(messageParsed))
     if (messageParsed.data == null) {
       setPlans(null)
       return;
@@ -114,7 +116,7 @@ export function UsersPage() {
         planType: messageParsed.data[i].plan_type,
         userId: messageParsed.data[i].user_id,
         expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),
-        confirmed: messageParsed.data[i].confirmed,
+        status: messageParsed.data[i].status,
       }
       planModels.push(planModel)
 
@@ -123,10 +125,11 @@ export function UsersPage() {
     // setUsersFetched(true)
 
   }
+  
 
   const fetchPlans = async () => {
     try {
-      const response = await get('plans/', token)
+      const response = await get('plans/active', token)
       readPlans(response.text)
       return;
 

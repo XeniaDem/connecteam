@@ -120,7 +120,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                 Простой
               </div>
               <div className={styles.subtitle}>
-                {planInfo && planInfo.planConfirmed ? "" : "Ваша заявка находится на рассмотрении администратором."}
+                {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
               </div>
             </div>
           ) : (
@@ -169,7 +169,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
           {basicActive ? (
             <div className={styles.down}>
 
-              {planInfo?.planConfirmed ? (
+              {planInfo?.status == "active" ? (
                 <div>
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
@@ -206,7 +206,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                 Расширенный
               </div>
               <div className={styles.subtitle}>
-                {planInfo && planInfo.planConfirmed ? "" : "Ваша заявка находится на рассмотрении администратором."}
+                {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
               </div>
             </div>
 
@@ -264,7 +264,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
           {advancedActive ? (
             <div className={styles.down}>
 
-              {planInfo?.planConfirmed ? (
+              {planInfo?.status == "active" ? (
                 <div>
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
@@ -298,7 +298,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                 Широкий
               </div>
               <div className={styles.subtitle}>
-                {planInfo && planInfo.planConfirmed ? "" : "Ваша заявка находится на рассмотрении администратором."}
+                {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
               </div>
             </div>
           ) : (
@@ -362,7 +362,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
 
           {premiumActive ? (
             <div className={styles.down}>
-              {planInfo?.planConfirmed ? (
+              {planInfo?.status == "active" ? (
                 <div >
 
                   <div className={styles.expiry}>

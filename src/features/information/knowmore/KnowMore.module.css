@@ -147,7 +147,7 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
     height: auto;
     flex-direction: column;
@@ -191,6 +191,12 @@
 
   .up {
     justify-content: center;
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
   }
 
 }

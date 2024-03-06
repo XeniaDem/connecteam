@@ -14,7 +14,7 @@ export type PlanModel = {
   userId: string;
   planType: string;
   expiryDate: string;
-  confirmed: string;
+  status: string;
   duration?: string;
 
 
@@ -103,7 +103,7 @@ export function User({ savedUser, onChange}: Props) {
 
 
   return (
-    <div className={styles.background}>
+    <div>
 
 
       <div className={styles.container}>
@@ -150,7 +150,7 @@ export function User({ savedUser, onChange}: Props) {
 
             {(access == "user" && plan) ? (
               <div className={styles.status}>
-                {plan?.confirmed ? <CheckCircleIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                {plan?.status == "active" ? <CheckCircleIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
                   : <ErrorIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />}
               </div>
             ) : (
@@ -160,7 +160,7 @@ export function User({ savedUser, onChange}: Props) {
 
           </div>
           <div className={styles.expiryDate}>
-            {plan?.confirmed ? "до " + new Date(plan.expiryDate).toLocaleDateString()
+            {plan?.status == "active" ? "до " + new Date(plan.expiryDate).toLocaleDateString()
               : <div className={styles.expiryDate} />}
           </div>
 

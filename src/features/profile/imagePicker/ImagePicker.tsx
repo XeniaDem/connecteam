@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import {isMobile, isTablet} from 'react-device-detect';
-import { useIsSmall } from '../../../app/hooks/useIsSmall';
+import { useGetDimensions } from '../../../app/hooks/useGetDimensions';
 
 
 
@@ -21,7 +21,8 @@ type Props = {
 
 export function ImagePicker(props: Props) {
     // const isMobile = useIsMobile()
-    const isSmall = useIsSmall(821)
+
+    const width = useGetDimensions()[0]
 
 
     const { openFilePicker, filesContent, loading, errors } = useFilePicker({
@@ -62,8 +63,8 @@ export function ImagePicker(props: Props) {
             <div className={styles.container}>
 
                 <div className={styles.photo}>
-                    {(!isMobile && !isSmall) && <img src={photo == "" ? defaultPhoto : photo} />}
-                    {(isMobile || isSmall) &&  ((photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={photo} />)}
+                    {(!isMobile && width > 821) && <img src={photo == "" ? defaultPhoto : photo} />}
+                    {(isMobile || width <= 821) &&  ((photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={photo} />)}
                     
 
                 </div>

@@ -136,7 +136,7 @@
   line-height: 24.33px;
   /* 162.5% */
 }
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
     padding-bottom: 20px;
   }
@@ -169,6 +169,12 @@
     font-size: 14px;
     padding: 5px;
 
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
   }
 
 }

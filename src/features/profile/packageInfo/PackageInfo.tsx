@@ -11,7 +11,8 @@ export type Plan = {
   planType: string;
   expiryDate: string;
   planAccess: string;
-  planConfirmed: boolean;
+  status: string;
+  invitationCode?: string;
 
 
 }

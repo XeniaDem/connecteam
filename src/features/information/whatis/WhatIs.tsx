@@ -10,11 +10,10 @@ import connecteam from "./connecteam.svg"
 import person from "./person.svg"
 import question from "./question.svg"
 import flag from "./flag.svg"
-import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 export function WhatIs() {
-  const isSmall = useIsSmall(1250)
+
 
 
 
@@ -67,7 +66,7 @@ export function WhatIs() {
             </div>
           </div>
 
-          {isSmall && <div className={styles.card}>
+          {<div className={styles.cardOptional}>
             <div className={styles.cardLeft}>
               <div className={styles.cardTitleRight}>
                 Зачем
@@ -207,7 +206,7 @@ export function WhatIs() {
           </div>
         </div>
 
-        {!isSmall && <div className={styles.middle}>
+        {<div className={styles.middle}>
           <div className={styles.rectangle}>
             <img src={rectangle1} />
             <img src={rectangle2} />
@@ -216,7 +215,7 @@ export function WhatIs() {
 
         </div>}
 
-        {!isSmall && <div className={styles.right}>
+        {<div className={styles.right}>
           <div className={styles.card}>
             <div className={styles.cardLeft}>
               <div className={styles.cardTitleRight}>

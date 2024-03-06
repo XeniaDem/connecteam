@@ -12,7 +12,7 @@ import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 export function Introduction() {
-  const isSmall = useIsSmall(1392)
+  // const isSmall = useIsSmall(1392)
 
 
   const start = () => {
@@ -21,7 +21,6 @@ export function Introduction() {
 
   }
 
-  console.log(isSmall)
 
   return (
     <div className={styles.container}>
@@ -65,7 +64,7 @@ export function Introduction() {
         </div>
       </div>
 
-      {!isMobile && !isSmall && (<div className={styles.element}>
+      {!isMobile && (<div className={styles.element}>
         <img src={element} />
         <div className={styles.star}>
           <img src={star} />

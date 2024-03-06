@@ -165,7 +165,7 @@
   padding-right: 50px;
 }
 
-@media (max-width: 768px) and (orientation:portrait) , (max-height:768px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
 
   .title {
     padding-top: 0px;
@@ -192,6 +192,9 @@
   .logo {
     width: 40px;
     height: 40px;
+  }
+  .text {
+    display: none;
   }
 
 
