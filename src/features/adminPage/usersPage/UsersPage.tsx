@@ -22,13 +22,13 @@ export function UsersPage() {
     for (let i = 0; i < usersNum; i++) {
       var isYou = (messageParsed.data[i].id == id)
       if (plans)
-        var plan = plans?.find((element) => element.userId == messageParsed.data[i].id);
+        var plan = plans?.find((element) => element.userId == messageParsed.data[i].id); ///////////////
       const userModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
         surname: messageParsed.data[i].second_name,
         email: messageParsed.data[i].email,
-        photo: messageParsed.data[i].profile_image, //////////////
+        photo: messageParsed.data[i].profile_image,
         access: messageParsed.data[i].access,
         isYou: isYou,
         plan: plan
@@ -113,6 +113,7 @@ export function UsersPage() {
     const planModels = [];
     for (let i = 0; i < plansNum; i++) {
       const planModel = {
+        id: messageParsed.data[i].id,
         planType: messageParsed.data[i].plan_type,
         userId: messageParsed.data[i].user_id,
         expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),

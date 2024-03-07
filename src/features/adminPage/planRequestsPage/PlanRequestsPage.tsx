@@ -86,6 +86,7 @@ export function PlanRequestsPage() {
         continue;
       }
       const planModel = {
+        id: messageParsed.data[i].id,
         planType: messageParsed.data[i].plan_type,
         userId: messageParsed.data[i].user_id,
         expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),

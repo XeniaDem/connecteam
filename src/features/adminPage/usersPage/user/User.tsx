@@ -11,6 +11,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 export type PlanModel = {
+  id: string,
   userId: string;
   planType: string;
   expiryDate: string;

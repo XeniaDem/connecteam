@@ -35,7 +35,7 @@ export function PlanRequest({ savedRequest, token, onChange }: Props) {
   const declinePlan = async () => {
     try {
 
-      const response = await Delete('plans/cancel/' + savedRequest.id.toString(), token)
+      const response = await Delete('plans/cancel/' + savedRequest.plan.id.toString(), token)
       onChange()
 
 
@@ -52,7 +52,7 @@ export function PlanRequest({ savedRequest, token, onChange }: Props) {
     }
     try {
 
-       const response = await patch('plans/' + savedRequest.id.toString(), data, token)
+       const response = await patch('plans/' + savedRequest.plan.id.toString(), data, token)
        onChange()
 
 
