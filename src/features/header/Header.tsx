@@ -34,6 +34,10 @@ export function Header(props: Props) {
 
 
   const readPlanInfo = (message: any) => {
+    if (message == "") {
+      setPlanInfo(null)
+      return;
+    }
     const messageParsed = JSON.parse(message);
     const planInfo = {
       planType: messageParsed.plan_type,
@@ -117,9 +121,6 @@ export function Header(props: Props) {
 
   if (props.loggedHeader) {
     useEffect(() => {
-      if (token == "") {
-        navigate("/")
-      }
       fetchPlan();
 
     }, []);

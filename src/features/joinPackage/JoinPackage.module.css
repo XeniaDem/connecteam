@@ -1,0 +1,171 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+  box-shadow: 0px 4px 11.2px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4.400000095367432px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 9px;
+  overflow: hidden;
+  background-color: #171717;
+
+
+}
+
+
+.connecteam {
+
+  margin-top: 189px;
+  margin-bottom: 56px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30.728px;
+  font-style: normal;
+  font-weight: 500;
+  /* 143.851% */
+  z-index: 1;
+  color: #FFF;
+  margin-bottom: 56px;
+
+}
+
+.title1 {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+
+
+
+
+
+}
+
+.title2 {
+  -webkit-text-fill-color: #FFF;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+}
+
+
+
+
+.button {
+  width: 285.531px;
+  height: 45.66px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+  box-sizing: border-box;
+  color: #FFF;
+  font-size: 14.026px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32.132px;
+  /* 229.09% */
+  z-index: 1;
+}
+
+.footerContainer {
+  margin-top: 16px;
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+}
+
+.footerItem {
+  color: #8E8E8E;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+}
+
+.footerButton {
+
+  border: none;
+  color: #8E8E8E;
+  background: none;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+  box-sizing: border-box;
+  padding: 0px;
+  text-decoration-line: underline;
+  z-index: 1;
+
+}
+
+.footerButton:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-shadow: none;
+
+}
+
+
+
+
+
+.ellipse1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+}
+
+
+
+.ellipse2 {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+}
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+  .connecteam {
+    margin-top: 120px;
+
+
+  }
+  .container {
+    height: auto;
+    min-height: 100vh;
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
+  }
+}
+
+@media (max-height:763px) and (orientation:landscape){ 
+  .container {
+    padding-bottom: 20px;
+  }
+
+}

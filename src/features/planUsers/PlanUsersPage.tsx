@@ -53,8 +53,14 @@ export function PlanUsersPage() {
 
 
   const fetchPlanUsers = async () => {
+    // alert("kd")
+    // if (invitationCode == "") {
+    //   setFetched(!fetched)
+    //   return;
+    // }
+
     try {
-      const response = await get('users/list', token)
+      const response = await get('plans/members/' + invitationCode, token)
       readPlanUsers(response.text)
       return;
 
@@ -93,19 +99,45 @@ export function PlanUsersPage() {
   }
 
 
+  const [invitationCode, setInvitationCode] = useState("")
 
-
-
-  useEffect(() => {
-
-    fetchPlanUsers()
-  }, [fetched]);
-
-
-  useEffect(() => {
-    if (token == "") {
-      navigate("/")
+  const readPlanInfo = (message: any) => {
+    if (message == "") {
+      navigate("/user_page")
     }
+    const messageParsed = JSON.parse(message);
+    if (messageParsed.plan_type != "premium" || messageParsed.status != "active" || messageParsed.plan_access != "holder") {
+      navigate("/user_page")
+    }
+    setInvitationCode(messageParsed.invitation_code)
+   
+
+  }
+
+  const fetchPlan = async () => {
+    try {
+      const response = await get('plans/current', token)
+      readPlanInfo(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
+  useEffect(() => {
+
+    invitationCode && fetchPlanUsers()
+  }, [invitationCode, fetched]);
+
+
+  useEffect(() => {
+    fetchPlan()
+
 
   }, []);
 
@@ -170,7 +202,7 @@ export function PlanUsersPage() {
 
 
       </div>
-      {inviteUserOpen ? <InvitePopup token={token} closePopup={closeInviteUserPopup} /> : null}
+      {inviteUserOpen ? <InvitePopup token={token} closePopup={closeInviteUserPopup} invitationCode={invitationCode} /> : null}
     </div>
   )
 }

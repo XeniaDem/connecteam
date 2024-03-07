@@ -102,13 +102,6 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               null
             )
             }
-
-
-
-
-
-
-
           </div>
         </div>
       )

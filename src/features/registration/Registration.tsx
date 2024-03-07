@@ -8,7 +8,7 @@ import ellipse1 from "./ellipse1.svg"
 import ellipse2 from "./ellipse2.svg"
 import { EmailConfirmationPopup } from "./emailConfirmationPopup/EmailConfirmationPopup"
 import { SuccessPopup } from "./successPopup/SuccessPopup"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
 import { post } from "../../utils/api"
@@ -16,7 +16,9 @@ import {isMobile} from 'react-device-detect';
 
 
 export function Registration() {
-  // const isMobile = useIsMobile()
+  const { state } = useLocation();
+  const { inviteCode } = state || {};
+
   const navigate = useNavigate()
 
   const [email, setEmail] = useState("")
@@ -257,7 +259,7 @@ export function Registration() {
       {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-      {successOpen ? <SuccessPopup email = {email} password={password} /> : null}
+      {successOpen ? <SuccessPopup email = {email} password={password} inviteCode={inviteCode}/> : null}
     </div>
   )
 }

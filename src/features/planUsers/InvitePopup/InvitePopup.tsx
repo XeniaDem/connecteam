@@ -6,6 +6,7 @@ import styles from "./InvitePopup.module.css"
 type Props = {
   closePopup: () => void;
   token: string;
+  invitationCode: string;
 
 }
 
@@ -13,6 +14,7 @@ type Props = {
 export function InvitePopup(props: Props) {
   const [copiedHidden, setCopiedHidden] = useState(true);
   const copyLink = () => {
+    navigator.clipboard.writeText(link)
     setCopiedHidden(false)
     setTimeout(() => {
       setCopiedHidden(true);
@@ -23,7 +25,7 @@ export function InvitePopup(props: Props) {
   const [link, setLink] = useState("")
 
   const fetchLink = () => {
-    setLink("https://connnecteam.com/forms/d/e/1FAIpQLSclRBDTVi0K") 
+    setLink("localhost:5173/auth/invitation#" + props.invitationCode) 
 
   }
 

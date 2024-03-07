@@ -48,10 +48,11 @@ export function UserPage() {
   }
 
   const readPlanInfo = (message: any) => {
+    if (message == "") {
+      setPlanInfo(null)
+      return;
+    }
     const messageParsed = JSON.parse(message);
-    // console.log(JSON.stringify(messageParsed))
-    // alert(token)
-    // console.log(token)
     const planInfo = {
       planType: messageParsed.plan_type,
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),

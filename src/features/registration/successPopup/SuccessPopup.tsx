@@ -10,10 +10,11 @@ import { useDispatch } from "react-redux";
 type Props = {
   email: string;
   password: string;
+  inviteCode?: string;
 }
 export function SuccessPopup(props: Props) {
 
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   let access = ""
@@ -38,10 +39,17 @@ export function SuccessPopup(props: Props) {
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
 
-      if (access == "admin" || access == "superadmin")
+      if (access == "admin" || access == "superadmin") {
         navigate("/admin")
-      else
-        navigate("/user_page")
+      }
+      else {
+        if (props.inviteCode != null) {
+          navigate("/user_page/invitation#" + props.inviteCode)
+
+        } else {
+          navigate("/user_page")
+        }
+      }
 
     }
     catch (error: any) {
@@ -53,14 +61,14 @@ export function SuccessPopup(props: Props) {
 
 
 
-  const navigate = useNavigate()
+
   return (
     <div className={styles.background}>
       <div className={styles.container}>
 
-      <div className={styles.close}>
+      {/* <div className={styles.close}>
       <Button text={""} onClick = {() => {navigate("/"); disableScroll.off()}} className={styles.closeButton} />
-          </div>
+          </div> */}
 
 
         <div className={styles.title}>

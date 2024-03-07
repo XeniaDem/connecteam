@@ -55,7 +55,6 @@ export function ImagePicker(props: Props) {
         return <div>Error...</div>;
     }
 
-    console.log(isTablet)
     return (
 
         <div>

@@ -44,8 +44,8 @@ export function UsersPage() {
 
 
   function delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   const fetchUsers = async () => {
 
@@ -126,7 +126,7 @@ export function UsersPage() {
     // setUsersFetched(true)
 
   }
-  
+
 
   const fetchPlans = async () => {
     try {

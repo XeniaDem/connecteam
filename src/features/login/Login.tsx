@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Login.module.css"
 import connecteam from "./connecteam.svg"
@@ -11,11 +11,14 @@ import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { useDispatch } from "react-redux"
 import { Access, signIn } from "../auth/authSlice"
-import { post } from "../../utils/api"
-import {isMobile} from 'react-device-detect';
+import { post, readServerError } from "../../utils/api"
+import { isMobile } from 'react-device-detect';
 
 
 export function Login() {
+
+  const { state } = useLocation();
+  const { inviteCode } = state || {};
 
   const navigate = useNavigate()
 
@@ -80,7 +83,7 @@ export function Login() {
   const [loginError, setLoginError] = useState("")
 
   const dispatch = useDispatch()
- 
+
   let access = ""
 
   const saveAccessAndToken = (message: any) => {
@@ -88,7 +91,7 @@ export function Login() {
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
     const token = messageParsed.token;
-    dispatch(signIn({token: token, access: access as Access}));
+    dispatch(signIn({ token: token, access: access as Access }));
 
   }
 
@@ -109,10 +112,17 @@ export function Login() {
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
       setLoginError("")
-      if (access == "admin" || access == "superadmin")
+      if (access == "admin" || access == "superadmin") {
         navigate("/admin")
-      else
-        navigate("/user_page")
+      }
+      else {
+        if (inviteCode != null) {
+          navigate("/user_page/invitation#" + inviteCode)
+
+        } else {
+          navigate("/user_page")
+        }
+      }
 
     }
     catch (error: any) {
@@ -144,7 +154,7 @@ export function Login() {
 
     }
     catch (error: any) {
-      alert(error.response.text)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 
@@ -207,7 +217,7 @@ export function Login() {
 
         </div>}
         <div className={styles.connecteam}>
-          {!isMobile ? <img src={connecteam}/> :  <img src={logo} />}
+          {!isMobile ? <img src={connecteam} /> : <img src={logo} />}
 
         </div>
 

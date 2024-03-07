@@ -22,6 +22,7 @@ import { AdminLayout } from "./features/layouts/adminLayout/AdminLayout"
 import { AuthLayout } from "./features/layouts/authLayout/AuthLayout"
 import { UserLayout } from "./features/layouts/userLayout/UserLayout"
 import { GameResults } from "./features/gameResults/GameResults"
+import { JoinPackage } from "./features/joinPackage/JoinPackage"
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         path: "forgot_password/link_sent",
         element: <LinkSent/>,
       },
+      {
+        path: "invitation",
+        element: <JoinPackage/>,
+      },
     ],
   },
 
@@ -85,6 +90,11 @@ const router = createBrowserRouter([
         path: "profile/link_sent",
         element: <LinkSent/>,
       },
+      {
+        path: "invitation/",
+        element: <JoinPackage/>,
+      },
+
 
     ],
   },
@@ -120,6 +130,7 @@ const router = createBrowserRouter([
     path: "user_page/game_results",
     element: <GameResults/>,
   },
+
 
 
 
