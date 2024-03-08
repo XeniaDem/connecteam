@@ -16,6 +16,7 @@ type Props = {
   closePopup: () => void;
   onChange: () => void;
   planType: string | undefined;
+  isTrial: boolean;
 
 }
 
@@ -39,19 +40,15 @@ export function ChoosePackagePopup(props: Props) {
 
   // }
 
-  const [period, setPeriod] = useState(30)
+  const period = props.planType == "basic" ? (props.isTrial ? 14 : 30) : 30
 
   const readAccess = () => {
-    if (props.planType == "user")
-      return ("Нет доступа")
     if (props.planType == "basic")
       return ("Простой")
     if (props.planType == "advanced")
       return ("Расширенный")
     if (props.planType == "premium")
       return ("Широкий")
-    if (props.planType == "admin")
-      return ("Администратор")
   }
 
 
@@ -63,7 +60,12 @@ export function ChoosePackagePopup(props: Props) {
     }
     try {
 
-      const response = await post('plans/purchase', data, token)
+      var response;
+      if (props.planType == "basic" && props.isTrial)
+        response = await post('plans/', data, token)
+      else
+        response = await post('plans/purchase', data, token)
+
 
       props.onChange()
       props.closePopup()
@@ -72,15 +74,10 @@ export function ChoosePackagePopup(props: Props) {
     }
     catch (error: any) {
       readServerError(error.response.text);
-      // alert(error.text)
       console.log("error:", error)
     }
   }
 
-
-  // const periodOptions = [
-  //   '14 дней', '30 дней'
-  // ];
 
 
 
@@ -111,7 +108,7 @@ export function ChoosePackagePopup(props: Props) {
             <img src={ellipse2} />
           </div>
           <div className={styles.title}>
-            Вы выбрали пакет
+            {props.planType == "basic" ? (!props.isTrial ? "Вы выбрали пакет" : "Пробный доступ") : "Вы выбрали пакет"}
 
           </div>
           <div className={styles.name}>
@@ -119,19 +116,15 @@ export function ChoosePackagePopup(props: Props) {
 
           </div>
           <div className={styles.subtitle}>
-             Период доступа {<br/>} <span className={styles.duration}>30 дней</span>
+            Период доступа {<br />} <span className={styles.duration}> {period} дней</span>
 
           </div>
-
-
-          {/* <div className={styles.fields}>
-            <Field small={true} isDropDown={true} options={periodOptions} title={""} dropDownValue={periodOptions[0]} onDropDownValueChange={onDropDownValueChange} />
-          </div> */}
 
         </div>
 
 
-        <Button text={"Отправить запрос"} onClick={sendRequest} className={styles.saveButton} />
+
+        <Button text={"Отправить запрос"} onClick={sendRequest} className={styles.sendButton} />
 
       </div>
 

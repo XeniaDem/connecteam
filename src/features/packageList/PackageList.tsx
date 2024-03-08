@@ -9,14 +9,15 @@ import { ChoosePackagePopup } from "./choosePackagePopup/ChoosePackagePopup";
 import disableScroll from 'disable-scroll';
 
 type Props = {
-
   isLogged: boolean;
+  trialApplicable?: boolean;
   planInfo?: Plan | null;
   onChange?: () => void;
+
 }
 
 
-export function PackageList({ isLogged, planInfo, onChange }: Props) {
+export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: Props) {
   // const isMobile = useIsMobile()
   const navigate = useNavigate()
 
@@ -41,6 +42,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
 
 
   const [newPlan, setNewPlan] = useState<string | undefined>();
+  const [isTrial, setIsTrial] = useState(false)
 
   const choosePackage = (type?: string) => {
 
@@ -48,6 +50,9 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
       navigate("/auth/register")
     } else {
       setNewPlan(type)
+      if (type == "basic" && trialApplicable) {
+        setIsTrial(true)
+      }
       openChoosePackagePopup()
     }
 
@@ -104,12 +109,12 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
 
   return (
     <div>
-             <svg width={0} height={0}>
-          <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
-            <stop offset={0} stopColor="#55C6F7" />
-            <stop offset={1} stopColor="#2AF8BA" />
-          </linearGradient>
-        </svg>
+      <svg width={0} height={0}>
+        <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+          <stop offset={0} stopColor="#55C6F7" />
+          <stop offset={1} stopColor="#2AF8BA" />
+        </linearGradient>
+      </svg>
       <div className={styles.container}>
         <div className={isLogged ? styles.card : styles.highlighted}>
 
@@ -186,7 +191,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
           ) : (
             <div className={styles.down}>
               <div className={styles.offer}>
-                {isLogged ? "" : "Попробуйте бесплатный доступ на 14 дней!"}
+                {isLogged && !trialApplicable ? null : "Попробуйте бесплатный доступ на 14 дней!"}
               </div>
               <Button text={"Выбрать"} onClick={() => choosePackage("basic")} className={isLogged ? styles.inactive : styles.active} />
             </div>
@@ -274,7 +279,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   </div> */}
                 </div>
               ) : (
-               null
+                null
               )}
             </div>
 
@@ -374,7 +379,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
                   </div>
                 </div>
               ) : (
-               null
+                null
               )}
 
 
@@ -390,7 +395,7 @@ export function PackageList({ isLogged, planInfo, onChange }: Props) {
 
       </div>
       {
-        choosePackageOpen ? <ChoosePackagePopup planType={newPlan} closePopup={closeChoosePackagePopup}
+        choosePackageOpen ? <ChoosePackagePopup planType={newPlan} isTrial = {isTrial} closePopup={closeChoosePackagePopup}
           onChange={onChange != null ? onChange : () => null} /> : null
       }
 

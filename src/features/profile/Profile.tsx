@@ -53,6 +53,10 @@ export function Profile() {
   const [planInfo, setPlanInfo] = useState<Plan| null>(null)
 
   const readPlanInfo = (message: any) => {
+    if (message == "") {
+      setPlanInfo(null)
+      return;
+    }
     const messageParsed = JSON.parse(message);
     const planInfo = {
       planType: messageParsed.plan_type,
@@ -97,6 +101,8 @@ export function Profile() {
 
 
   }
+
+
 
 
 

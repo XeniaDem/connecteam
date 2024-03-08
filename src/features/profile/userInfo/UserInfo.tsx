@@ -1,6 +1,6 @@
 import { Field } from "../field/Field"
 import styles from "./UserInfo.module.css"
-import ellipse1 from "../ellipse1.svg"
+import ellipse1 from "../../../app/assets/ellipse1.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useEffect, useState } from "react"
 import { ChangePasswordPopup } from "./changePasswordPopup/ChangePasswordPopup"
@@ -202,7 +202,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
       openVerifyPopup()
     }
     catch (error: any) {
-      // alert(error.text)
       setVerifyError(readVerifyError(error.response.text));
       console.log("error:", error)
     }

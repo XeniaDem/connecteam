@@ -11,6 +11,9 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { isMobile } from 'react-device-detect';
 import { useGetDimensions } from "../../../app/hooks/useGetDimensions"
+import { useSelector } from "react-redux"
+import { selectToken } from "../../../utils/authSlice"
+import { get, readServerError } from "../../../utils/api"
 
 
 
@@ -28,6 +31,7 @@ type Props = {
 
 
 export function PackageInfo({ name, savedPlan, onChange }: Props) {
+  const token = useSelector(selectToken)
 
   const width = useGetDimensions()[0]
   const navigate = useNavigate()
@@ -39,6 +43,27 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
   const [planStatus, setPlanStatus] = useState<string | undefined>()
 
 
+  const[trialApplicable, setTrialApplicable] = useState(false)
+
+
+  const fetchPreviousPlans = async () => {
+    try {
+
+      const response = await get('plans/', token)
+      if (JSON.parse(response.text).data == null) {
+        setTrialApplicable(true)
+      }
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
 
 
 
@@ -47,6 +72,9 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
     setExpiryDate(savedPlan?.expiryDate)
     setPlanAccess(savedPlan?.planAccess)
     setPlanStatus(savedPlan?.status)
+    if (savedPlan == null) {
+      fetchPreviousPlans()
+    }
     // alert(savedPlan?.status)
 
 
@@ -217,6 +245,12 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
 
   else if (savedPlan == null) { ////////////////////////////////////////////////////
+
+
+
+
+
+
     return (
 
       <div>
@@ -228,7 +262,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
           <div className={styles.subtitle}>
             Выберите пакет:
           </div>
-          <PackageList isLogged={true} onChange={onChange} />
+          <PackageList isLogged={true} onChange={onChange} trialApplicable = {trialApplicable}/>
         </div>
 
 

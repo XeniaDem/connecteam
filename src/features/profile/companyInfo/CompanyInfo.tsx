@@ -1,7 +1,7 @@
 
 import { Field } from "../field/Field"
 import styles from "./CompanyInfo.module.css"
-import ellipse2 from "../ellipse2.svg"
+import ellipse2 from "../../../app/assets/ellipse3.svg"
 import { Button } from "../../../components/button/Button"
 import React, { useEffect, useRef, useState } from "react"
 import disableScroll from 'disable-scroll';
