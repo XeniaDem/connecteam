@@ -1,5 +1,5 @@
 import request from "superagent"
-import { signIn } from "../features/auth/authSlice"
+import { signIn } from "./authSlice"
 
 export const post = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {

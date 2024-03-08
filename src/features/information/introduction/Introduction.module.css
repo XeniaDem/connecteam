@@ -195,11 +195,17 @@
     top: -70px;
     left: -33px;
   }
-  /* .ellipse2 {
-    top: 270px;
-    right: 0px;
-  } */
 
+}
+@media (max-width: 1620px) {
+  .star {
+    bottom: 113px;
+  }
+}
+@media (max-width: 1535px) {
+  .star {
+    bottom: 201px;
+  }
 }
 @media (max-width: 1392px) {
   .element {

@@ -1,7 +1,7 @@
 
 import { Button } from "../../../components/button/Button"
 import styles from "./BecomeMember.module.css"
-import connecteam from "./connecteam.svg"
+import logoBig from "../../../app/assets/logoBig.svg"
 import ellipse1 from "./ellipse1.svg"
 
 
@@ -13,7 +13,7 @@ export function BecomeMember() {
       <div className={styles.title}>
         <div className={styles.title}>
           Стать участником {" "}
-          <img src={connecteam} />
+          <img src={logoBig} />
         </div>
 
       </div>

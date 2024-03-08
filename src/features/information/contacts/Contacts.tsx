@@ -1,12 +1,12 @@
 import styles from "./Contacts.module.css"
-import logo from "./logo.svg"
+import logoSmall from "../../../app/assets/logoSmall.svg"
 
 export function Contacts() {
     return (
         <div id="contacts">
             <div className={styles.container}>
                 <div className={styles.column}>
-                    <img src={logo} />
+                    <img src={logoSmall} />
                     <div className={styles.text} >
                         ©2024 Connecteam <br />
                         Все права защищены.

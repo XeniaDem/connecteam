@@ -1,7 +1,7 @@
 
 import styles from "./StartPage.module.css"
-import ellipse1 from "../ellipse1.svg"
-import ellipse2 from "../ellipse2.svg"
+import ellipse1 from "../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../app/assets/ellipse2.svg"
 import crown from "../crown.svg"
 import exit from "../exit.svg"
 import photo from "./photo.svg"
@@ -52,22 +52,7 @@ export function StartPage(props: Props) {
         <Button text={"Начать игру"} onClick={function (): void {
           throw new Error("Function not implemented.")
         }} className={styles.startButton} />
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
-
-
-
     </div>
   )
 }

@@ -7,12 +7,12 @@ import { ChangePasswordPopup } from "./changePasswordPopup/ChangePasswordPopup"
 import disableScroll from 'disable-scroll';
 import { useNavigate } from "react-router-dom"
 import validator from "validator"
-import { EmailConfirmationPopup } from "../../registration/emailConfirmationPopup/EmailConfirmationPopup"
+import { EmailConfirmationPopup } from "../../auth/registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { get, patch, post, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
-import { signIn } from "../../auth/authSlice"
+import { signIn } from "../../../utils/authSlice"
 import { isMobile } from 'react-device-detect';
 
 export type User = {

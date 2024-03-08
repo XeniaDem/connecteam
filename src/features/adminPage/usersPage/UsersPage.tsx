@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { PlanModel, User, UserModel } from "./user/User"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../auth/authSlice"
+import { selectToken } from "../../../utils/authSlice"
 
 
 export function UsersPage() {

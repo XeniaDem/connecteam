@@ -9,7 +9,7 @@ import { InvitePopup } from "./invitePopup/InvitePopup"
 import disableScroll from 'disable-scroll';
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectToken } from "../auth/authSlice"
+import { selectToken } from "../../utils/authSlice"
 import { get, readServerError } from "../../utils/api"
 import {isMobile} from 'react-device-detect';
 

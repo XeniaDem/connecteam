@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./NewQuestionPage.module.css"
-import { Topic } from "../../../topics/topic/Topic";
+import { Topic } from "../../../topic/Topic";
 import { TopicModel } from "../topic/Topic";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../auth/authSlice";
+import { selectToken } from "../../../../utils/authSlice";
 import { Button } from "../../../../components/button/Button";
 import { FilePicker } from "./filePicker/FilePicker";
 import { post, readServerError } from "../../../../utils/api";

@@ -2,7 +2,7 @@ import styles from "./PlanUsersPage.module.css"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
 import { useSelector } from "react-redux"
-import { selectToken } from "../auth/authSlice"
+import { selectToken } from "../../utils/authSlice"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
@@ -21,8 +21,6 @@ export function PlanUsersPage() {
   const [planUsers, setPlanUsers] = useState<PlanUserModel[] | null>(null)
 
   const [usersNum, setUsersNum] = useState(0)
-
-  // const isMobile = useIsMobile()
 
 
   const readPlanUsers = (message: any) => {
@@ -55,12 +53,6 @@ export function PlanUsersPage() {
 
 
   const fetchPlanUsers = async () => {
-    // alert("kd")
-    // if (invitationCode == "") {
-    //   setFetched(!fetched)
-    //   return;
-    // }
-
     try {
       const response = await get('plans/members/' + invitationCode, token)
       readPlanUsers(response.text)
@@ -192,7 +184,7 @@ export function PlanUsersPage() {
 
           </div>
         </div>
-        {usersNum < 3 ? (
+        {usersNum < 4 ? (
           <div className={styles.buttonContainer}>
             <Button text={"+"} onClick={openInviteUserPopup} className={styles.button} />
 

@@ -139,7 +139,7 @@
 }
 
 .controlButtons {
-  min-width: 50px;
+  min-width: 60px;
 }
 
 @media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {

@@ -8,7 +8,7 @@ import { Players } from "../../startGame/players/Players"
 import { Button } from "../../../components/button/Button"
 import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
 import { useEffect, useState } from "react"
-import { Topic } from "../../topics/topic/Topic"
+import { Topic } from "../../topic/Topic"
 import { isMobile } from 'react-device-detect';
 
 

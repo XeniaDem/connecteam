@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import { Delete, patch, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../auth/authSlice";
+import { selectToken } from "../../../../utils/authSlice";
 import { useGetDimensions } from "../../../../app/hooks/useGetDimensions";
 
 

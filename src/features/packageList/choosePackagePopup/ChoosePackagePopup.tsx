@@ -8,7 +8,7 @@ import ellipse2 from "../../../app/assets/ellipse2.svg"
 import defaultPhoto from "./photo.svg"
 import { Field } from "../../profile/field/Field";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../auth/authSlice";
+import { selectToken } from "../../../utils/authSlice";
 
 
 

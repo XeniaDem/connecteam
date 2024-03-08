@@ -4,6 +4,9 @@ import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
 import { PlanUserModel } from "../planUser/PlanUser";
 import {isMobile} from 'react-device-detect';
+import { useSelector } from "react-redux";
+import { selectToken } from "../../../utils/authSlice";
+import { Delete, readServerError } from "../../../utils/api";
 
 
 
@@ -16,6 +19,23 @@ type Props = {
 }
 
 export function RemoveUserPopup(props: Props) {
+  const token = useSelector(selectToken)
+
+
+  const removePlanUser = async () => {
+    try {
+      const response = await Delete ('plans/' + props.planUser.id, token)
+      props.closePopup()
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
 
   return (
 
@@ -44,7 +64,7 @@ export function RemoveUserPopup(props: Props) {
 
 
             <div className={styles.buttons}>
-              <Button text={"Да"} onClick={() => null} className={styles.okButton} />
+              <Button text={"Да"} onClick={removePlanUser} className={styles.okButton} />
               <Button text={"Отмена"} onClick={props.closePopup} className={styles.cancelButton} />
             </div>
           </div>

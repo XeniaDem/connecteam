@@ -28,7 +28,6 @@ type Props = {
 
 
 export function PlanUser({ planUser, token, onChange }: Props) {
-  // const isMobile = useIsMobile()
 
 
 
@@ -45,10 +44,9 @@ export function PlanUser({ planUser, token, onChange }: Props) {
     disableScroll.off()
     setRemoveUserOpen(false)
     onChange()
-
-
-
   }
+
+
 
 
   return (

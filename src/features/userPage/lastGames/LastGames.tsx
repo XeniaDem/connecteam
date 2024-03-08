@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 import { Button } from "../../../components/button/Button"
 import styles from "./LastGames.module.css"
-import { selectToken } from "../../auth/authSlice";
+import { selectToken } from "../../../utils/authSlice";
 import { Tab, Tabs } from "./tabs/Tabs";
 import { Game } from "./game/Game";
 

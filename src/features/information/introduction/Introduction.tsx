@@ -1,7 +1,7 @@
 
 import styles from "./Introduction.module.css"
-import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse2.svg"
+import ellipse1 from "../../../app/assets/ellipse1.svg"
+import ellipse3 from "../../../app/assets/ellipse3.svg"
 import element from "./element.svg"
 import star from "./star.svg"
 import line from "./line.svg"
@@ -26,7 +26,7 @@ export function Introduction() {
         <img src={ellipse1} />
       </div>}
       <div className={styles.ellipse2}>
-        <img src={ellipse2} />
+        <img src={ellipse3} />
       </div>
 
       <div className={styles.left}>

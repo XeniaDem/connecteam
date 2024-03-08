@@ -1,9 +1,7 @@
 
 import styles from "./Packages.module.css"
 import rectangle from "./rectangle.svg"
-import ellipse1 from "./ellipse1.svg"
 import { PackageList } from "../../packageList/PackageList"
-import {isMobile} from 'react-device-detect';
 
 
 export function Packages() {

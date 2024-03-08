@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { get, post } from "../../utils/api"
 import { isMobile } from 'react-device-detect';
 import { useSelector } from "react-redux"
-import { selectAccess, selectToken } from "../auth/authSlice"
+import { selectToken } from "../../utils/authSlice"
 
 
 export function JoinPackage() {
@@ -116,11 +116,14 @@ export function JoinPackage() {
 
 
   useEffect(() => {
-    // alert(code)
+
     if (token == "") {
+      // alert("mdmd")
       navigate("/auth/invitation#" + code)
+
     } else {
       navigate("/user_page/invitation#" + code)
+
 
     }
     validatePathname()
@@ -156,13 +159,13 @@ export function JoinPackage() {
         </div>
         {token == "" ?
           <div className={styles.buttons} >
-            <Button text={"Зарегистрироваться"} onClick={ () => navigate("/auth/register", { state: { inviteCode: code } })} className={styles.button} />
+            <Button text={"Зарегистрироваться"} onClick={() => navigate("/auth/register", { state: { inviteCode: code } })} className={styles.button} />
             <div className={styles.footerContainer}>
               <div className={styles.footerItem}>
                 Уже есть аккаунт?
 
               </div>
-              <Button text={"Войти"} onClick={() => 
+              <Button text={"Войти"} onClick={() =>
                 navigate("/auth/login", { state: { inviteCode: code } })
               } className={styles.footerButton} />
 
