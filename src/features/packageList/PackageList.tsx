@@ -2,12 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import styles from "./PackageList.module.css"
-import tick from "./tick.svg"
+import tick from "../../app/assets/tickSmall.svg"
 import { useEffect, useState } from "react";
 import { Plan } from "../profile/packageInfo/PackageInfo";
 import { ChoosePackagePopup } from "./choosePackagePopup/ChoosePackagePopup";
 import disableScroll from 'disable-scroll';
-import CheckIcon from '@mui/icons-material/Check';
 
 type Props = {
 

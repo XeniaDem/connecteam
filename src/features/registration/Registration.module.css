@@ -64,7 +64,7 @@
   background: none;
   border: 3px solid transparent;
   padding: 0px;
-  background: url("./eye.svg") no-repeat;
+  background: url("../../app/assets/eye.svg") no-repeat;
   width: 24.995px;
   height: 20px;
 
@@ -78,7 +78,7 @@
   background: none;
   border: 3px solid transparent;
   padding: 0px;
-  background: url("./eyeClosed.svg") no-repeat;
+  background: url("../../app/assets/eyeClosed.svg") no-repeat;
   width: 24.995px;
   height: 20px;
 

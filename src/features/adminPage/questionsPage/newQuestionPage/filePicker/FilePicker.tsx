@@ -12,7 +12,6 @@ import { useState } from 'react';
 import { Button } from '../../../../../components/button/Button';
 import { IconButton } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
-import { PropaneSharp } from '@mui/icons-material';
 
 
 type Props = {

@@ -8,11 +8,9 @@ import line from "./line.svg"
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import {isMobile} from 'react-device-detect';
-import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 
 export function Introduction() {
-  // const isSmall = useIsSmall(1392)
 
 
   const start = () => {

@@ -4,8 +4,6 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Button } from "../../../components/button/Button";
 import { useTimer } from "use-timer";
 
 type Props = {

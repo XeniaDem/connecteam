@@ -5,7 +5,7 @@ import disableScroll from 'disable-scroll';
 import { IconButton } from "@mui/material"
 import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 import { RemoveUserPopup } from "../removeUserPopup/RemoveUserPopup";
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 
 export type PlanUserModel = {
@@ -14,7 +14,7 @@ export type PlanUserModel = {
   surname: string;
   email: string;
   photo: string;
-  plan: string;
+  isHolder: boolean;
 
 }
 
@@ -31,15 +31,6 @@ export function PlanUser({ planUser, token, onChange }: Props) {
   // const isMobile = useIsMobile()
 
 
-  const readPlan = () => {
-
-    if (planUser.plan == "basic")
-      return ("Простой")
-    if (planUser.plan == "advanced")
-      return ("Расширенный")
-    if (planUser.plan == "premium")
-      return ("Широкий")
-  }
 
   const [removeUserOpen, setRemoveUserOpen] = useState(false);
 
@@ -61,9 +52,9 @@ export function PlanUser({ planUser, token, onChange }: Props) {
 
 
   return (
-    
+
     <div className={styles.background}>
-    
+
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.photo}>
@@ -71,8 +62,8 @@ export function PlanUser({ planUser, token, onChange }: Props) {
             {(planUser.photo == "") ? <PhotoCameraIcon fontSize={!isMobile ? "large" : "small"} sx={{ fill: "url(#linearColors)" }} /> : <img src={planUser.photo} />}
           </div>
 
-          <div className={styles.name} >
-            {planUser.name} {" "} {planUser.surname}
+          <div className={planUser.isHolder ? styles.nameActive : styles.name} >
+            {planUser.name} {" "} {planUser.surname} {planUser.isHolder ? "(Вы)" : null}
           </div>
 
 
@@ -89,27 +80,31 @@ export function PlanUser({ planUser, token, onChange }: Props) {
           </div>}
           {!isMobile && <div className={styles.plan}>
 
-            {readPlan()}
+            Широкий
           </div>}
 
+
           <div className={styles.controlButtons}>
-            <IconButton onClick={openRemoveUserPopup}>
+            {!planUser.isHolder ?
+              <IconButton onClick={openRemoveUserPopup}>
 
-              <PersonRemoveAlt1Icon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-            </IconButton>
-
+                <PersonRemoveAlt1Icon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+              </IconButton>
+              :
+              null}
           </div>
+
         </div>
 
 
-       
+
       </div>
-      
+
       <div className={styles.divider} />
       {removeUserOpen ? <RemoveUserPopup planUser={planUser} token={token} closePopup={closeRemoveUserPopup} onChange={onChange} /> : null}
 
-     
-     
+
+
 
     </div>
 

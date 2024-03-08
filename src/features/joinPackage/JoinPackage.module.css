@@ -27,7 +27,7 @@
 
 .title {
   text-align: center;
-  font-size: 30.728px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 500;
   /* 143.851% */
@@ -64,7 +64,11 @@
 }
 
 
-
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .button {
   width: 285.531px;
@@ -80,13 +84,15 @@
   font-style: normal;
   font-weight: 600;
   line-height: 32.132px;
-  /* 229.09% */
-  z-index: 1;
+  z-index: 2;
+
+
 }
 
 .footerContainer {
   margin-top: 16px;
   display: flex;
+  flex-direction: column;
   gap: 3px;
   justify-content: center;
 }
@@ -134,6 +140,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
+
 
 }
 

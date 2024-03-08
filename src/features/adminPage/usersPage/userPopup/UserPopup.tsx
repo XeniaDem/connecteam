@@ -5,9 +5,9 @@ import styles from "./userPopup.module.css"
 import { Field } from "../../../profile/field/Field";
 import { UserModel } from "../user/User";
 import { Delete, patch, post, readServerError } from "../../../../utils/api";
-import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse2.svg"
-import defaultPhoto from "./photo.svg"
+import ellipse1 from "../../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../../app/assets/ellipse2.svg"
+import defaultPhoto from "../../../../app/assets/defaultphoto.svg"
 import { useSelector } from "react-redux";
 import { selectAccess, selectToken } from "../../../auth/authSlice";
 
@@ -188,8 +188,8 @@ export function UserPopup({ savedUser, closePopup }: Props) {
         </div>
         <div className={styles.body}>
           <div className={styles.left}>
-            <div className={styles.ellipse2}>
-              <img src={ellipse2} />
+            <div className={styles.ellipse1}>
+              <img src={ellipse1} />
             </div>
             <div className={styles.title}>
               Личные данные
@@ -203,8 +203,8 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
           </div>
           <div className={styles.right}>
-            <div className={styles.ellipse1}>
-              <img src={ellipse1} />
+            <div className={styles.ellipse2}>
+              <img src={ellipse2} />
             </div>
             <div className={styles.fields}>
               <Field small={true} isInput={true} title={"Имя пользователя"} disabled={true} value={savedUser.name + " " + savedUser.surname} />

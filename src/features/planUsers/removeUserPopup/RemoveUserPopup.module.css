@@ -87,7 +87,7 @@ bottom: 0; */
   border: none;
 
 
-  background: url("./close.svg") no-repeat;
+  background: url("../../../app/assets/close.svg") no-repeat;
   z-index: 2;
 
 }
@@ -163,14 +163,14 @@ bottom: 0; */
 
 .ellipse1 {
   position: absolute;
-  bottom: -203px;
-  right: -125px;
+  top: -203px;
+  left: -125px;
 }
 
 .ellipse2 {
   position: absolute;
-  top: -80px;
-  left: -180px;
+  bottom: -80px;
+  right: -180px;
 
 
 }

@@ -14,7 +14,6 @@ import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
 import { signIn } from "../../auth/authSlice"
 import { isMobile } from 'react-device-detect';
-import { useIsSmall } from "../../../app/hooks/useIsSmall"
 
 export type User = {
   name: string;
@@ -34,7 +33,6 @@ type Props = {
 export function UserInfo({ savedUser, token, onChange }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  // const isSmall = useIsSmall(821)
 
 
   const [name, setName] = useState("");

@@ -1,6 +1,6 @@
 import { useFilePicker } from 'use-file-picker';
 import styles from "./ImagePicker.module.css"
-import defaultPhoto from "../photo.svg"
+import defaultPhoto from "../../../app/assets/defaultphoto.svg"
 import { Button } from "../../../components/button/Button"
 import {
     FileAmountLimitValidator,

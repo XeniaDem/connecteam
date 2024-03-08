@@ -1,7 +1,7 @@
 import request from "superagent"
 import { signIn } from "../features/auth/authSlice"
 
-export const post = async <T extends Object>(url: string, body: T, token?: string) => {
+export const post = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {
         const response = await request.post('http://localhost:8000/' + url)
             .set('Access-Control-Allow-Origin', '*')

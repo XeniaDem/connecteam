@@ -1,11 +1,11 @@
-
 .container {
   font-family: 'Work Sans Variable', sans-serif;
-  height: 82px;
+  min-height: 82px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 
 }
 
@@ -14,7 +14,9 @@
   display: flex;
   gap: 50px;
 
-align-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 0px;
 
 }
 
@@ -23,132 +25,149 @@ align-items: center;
 
 .photo {
   width: 60.62px;
-height: 60.62px;
-border-radius: 50px;
-display: flex;
-align-items: center;
-border: 1px solid #55C6F7;
-justify-content: center;
-overflow: hidden;
-object-fit: fill;
+  height: 60.62px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #55C6F7;
+  justify-content: center;
+  overflow: hidden;
+  object-fit: fill;
 
 
 
- 
+
 }
 
 .name {
 
-font-size: 25px;
-font-weight: 500;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
-color: #FFF;
-cursor: pointer;
-width: 250px;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  color: #FFF;
+  width: 250px;
+}
+
+.nameActive {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  width: 250px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
 }
 
 
 .email {
-font-size: 25px;
-font-weight: 400;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
-color: #595959;
-width: 350px;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  color: #595959;
+  /* width: 350px; */
 
 
 }
 
 
 .text {
-font-size: 21px;
-font-weight: 500;
-line-height: 30px;
-letter-spacing: -0.05em;
-text-align: center;
-display: flex;
-align-items: center;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: -0.05em;
+  text-align: center;
+  display: flex;
+  align-items: center;
 
-color: #FFF;
-}
-
-.period {
-  font-size: 25px;
-font-weight: 400;
-line-height: 35px;
-letter-spacing: -0.05em;
-display: flex;
-align-items: center;
-color: #595959;
-
+  color: #FFF;
 }
 
 
 
 .plan {
   min-width: 171px;
-height: 44.76px;
-border-radius: 51.39px;
+  height: 44.76px;
+  border-radius: 51.39px;
 
-/*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
-background: rgba(217, 217, 217, 0.1);
-backdrop-filter: blur(7.552681922912598px);
-color: #FFF;
-font-size: 17.955px;
-font-style: normal;
-font-weight: 500;
-line-height: 133.125%; /* 23.902px */
-letter-spacing: -0.718px;
+  /*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(7.552681922912598px);
+  color: #FFF;
+  font-size: 17.955px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.125%;
+  /* 23.902px */
+  letter-spacing: -0.718px;
 
-text-align: center;
-align-items: center;
-justify-content: center;
-display: flex;
-position:relative;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
 
 }
 
 .plan::before {
   border-radius: 57.4px;
   border: 1.76px solid transparent;
-  padding: 10px; 
+  padding: 10px;
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; 
-  -webkit-mask: 
-     linear-gradient(#fff 0 0) padding-box, 
-     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; 
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
 
 }
 
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
 }
-@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+
+.controlButtons {
+  min-width: 50px;
+}
+
+@media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {
   .container {
     height: auto;
   }
+
   .photo {
     width: 40px;
     height: 40px;
   }
-
-  /*.group {
-    flex-wrap: wrap;
-  } */
   .name {
     font-size: 20px;
     line-height: normal;
     width: auto;
   }
-  .group {
-    gap:20px;
+
+  .nameActive {
+    font-size: 20px;
+    line-height: normal;
+    width: auto;
+
   }
+
+  .group {
+    gap: 20px;
+    row-gap: 0px;
+  }
+
+
 }

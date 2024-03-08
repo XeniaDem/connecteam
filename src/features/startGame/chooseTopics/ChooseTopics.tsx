@@ -10,8 +10,6 @@ import { Plan } from "../../profile/packageInfo/PackageInfo"
 import { selectToken } from "../../auth/authSlice"
 import { useSelector } from "react-redux"
 import { get, readServerError } from "../../../utils/api"
-import { useNavigate } from "react-router-dom"
-import { isMobile } from 'react-device-detect';
 
 
 
@@ -19,7 +17,6 @@ export function ChooseTopics() {
 
 
   const token = useSelector(selectToken)
-  const navigate = useNavigate()
 
 
 
@@ -51,6 +48,9 @@ export function ChooseTopics() {
   const [planInfo, setPlanInfo] = useState<Plan>();
 
   const readPlanInfo = (message: any) => {
+    if (message == "") {
+      return;
+    }
     const messageParsed = JSON.parse(message);
     const planInfo = {
       planType: messageParsed.plan_type,

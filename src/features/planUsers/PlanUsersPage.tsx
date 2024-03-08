@@ -33,13 +33,15 @@ export function PlanUsersPage() {
 
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
+      const isHolder = (messageParsed.data[i].id == holderId)
       const planUserModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
         surname: messageParsed.data[i].second_name,
         email: messageParsed.data[i].email,
         photo: messageParsed.data[i].profile_image,
-        plan: messageParsed.data[i].access, ///////////////////////
+        isHolder: isHolder
+      
 
       }
       userModels.push(planUserModel)
@@ -100,6 +102,7 @@ export function PlanUsersPage() {
 
 
   const [invitationCode, setInvitationCode] = useState("")
+  const [holderId, setHolderId] = useState("")
 
   const readPlanInfo = (message: any) => {
     if (message == "") {
@@ -110,6 +113,7 @@ export function PlanUsersPage() {
       navigate("/user_page")
     }
     setInvitationCode(messageParsed.invitation_code)
+    setHolderId(messageParsed.holder_id)
    
 
   }
@@ -161,7 +165,7 @@ export function PlanUsersPage() {
             Участники пакета
           </div>
           <div className={styles.subtitle}>
-            Доступно мест {3 - usersNum} / 3
+            Доступно мест {4 - usersNum} / 3
           </div>
           <div className={styles.users}>
 

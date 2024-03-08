@@ -1,6 +1,6 @@
 
 import styles from "../Package.module.css"
-import tick from "../tick.svg"
+import tick from "../../../../app/assets/tickBig.svg"
 
 
 

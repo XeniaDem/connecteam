@@ -2,7 +2,7 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Header.module.css"
-import logo from "./logo.svg"
+import logoSmall from "../../app/assets/logoSmall.svg"
 import person from "./person.svg"
 import { HeaderItem } from "./headerItem/HeaderItem"
 import { useDispatch, useSelector } from "react-redux"
@@ -78,7 +78,7 @@ export function Header(props: Props) {
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.logo}>
-            <img src={logo} onClick={() => {
+            <img src={logoSmall} onClick={() => {
               navigate("/admin")
             }} />
           </div>
@@ -131,7 +131,7 @@ export function Header(props: Props) {
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.logo}>
-            <img src={logo} onClick={() => {
+            <img src={logoSmall} onClick={() => {
               navigate("/user_page")
             }} />
           </div>
@@ -175,7 +175,7 @@ export function Header(props: Props) {
       <div className={styles.container}>
 
         <div className={styles.logo}>
-          <img src={logo} onClick={() => {
+          <img src={logoSmall} onClick={() => {
             navigate("/")
           }} />
         </div>
@@ -196,7 +196,7 @@ export function Header(props: Props) {
 
     <div className={styles.container}>
       <div className={styles.logo}>
-        <img src={logo} onClick={() => {
+        <img src={logoSmall} onClick={() => {
           navigate("/")
         }} />
       </div>

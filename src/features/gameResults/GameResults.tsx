@@ -1,7 +1,7 @@
 
 import styles from "./GameResults.module.css"
-import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse2.svg"
+import ellipse1 from "../../app/assets/ellipse1.svg"
+import ellipse2 from "../../app/assets/ellipse2.svg"
 import players from "./players.svg"
 import { Button } from "../../components/button/Button"
 import { Player } from "./player/Player"

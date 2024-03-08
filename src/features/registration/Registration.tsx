@@ -2,10 +2,10 @@
 import { useState } from "react"
 import { Button } from "../../components/button/Button"
 import styles from "./Registration.module.css"
-import connecteam from "./connecteam.svg"
-import logo from "./logo.svg"
-import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse2.svg"
+import ellipse1 from "../../app/assets/ellipse1.svg"
+import ellipse2 from "../../app/assets/ellipse2.svg"
+import logoBig from "../../app/assets/logoBig.svg"
+import logoSmall from "../../app/assets/logoSmall.svg"
 import { EmailConfirmationPopup } from "./emailConfirmationPopup/EmailConfirmationPopup"
 import { SuccessPopup } from "./successPopup/SuccessPopup"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -203,7 +203,7 @@ export function Registration() {
 
         </div>}
         <div className={styles.connecteam}>
-        {!isMobile ? <img src={connecteam}/> :  <img src={logo} />}
+        {!isMobile ? <img src={logoBig}/> :  <img src={logoSmall} />}
 
         </div>
 

@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../components/button/Button"
 import styles from "./Login.module.css"
-import connecteam from "./connecteam.svg"
-import logo from "./logo.svg"
-import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse2.svg"
+import ellipse1 from "../../app/assets/ellipse1.svg"
+import ellipse2 from "../../app/assets/ellipse2.svg"
+import logoBig from "../../app/assets/logoBig.svg"
+import logoSmall from "../../app/assets/logoSmall.svg"
 import { useState } from "react"
 import validator from "validator"
 import disableScroll from 'disable-scroll';
@@ -217,7 +217,7 @@ export function Login() {
 
         </div>}
         <div className={styles.connecteam}>
-          {!isMobile ? <img src={connecteam} /> : <img src={logo} />}
+          {!isMobile ? <img src={logoBig} /> : <img src={logoSmall} />}
 
         </div>
 

@@ -2,13 +2,9 @@
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/button/Button"
 import styles from "./ChoosePackagePopup.module.css"
-import LockIcon from '@mui/icons-material/Lock';
-
-
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { patch, post, readServerError } from "../../../utils/api";
-import ellipse1 from "./ellipse1.svg"
-import ellipse2 from "./ellipse2.svg"
+import ellipse1 from "../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../app/assets/ellipse2.svg"
 import defaultPhoto from "./photo.svg"
 import { Field } from "../../profile/field/Field";
 import { useSelector } from "react-redux";

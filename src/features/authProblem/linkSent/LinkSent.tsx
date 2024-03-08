@@ -1,8 +1,8 @@
 
 import styles from "./LinkSent.module.css"
 import padlock from "../padlock.svg"
-import ellipse1 from "../ellipse1.svg"
-import ellipse2 from "../ellipse2.svg"
+import ellipse1 from "../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../app/assets/ellipse2.svg"
 import { Button } from "../../../components/button/Button"
 import { useLocation, useNavigate } from "react-router-dom"
 import {isMobile} from 'react-device-detect';

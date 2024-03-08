@@ -91,7 +91,7 @@ const router = createBrowserRouter([
         element: <LinkSent/>,
       },
       {
-        path: "invitation/",
+        path: "invitation",
         element: <JoinPackage/>,
       },
 
