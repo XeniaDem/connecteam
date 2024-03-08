@@ -1,12 +1,8 @@
-
-import { useEffect, useState } from "react";
 import { Button } from "../../../components/button/Button"
-import styles from "./ChoosePackagePopup.module.css"
-import { patch, post, readServerError } from "../../../utils/api";
+import styles from "./ChoosePlanPopup.module.css"
+import { post, readServerError } from "../../../utils/api";
 import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
-import defaultPhoto from "./photo.svg"
-import { Field } from "../../profile/field/Field";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../utils/authSlice";
 
@@ -20,25 +16,13 @@ type Props = {
 
 }
 
-export function ChoosePackagePopup(props: Props) {
+export function ChoosePlanPopup(props: Props) {
 
 
 
 
   const token = useSelector(selectToken)
 
-
-  // const onDropDownValueChange = (value: { label: any; }) => {
-
-  //   if (value.label == "14 дней") {
-  //     setPeriod(14)
-  //   }
-  //   if (value.label == "30 дней") {
-  //     setPeriod(30)
-  //   }
-
-
-  // }
 
   const period = props.planType == "basic" ? (props.isTrial ? 14 : 30) : 30
 
@@ -62,7 +46,7 @@ export function ChoosePackagePopup(props: Props) {
 
       var response;
       if (props.planType == "basic" && props.isTrial)
-        response = await post('plans/', data, token)
+        response = await post('plans/trial', data, token)
       else
         response = await post('plans/purchase', data, token)
 
@@ -108,7 +92,7 @@ export function ChoosePackagePopup(props: Props) {
             <img src={ellipse2} />
           </div>
           <div className={styles.title}>
-            {props.planType == "basic" ? (!props.isTrial ? "Вы выбрали пакет" : "Пробный доступ") : "Вы выбрали пакет"}
+            {props.planType == "basic" ? (!props.isTrial ? "Вы выбрали план" : "Пробный доступ") : "Вы выбрали план"}
 
           </div>
           <div className={styles.name}>

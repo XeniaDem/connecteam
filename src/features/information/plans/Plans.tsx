@@ -1,20 +1,20 @@
 
-import styles from "./Packages.module.css"
+import styles from "./Plans.module.css"
 import rectangle from "./rectangle.svg"
-import { PackageList } from "../../packageList/PackageList"
+import { PlanList } from "../../planList/PlanList"
 
 
-export function Packages() {
+export function Plans() {
 
   // const isMobile = useIsMobile()
 
   return (
-    <div id = "packages">
+    <div id = "plans">
       <div className={styles.title}>
         Форматы участия
       </div>
       <div className={styles.subtitle}>
-        Выбор из трех пакетов
+        Выбор из трех планов
       </div>
       <div className={styles.container}>
         {/* {!isMobile && <div className={styles.ellipse1}>
@@ -23,7 +23,7 @@ export function Packages() {
         <div className={styles.rectangle}>
           <img src={rectangle} />
         </div>
-        <PackageList isLogged = {false}/>
+        <PlanList isLogged = {false}/>
         
       </div>
 

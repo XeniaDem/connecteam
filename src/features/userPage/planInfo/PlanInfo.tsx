@@ -1,12 +1,12 @@
 
-import styles from "./PackageInfo.module.css"
+import styles from "./PlanInfo.module.css"
 import icon from "./icon.svg"
-import { PackageList } from "../../packageList/PackageList"
-import { BasicPackage } from "./basicPackage/BasicPackage"
-import { AdvancedPackage } from "./advancedPackage/AdvancedPackage"
-import { PremiumPackage } from "./premiumPackage/PremiumPackage"
+import { PlanList } from "../../planList/PlanList"
+import { BasicPlan } from "./basicPlan/BasicPlan"
+import { AdvancedPlan } from "./advancedPlan/AdvancedPlan"
+import { PremiumPlan } from "./premiumPlan/PremiumPlan"
 import { Button } from "../../../components/button/Button"
-import { Plan } from "../../profile/packageInfo/PackageInfo"
+import { Plan } from "../../profile/planInfo/PlanInfo"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { isMobile } from 'react-device-detect';
@@ -30,7 +30,7 @@ type Props = {
 
 
 
-export function PackageInfo({ name, savedPlan, onChange }: Props) {
+export function PlanInfo({ name, savedPlan, onChange }: Props) {
   const token = useSelector(selectToken)
 
   const width = useGetDimensions()[0]
@@ -39,11 +39,11 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
   const [planType, setPlanType] = useState<string | undefined>()
   const [expiryDate, setExpiryDate] = useState<string | undefined>()
-  const [planAccess, setPlanAccess] = useState<string | undefined>()
+  const [isTrial, setIsTrial] = useState<boolean | undefined>()
   const [planStatus, setPlanStatus] = useState<string | undefined>()
 
 
-  const[trialApplicable, setTrialApplicable] = useState(false)
+  const [trialApplicable, setTrialApplicable] = useState(false)
 
 
   const fetchPreviousPlans = async () => {
@@ -70,7 +70,7 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
   useEffect(() => {
     setPlanType(savedPlan?.planType)
     setExpiryDate(savedPlan?.expiryDate)
-    setPlanAccess(savedPlan?.planAccess)
+    setIsTrial(savedPlan?.isTrial)
     setPlanStatus(savedPlan?.status)
     if (savedPlan == null) {
       fetchPreviousPlans()
@@ -96,12 +96,12 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
             Добро пожаловать, {name}!
           </div>
           <div className={styles.subtitle}>
-            {planStatus == "active" ? "Вам доступен пакет:" : null}
-            {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
-            {planStatus == "expired" ? "Срок действия плана истек." : null}
+            {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
+            {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
+            {planStatus == "expired" ? "Срок действия плана истек:" : null}
           </div>
-          <div className={styles.package}>
-            <BasicPackage />
+          <div className={styles.plan}>
+            <BasicPlan />
           </div>
           <div className={styles.footerContainer}>
             {planStatus == "active" ? (
@@ -113,19 +113,19 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
             )
             }
             {planStatus == "active" ? (
-              <Button text={"Управлять пакетом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              <Button text={"Управлять планом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
             ) : (
               null
             )
             }
             {planStatus == "on_confirm" ? (
-              <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
             ) : (
               null
             )
             }
             {planStatus == "expired" ? (
-              <Button text={"Продлить"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+              <Button text={"Продлить план"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
             ) : (
               null
             )
@@ -145,12 +145,12 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
-              {planStatus == "active" ? "Вам доступен пакет:" : null}
-              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
-              {planStatus == "expired" ? "Срок действия плана истек." : null}
+              {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
+              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
+              {planStatus == "expired" ? "Срок действия плана истек:" : null}
             </div>
-            <div className={styles.package}>
-              <AdvancedPackage />
+            <div className={styles.plan}>
+              <AdvancedPlan />
             </div>
             <div className={styles.footerContainer}>
               {planStatus == "active" ? (
@@ -162,19 +162,19 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               )
               }
               {planStatus == "active" ? (
-                <Button text={"Управлять пакетом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                <Button text={"Управлять планом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
               ) : (
                 null
               )
               }
               {planStatus == "on_confirm" ? (
-                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
               ) : (
                 null
               )
               }
               {planStatus == "expired" ? (
-                <Button text={"Продлить"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                <Button text={"Продлить план"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
               ) : (
                 null
               )
@@ -197,12 +197,12 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               Добро пожаловать, {name}!
             </div>
             <div className={styles.subtitle}>
-              {planStatus == "active" ? "Вам доступен пакет:" : null}
-              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
-              {planStatus == "expired" ? "Срок действия плана истек." : null}
+              {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
+              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
+              {planStatus == "expired" ? "Срок действия плана истек:" : null}
             </div>
-            <div className={styles.package}>
-              <PremiumPackage />
+            <div className={styles.plan}>
+              <PremiumPlan />
             </div>
 
             <div className={styles.footerContainer}>
@@ -216,19 +216,19 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
               }
 
               {planStatus == "active" ? (
-                <Button text={"Управлять пакетом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                <Button text={"Управлять планом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
               ) : (
                 null
               )
               }
               {planStatus == "on_confirm" ? (
-                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
               ) : (
                 null
               )
               }
               {planStatus == "expired" ? (
-                <Button text={"Продлить"} onClick={() => navigate("/user_page/profile", { state: { targetId: "package_info" } })} className={styles.button} />
+                <Button text={"Продлить план"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
               ) : (
                 null
               )
@@ -245,12 +245,6 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
 
 
   else if (savedPlan == null) { ////////////////////////////////////////////////////
-
-
-
-
-
-
     return (
 
       <div>
@@ -260,9 +254,9 @@ export function PackageInfo({ name, savedPlan, onChange }: Props) {
             Добро пожаловать, {name}!
           </div>
           <div className={styles.subtitle}>
-            Выберите пакет:
+            Выберите план:
           </div>
-          <PackageList isLogged={true} onChange={onChange} trialApplicable = {trialApplicable}/>
+          <PlanList isLogged={true} onChange={onChange} trialApplicable={trialApplicable} />
         </div>
 
 

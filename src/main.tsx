@@ -22,7 +22,7 @@ import { AdminLayout } from "./layouts/adminLayout/AdminLayout"
 import { AuthLayout } from "./layouts/authLayout/AuthLayout"
 import { UserLayout } from "./layouts/userLayout/UserLayout"
 import { GameResults } from "./features/gameResults/GameResults"
-import { JoinPackage } from "./features/joinPackage/JoinPackage"
+import { JoinPlan } from "./features/joinPlan/JoinPlan"
 
 const router = createBrowserRouter([
   {
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "invitation",
-        element: <JoinPackage/>,
+        element: <JoinPlan/>,
       },
     ],
   },
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
       },
       {
         path: "invitation",
-        element: <JoinPackage/>,
+        element: <JoinPlan/>,
       },
 
 

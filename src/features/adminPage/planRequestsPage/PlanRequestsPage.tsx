@@ -141,7 +141,7 @@ export function PlanRequestsPage() {
         </linearGradient>
       </svg>
       <div className={styles.title}>
-        Запросы на пакет
+        Запросы на план
       </div>
       <div className={styles.users}>
 

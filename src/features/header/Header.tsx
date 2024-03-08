@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectToken, signIn } from "../../utils/authSlice"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
-import { Plan } from "../profile/packageInfo/PackageInfo"
+import { Plan } from "../profile/planInfo/PlanInfo"
 import { isMobile } from 'react-device-detect';
 
 
@@ -96,7 +96,7 @@ export function Header(props: Props) {
 
           }} selected={location.pathname == "/admin/users_page"} />
 
-          <HeaderItem text="Запросы на пакет" onClick={() => {
+          <HeaderItem text="Запросы на план" onClick={() => {
 
             navigate("/admin/plan_requests")
 

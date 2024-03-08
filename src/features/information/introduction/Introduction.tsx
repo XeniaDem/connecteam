@@ -14,7 +14,7 @@ export function Introduction() {
 
 
   const start = () => {
-    const element = document.getElementById("packages");
+    const element = document.getElementById("plans");
     element?.scrollIntoView();
 
   }

@@ -154,7 +154,7 @@ export function PlanUsersPage() {
             <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
           </div>}
           <div className={styles.title}>
-            Участники пакета
+            Участники плана
           </div>
           <div className={styles.subtitle}>
             Доступно мест {4 - usersNum} / 3

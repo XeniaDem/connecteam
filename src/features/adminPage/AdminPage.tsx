@@ -37,7 +37,7 @@ export function AdminPage() {
       </div>
       <div className={styles.section} onClick={() => navigate("/admin/plan_requests")}>
       <div className={styles.subtitle}>
-          Запросы на пакет
+          Запросы на план
         </div>
         <img src={users} />
 

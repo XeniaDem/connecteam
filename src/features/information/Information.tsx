@@ -1,24 +1,19 @@
 import styles from "./Information.module.css"
 import { About } from "./about/About"
-import { BecomeMember } from "./becomeMember/BecomeMember"
 import { Contacts } from "./contacts/Contacts"
 import { Faq } from "./faq/Faq"
-import { Intro } from "./intro/Intro"
 import { Introduction } from "./introduction/Introduction"
 import { KnowMore } from "./knowMore/KnowMore"
-import { Packages } from "./packages/Packages"
+import { Plans } from "./plans/Plans"
 import { RealGames } from "./realGames/RealGames"
 import { WhatIs } from "./whatIs/WhatIs"
 import { WhoPlay } from "./whoPlay/WhoPlay"
 import { WhyNeed } from "./whyNeed/WhyNeed"
-import disableScroll from 'disable-scroll';
 import {isMobile} from 'react-device-detect';
 
 
 export function Information() {
 
-
-  // const isMobile = useIsMobile()
 
   return (
     <div className={styles.container}>
@@ -30,7 +25,7 @@ export function Information() {
       <KnowMore />
       {!isMobile && <WhatIs />}
       <RealGames />
-      <Packages />
+      <Plans />
       {/* <BecomeMember /> */}
       <Faq />
       <Contacts/>

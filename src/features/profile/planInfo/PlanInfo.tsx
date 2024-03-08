@@ -1,10 +1,10 @@
-import styles from "./PackageInfo.module.css"
+import styles from "./PlanInfo.module.css"
 import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
 import ellipse3 from "../../../app/assets/ellipse3.svg"
 import icon1 from "./icon1.svg"
 import icon2 from "./icon2.svg"
-import { PackageList } from "../../packageList/PackageList"
+import { PlanList } from "../../planList/PlanList"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
@@ -17,6 +17,7 @@ export type Plan = {
   planAccess: string;
   status: string;
   invitationCode?: string;
+  isTrial?: boolean;
 
 
 }
@@ -26,7 +27,7 @@ type Props = {
 
 }
 
-export function PackageInfo({ savedPlan, onChange }: Props) {
+export function PlanInfo({ savedPlan, onChange }: Props) {
 
   const token = useSelector(selectToken)
   const [trialApplicable, setTrialApplicable] = useState(false)
@@ -62,7 +63,7 @@ export function PackageInfo({ savedPlan, onChange }: Props) {
 
 
   return (
-    <div id="package_info">
+    <div id="plan_info">
 
       <div className={styles.container}>
         <div className={styles.ellipse1}>
@@ -85,7 +86,7 @@ export function PackageInfo({ savedPlan, onChange }: Props) {
         <div className={styles.title}>
           Доступ
         </div>
-        <PackageList isLogged={true} planInfo={savedPlan} trialApplicable={trialApplicable} onChange={onChange} />
+        <PlanList isLogged={true} planInfo={savedPlan} trialApplicable={trialApplicable} onChange={onChange} />
 
       </div>
     </div>

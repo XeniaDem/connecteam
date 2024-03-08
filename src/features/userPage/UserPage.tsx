@@ -1,6 +1,6 @@
 import styles from "./UserPage.module.css"
 import { LastGames } from "./lastGames/LastGames"
-import { PackageInfo } from "./packageInfo/PackageInfo"
+import { PlanInfo } from "./planInfo/PlanInfo"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
@@ -8,7 +8,7 @@ import { useSelector } from "react-redux"
 import { selectToken } from "../../utils/authSlice"
 import { get, readServerError } from "../../utils/api"
 import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
-import { Plan } from "../profile/packageInfo/PackageInfo"
+import { Plan } from "../profile/planInfo/PlanInfo"
 import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
 
 
@@ -58,7 +58,8 @@ export function UserPage() {
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
       status: messageParsed.status, ////////////
-      invitationCode: messageParsed.invitation_code
+      invitationCode: messageParsed.invitation_code,
+      isTrial: messageParsed.is_trial
 
     }
     setPlanInfo(planInfo);
@@ -129,7 +130,7 @@ export function UserPage() {
   return (
 
     <div className={styles.container}>
-      <PackageInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
+      <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
       <ChooseTopics/>
       <ChooseTopic/>

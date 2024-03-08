@@ -1,5 +1,5 @@
 
-import { PackageInfo, Plan } from "./packageInfo/PackageInfo"
+import { PlanInfo, Plan } from "./planInfo/PlanInfo"
 import styles from "./Profile.module.css"
 import { Company, CompanyInfo } from "./companyInfo/CompanyInfo"
 import { User, UserInfo } from "./userInfo/UserInfo"
@@ -160,7 +160,7 @@ export function Profile() {
 
       <div className={styles.divider} />
 
-      <PackageInfo savedPlan = {planInfo} onChange={onPlanChange} />
+      <PlanInfo savedPlan = {planInfo} onChange={onPlanChange} />
 
 
 

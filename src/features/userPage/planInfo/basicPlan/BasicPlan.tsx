@@ -1,12 +1,12 @@
 
-import styles from "../Package.module.css"
+import styles from "../Plan.module.css"
 import tick from "../../../../app/assets/tickBig.svg"
 
 
 
 
 
-export function BasicPackage() {
+export function BasicPlan() {
 
 
     return (

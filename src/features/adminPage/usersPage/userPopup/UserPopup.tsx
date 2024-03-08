@@ -78,7 +78,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   const getErrorMessage = () => {
 
     if (expiryDate == undefined) {
-      return ("Выберите дату истечения пакета")
+      return ("Выберите дату истечения плана")
     }
     return null
   }

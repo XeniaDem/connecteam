@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "../../components/button/Button"
-import styles from "./JoinPackage.module.css"
+import styles from "./JoinPlan.module.css"
 import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
 import logoBig from "../../app/assets/logoBig.svg"
@@ -13,7 +13,7 @@ import { useSelector } from "react-redux"
 import { selectToken } from "../../utils/authSlice"
 
 
-export function JoinPackage() {
+export function JoinPlan() {
   const navigate = useNavigate()
   const location = useLocation()
 

@@ -1,11 +1,11 @@
 
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button/Button";
-import styles from "./PackageList.module.css"
+import styles from "./PlanList.module.css"
 import tick from "../../app/assets/tickSmall.svg"
 import { useEffect, useState } from "react";
-import { Plan } from "../profile/packageInfo/PackageInfo";
-import { ChoosePackagePopup } from "./choosePackagePopup/ChoosePackagePopup";
+import { Plan } from "../profile/planInfo/PlanInfo";
+import { ChoosePlanPopup } from "./choosePlanPopup/ChoosePlanPopup";
 import disableScroll from 'disable-scroll';
 
 type Props = {
@@ -17,22 +17,22 @@ type Props = {
 }
 
 
-export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: Props) {
+export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Props) {
   // const isMobile = useIsMobile()
   const navigate = useNavigate()
 
 
-  const [choosePackageOpen, setChoosePackageOpen] = useState(false)
+  const [choosePlanOpen, setChoosePlanOpen] = useState(false)
 
-  const openChoosePackagePopup = () => {
+  const openChoosePlanPopup = () => {
     disableScroll.on()
-    setChoosePackageOpen(true)
+    setChoosePlanOpen(true)
 
 
   }
-  const closeChoosePackagePopup = () => {
+  const closeChoosePlanPopup = () => {
     disableScroll.off()
-    setChoosePackageOpen(false)
+    setChoosePlanOpen(false)
     setNewPlan("")
     onChange && onChange()
 
@@ -44,7 +44,7 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
   const [newPlan, setNewPlan] = useState<string | undefined>();
   const [isTrial, setIsTrial] = useState(false)
 
-  const choosePackage = (type?: string) => {
+  const choosePlan = (type?: string) => {
 
     if (!isLogged) {
       navigate("/auth/register")
@@ -53,16 +53,14 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
       if (type == "basic" && trialApplicable) {
         setIsTrial(true)
       }
-      openChoosePackagePopup()
+      openChoosePlanPopup()
     }
 
   }
   const showPlanUsers = () => {
-
     navigate("/user_page/plan_users")
   }
 
-  // const [withPackage, setWithPackage] = useState(false);
 
   const [basicActive, setBasicActive] = useState(false);
   const [advancedActive, setAdvancedActive] = useState(false);
@@ -193,7 +191,7 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
               <div className={styles.offer}>
                 {isLogged && !trialApplicable ? null : "Попробуйте бесплатный доступ на 14 дней!"}
               </div>
-              <Button text={"Выбрать"} onClick={() => choosePackage("basic")} className={isLogged ? styles.inactive : styles.active} />
+              <Button text={"Выбрать"} onClick={() => choosePlan("basic")} className={isLogged ? styles.inactive : styles.active} />
             </div>
           )}
 
@@ -285,7 +283,7 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
 
           ) : (
             <div>
-              <Button text={"Выбрать"} onClick={() => choosePackage("advanced")} className={styles.inactive} />
+              <Button text={"Выбрать"} onClick={() => choosePlan("advanced")} className={styles.inactive} />
 
             </div>
 
@@ -375,7 +373,7 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
                   <div className={styles.down}>
                     {/* <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} /> */}
 
-                    {planInfo?.planAccess == "holder" ? <Button text={"Участники пакета"} onClick={showPlanUsers} className={styles.viewMembers} /> : null}
+                    {planInfo?.planAccess == "holder" ? <Button text={"Участники плана"} onClick={showPlanUsers} className={styles.viewMembers} /> : null}
                   </div>
                 </div>
               ) : (
@@ -387,7 +385,7 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
 
           ) : (
             <div>
-              <Button text={"Выбрать"} onClick={() => choosePackage("premium")} className={styles.inactive} />
+              <Button text={"Выбрать"} onClick={() => choosePlan("premium")} className={styles.inactive} />
             </div>
           )}
         </div>
@@ -395,7 +393,7 @@ export function PackageList({ isLogged, planInfo, trialApplicable, onChange }: P
 
       </div>
       {
-        choosePackageOpen ? <ChoosePackagePopup planType={newPlan} isTrial = {isTrial} closePopup={closeChoosePackagePopup}
+        choosePlanOpen ? <ChoosePlanPopup planType={newPlan} isTrial = {isTrial} closePopup={closeChoosePlanPopup}
           onChange={onChange != null ? onChange : () => null} /> : null
       }
 
