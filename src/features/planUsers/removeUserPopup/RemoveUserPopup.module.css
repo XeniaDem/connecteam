@@ -196,8 +196,6 @@ bottom: 0; */
     padding: 10px;
     font-size: 14px;
     margin-top: 10px;
-
-
   }
 
   .cancelButton {
@@ -206,6 +204,12 @@ bottom: 0; */
     font-size: 14px;
     margin-top: 10px;
 
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
   }
 
 }

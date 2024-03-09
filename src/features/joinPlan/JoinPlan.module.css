@@ -187,11 +187,6 @@
 
 }
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
-  .connecteam {
-    margin-top: 120px;
-
-
-  }
   .container {
     height: auto;
     min-height: 100vh;

@@ -121,17 +121,15 @@ export function CreateGame() {
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
-        </div>}
-        {!isMobile && <div className={styles.ellipse2}>
+        </div>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
+        </div>
 
-        </div>}
         <div className={styles.icon}>
           <img src={icon} />
-
         </div>
 
         <div className={styles.title}>
@@ -151,15 +149,12 @@ export function CreateGame() {
             <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
               value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} />
 
-
           </div>
 
           {formSubmitted && (createErrorMessage) ? (
             <div className={styles.errorMessage}>
               {createErrorMessage}
-
             </div>
-
           ) : (
             null
           )}
@@ -176,15 +171,10 @@ export function CreateGame() {
               <Button text={"Скопировать ссылку на игру"} onClick={openCopyPopup} className={styles.inviteButton} />
             </div>
           }
-
         </div>
-
-
       </div>
       {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} /> : null}
       {copyOpen ? <CopyPopup /> : null}
-
-
     </div>
   )
 }

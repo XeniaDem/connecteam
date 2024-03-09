@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./ChangePasswordPopup.module.css"
-import request from "superagent";
 import { patch } from "../../../../utils/api";
 import LockIcon from '@mui/icons-material/Lock';
 

@@ -14,17 +14,11 @@ export function Plans() {
         Выбор из трех планов
       </div>
       <div className={styles.container}>
-        {/* {!isMobile && <div className={styles.ellipse1}>
-          <img src={ellipse1} />
-        </div>} */}
         <div className={styles.rectangle}>
           <img src={rectangle} />
         </div>
         <PlanList isLogged = {false}/>
-        
       </div>
-
-
     </div>
   )
 }

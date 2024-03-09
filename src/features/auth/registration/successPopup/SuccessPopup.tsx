@@ -28,14 +28,11 @@ export function SuccessPopup(props: Props) {
   }
 
   const login = async () => {
-
     const data = {
       "email": props.email,
       "password": props.password
-
     }
     try {
-
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
 
@@ -50,37 +47,21 @@ export function SuccessPopup(props: Props) {
           navigate("/user_page")
         }
       }
-
     }
     catch (error: any) {
       readServerError(error.text)
       console.log("error:", error)
     }
-
   }
-
-
-
 
   return (
     <div className={styles.background}>
       <div className={styles.container}>
-
-      {/* <div className={styles.close}>
-      <Button text={""} onClick = {() => {navigate("/"); disableScroll.off()}} className={styles.closeButton} />
-          </div> */}
-
-
         <div className={styles.title}>
         Вы успешно зарегистрировались!
         </div>
-
-
-
         <Button text={"Войти"} onClick = {() => {login(); disableScroll.off()}} className={styles.button} />
-
       </div>
-
     </div>
   )
 }

@@ -47,12 +47,9 @@ export function PlanRequest({ savedRequest, token, onChange }: Props) {
   }
 
   const confirmPlan = async () => {
-    const data = {
-
-    }
     try {
 
-       const response = await patch('plans/' + savedRequest.plan.id.toString(), data, token)
+       const response = await patch('plans/' + savedRequest.plan.id.toString(), undefined, token)
        onChange()
 
 

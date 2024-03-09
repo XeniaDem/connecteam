@@ -8,10 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import {isMobile} from 'react-device-detect';
 
 
-
-
 export function LinkSent() {
-  // const isMobile = useIsMobile()
   const navigate = useNavigate()
 
   const { state } = useLocation();
@@ -22,22 +19,18 @@ export function LinkSent() {
     var name = email.split('@')[0]; 
     var domen = email.split('@')[1]; 
     var newName = name[0] + name.slice(0, name.length - 1).replace(/./g, '*')
-    // var newDomen = domen.slice(0, domen.length - 2).replace(/./g, '*') + domen.substring(domen.length - 2, domen.length)
     return newName + "@" + domen;
-
   }
 
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
-        </div>}
-        {!isMobile && <div className={styles.ellipse2}>
+        </div>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
-        </div>}
+        </div>
         {!isMobile && <div className={styles.padlock}>
           <img src={padlock} />
 
@@ -49,11 +42,9 @@ export function LinkSent() {
         <div className={styles.text}>
           Мы отправили электронное письмо на адрес {" "}
           <span className={styles.email}>
-            {/* {email.substr(0, 2) + email.slice(2, -2).replace(/./g, '*') + email.substr(-4)} */}
             {maskEmail(email)}
           </span>
           {" "} с временным паролем.
-
         </div>
 
         <Button text={"Хорошо"} onClick={() => {

@@ -80,12 +80,8 @@ export function JoinPlan() {
 
 
   const joinPackage = async () => {
-    alert(token)
-    const body = {
-
-    }
     try {
-      const response = await post('plans/join/' + code, body, token)
+      const response = await post('plans/join/' + code, undefined, token)
       navigate("/user_page")
     }
     catch (error: any) {

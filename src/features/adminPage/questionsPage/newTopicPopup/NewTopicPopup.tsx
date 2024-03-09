@@ -61,12 +61,9 @@ export function NewTopicPopup(props: Props) {
       <div className={styles.background}>
         <div className={styles.container}>
 
-
           <div className={styles.close}>
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
-
-
 
           <div className={styles.body}>
             <div className={styles.ellipse1}>
@@ -77,11 +74,9 @@ export function NewTopicPopup(props: Props) {
             </div>
             <div className={styles.title}>
               Добавить тему
-
             </div>
             <div className={styles.subtitle}>
               Задайте тему
-
             </div>
 
             <input className={styles.input} placeholder={"Название темы"}
@@ -91,14 +86,12 @@ export function NewTopicPopup(props: Props) {
               {errorMessage}
 
             </div>)}
-
           </div>
 
           <Button text={"Добавить тему"} onClick={addTopic} className={styles.addButton} />
 
         </div>
-
       </div>
-    </div >
+    </div>
   )
 }

@@ -237,11 +237,15 @@
     width: 100px;
     font-size: 20px;
     line-height: normal;
-
-
   }
   .singleResult::before {
     border-width: 3px;
 
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
   }
 }

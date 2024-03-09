@@ -47,24 +47,17 @@ export function AuthProblem() {
 
   }
 
-  const restorePassword = async () => { ////////////////////
+  const restorePassword = async () => { 
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;
     }
-
     const data = {
       "email": email,
-
     }
     try {
-
       const response = await patch('auth/password', data)
-
       navigate("link_sent", { state: { email: email } })
-
-
-
     }
     catch (error: any) {
       setRestoreError(readRestoreError(error.response.text))
@@ -78,29 +71,23 @@ export function AuthProblem() {
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
-        </div>}
-        {!isMobile && <div className={styles.ellipse2}>
+        </div>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
-        </div>}
+        </div>
         {!isMobile && <div className={styles.padlock}>
           <img src={padlock} />
-
         </div>}
         <div className={styles.title}>
           Возникли проблемы с входом в систему?
-
         </div>
         <div className={styles.text}>
           Введите ваш адрес электронной почты, и мы вышлем временный пароль для возврата в вашу учетную запись.
-
         </div>
         <div className={styles.inputs}>
           <input className={styles.input} placeholder="Эл. почта" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
-
         </div>
         {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
           {errorMessage}
@@ -110,19 +97,16 @@ export function AuthProblem() {
           <div className={styles.errorMessage}>
             {restoreError}
           </div>
-
         ) : (
-          <div />
+          null
         )}
         <Button text={"Отправить"} onClick={restorePassword} className={styles.button} />
         <div className={styles.footerContainer}>
-
           <div className={styles.line} />
           <div className={styles.footerItem}>
             или
           </div>
           <div className={styles.line} />
-
         </div>
         <div className={styles.footerContainer}>
 

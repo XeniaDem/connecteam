@@ -38,39 +38,30 @@ export function RemoveUserPopup(props: Props) {
 
 
   return (
-
     <div>
-      
-
       <div className={styles.background}>
         <div className={styles.container}>
-
-
           <div className={styles.close}>
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
           <div className={styles.body}>
-            {!isMobile && <div className={styles.ellipse1}>
+            <div className={styles.ellipse1}>
               <img src={ellipse1} />
-            </div>}
-            {!isMobile && <div className={styles.ellipse2}>
+            </div>
+            <div className={styles.ellipse2}>
               <img src={ellipse2} />
-            </div>}
+            </div>
 
             <div className={styles.text}>
               Вы точно хотите удалить пользователя <br /> {props.planUser.name} из участников плана?
             </div>
-
-
 
             <div className={styles.buttons}>
               <Button text={"Да"} onClick={removePlanUser} className={styles.okButton} />
               <Button text={"Отмена"} onClick={props.closePopup} className={styles.cancelButton} />
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   )

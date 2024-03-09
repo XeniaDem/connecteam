@@ -11,7 +11,7 @@ import { SuccessPopup } from "./successPopup/SuccessPopup"
 import { useLocation, useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import validator from 'validator'
-import { post } from "../../../utils/api"
+import { post, readServerError } from "../../../utils/api"
 import {isMobile} from 'react-device-detect';
 
 
@@ -60,20 +60,15 @@ export function Registration() {
     return null
   }
 
-
   var errorMessage = getErrorMessage()
-
-
 
   const openVerifyPopup = () => {
     disableScroll.on()
     setVerifyOpen(true)
-
   }
   const closeVerifyPopup = () => {
     disableScroll.off()
     setVerifyOpen(false)
-
   }
 
 
@@ -85,16 +80,13 @@ export function Registration() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.id
     var id = content
-
     setId(id)
   }
   const readRegistrationError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
-
     if (content.includes("duplicate key value violates")) {
       return ("Пользователь с таким эл. адресом уже существует")
-
     }
     return content;
   }
@@ -105,7 +97,6 @@ export function Registration() {
     if (errorMessage != null) {
       return;
     }
-
     const data = {
       "email": email,
       "first_name": name,
@@ -119,13 +110,11 @@ export function Registration() {
       setRegistrationError("")
       verifyEmail()
       openVerifyPopup()
-
     }
     catch (error: any) {
       setRegistrationError(readRegistrationError(error.response.text))
       console.log("error:", error)
     }
-
   }
 
   const verifyEmail = async () => {
@@ -133,18 +122,15 @@ export function Registration() {
       "email": email,
     }
     try {
-
       const response = await post('auth/verify-email', data)
-
     }
     catch (error: any) {
-      alert(error.response.text)
+      readServerError(error.response.text)
       console.log("error:", error)
     }
 
   }
   const [codeValue, setCodeValue] = useState<undefined | string>('');
-
 
   const [verifySubmitted, setVerifySubmitted] = useState(false)
   const [verifyError, setVerifyError] = useState("")
@@ -153,7 +139,6 @@ export function Registration() {
   const openSuccessPopup = () => {
     disableScroll.on()
     setSuccessOpen(true)
-
   }
 
   const readVerifyError = (message: any) => {
@@ -162,10 +147,8 @@ export function Registration() {
 
     if (content.includes("wrong verification code")) {
       return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-
     }
     return content;
-
   }
 
   const verifyUser = async () => {
@@ -174,13 +157,11 @@ export function Registration() {
     const data = {
       "id": id.toString(),
       "code": codeValue
-
     }
     try {
       const response = await post('auth/verify-user', data)
       closeVerifyPopup()
       openSuccessPopup()
-
     }
     catch (error: any) {
       setVerifyError(readVerifyError(error.response.text))
@@ -191,20 +172,16 @@ export function Registration() {
 
   return (
     <div>
-
       <div className={styles.container}>
 
-        {!isMobile && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
-        </div>}
-        {!isMobile && <div className={styles.ellipse2}>
+        </div>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
-        </div>}
+        </div>
         <div className={styles.connecteam}>
         {!isMobile ? <img src={logoBig}/> :  <img src={logoSmall} />}
-
         </div>
 
         <div className={styles.inputs}>
@@ -227,7 +204,6 @@ export function Registration() {
             onChange={(event) => { setPasswordRepeated((event.target.value).replace(/\s/g, '')) }} />
         </div>
 
-
         {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
           {errorMessage}
 
@@ -236,25 +212,20 @@ export function Registration() {
         {formSubmitted && registrationError ? (
           <div className={styles.errorMessage}>
             {registrationError}
-
           </div>
-
         ) : (
-          <div />
+          null
         )}
 
         <Button text={"Зарегистрироваться"} onClick={register} className={styles.button} />
         <div className={styles.footerContainer}>
           <div className={styles.footerItem}>
             Уже есть аккаунт?
-
           </div>
           <Button text={"Войти"} onClick={() => {
             navigate("/auth/login")
           }} className={styles.footerButton} />
-
         </div>
-
       </div>
       {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
         value={codeValue} onValueChange={setCodeValue}

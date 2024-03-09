@@ -53,12 +53,10 @@ export function Introduction() {
           <span className={styles.subtitle2}>
             Светланы Ивановой
           </span>
-
         </div>
         <div className={styles.start} onClick={start}>
           Начать
           <ArrowOutwardIcon htmlColor="FFF" />
-
         </div>
       </div>
 
@@ -66,18 +64,11 @@ export function Introduction() {
         <img src={element} />
         <div className={styles.star}>
           <img src={star} />
-
         </div>
         <div className={styles.line}>
           <img src={line} />
-
         </div>
-
       </div>)}
-
-
-
-
     </div>
   )
 }

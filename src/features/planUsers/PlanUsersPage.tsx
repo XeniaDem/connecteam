@@ -8,7 +8,7 @@ import { Button } from "../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
 import disableScroll from 'disable-scroll';
 import { InvitePopup } from "./InvitePopup/InvitePopup"
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -39,7 +39,7 @@ export function PlanUsersPage() {
         email: messageParsed.data[i].email,
         photo: messageParsed.data[i].profile_image,
         isHolder: isHolder
-      
+
 
       }
       userModels.push(planUserModel)
@@ -106,7 +106,7 @@ export function PlanUsersPage() {
     }
     setInvitationCode(messageParsed.invitation_code)
     setHolderId(messageParsed.holder_id)
-   
+
 
   }
 
@@ -139,17 +139,14 @@ export function PlanUsersPage() {
 
   return (
     <div>
-  
-
       <div className={styles.container}>
-
         <div>
-        <svg width={0} height={0}>
-        <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
-          <stop offset={0} stopColor="#55C6F7" />
-          <stop offset={1} stopColor="#2AF8BA" />
-        </linearGradient>
-      </svg>
+          <svg width={0} height={0}>
+            <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+              <stop offset={0} stopColor="#55C6F7" />
+              <stop offset={1} stopColor="#2AF8BA" />
+            </linearGradient>
+          </svg>
           {!isMobile && <div className={styles.back}>
             <Button text={""} onClick={() => { navigate(-1) }} className={styles.backButton} />
           </div>}
@@ -160,43 +157,26 @@ export function PlanUsersPage() {
             Доступно мест {4 - usersNum} / 3
           </div>
           <div className={styles.users}>
-
-
             {planUsers != null ? (
-
               planUsers?.map(user =>
                 <div>
                   <PlanUser planUser={user} token={token} onChange={onChange} />
-
                 </div>
-
               )
-
-
             ) : (
               <div className={styles.empty}>
                 Вы пока не добавляли участников
-
               </div>
-
             )}
-
-
           </div>
         </div>
         {usersNum < 4 ? (
           <div className={styles.buttonContainer}>
             <Button text={"+"} onClick={openInviteUserPopup} className={styles.button} />
-
           </div>
         ) : (
           null
-
         )}
-
-
-
-
       </div>
       {inviteUserOpen ? <InvitePopup token={token} closePopup={closeInviteUserPopup} invitationCode={invitationCode} /> : null}
     </div>

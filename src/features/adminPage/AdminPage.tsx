@@ -40,10 +40,7 @@ export function AdminPage() {
           Запросы на план
         </div>
         <img src={users} />
-
       </div>
-
-
     </div>
   )
 }

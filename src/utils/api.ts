@@ -41,7 +41,7 @@ export const get = async (url: string, token?: string) => {
 
 }
 
-export const patch = async <T extends Object>(url: string, body: T, token?: string) => {
+export const patch = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {
         const response = await request.patch('http://localhost:8000/' + url)
             .set('Access-Control-Allow-Origin', '*')

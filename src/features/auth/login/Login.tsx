@@ -208,17 +208,14 @@ export function Login() {
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
-        </div>}
-        {!isMobile && <div className={styles.ellipse2}>
+        </div>
+        <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
-        </div>}
+        </div>
         <div className={styles.connecteam}>
           {!isMobile ? <img src={logoBig} /> : <img src={logoSmall} />}
-
         </div>
 
         <div className={styles.inputs}>
@@ -234,42 +231,35 @@ export function Login() {
 
         {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
           {errorMessage}
-
         </div>)}
 
         {formSubmitted && loginError ? (
           <div className={styles.errorMessage}>
             {loginError}
           </div>
-
         ) : (
-          <div />
+          null
         )}
 
         <Button text={"Войти"} onClick={login} className={styles.button} />
-        <div className={styles.footerContainer}>
 
+        <div className={styles.footerContainer}>
           <Button text={"Забыли пароль?"} onClick={() => {
             navigate("/auth/forgot_password")
           }} className={styles.footerButton} />
-
         </div>
         <div className={styles.footerContainer}>
           <div className={styles.footerItem}>
             Нет аккаунта?
-
           </div>
           <Button text={"Зарегистрироваться"} onClick={() => {
             navigate("/auth/register")
           }} className={styles.footerButton} />
-
         </div>
-
       </div>
       {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-
     </div>
   )
 }

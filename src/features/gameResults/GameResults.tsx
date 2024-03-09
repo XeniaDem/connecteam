@@ -161,9 +161,9 @@ export function GameResults(props: Props) {
             <stop offset={1} stopColor="#2AF8BA" />
           </linearGradient>
         </svg>
-        {!isMobile && <div className={styles.ellipse1}>
+        <div className={styles.ellipse1}>
           <img src={ellipse1} />
-        </div>}
+        </div>
         <div className={styles.ellipse2}>
           <img src={ellipse2} />
         </div>
@@ -189,7 +189,6 @@ export function GameResults(props: Props) {
                   <div>
                     <Player savedPlayer={player} />
                   </div>
-
                 )}
             </div>
           </div>
@@ -204,7 +203,6 @@ export function GameResults(props: Props) {
                   <div>
                     <Result savedResult={result} />
                   </div>
-
                 )}
               </div>
             ) : (
@@ -222,9 +220,7 @@ export function GameResults(props: Props) {
             {detailedResults?.map(detailedResult =>
               <div>
                 <DetailedResult savedDetailedResult={detailedResult} />
-
               </div>
-
             )}
           </div>
         ) : (
@@ -234,9 +230,7 @@ export function GameResults(props: Props) {
             </div>
             {myDetailedResult && <DetailedResult savedDetailedResult={myDetailedResult} />}
           </div>
-
         )}
-
 
         <div className={styles.close}>
           <Button text={"Закрыть"} onClick={() => navigate("/user_page")} className={styles.closeButton} />

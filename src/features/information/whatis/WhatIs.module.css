@@ -196,22 +196,26 @@
 
 @media (max-width: 1250px) {
   .left {
-    gap:30px;
+    gap: 30px;
 
   }
+
   .card {
-    padding-top:0px;
+    padding-top: 0px;
     height: auto;
     width: auto;
   }
+
   .middle {
     display: none;
   }
+
   .right {
     display: none;
   }
+
   .cardOptional {
-    padding-top:0px;
+    padding-top: 0px;
     height: auto;
     width: auto;
 
@@ -219,15 +223,17 @@
 
 
 }
+
 @media (min-width: 1251px) {
   .cardOptional {
-    display:none;
+    display: none;
   }
 
 
 
 }
-@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+
+@media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {
 
   .title {
     font-size: 30px;
@@ -240,17 +246,20 @@
     line-height: normal;
 
   }
+
   .cardTitleRight {
     font-size: 20px;
     line-height: normal;
 
   }
+
   .text {
     font-size: 12px;
   }
+
   .icon {
     width: 40px;
-    height:40px;
+    height: 40px;
   }
 
 
