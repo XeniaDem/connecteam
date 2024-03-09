@@ -11,7 +11,6 @@ export function Contacts() {
                         ©2024 Connecteam <br />
                         Все права защищены.
                     </div>
-
                 </div>
                 <div className={styles.group}>
                     <div className={styles.column}>
@@ -29,8 +28,6 @@ export function Contacts() {
                         <div className={styles.textUnderline} >
                             Telegram <br />  Instagram <br /> WhatsApp
                         </div>
-
-
                     </div>
                     <div className={styles.column}>
                         <div className={styles.title} >
@@ -38,18 +35,10 @@ export function Contacts() {
                         </div>
                         <div className={styles.email} >
                             connecteam@gmail.com
-
                         </div>
-
-
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
-
     )
 }

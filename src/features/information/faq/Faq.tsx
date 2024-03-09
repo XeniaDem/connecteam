@@ -28,15 +28,10 @@ export function Faq() {
   return (
 
     <div className={styles.container} id="faq">
-
       <div className={styles.title}>
         FAQ
       </div>
-
-
-
       <div className={styles.questions}>
-
         {sections}
       </div>
     </div>

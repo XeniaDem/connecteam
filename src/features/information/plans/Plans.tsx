@@ -5,9 +5,6 @@ import { PlanList } from "../../planList/PlanList"
 
 
 export function Plans() {
-
-  // const isMobile = useIsMobile()
-
   return (
     <div id = "plans">
       <div className={styles.title}>

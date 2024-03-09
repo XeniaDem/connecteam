@@ -1,27 +1,16 @@
-
-import React from "react";
 import { CheckBox } from "../../components/checkBox/CheckBox";
 import styles from "./Topic.module.css"
-
 import ellipse from "../../app/assets/ellipseSmall.svg"
 import TopicIcon from '@mui/icons-material/Topic';
-import { TopicModel } from "../adminPage/questionsPage/topic/Topic";
 import {isMobile} from 'react-device-detect';
 
 
 type Props = {
   name: string;
-
-
   withCheckBox: boolean;
-
   selected: boolean;
   onTopicClicked: (selected: boolean) => void;
   inactive?: boolean;
-
-
-
-
 }
 
 
@@ -30,7 +19,6 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
 
 
   const handleChange = () => {
-
     onTopicClicked(!selected);
     
   };

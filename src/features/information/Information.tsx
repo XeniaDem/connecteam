@@ -26,7 +26,6 @@ export function Information() {
       {!isMobile && <WhatIs />}
       <RealGames />
       <Plans />
-      {/* <BecomeMember /> */}
       <Faq />
       <Contacts/>
 

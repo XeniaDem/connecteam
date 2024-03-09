@@ -11,7 +11,6 @@ import { selectToken } from "../../utils/authSlice"
 import { get, readServerError } from "../../utils/api"
 
 
-
 export function Profile() {
 
   const token = useSelector(selectToken)
@@ -27,14 +26,11 @@ export function Profile() {
       email: messageParsed.email,
       about: messageParsed.description,
       photo: messageParsed.profile_image /////////////
-
     }
     setUserInfo(userInfo);
-
   }
 
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null)
-
 
   const readCompanyInfo = (message: any) => {
     const messageParsed = JSON.parse(message);
@@ -43,12 +39,9 @@ export function Profile() {
       website: messageParsed.company_url,
       about: messageParsed.company_info,
       photo: messageParsed.company_logo
-
     }
     setCompanyInfo(companyInfo);
-
   }
-
 
   const [planInfo, setPlanInfo] = useState<Plan| null>(null)
 
@@ -63,27 +56,20 @@ export function Profile() {
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
       status: messageParsed.status
-
     }
     setPlanInfo(planInfo);
-
-
   }
 
   const fetchPlan = async () => {
     try {
-
       const response = await get('plans/current', token)
       readPlanInfo(response.text)
       setPlanFetched(true)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   const fetchUserPage = async () => {
@@ -92,21 +78,12 @@ export function Profile() {
       readUserInfo(response.text)
       readCompanyInfo(response.text)
       setUserFetched(true)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
-
-
-
-
-
-
 
   const [userFetched, setUserFetched] = useState(false)
 
@@ -115,11 +92,9 @@ export function Profile() {
 
   const onUserChange = () => {
     setUserFetched(!userFetched)
-
   }
   const onPlanChange = () => {
     setPlanFetched(!planFetched)
-
   }
 
 
@@ -146,23 +121,17 @@ export function Profile() {
     }
   }, [targetId, planInfo]);
 
-
-
   return (
     <div className={styles.container}>
-
       {userInfo && (<UserInfo savedUser={userInfo} token={token} onChange={onUserChange} />)}
 
       <div className={styles.divider} />
-
 
       {companyInfo && (<CompanyInfo savedCompany={companyInfo} token={token} onChange={onUserChange}/>)}
 
       <div className={styles.divider} />
 
       <PlanInfo savedPlan = {planInfo} onChange={onPlanChange} />
-
-
 
     </div>
   )

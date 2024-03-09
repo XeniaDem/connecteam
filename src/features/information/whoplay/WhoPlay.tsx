@@ -8,12 +8,9 @@ import logo5 from "./logo5.svg"
 import vector from "./vector.svg"
 import ellipse from "./ellipse.svg"
 import pentagon from "./pentagon.svg"
-import { isMobile, isTablet } from 'react-device-detect';
-import { Widgets } from "@mui/icons-material"
+import { isMobile } from 'react-device-detect';
 
 export function WhoPlay() {
-
-
   return (
     <div id="whoplay">
       <div className={styles.title} >
@@ -89,9 +86,7 @@ export function WhoPlay() {
             Чтобы получить больше информации друг о друге и укрепить связи
           </div>
         </div>
-
       </div>
-
     </div>
   )
 }

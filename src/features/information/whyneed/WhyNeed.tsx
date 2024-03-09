@@ -63,16 +63,10 @@ export function WhyNeed() {
                 </div>
               </div>
             </div>
-
-
-
           </div>
-
       </div>
     )
   }
-
-
 
   return (
     <div>
@@ -102,7 +96,6 @@ export function WhyNeed() {
               </div>
             </div>
           </div>
-
           <div className={styles.card}>
             <div className={styles.cardLeft}>
               <div className={styles.number}>
@@ -118,8 +111,6 @@ export function WhyNeed() {
               </div>
             </div>
           </div>
-
-
         </div>
 
         <div className={styles.right}>
@@ -142,7 +133,6 @@ export function WhyNeed() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )

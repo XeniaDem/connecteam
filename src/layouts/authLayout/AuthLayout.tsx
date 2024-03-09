@@ -3,11 +3,7 @@ import { Header } from "../../features/header/Header";
 import styles from "../Layout.module.css"
 
 
-
-
 export function AuthLayout() {
-
-
     return (
         <div>
             <div className={styles.header}>

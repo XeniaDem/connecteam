@@ -2,7 +2,9 @@
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
-display: flex;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
 
 }
@@ -10,17 +12,38 @@ display: flex;
 
 
 .photo {
-  width: 57px;
-height: 57px;
-flex-shrink: 0;
-border-radius: 70.336px;
-border: 3px solid #303030;
+  width: 60.62px;
+  height: 60.62px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  object-fit: fill;
+  position: relative;
 
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-object-fit: cover;
+
+}
+
+.photo::before {
+
+  border-radius: 50px;
+
+  border: 1px solid transparent;
+  padding: 10px;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
+  /*3*/
+  -webkit-mask:
+    /*4*/
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  /*5'*/
+
+
 
 
 }
@@ -28,15 +51,16 @@ object-fit: cover;
 
 .name {
   color: #FFF;
-font-size: 24px;
-font-style: normal;
-font-weight: 500;
-line-height: 34.737px; /* 144.737% */
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34.737px;
+  /* 144.737% */
 
-display: flex;
+  display: flex;
 
 
-gap: 5px;
+  gap: 5px;
 
 }
 
@@ -45,41 +69,35 @@ gap: 5px;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 34.737px; /* 144.737% */
+  line-height: 34.737px;
+  /* 144.737% */
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
 
 
-display: flex;
-gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 
-@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {
   .name {
     font-size: 15px;
     line-height: normal;
 
   }
+
   .nameYou {
     font-size: 15px;
     line-height: normal;
 
   }
 
+  .photo {
+    width: 45px;
+    height:45px;
+  }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -78,7 +78,7 @@
   align-items: center;
   color: #FFF;
   cursor: pointer;
-  width: 250px;
+  min-width: 250px;
 }
 
 .nameActive {
@@ -92,7 +92,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  width: 250px;
+  min-width: 250px;
 
 }
 

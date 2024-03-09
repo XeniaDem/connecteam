@@ -1,30 +1,36 @@
 
 import styles from "./Player.module.css"
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
-
-type Props = {
+export type PlayerModel = {
+  id: string;
   isCreator: boolean;
   isYou: boolean;
-
   name: string;
+  photo: string;
+}
+type Props = {
+  savedPlayer: PlayerModel;
 
 
 }
 
-Player.defaultProps = { isCreator: false, isYou: false, name: "Ксения" }
 
 
-export function Player(props: Props) {
+export function Player({ savedPlayer }: Props) {
 
   return (
     <div>
 
-      {props.isYou ? (
+      {savedPlayer.isYou ? (
         <div className={styles.container}>
+          <div className={styles.photo}>
+            {savedPlayer.photo == "" ? <PhotoCameraIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedPlayer.photo} />}
+          </div>
           <div className={styles.nameYou}>
             Вы
-            {props.isCreator ? (
+            {savedPlayer.isCreator ? (
               <div className={styles.nameYou}>
                 (Организатор)
               </div>
@@ -35,9 +41,12 @@ export function Player(props: Props) {
         </div>
       ) : (
         <div className={styles.container}>
+          <div className={styles.photo}>
+            {savedPlayer.photo == "" ? <PhotoCameraIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedPlayer.photo} />}
+          </div>
           <div className={styles.name}>
-            {props.name}
-            {props.isCreator ? (
+            {savedPlayer.name}
+            {savedPlayer.isCreator ? (
               <div className={styles.name}>
                 (Организатор)
 

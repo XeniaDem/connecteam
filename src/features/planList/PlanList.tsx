@@ -13,31 +13,23 @@ type Props = {
   trialApplicable?: boolean;
   planInfo?: Plan | null;
   onChange?: () => void;
-
 }
 
 
 export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Props) {
-  // const isMobile = useIsMobile()
   const navigate = useNavigate()
-
 
   const [choosePlanOpen, setChoosePlanOpen] = useState(false)
 
   const openChoosePlanPopup = () => {
     disableScroll.on()
     setChoosePlanOpen(true)
-
-
   }
   const closeChoosePlanPopup = () => {
     disableScroll.off()
     setChoosePlanOpen(false)
     setNewPlan("")
     onChange && onChange()
-
-
-
   }
 
 
@@ -45,7 +37,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
   const [isTrial, setIsTrial] = useState(false)
 
   const choosePlan = (type?: string) => {
-
     if (!isLogged) {
       navigate("/auth/register")
     } else {
@@ -57,6 +48,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
     }
 
   }
+
   const showPlanUsers = () => {
     navigate("/user_page/plan_users")
   }
@@ -75,7 +67,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
       return;
 
     }
-
     if (planInfo?.planType == "basic") {
       setBasicActive(true);
       setAdvancedActive(false);
@@ -94,14 +85,10 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
       setPremiumActive(true);
       return;
     }
-
-
   }
 
   useEffect(() => {
-
     readAccess()
-
   }, [planInfo]);
 
 
@@ -166,8 +153,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
             </div>
           </div>
 
-
-
           {basicActive ? (
             <div className={styles.down}>
 
@@ -176,10 +161,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
                   </div>
-                  {/* <div className={styles.down}>
-
-                    <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
-                  </div> */}
                 </div>
               ) : (
                 null
@@ -194,11 +175,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
               <Button text={"Выбрать"} onClick={() => choosePlan("basic")} className={isLogged ? styles.inactive : styles.active} />
             </div>
           )}
-
-
         </div>
-
-
 
 
         <div className={styles.card}>
@@ -211,7 +188,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
               </div>
             </div>
-
           ) : (
             <div className={styles.name}>
               Расширенный
@@ -261,20 +237,13 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
             </div> */}
           </div>
 
-
-
           {advancedActive ? (
             <div className={styles.down}>
-
               {planInfo?.status == "active" ? (
                 <div>
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
                   </div>
-                  {/* <div className={styles.down}>
-
-                    <Button text={"Продлить"} onClick={() => null} className={styles.viewMembers} />
-                  </div> */}
                 </div>
               ) : (
                 null
@@ -284,16 +253,11 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
           ) : (
             <div>
               <Button text={"Выбрать"} onClick={() => choosePlan("advanced")} className={styles.inactive} />
-
             </div>
-
           )}
-
         </div>
 
-
         <div className={styles.card}>
-
           {premiumActive ? (
             <div className={styles.up}>
               <div className={styles.nameActive}>
@@ -360,13 +324,10 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
             </div> */}
           </div>
 
-
-
           {premiumActive ? (
             <div className={styles.down}>
               {planInfo?.status == "active" ? (
-                <div >
-
+                <div>
                   <div className={styles.expiry}>
                     Дата истечения срока подписки {planInfo?.expiryDate}
                   </div>
@@ -379,24 +340,18 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
               ) : (
                 null
               )}
-
-
             </div>
-
           ) : (
             <div>
               <Button text={"Выбрать"} onClick={() => choosePlan("premium")} className={styles.inactive} />
             </div>
           )}
         </div>
-
-
       </div>
       {
         choosePlanOpen ? <ChoosePlanPopup planType={newPlan} isTrial = {isTrial} closePopup={closeChoosePlanPopup}
           onChange={onChange != null ? onChange : () => null} /> : null
       }
-
     </div >
   )
 }

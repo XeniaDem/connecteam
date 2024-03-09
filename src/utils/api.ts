@@ -83,8 +83,5 @@ export const readServerError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message;
     console.log(content)
-   
-
-
 }
 

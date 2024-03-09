@@ -27,9 +27,6 @@ export function Header(props: Props) {
 
 
   const token = useSelector(selectToken)
-
-
-
   const [planInfo, setPlanInfo] = useState<Plan | null>(null)
 
 
@@ -43,7 +40,7 @@ export function Header(props: Props) {
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0, 10),
       planAccess: messageParsed.plan_access,
-      status: messageParsed.status ////////////
+      status: messageParsed.status
 
     }
     setPlanInfo(planInfo);
@@ -53,17 +50,13 @@ export function Header(props: Props) {
 
   const fetchPlan = async () => {
     try {
-
       const response = await get('plans/current', token)
       readPlanInfo(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
@@ -71,8 +64,6 @@ export function Header(props: Props) {
 
 
   if (props.adminHeader) {
-
-
     return (
 
       <div className={styles.container}>
@@ -83,50 +74,31 @@ export function Header(props: Props) {
             }} />
           </div>
 
-
           <HeaderItem text="Вопросы" onClick={() => {
-
             navigate("/admin/questions_page")
-
           }} selected={location.pathname.startsWith("/admin/questions_page")} />
 
           <HeaderItem text="Пользователи" onClick={() => {
             navigate("/admin/users_page")
-
-
           }} selected={location.pathname == "/admin/users_page"} />
 
           <HeaderItem text="Запросы на план" onClick={() => {
-
             navigate("/admin/plan_requests")
-
-
-
-
           }} selected={location.pathname == "/admin/plan_requests"} />
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
           dispatch(signIn({ token: "", access: "" }))
         }} className={styles.authButton} />
-
-
       </div>
-
-
-
     )
   }
 
 
   if (props.loggedHeader) {
     useEffect(() => {
-      fetchPlan();
-
+      fetchPlan()
     }, []);
-    // const isMobile = useIsMobile()
-
-
     return (
       <div className={styles.container}>
         <div className={styles.group}>
@@ -136,11 +108,10 @@ export function Header(props: Props) {
             }} />
           </div>
 
-
           <HeaderItem text="Профиль" onClick={() => {
             navigate("/user_page/profile")
-
           }} selected={location.pathname.startsWith("/user_page/profile")} />
+
           {planInfo && planInfo.status == "active" ? (
             <HeaderItem text="Создать игру" onClick={() => {
               navigate("/user_page/create_game")
@@ -148,27 +119,21 @@ export function Header(props: Props) {
           ) : (
             null
           )}
+
           <HeaderItem text="Мои игры" onClick={() => navigate("/user_page", { state: { targetId: "games" } })} link="#games" />
           {isMobile && <Button text={"Выход"} onClick={() => {
             navigate("/")
             dispatch(signIn({ token: "", access: "" }))
           }} className={styles.authButton} />}
         </div>
+
         {!isMobile && <Button text={"Выход"} onClick={() => {
           navigate("/")
           dispatch(signIn({ token: "", access: "" }))
         }} className={styles.authButton} />}
-
-
-
       </div>
-
-
-
     )
   }
-
-
 
   if (props.authHeader) {
     return (
@@ -182,18 +147,11 @@ export function Header(props: Props) {
         <Button text={"Вход"} onClick={() => {
           navigate("/auth/login")
         }} className={styles.authButton} />
-
-
       </div>
-
-
-
     )
   }
 
-
   return (
-
     <div className={styles.container}>
       <div className={styles.logo}>
         <img src={logoSmall} onClick={() => {
@@ -209,7 +167,6 @@ export function Header(props: Props) {
           <Button text={"Зарегистрироваться"} onClick={() => {
             navigate("/auth/register")
           }} />
-
         </div>
         <div className={styles.login}>
           <div className={styles.person}>
@@ -218,7 +175,6 @@ export function Header(props: Props) {
           <HeaderItem text="Войти" link="/auth/login" />
         </div>
       </div>
-
-    </div >
+    </div>
   )
 }

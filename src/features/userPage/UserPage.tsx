@@ -17,14 +17,10 @@ export function UserPage() {
 
   const token = useSelector(selectToken)
   
-
-
   const [name, setName] = useState("");
   const [planInfo, setPlanInfo] = useState<Plan | null>(null)
 
-
   const readAnswer = (message: any) => {
-
     var messageParsed = JSON.parse(message);
     console.log(JSON.stringify(messageParsed));
     var name = messageParsed.first_name
@@ -34,17 +30,13 @@ export function UserPage() {
 
   const fetchUserPage = async () => {
     try {
-
       const response = await get('users/me', token)
       readAnswer(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   const readPlanInfo = (message: any) => {
@@ -60,26 +52,19 @@ export function UserPage() {
       status: messageParsed.status, ////////////
       invitationCode: messageParsed.invitation_code,
       isTrial: messageParsed.is_trial
-
     }
     setPlanInfo(planInfo);
-
   }
-
 
   const fetchPlan = async () => {
     try {
-
       const response = await get('plans/current', token)
       readPlanInfo(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
@@ -128,13 +113,11 @@ export function UserPage() {
 
 
   return (
-
     <div className={styles.container}>
       <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
       <ChooseTopics/>
       <ChooseTopic/>
-
     </div>
   )
 }

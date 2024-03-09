@@ -1,12 +1,11 @@
 
 import styles from "./WhatIs.module.css"
-import circle from "./circle.svg"
 import line1 from "./line1.svg"
 import tick from "./tick.svg"
 import rectangle1 from "./rectangle1.svg"
 import rectangle2 from "./rectangle2.svg"
 import rectangle3 from "./rectangle3.svg"
-import connecteam from "./connecteam.svg"
+import logoBig from "../../../app/assets/logoBig.svg"
 import person from "./person.svg"
 import question from "./question.svg"
 import flag from "./flag.svg"
@@ -14,15 +13,11 @@ import flag from "./flag.svg"
 
 export function WhatIs() {
 
-
-
-
-
   return (
     <div>
       <div className={styles.title}>
         Что такое
-        <img src={connecteam} />
+        <img src={logoBig} />
       </div>
       <div className={styles.container}>
         <div className={styles.left}>
@@ -88,8 +83,6 @@ export function WhatIs() {
                 </div>
                 <div className={styles.text}>
                   Формирование понимания о ценностях нового сотрудника, его жизненных принципах, целях, задачах, увлечениях и приоритетах
-
-
                 </div>
               </div>
               <div className={styles.textBox}>
@@ -98,8 +91,6 @@ export function WhatIs() {
                 </div>
                 <div className={styles.text}>
                   Экономия ресурсов, снижение рисков неоправданных ожиданий
-
-
                 </div>
               </div>
             </div>
@@ -109,10 +100,7 @@ export function WhatIs() {
               </div>
 
             </div>
-
           </div>}
-
-
 
           <div className={styles.card}>
             <div className={styles.cardLeft}>
@@ -161,7 +149,6 @@ export function WhatIs() {
                       У всех есть четкое понимание того, что нужно и чего точно не нужно делать, чтобы получить максимум полезного от сотрудничества
                     </div>
                   </div>
-
                 </div>
                 <div className={styles.textBoxes}>
                   <div className={styles.textBox}>
@@ -180,16 +167,13 @@ export function WhatIs() {
                       Повышение внутренней мотивации на достижение результатов
                     </div>
                   </div>
-
                   <div className={styles.textBox}>
                     <div className={styles.tick}>
                       <img src={tick} />
                     </div>
                     <div className={styles.text}>
                       Быструю адаптацию в команде
-
                     </div>
-
                   </div>
                   <div className={styles.textBox}>
                     <div className={styles.tick}>
@@ -197,7 +181,6 @@ export function WhatIs() {
                     </div>
                     <div className={styles.text}>
                       Выявляет общие ценности и интересы
-
                     </div>
                   </div>
                 </div>
@@ -238,8 +221,6 @@ export function WhatIs() {
                 </div>
                 <div className={styles.text}>
                   Формирование понимания о ценностях нового сотрудника, его жизненных принципах, целях, задачах, увлечениях и приоритетах
-
-
                 </div>
               </div>
               <div className={styles.textBox}>
@@ -248,8 +229,6 @@ export function WhatIs() {
                 </div>
                 <div className={styles.text}>
                   Экономия ресурсов, снижение рисков неоправданных ожиданий
-
-
                 </div>
               </div>
             </div>
@@ -257,9 +236,7 @@ export function WhatIs() {
               <div className={styles.icon}>
                 <img src={question} />
               </div>
-
             </div>
-
           </div>
         </div>}
       </div>

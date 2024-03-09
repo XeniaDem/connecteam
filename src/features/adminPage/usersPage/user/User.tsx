@@ -4,8 +4,6 @@ import { useEffect, useState } from "react"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import disableScroll from 'disable-scroll';
 import { UserPopup } from "../userPopup/UserPopup"
-import VerifiedIcon from '@mui/icons-material/Verified';
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
@@ -17,8 +15,6 @@ export type PlanModel = {
   expiryDate: string;
   status: string;
   duration?: string;
-
-
 }
 export type UserModel = {
   id: string;
@@ -29,38 +25,26 @@ export type UserModel = {
   access: string;
   isYou?: boolean;
   plan?: PlanModel;
-
 }
 
 type Props = {
   savedUser: UserModel;
   onChange: () => void;
-
-
 }
-
-
 
 export function User({ savedUser, onChange}: Props) {
 
 
   const [userOpen, setUserOpen] = useState(false);
 
-
-
   const openUserPopup = () => {
     disableScroll.on()
     setUserOpen(true)
-
-
   }
   const closeUserPopup = () => {
     disableScroll.off()
     setUserOpen(false)
     onChange()
-
-
-
   }
 
   const[access, setAccess] = useState("")
@@ -69,7 +53,6 @@ export function User({ savedUser, onChange}: Props) {
 
 
   const readAccess = () => {
-
     if (access == "user") {
       if (plan == undefined)
         return ("Нет доступа")
@@ -79,16 +62,10 @@ export function User({ savedUser, onChange}: Props) {
         return ("Расширенный")
       if (plan?.planType == "premium")
         return ("Широкий")
-
-
     } else if (access == "admin")
       return ("Администратор")
     else if (access == "superadmin")
-      return "Гл. администратор"
-
-
-
-
+      return ("Гл. администратор")
   }
 
   useEffect(() => {
@@ -105,8 +82,6 @@ export function User({ savedUser, onChange}: Props) {
 
   return (
     <div>
-
-
       <div className={styles.container}>
 
 
@@ -124,13 +99,10 @@ export function User({ savedUser, onChange}: Props) {
             <div className={styles.nameActive}>
               {savedUser.name} {" "} {savedUser.surname} {"(Вы)"}
             </div>
-
-
           ) : (
             <div className={styles.name} onClick={openUserPopup}>
               {savedUser.name} {" "} {savedUser.surname}
             </div>
-
           )}
           <div className={styles.email}>
             {savedUser.email}
@@ -164,18 +136,11 @@ export function User({ savedUser, onChange}: Props) {
             {plan?.status == "active" ? "до " + new Date(plan.expiryDate).toLocaleDateString()
               : <div className={styles.expiryDate} />}
           </div>
-
-
         </div>
-
-
-
       </div>
 
       <div className={styles.divider} />
-
       {userOpen ? <UserPopup savedUser={savedUser} closePopup={closeUserPopup} onChange={onChange} /> : null}
-
     </div>
 
   )

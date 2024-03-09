@@ -1,6 +1,6 @@
 
 import styles from "./LinkSent.module.css"
-import padlock from "../padlock.svg"
+import padlock from "../../../../app/assets/padlock.svg"
 import ellipse1 from "../../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import { Button } from "../../../../components/button/Button"

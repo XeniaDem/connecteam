@@ -30,10 +30,7 @@ export function JoinPlan() {
   const saveId = (message: any) => {
     var messageParsed = JSON.parse(message);
     var id = messageParsed.holder_id
-
     setId(id)
-
-
   }
 
 
@@ -45,48 +42,40 @@ export function JoinPlan() {
     if (message.includes("not active")) {
       setIsForbidden(true)
       setErrorMessage("Приглашение не действительно.")
-
     }
     if (message.includes("max number")) {
       setIsForbidden(true)
       setErrorMessage("Превышен лимит участников плана.")
-
     }
     if (message.includes("equal")) {
       setIsForbidden(true)
       setErrorMessage("Вы являетесь владельцем плана.")
-
     }
-
   }
+
   const validatePathname = async () => {
     if (!code || code == "") {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     try {
-
       const response = await get('validate/' + code)
       saveId(response.text)
     }
     catch (error: any) {
       readJoinError(error.response.text)
       console.log("error:", error)
-
     }
-
   }
+
   const getInvitor = async () => {
     try {
-
       const response = await get('users/' + id, token)
       setName(JSON.parse(response.text).first_name + " " + JSON.parse(response.text).second_name)
     }
     catch (error: any) {
       readJoinError(error.response.text)
       console.log("error:", error)
-
     }
-
   }
 
 
@@ -96,40 +85,27 @@ export function JoinPlan() {
 
     }
     try {
-
       const response = await post('plans/join/' + code, body, token)
       navigate("/user_page")
-
-
-
-
     }
     catch (error: any) {
       readJoinError(error.response.text)
       console.log("error:", error)
-
     }
-
   }
 
 
 
 
   useEffect(() => {
-
     if (token == "") {
-      // alert("mdmd")
       navigate("/auth/invitation#" + code)
-
     } else {
       navigate("/user_page/invitation#" + code)
-
-
     }
     validatePathname()
-
-
   }, []);
+
   useEffect(() => {
     if (token != "")
       id && getInvitor()
@@ -138,50 +114,44 @@ export function JoinPlan() {
 
   return (
     <div>
-
       <div className={styles.container}>
-
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
         </div>
         <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
         </div>
-        <div className={styles.connecteam}>
-          {!isMobile ? <img src={logoBig} /> : <img src={logoSmall} />}
+        <div className={styles.body}>
+          <div className={styles.connecteam}>
+            {!isMobile ? <img src={logoBig} /> : <img src={logoSmall} />}
+          </div>
 
-        </div>
+          <div className={styles.title}>
+            Пользователь <span className={styles.title1}> {name} </span> пригласил Вас присоединиться к плану.
+          </div>
+          {token == "" ?
+            <div className={styles.buttons} >
+              <Button text={"Зарегистрироваться"} onClick={() => navigate("/auth/register", { state: { inviteCode: code } })} className={styles.button} />
+              <div className={styles.footerContainer}>
+                <div className={styles.footerItem}>
+                  Уже есть аккаунт?
 
-        <div className={styles.title}>
-          Пользователь <span className={styles.title1}> {name} </span> пригласил Вас присоединиться к плану.
-        </div>
-        {token == "" ?
-          <div className={styles.buttons} >
-            <Button text={"Зарегистрироваться"} onClick={() => navigate("/auth/register", { state: { inviteCode: code } })} className={styles.button} />
-            <div className={styles.footerContainer}>
-              <div className={styles.footerItem}>
-                Уже есть аккаунт?
+                </div>
+                <Button text={"Войти"} onClick={() =>
+                  navigate("/auth/login", { state: { inviteCode: code } })
+                } className={styles.footerButton} />
 
               </div>
-              <Button text={"Войти"} onClick={() =>
-                navigate("/auth/login", { state: { inviteCode: code } })
-              } className={styles.footerButton} />
-
             </div>
-          </div>
-          :
-          <div className={styles.buttons}>
-            {isForbidden ? <div className={styles.errorMessage}> {errorMessage} </div>
-              :
-              <Button text={"Присоединиться"} onClick={joinPackage} className={styles.button} />}
-          </div>
-        }
-
-
+            :
+            <div className={styles.buttons}>
+              {isForbidden ? <div className={styles.errorMessage}> {errorMessage} </div>
+                :
+                <Button text={"Присоединиться"} onClick={joinPackage} className={styles.button} />}
+            </div>
+          }
+        </div>
       </div>
-
     </div>
   )
 }

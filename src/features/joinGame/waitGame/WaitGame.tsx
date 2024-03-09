@@ -19,14 +19,10 @@ export function WaitGame(props: Props) {
       <div className={styles.container}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
         </div>
         <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
         </div>
-
-
         <div className={styles.title}>
           Ожидайте начала игры <br /> "{props.name}"
         </div>
@@ -40,29 +36,13 @@ export function WaitGame(props: Props) {
         <div className={styles.footerContainer}>
           <div className={styles.footerItem}>
             Уже есть аккаунт?
-
           </div>
           <Button text={"Войти"} onClick={function (): void {
             throw new Error("Function not implemented.")
           }} className={styles.footerButton} />
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
-
-
-
     </div>
   )
 }

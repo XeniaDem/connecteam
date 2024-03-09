@@ -35,7 +35,6 @@ export function PlanInfo({ savedPlan, onChange }: Props) {
 
   const fetchPreviousPlans = async () => {
     try {
-
       const response = await get('plans/', token)
       if (JSON.parse(response.text).data == null) {
         setTrialApplicable(true)
@@ -43,15 +42,11 @@ export function PlanInfo({ savedPlan, onChange }: Props) {
       } else {
         setTrialApplicable(false)
       }
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   useEffect(() => {
@@ -64,7 +59,6 @@ export function PlanInfo({ savedPlan, onChange }: Props) {
 
   return (
     <div id="plan_info">
-
       <div className={styles.container}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
@@ -81,13 +75,10 @@ export function PlanInfo({ savedPlan, onChange }: Props) {
         <div className={styles.icon2}>
           <img src={icon2} />
         </div>
-
-
         <div className={styles.title}>
           Доступ
         </div>
         <PlanList isLogged={true} planInfo={savedPlan} trialApplicable={trialApplicable} onChange={onChange} />
-
       </div>
     </div>
   )

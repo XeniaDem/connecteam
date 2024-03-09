@@ -19,7 +19,6 @@ export function InvitePopup(props: Props) {
 
 
   const getEmailErrorMessage = () => {
-
     if (!validator.isEmail(email)) {
       return "Некорректно введен адрес эл. почты"
     }

@@ -2,9 +2,9 @@
 import styles from "./GameResults.module.css"
 import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
-import players from "./players.svg"
+import playersIcon from "./players.svg"
 import { Button } from "../../components/button/Button"
-import { Player } from "./player/Player"
+import { Player, PlayerModel } from "./player/Player"
 import { Result } from "./result/Result"
 import { DetailedResult, DetailedResultModel } from "./detailedResult/DetailedResult"
 import { useEffect, useState } from "react"
@@ -29,6 +29,7 @@ export function GameResults(props: Props) {
 
   const [detailedResults, setDetailedResults] = useState<DetailedResultModel[] | null>(null)
   const [myDetailedResult, setMyDetailedResult] = useState<DetailedResultModel | null>(null)
+  const [players, setPlayers] = useState<PlayerModel[] | null>(null)
 
 
   const readDetailedResults = (message: any) => {
@@ -105,11 +106,44 @@ export function GameResults(props: Props) {
   }
 
 
+  const readPlayers = (message: any) => {
+    // const messageParsed = JSON.parse(message);
+
+    // if (messageParsed.data == null) {
+    //   setTopics(null)
+    //   return;
+    // }
+
+    const playersNum = 5; // messageParsed.data.length;
+
+
+    const playersModels = [];
+    for (let i = 0; i < playersNum; i++) {
+
+      const playerModel = {
+        id: (i + 1).toString(),  //messageParsed.data[i].id,
+        name: "Ксения",
+        isCreator: false, 
+        isYou: true,
+        photo: ""
+
+      }
+      playersModels.push(playerModel)
+
+    }
+    setPlayers(playersModels)
+
+
+  }
+
+
+
   useEffect(() => {
     if (props.isCreator)
       readDetailedResults("")
     else
       readMyDetailedResult("")
+    readPlayers("")
 
 
 
@@ -145,16 +179,18 @@ export function GameResults(props: Props) {
         <div className={styles.middle}>
           <div className={styles.playersContainer}>
             <div className={styles.icon}>
-              {(!isMobile) ? <img src={players} /> : <GroupsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> }
+              {(!isMobile) ? <img src={playersIcon} /> : <GroupsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> }
             </div>
             <div className={styles.playerList}>
               <div className={styles.subtitle}>
                 Участники:
               </div>
-              <Player />
-              <Player isCreator={true} />
-              <Player isYou={true} />
-              <Player isYou={true} isCreator={true} />
+              {players?.map(player =>
+                  <div>
+                    <Player savedPlayer={player} />
+                  </div>
+
+                )}
             </div>
           </div>
 

@@ -1,10 +1,6 @@
 
-import { useRef, useState } from "react";
 import styles from "./Field.module.css"
-import Dropdown, { Group, Option } from 'react-dropdown';
-import useAutosizeTextArea from "../../../app/hooks/useAutoResizeTextArea";
-// import 'react-dropdown/style.css';
-
+import Dropdown, { Option } from 'react-dropdown';
 
 type Props = {
   title: string;
@@ -21,20 +17,11 @@ type Props = {
   dropDownValue?: string;
   onDropDownValueChange?: (newValue: Option) => void;
   options: string[];
-
-
-
-
-
-
 }
 Field.defaultProps = {options: ['Нет доступа', 'Простой',  'Расширенный', 'Широкий']}
 
 
 export function Field(this: any, props: Props) {
-
-
-  
 
   return (
     <div className={styles.container}>
@@ -56,17 +43,11 @@ export function Field(this: any, props: Props) {
         )}
         {props.isDropDown ? (
           <Dropdown controlClassName={styles.control} menuClassName={styles.menu} arrowClassName= {styles.arrow}
-            // arrowClosed={<span className={styles.arrowClosed} />}
-            // arrowOpen={<span className={styles.arrowOpen} />}
-            
             options = {props.options} onChange={props.onDropDownValueChange} value={props.dropDownValue} placeholder="Select an option" />
         ) : (
           null
         )}
       </div>
-
-
-
     </div>
   )
 }

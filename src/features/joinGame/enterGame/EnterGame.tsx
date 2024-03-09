@@ -19,13 +19,10 @@ export function EnterGame(props: Props) {
       <div className={styles.container}>
         <div className={styles.ellipse1}>
           <img src={ellipse1} />
-
         </div>
         <div className={styles.ellipse2}>
           <img src={ellipse2} />
-
         </div>
-
 
         <div className={styles.title}>
         Перед началом игры введите Имя и <br/> Фамилию или войдите в аккаунт
@@ -34,7 +31,6 @@ export function EnterGame(props: Props) {
           <input className={styles.input} placeholder="Имя" />
           <input className={styles.input} placeholder="Фамилия" />
         </div>
-
 
         <Button text={"Продолжить"} onClick={function (): void {
           throw new Error("Function not implemented.")
@@ -48,22 +44,7 @@ export function EnterGame(props: Props) {
           }} className={styles.footerButton} />
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
-
-
-
     </div>
   )
 }

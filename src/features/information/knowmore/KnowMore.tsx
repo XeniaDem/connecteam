@@ -39,15 +39,7 @@ export function KnowMore() {
             throw new Error("Function not implemented.")
           }} className={styles.button} />
         </div>
-
-
-
       </div>
     </div>
-
-
-
-
-
   )
 }

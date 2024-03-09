@@ -11,12 +11,11 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../utils/authSlice"
 import { get, readServerError } from "../../utils/api"
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 
 export function CreateGame() {
   const navigate = useNavigate();
-
 
   const [gameCreated, setGameCreated] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -29,8 +28,7 @@ export function CreateGame() {
 
 
   const getCreateErrorMessage = () => {
-
-    if (gameName == "") {
+    if (gameName.trim() == "") {
       return "Введите название игры"
     }
     if (gameDate == "") {
@@ -39,12 +37,9 @@ export function CreateGame() {
     if (gameTime == "") {
       return "Выберите время игры"
     }
-
     return null
   }
   var createErrorMessage = getCreateErrorMessage()
-
-
 
   const createGame = () => { //////////////////////////
     setFormSubmitted(true);
@@ -113,15 +108,6 @@ export function CreateGame() {
   }
 
 
-  // const getMinTime = () => {
-  //   if (gameDate == new Date().toISOString().split('T')[0]) {
-  //     return new Date().toTimeString().split(' ')[0]
-  //   } else {
-  //     return undefined
-  //   }
-  // }
-
-
   useEffect(() => {
     disableScroll.off()
     if (token == "") {
@@ -158,10 +144,10 @@ export function CreateGame() {
         <div className={styles.creation}>
           <div className={styles.items}>
             <input className={styles.input} placeholder="Название игры" disabled={gameCreated} value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
-            
+
             <input type="date" min={new Date().toISOString().split('T')[0]}
               className={styles.input} placeholder="Дата игры" disabled={gameCreated} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />
-            
+
             <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
               value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} />
 
@@ -175,7 +161,7 @@ export function CreateGame() {
             </div>
 
           ) : (
-           null
+            null
           )}
 
           {!gameCreated ?
@@ -186,18 +172,11 @@ export function CreateGame() {
               <div className={styles.text} >
                 Игра успешно создана!
               </div>
-            </div>
-          }
-
-
-
-          {!gameCreated ? null :
-            <div className={styles.items} >
               <Button text={"Добавить участника"} onClick={openInvitePopup} className={styles.inviteButton} />
-
               <Button text={"Скопировать ссылку на игру"} onClick={openCopyPopup} className={styles.inviteButton} />
             </div>
           }
+
         </div>
 
 
