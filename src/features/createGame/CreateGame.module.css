@@ -154,6 +154,18 @@ input[type="time"i] {
 
 
 }
+input[type="datetime-local"i] {
+
+  align-items: center;
+  overflow: hidden;
+  padding-left: 20px;
+  color-scheme: dark;
+
+
+
+
+
+}
 
 ::-webkit-calendar-picker-indicator {
   cursor: pointer;

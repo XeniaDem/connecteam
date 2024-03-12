@@ -36,21 +36,28 @@ export function JoinPlan() {
 
 
   const readJoinError = (message: any) => {
+    setIsForbidden(true)
     if (message.includes("no rows")) {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     if (message.includes("not active")) {
-      setIsForbidden(true)
       setErrorMessage("Приглашение не действительно.")
+      return;
     }
     if (message.includes("max number")) {
-      setIsForbidden(true)
       setErrorMessage("Превышен лимит участников плана.")
+      return;
     }
     if (message.includes("equal")) {
-      setIsForbidden(true)
       setErrorMessage("Вы являетесь владельцем плана.")
+      return;
     }
+    if (message.includes("incorrect")) {
+      setErrorMessage("Неверный код приглашения.")
+      return;
+    }
+
+    setErrorMessage(message)
   }
 
   const validatePathname = async () => {
@@ -58,7 +65,7 @@ export function JoinPlan() {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     try {
-      const response = await get('validate/' + code)
+      const response = await get('validate/plan/' + code)
       saveId(response.text)
     }
     catch (error: any) {

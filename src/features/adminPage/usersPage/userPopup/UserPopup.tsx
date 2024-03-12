@@ -84,6 +84,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   }
   var errorMessage = getErrorMessage()
   const changePlan = async () => {
+    alert (expiryDate && new Date(expiryDate).toISOString())
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;

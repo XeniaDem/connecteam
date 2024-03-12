@@ -1,5 +1,5 @@
 
-import { ReactNode, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import cn from 'classnames';
 import styles from "./Tabs.module.css"
 
@@ -7,6 +7,7 @@ import styles from "./Tabs.module.css"
 export type Tab = {
     tabName: string;
     tabContent: ReactNode;
+
 
 }
 type Props = {
@@ -18,8 +19,13 @@ type Props = {
 
 export function Tabs(props: Props) {
 
+
+
+
     const [activeTab, setActiveTab] = useState(props.tabs[0].tabName);
     const tab = props.tabs.find(tab => tab.tabName == activeTab)
+
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -34,15 +40,8 @@ export function Tabs(props: Props) {
                             </div>
                         )
                     })}
-
-
-
                 </div>
                 <div className={styles.rectangle} />
-
-
-
-
             </div>
             <div className={styles.content}>
                 {tab?.tabContent || null}

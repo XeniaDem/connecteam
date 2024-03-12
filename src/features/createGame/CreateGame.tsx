@@ -7,15 +7,12 @@ import ellipse2 from "../../app/assets/ellipse2.svg"
 import icon from "./icon.svg"
 import { InvitePopup } from "./invitePopup/InvitePopup"
 import disableScroll from 'disable-scroll';
-import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../utils/authSlice"
-import { get, readServerError } from "../../utils/api"
-import { isMobile } from 'react-device-detect';
+import { get, post, readServerError } from "../../utils/api"
 
 
 export function CreateGame() {
-  const navigate = useNavigate();
 
   const [gameCreated, setGameCreated] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -24,34 +21,46 @@ export function CreateGame() {
 
   const [gameName, setGameName] = useState("");
   const [gameDate, setGameDate] = useState("");
-  const [gameTime, setGameTime] = useState("");
-
+  // const [gameTime, setGameTime] = useState("");
 
   const getCreateErrorMessage = () => {
+    // alert("date " + new Date())
     if (gameName.trim() == "") {
       return "Введите название игры"
     }
     if (gameDate == "") {
-      return "Выберите дату игры"
+      return "Выберите дату и время игры"
     }
-    if (gameTime == "") {
-      return "Выберите время игры"
-    }
+    // if (gameTime == "") {
+    //   return "Выберите время игры"
+    // }
     return null
   }
   var createErrorMessage = getCreateErrorMessage()
 
-  const createGame = () => { //////////////////////////
+  const createGame = async () => { //////////////////////////
     setFormSubmitted(true);
-    // alert("date " + gameDate)
-    // alert("time " + gameTime)
     if (createErrorMessage != null) {
       return;
 
     }
-    else {
-      setGameCreated(true);
+    alert(gameName)
+    const data = {
+      name: gameName,
+      start_date: gameDate && new Date(gameDate).toISOString()
     }
+    try {
+      const response = await post('games/', data, token)
+      setGameCreated(true);
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+     
+    
   }
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -109,10 +118,7 @@ export function CreateGame() {
 
 
   useEffect(() => {
-    disableScroll.off()
-    if (token == "") {
-      navigate("/")
-    }
+
     fetchMe();
   }, []);
 
@@ -143,11 +149,11 @@ export function CreateGame() {
           <div className={styles.items}>
             <input className={styles.input} placeholder="Название игры" disabled={gameCreated} value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
 
-            <input type="date" min={new Date().toISOString().split('T')[0]}
+            <input type="datetime-local" min={new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"))}
               className={styles.input} placeholder="Дата игры" disabled={gameCreated} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />
 
-            <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
-              value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} />
+            {/* <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
+              value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} /> */}
 
           </div>
 
