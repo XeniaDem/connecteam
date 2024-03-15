@@ -10,6 +10,11 @@ import { get, readServerError } from "../../utils/api"
 import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
 import { Plan } from "../profile/planInfo/PlanInfo"
 import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
+import { GameResults } from "../gameResults/GameResults"
+import { AnswerQuestion } from "../processGame/answerQuestion/AnswerQuestion"
+import { RateAnswer } from "../processGame/rateAnswer/RateAnswer"
+import { EnterGame } from "../joinGame/enterGame/EnterGame"
+import { WaitGame } from "../joinGame/waitGame/WaitGame"
 
 
 
@@ -116,8 +121,13 @@ export function UserPage() {
     <div className={styles.container}>
       <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
+      <WaitGame/>
+      <EnterGame/>
       <ChooseTopics/>
       <ChooseTopic/>
+      <AnswerQuestion/>
+      <RateAnswer/>
+      <GameResults/>
     </div>
   )
 }

@@ -94,8 +94,10 @@ const router = createBrowserRouter([
         path: "invitation",
         element: <JoinPlan/>,
       },
-
-
+      {
+        path: "game_results",
+        element: <GameResults/>,
+      },
     ],
   },
 
@@ -126,10 +128,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "user_page/game_results",
-    element: <GameResults/>,
-  },
+  
 
 
 

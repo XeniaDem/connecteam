@@ -55,13 +55,13 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
       }
 
       else if ((savedUser.name != name) || (savedUser.surname != surname) || (savedUser.about != about)) {
-        alert("datachange")
+        // alert("datachange")
         changeUserInfo()
 
       }
       else {
         setIsDataChanging(!isDataChanging);
-        alert("Ничего не сохраняем")
+        // alert("Ничего не сохраняем")
       }
     }
   };
@@ -85,9 +85,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
     try {
 
       const response = await patch('users/info', data, token)
-
-      alert(response.text)
-
       setIsDataChanging(!isDataChanging);
       onChange()
 
@@ -124,11 +121,11 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
       }
 
       else if (savedUser.email != email) {
-        alert("emailchange")
+        // alert("emailchange")
         openPasswordPopup()
 
       } else {
-        alert("Ничего не сохраняем")
+        // alert("Ничего не сохраняем")
         setIsEmailChanging(!isEmailChanging);
       }
 
@@ -194,10 +191,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
       password: password
     }
     try {
-
       const response = await post('users/verify-email', data, token)
-
-      alert(response.text)
       closePasswordPopup()
       openVerifyPopup()
     }

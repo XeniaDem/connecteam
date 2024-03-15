@@ -20,7 +20,7 @@ type Props = {
   isCreator: boolean;
 }
 
-GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: false}
+GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
 
 export function GameResults(props: Props) {
 
@@ -40,7 +40,7 @@ export function GameResults(props: Props) {
     //   return;
     // }
 
-    const detailedResultsNum = 10; // messageParsed.data.length;
+    const detailedResultsNum = 5; // messageParsed.data.length;
 
 
     const detailedResultsModels = [];

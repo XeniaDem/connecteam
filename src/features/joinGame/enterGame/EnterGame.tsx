@@ -1,7 +1,7 @@
 
 import styles from "./EnterGame.module.css"
-import ellipse1 from "../../app/assets/ellipse1.svg"
-import ellipse2 from "../../app/assets/ellipse2.svg"
+import ellipse1 from "../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../app/assets/ellipse2.svg"
 
 import { Button } from "../../../components/button/Button"
 

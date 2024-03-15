@@ -48,9 +48,9 @@ export function DetailedResult({ savedDetailedResult }: Props) {
           <IconButton onClick={() => setScoresOpen(!scoresOpen)}>
 
             {!scoresOpen ? (
-              <KeyboardArrowLeftIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+              <KeyboardArrowLeftIcon fontSize="large" htmlColor="#55C6F7" />
             ) : (
-              <KeyboardArrowDownIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+              <KeyboardArrowDownIcon fontSize="large" htmlColor="#55C6F7" />
 
             )}
 

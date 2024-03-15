@@ -7,15 +7,12 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState } from "react";
 
 
-type Props = {
 
-}
-
-
-
-export function StarRating(props: Props) {
+export function StarRating() {
 
   const [rating, setRating] = useState(0);
+
+
 
 
   return (
@@ -32,40 +29,40 @@ export function StarRating(props: Props) {
 
       <IconButton onClick={() => setRating(1)}>
           {rating < 1 ? (
-            <StarBorderIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
           ) : (
-            <StarIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarIcon fontSize="large" htmlColor="#55C6F7"/>
           )}
         </IconButton>
 
         <IconButton onClick={() => setRating(2)}>
           {rating < 2 ? (
-            <StarBorderIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
           ) : (
-            <StarIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarIcon fontSize="large" htmlColor="#55C6F7" />
           )}
         </IconButton>
 
 
         <IconButton onClick={() => setRating(3)}>
           {rating < 3 ? (
-            <StarBorderIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
           ) : (
-            <StarIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarIcon fontSize="large" htmlColor="#55C6F7" />
           )}
         </IconButton>
         <IconButton onClick={() => setRating(4)}>
           {rating < 4 ? (
-            <StarBorderIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
           ) : (
-            <StarIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarIcon fontSize="large" htmlColor="#55C6F7" />
           )}
         </IconButton>
         <IconButton onClick={() => setRating(5)}>
           {rating < 5 ? (
-            <StarBorderIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
           ) : (
-            <StarIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <StarIcon fontSize="large" htmlColor="#55C6F7" />
           )}
         </IconButton>
       </div>

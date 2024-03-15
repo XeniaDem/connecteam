@@ -302,6 +302,10 @@ background:red;
   .ellipse2 {
     display: none;
   }
+
+  .creation {
+    min-width: 0px;
+  }
 }
 @media  (max-height:763px) and (orientation:landscape){
   .title {
