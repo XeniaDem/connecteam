@@ -5,7 +5,7 @@ import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
 import logoBig from "../../../app/assets/logoBig.svg"
 import logoSmall from "../../../app/assets/logoSmall.svg"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import validator from "validator"
 import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
@@ -18,7 +18,8 @@ import { isMobile } from 'react-device-detect';
 export function Login() {
 
   const { state } = useLocation();
-  const { inviteCode } = state || {};
+  // const { planInvitation } = state.planInvitation || {};
+  // const { gameInvitation } = state.gameInvitation || {};
 
   const navigate = useNavigate()
 
@@ -98,6 +99,7 @@ export function Login() {
 
   const login = async () => {
     setFormSubmitted(true)
+
     if (errorMessage != null) {
       return;
     }
@@ -116,18 +118,24 @@ export function Login() {
         navigate("/admin")
       }
       else {
-        if (inviteCode != null) {
-          navigate("/user_page/invitation#" + inviteCode)
+        if (state && state.planInvitation) {
 
-        } else {
+          navigate("/invite/plan#" + state.planInvitation)
+        }
+        else if (state && state.gameInvitation) {
+
+          navigate("/invite/game#" + state.gameInvitation)
+        }
+        else {
           navigate("/user_page")
         }
       }
 
     }
     catch (error: any) {
-      setLoginError(readLoginError(error.response.text))
       console.log("error:", error)
+      setLoginError(readLoginError(error.response.text))
+
     }
 
   }
@@ -205,6 +213,11 @@ export function Login() {
   }
 
 
+  useEffect(() => {
+    // alert(state.planInvitation)
+    // alert(state.gameInvitation)
+  }, []);
+
   return (
     <div>
       <div className={styles.container}>
@@ -253,7 +266,7 @@ export function Login() {
             Нет аккаунта?
           </div>
           <Button text={"Зарегистрироваться"} onClick={() => {
-            navigate("/auth/register")
+            navigate("/auth/register", { state: { planInvitation: state && state.planInvitation, gameInvitation: state && state.gameInvitation } })
           }} className={styles.footerButton} />
         </div>
       </div>

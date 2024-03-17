@@ -17,6 +17,7 @@ type Props = {
   authHeader?: boolean;
   loggedHeader?: boolean;
   adminHeader?: boolean;
+  mainHeader?: boolean;
 
 }
 export function Header(props: Props) {
@@ -151,29 +152,42 @@ export function Header(props: Props) {
     )
   }
 
+
+  if (props.mainHeader) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.logo}>
+          <img src={logoSmall} onClick={() => {
+            navigate("/")
+          }} />
+        </div>
+        <HeaderItem text="О проекте" link="#about" />
+        <HeaderItem text="Как играть" link="#real_games" />
+        <HeaderItem text="FAQ" link="#faq" />
+        <HeaderItem text="Контакты" link="#contacts" />
+        <div className={styles.group}>
+          <div className={styles.headerButton}>
+            <Button text={"Зарегистрироваться"} onClick={() => {
+              navigate("/auth/register")
+            }} />
+          </div>
+          <div className={styles.login}>
+            <div className={styles.person}>
+              <img src={person} />
+            </div>
+            <HeaderItem text="Войти" link="/auth/login" />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
         <img src={logoSmall} onClick={() => {
-          navigate("/")
+          token == "" ? navigate("/") : navigate("/user_page")
         }} />
-      </div>
-      <HeaderItem text="О проекте" link="#about" />
-      <HeaderItem text="Как играть" link="#real_games" />
-      <HeaderItem text="FAQ" link="#faq" />
-      <HeaderItem text="Контакты" link="#contacts" />
-      <div className={styles.group}>
-        <div className={styles.headerButton}>
-          <Button text={"Зарегистрироваться"} onClick={() => {
-            navigate("/auth/register")
-          }} />
-        </div>
-        <div className={styles.login}>
-          <div className={styles.person}>
-            <img src={person} />
-          </div>
-          <HeaderItem text="Войти" link="/auth/login" />
-        </div>
       </div>
     </div>
   )

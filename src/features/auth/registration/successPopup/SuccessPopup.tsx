@@ -10,7 +10,8 @@ import { useDispatch } from "react-redux";
 type Props = {
   email: string;
   password: string;
-  inviteCode?: string;
+  gameInvitation?: string;
+  planInvitation?: string;
 }
 export function SuccessPopup(props: Props) {
 
@@ -23,7 +24,7 @@ export function SuccessPopup(props: Props) {
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
     const token = messageParsed.token;
-    dispatch(signIn({token: token, access: access as Access}));
+    dispatch(signIn({ token: token, access: access as Access }));
 
   }
 
@@ -40,10 +41,13 @@ export function SuccessPopup(props: Props) {
         navigate("/admin")
       }
       else {
-        if (props.inviteCode != null) {
-          navigate("/user_page/invitation#" + props.inviteCode)
-
-        } else {
+        if (props.planInvitation != null) {
+          navigate("/invite/plan#" + props.planInvitation)
+        }
+        else if (props.gameInvitation != null) {
+          navigate("/invite/game#" + props.gameInvitation)
+        }
+        else {
           navigate("/user_page")
         }
       }
@@ -58,9 +62,9 @@ export function SuccessPopup(props: Props) {
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.title}>
-        Вы успешно зарегистрировались!
+          Вы успешно зарегистрировались!
         </div>
-        <Button text={"Войти"} onClick = {() => {login(); disableScroll.off()}} className={styles.button} />
+        <Button text={"Войти"} onClick={() => { login(); disableScroll.off() }} className={styles.button} />
       </div>
     </div>
   )

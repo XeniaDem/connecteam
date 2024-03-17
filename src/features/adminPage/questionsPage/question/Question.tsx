@@ -47,14 +47,14 @@ export function Question({ savedQuestion, onChange }: Props) {
         if (questionText == "") {
           return;
         }
-        alert("questionchange")
+        // alert("questionchange")
         setQuestionEditing(!questionEditing);
         editQuestion()
         onChange()
       }
       else {
         setQuestionEditing(!questionEditing);
-        alert("Ничего не сохраняем")
+        // alert("Ничего не сохраняем")
       }
     }
 

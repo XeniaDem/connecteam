@@ -41,12 +41,12 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
     }
     if (isDataChanging) {
       if ((savedCompany.name != name) || (savedCompany.website != website) || (savedCompany.about != about)) {
-        alert("datachange")
+        // alert("datachange")
         changeCompanyInfo()
       }
       else {
         setIsDataChanging(!isDataChanging);
-        alert("Ничего не сохраняем")
+        // alert("Ничего не сохраняем")
       }
     }
   };

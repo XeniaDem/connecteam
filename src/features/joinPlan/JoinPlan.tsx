@@ -41,19 +41,19 @@ export function JoinPlan() {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     if (message.includes("not active")) {
-      setErrorMessage("Приглашение не действительно.")
+      setErrorMessage("Приглашение не действительно")
       return;
     }
     if (message.includes("max number")) {
-      setErrorMessage("Превышен лимит участников плана.")
+      setErrorMessage("Превышен лимит участников плана")
       return;
     }
     if (message.includes("equal")) {
-      setErrorMessage("Вы являетесь владельцем плана.")
+      setErrorMessage("Вы являетесь владельцем плана")
       return;
     }
     if (message.includes("incorrect")) {
-      setErrorMessage("Неверный код приглашения.")
+      setErrorMessage("Неверный код приглашения")
       return;
     }
 
@@ -86,7 +86,7 @@ export function JoinPlan() {
   }
 
 
-  const joinPackage = async () => {
+  const joinPlan = async () => {
     try {
       const response = await post('plans/join/' + code, undefined, token)
       navigate("/user_page")
@@ -101,11 +101,11 @@ export function JoinPlan() {
 
 
   useEffect(() => {
-    if (token == "") {
-      navigate("/auth/invitation#" + code)
-    } else {
-      navigate("/user_page/invitation#" + code)
-    }
+    // if (token == "") {
+    //   navigate("/auth/invitation#" + code)
+    // } else {
+    //   navigate("/user_page/invitation#" + code)
+    // }
     validatePathname()
   }, []);
 
@@ -134,7 +134,7 @@ export function JoinPlan() {
           </div>
           {token == "" ?
             <div className={styles.buttons} >
-              <Button text={"Зарегистрироваться"} onClick={() => navigate("/auth/register", { state: { inviteCode: code } })} className={styles.button} />
+              <Button text={"Зарегистрироваться"} onClick={() => navigate("/auth/register", { state: { planInvitation: code } })} className={styles.button} />
               <div className={styles.footerContainer}>
                 <div className={styles.footerItem}>
                   Уже есть аккаунт?
@@ -150,7 +150,7 @@ export function JoinPlan() {
             <div className={styles.buttons}>
               {isForbidden ? <div className={styles.errorMessage}> {errorMessage} </div>
                 :
-                <Button text={"Присоединиться"} onClick={joinPackage} className={styles.button} />}
+                <Button text={"Присоединиться"} onClick={joinPlan} className={styles.button} />}
             </div>
           }
         </div>

@@ -25,7 +25,7 @@ export function InvitePopup(props: Props) {
   const [link, setLink] = useState("")
 
   const fetchLink = () => {
-    setLink("localhost:5173/auth/invitation#" + props.invitationCode) 
+    setLink("localhost:5173/invite/plan#" + props.invitationCode) 
 
   }
 

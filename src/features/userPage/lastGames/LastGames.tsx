@@ -84,6 +84,7 @@ export function LastGames(props: Props) {
   const onGamesChange = () => {
     setGamesFetched(!gamesFetched)
   }
+  
   useEffect(() => {
     getCreatedGames()
     getAllGames()

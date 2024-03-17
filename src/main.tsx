@@ -23,6 +23,8 @@ import { AuthLayout } from "./layouts/authLayout/AuthLayout"
 import { UserLayout } from "./layouts/userLayout/UserLayout"
 import { GameResults } from "./features/gameResults/GameResults"
 import { JoinPlan } from "./features/joinPlan/JoinPlan"
+import { EnterGame } from "./features/joinGame/enterGame/EnterGame"
+import { InviteLayout } from "./layouts/inviteLayout/InviteLayout"
 
 const router = createBrowserRouter([
   {
@@ -58,10 +60,6 @@ const router = createBrowserRouter([
         path: "forgot_password/link_sent",
         element: <LinkSent/>,
       },
-      {
-        path: "invitation",
-        element: <JoinPlan/>,
-      },
     ],
   },
 
@@ -89,10 +87,6 @@ const router = createBrowserRouter([
       {
         path: "profile/link_sent",
         element: <LinkSent/>,
-      },
-      {
-        path: "invitation",
-        element: <JoinPlan/>,
       },
       {
         path: "game_results",
@@ -125,6 +119,22 @@ const router = createBrowserRouter([
       {
         path: "questions_page/add_question",
         element: <NewQuestionPage/>,
+      },
+    ],
+  },
+
+  {
+    path: "invite",
+    element: <InviteLayout/>,
+
+    children: [
+      {
+        path: "plan",
+        element: <JoinPlan/>,
+      },
+      {
+        path: "game",
+        element: <EnterGame/>,
       },
     ],
   },

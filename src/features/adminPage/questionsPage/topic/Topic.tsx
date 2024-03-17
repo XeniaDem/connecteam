@@ -49,14 +49,14 @@ export function Topic({ savedTopic, token, onChange }: Props) {
         if (topicName.trim().length < 3) {
           return;
         }
-        alert("topicchange")
+        // alert("topicchange")
         setTopicEditing(!topicEditing);
         editTopic()
 
       }
       else {
         setTopicEditing(!topicEditing);
-        alert("Ничего не сохраняем")
+        // alert("Ничего не сохраняем")
       }
     }
 

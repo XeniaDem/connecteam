@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "../../../components/button/Button"
 import styles from "./Registration.module.css"
 import ellipse1 from "../../../app/assets/ellipse1.svg"
@@ -17,7 +17,8 @@ import {isMobile} from 'react-device-detect';
 
 export function Registration() {
   const { state } = useLocation();
-  const { inviteCode } = state || {};
+  // const { planInvitation } = state.planInvitation || {};
+  // const { gameInvitation } = state.gameInvitation || {};
 
   const navigate = useNavigate()
 
@@ -146,7 +147,7 @@ export function Registration() {
     var content = messageParsed.message
 
     if (content.includes("wrong verification code")) {
-      return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
+      return ("Введенный код неверен. Пожалуйста, попробуйте еще раз")
     }
     return content;
   }
@@ -169,6 +170,7 @@ export function Registration() {
     }
 
   }
+
 
   return (
     <div>
@@ -223,14 +225,14 @@ export function Registration() {
             Уже есть аккаунт?
           </div>
           <Button text={"Войти"} onClick={() => {
-            navigate("/auth/login")
+            navigate("/auth/login", { state: { planInvitation: state && state.planInvitation, gameInvitation: state && state.gameInvitation } })
           }} className={styles.footerButton} />
         </div>
       </div>
       {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
-      {successOpen ? <SuccessPopup email = {email} password={password} inviteCode={inviteCode}/> : null}
+      {successOpen ? <SuccessPopup email = {email} password={password} planInvitation={state && state.planInvitation} gameInvitation={state && state.gameInvitation}/> : null}
     </div>
   )
 }

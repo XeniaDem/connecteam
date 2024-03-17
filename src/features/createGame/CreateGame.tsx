@@ -21,46 +21,70 @@ export function CreateGame() {
 
   const [gameName, setGameName] = useState("");
   const [gameDate, setGameDate] = useState("");
+
+  const [createError, setCreateError] = useState(""); 
   // const [gameTime, setGameTime] = useState("");
 
   const getCreateErrorMessage = () => {
-    // alert("date " + new Date())
     if (gameName.trim() == "") {
       return "Введите название игры"
     }
     if (gameDate == "") {
       return "Выберите дату и время игры"
     }
-    // if (gameTime == "") {
-    //   return "Выберите время игры"
-    // }
     return null
   }
-  var createErrorMessage = getCreateErrorMessage()
+  var errorMessage = getCreateErrorMessage()
+
+
+
+  const [invitationCode, setInvitationCode] = useState("")
+  const readInvitationCode = (message: any) => {
+    var messageParsed = JSON.parse(message);
+  
+    setInvitationCode(messageParsed.invitation_code)
+
+
+  }
+  const readCreateError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+
+    if (content.includes("incorrect start date")) {
+       setCreateError("Некорректная дата начала игры")
+       return;
+    }
+    setCreateError(content);
+
+  }
+
 
   const createGame = async () => { //////////////////////////
     setFormSubmitted(true);
-    if (createErrorMessage != null) {
+    if (errorMessage != null) {
       return;
 
     }
-    alert(gameName)
     const data = {
       name: gameName,
       start_date: gameDate && new Date(gameDate).toISOString()
     }
     try {
       const response = await post('games/', data, token)
+      setCreateError("")
       setGameCreated(true);
+      readInvitationCode(response.text)
+     
+     
 
     }
     catch (error: any) {
-      readServerError(error.response.text)
+      readCreateError(error.response.text)
       console.log("error:", error)
     }
 
-     
-    
+
+
   }
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -78,7 +102,7 @@ export function CreateGame() {
 
   }
   const openCopyPopup = () => {
-    navigator.clipboard.writeText("link")
+    navigator.clipboard.writeText("localhost:5173/invite/game#" + invitationCode)
     setCopyOpen(true)
     setTimeout(() => {
       setCopyOpen(false);
@@ -149,7 +173,7 @@ export function CreateGame() {
           <div className={styles.items}>
             <input className={styles.input} placeholder="Название игры" disabled={gameCreated} value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
 
-            <input type="datetime-local" min={new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"))}
+            <input type="datetime-local" min={new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf(":"))}
               className={styles.input} placeholder="Дата игры" disabled={gameCreated} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />
 
             {/* <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
@@ -157,9 +181,16 @@ export function CreateGame() {
 
           </div>
 
-          {formSubmitted && (createErrorMessage) ? (
+          {formSubmitted && (errorMessage) ? (
             <div className={styles.errorMessage}>
-              {createErrorMessage}
+              {errorMessage}
+            </div>
+          ) : (
+            null
+          )}
+          {formSubmitted && createError ? (
+            <div className={styles.errorMessage}>
+              {createError}
             </div>
           ) : (
             null

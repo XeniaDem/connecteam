@@ -71,6 +71,12 @@ export function Game({ savedGame, onChange }: Props) {
           {savedGame.status == "not_started" ?
 
             <IconButton onClick={deleteGame}>
+              <svg width={0} height={0}>
+                <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                  <stop offset={0} stopColor="#55C6F7" />
+                  <stop offset={1} stopColor="#2AF8BA" />
+                </linearGradient>
+              </svg>
               <DeleteIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>
             :
