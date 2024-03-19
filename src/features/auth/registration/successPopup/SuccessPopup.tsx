@@ -24,7 +24,8 @@ export function SuccessPopup(props: Props) {
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
     const token = messageParsed.token;
-    dispatch(signIn({ token: token, access: access as Access }));
+    const id = messageParsed.id;
+    dispatch(signIn({ token: token, access: access as Access, id: id}));
 
   }
 

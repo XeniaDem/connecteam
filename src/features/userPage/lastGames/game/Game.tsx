@@ -13,6 +13,7 @@ export type GameModel = {
   name: string;
   date: string;
   status: string;
+  invitationCode: string;
 
 }
 
@@ -56,7 +57,14 @@ export function Game({ savedGame, onChange }: Props) {
       <div className={styles.container}>
 
         <div className={styles.group}>
-          <div className={styles.name} onClick={() => navigate("game_results")}>
+          <div className={styles.name} onClick={() => {
+            if (savedGame.status == "not_started")
+              navigate("/invite/game#" + savedGame.invitationCode)
+            // if (savedGame.status == "in_process")
+            //   navigate("")
+            // if (savedGame.status == "finished")
+            //   navigate("")
+          }}>
             {savedGame.name}
           </div>
           <div className={styles.date}>

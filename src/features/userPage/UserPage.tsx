@@ -7,14 +7,14 @@ import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../../utils/authSlice"
 import { get, readServerError } from "../../utils/api"
-import { ChooseTopics } from "../startGame/chooseTopics/ChooseTopics"
+
 import { Plan } from "../profile/planInfo/PlanInfo"
-import { ChooseTopic } from "../processGame/chooseTopic/ChooseTopic"
 import { GameResults } from "../gameResults/GameResults"
-import { AnswerQuestion } from "../processGame/answerQuestion/AnswerQuestion"
-import { RateAnswer } from "../processGame/rateAnswer/RateAnswer"
-import { EnterGame } from "../joinGame/enterGame/EnterGame"
-import { WaitGame } from "../joinGame/waitGame/WaitGame"
+import { JoinGame } from "../joinGame/JoinGame"
+import { AnswerQuestion } from "../gamePage/processGame/answerQuestion/AnswerQuestion"
+import { ChooseTopic } from "../gamePage/processGame/chooseTopic/ChooseTopic"
+import { RateAnswer } from "../gamePage/processGame/rateAnswer/RateAnswer"
+import { ChooseTopics } from "../gamePage/startGame/chooseTopics/ChooseTopics"
 
 
 
@@ -121,8 +121,7 @@ export function UserPage() {
     <div className={styles.container}>
       <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
-      <WaitGame/>
-      <EnterGame/>
+      <JoinGame/>
       <ChooseTopics/>
       <ChooseTopic/>
       <AnswerQuestion/>

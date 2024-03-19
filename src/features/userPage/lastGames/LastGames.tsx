@@ -32,6 +32,7 @@ export function LastGames(props: Props) {
       return;
     }
 
+
     const gamesNum = (messageParsed.data.length);
 
     const gamesModels = [];
@@ -42,6 +43,7 @@ export function LastGames(props: Props) {
         name: messageParsed.data[i].name,
         date: (new Date(messageParsed.data[i].start_date)).toLocaleString(),
         status: messageParsed.data[i].status,
+        invitationCode: messageParsed.data[i].invitation_code
 
       }
       gamesModels.push(gameModel)
@@ -84,7 +86,7 @@ export function LastGames(props: Props) {
   const onGamesChange = () => {
     setGamesFetched(!gamesFetched)
   }
-  
+
   useEffect(() => {
     getCreatedGames()
     getAllGames()

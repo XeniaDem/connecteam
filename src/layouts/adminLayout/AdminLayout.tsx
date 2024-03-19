@@ -51,7 +51,7 @@ export function AdminLayout() {
                 </div>
                 <Button text={"Выход"} onClick={() => {
                     navigate("/")
-                    dispatch(signIn({ token: "", access: "" }))
+                    dispatch(signIn({ token: "", access: "", id: "" }))
                 }} className={styles.button} />
 
             </div>

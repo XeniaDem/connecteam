@@ -89,7 +89,7 @@ export function Header(props: Props) {
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
-          dispatch(signIn({ token: "", access: "" }))
+          dispatch(signIn({ token: "", access: "", id: "" }))
         }} className={styles.authButton} />
       </div>
     )
@@ -124,13 +124,13 @@ export function Header(props: Props) {
           <HeaderItem text="Мои игры" onClick={() => navigate("/user_page", { state: { targetId: "games" } })} link="#games" />
           {isMobile && <Button text={"Выход"} onClick={() => {
             navigate("/")
-            dispatch(signIn({ token: "", access: "" }))
+            dispatch(signIn({ token: "", access: "", id: "" }))
           }} className={styles.authButton} />}
         </div>
 
         {!isMobile && <Button text={"Выход"} onClick={() => {
           navigate("/")
-          dispatch(signIn({ token: "", access: "" }))
+          dispatch(signIn({ token: "", access: "", id: "" }))
         }} className={styles.authButton} />}
       </div>
     )

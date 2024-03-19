@@ -1,15 +1,14 @@
 import styles from "./ChooseTopics.module.css"
-import ellipse1 from "../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../app/assets/ellipse2.svg"
-import { Players } from "../players/Players"
-import { Button } from "../../../components/button/Button"
+import ellipse1 from "../../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../../app/assets/ellipse2.svg"
+import { Button } from "../../../../components/button/Button"
 import { useEffect, useState } from "react"
-import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
-import { Topic } from "../../topic/Topic"
-import { Plan } from "../../profile/planInfo/PlanInfo"
-import { selectToken } from "../../../utils/authSlice"
+import { TopicModel } from "../../../adminPage/questionsPage/topic/Topic"
+import { Topic } from "../../../topic/Topic"
+import { Plan } from "../../../profile/planInfo/PlanInfo"
+import { selectToken } from "../../../../utils/authSlice"
 import { useSelector } from "react-redux"
-import { get, readServerError } from "../../../utils/api"
+import { get, readServerError } from "../../../../utils/api"
 
 
 
@@ -150,7 +149,7 @@ export function ChooseTopics() {
           }} className={styles.exitButton} />
         </div>} */}
 
-        <Players />
+        {/* <Players /> */}
 
         <div className={styles.title}>
           Выберите темы для игры

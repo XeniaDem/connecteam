@@ -4,14 +4,13 @@ import styles from "./Player.module.css"
 import smallCrown from "./smallCrown.svg"
 import photo from "./samplePhoto.svg"
 import disconnected from "./disconnected.svg"
-import { Button } from "../../../../components/button/Button";
+import { Button } from "../../../../../components/button/Button";
 import { InvitePopup } from "../../chooseTopics/InvitePopup/InvitePopup";
 import disableScroll from 'disable-scroll';
 import { useState } from "react";
 
+export type PlayerModel = {
 
-
-type Props = {
   isCreator: boolean;
   isYou: boolean;
   isAnswering: boolean;
@@ -19,6 +18,11 @@ type Props = {
   connected: boolean;
   name: string;
   photoUrl: string;
+}
+
+type Props = {
+  savedPlayer: PlayerModel;
+
 
 
 }
@@ -26,7 +30,7 @@ type Props = {
 Player.defaultProps = { isCreator: false, isYou: false, isAnswering: false, joined: true, connected: true, name: "Ксения", photoUrl: "" }
 
 
-export function Player(props: Props) {
+export function Player({savedPlayer}: Props) {
 
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -42,10 +46,10 @@ export function Player(props: Props) {
 
   }
 
-  if (props.joined && props.connected) {
+  if (savedPlayer.joined && savedPlayer.connected) {
     return (
       <div>
-        {props.isCreator ? (
+        {savedPlayer.isCreator ? (
           <div className={styles.container}>
             <div className={styles.smallCrown}>
               <img src={smallCrown} />
@@ -61,7 +65,7 @@ export function Player(props: Props) {
           </div>
         )}
 
-        {props.isAnswering ? (
+        {savedPlayer.isAnswering ? (
           <div className={styles.photoAnswering}>
             <img src={photo} />
           </div>
@@ -74,13 +78,13 @@ export function Player(props: Props) {
         }
 
 
-        {props.isYou ? (
+        {savedPlayer.isYou ? (
           <div className={styles.nameYou}>
             Вы
           </div>
         ) : (
           <div className={styles.name}>
-            {props.name}
+            {savedPlayer.name}
           </div>
 
         )
@@ -91,7 +95,7 @@ export function Player(props: Props) {
       </div>
     )
   }
-  else if (props.joined && !props.connected) {
+  else if (savedPlayer.joined && !savedPlayer.connected) {
 
     return (
       <div>
@@ -100,7 +104,7 @@ export function Player(props: Props) {
             <img src={disconnected} />
           </div>
           <div className={styles.nameDisconnected}>
-            {props.name}
+            {savedPlayer.name}
           </div>
 
         </div>
@@ -110,7 +114,7 @@ export function Player(props: Props) {
     )
 
   }
-  else if (!props.joined) {
+  else if (!savedPlayer.joined) {
     return (
       <div>
         <Button text={"+"} onClick={openInvitePopup} className={styles.addButton} />

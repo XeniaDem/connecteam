@@ -5,7 +5,7 @@ import ellipse2 from "../../../app/assets/ellipse2.svg"
 import crown from "../crown.svg"
 import exit from "../exit.svg"
 import photo from "./photo.svg"
-import { Button } from "../../../components/button/Button"
+import { Button } from "../../../../components/button/Button"
 
 type Props = {
   name: string;

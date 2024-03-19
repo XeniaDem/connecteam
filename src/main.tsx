@@ -23,8 +23,9 @@ import { AuthLayout } from "./layouts/authLayout/AuthLayout"
 import { UserLayout } from "./layouts/userLayout/UserLayout"
 import { GameResults } from "./features/gameResults/GameResults"
 import { JoinPlan } from "./features/joinPlan/JoinPlan"
-import { EnterGame } from "./features/joinGame/enterGame/EnterGame"
+import { JoinGame } from "./features/joinGame/JoinGame"
 import { InviteLayout } from "./layouts/inviteLayout/InviteLayout"
+import { GamePage } from "./features/gamePage/GamePage"
 
 const router = createBrowserRouter([
   {
@@ -134,9 +135,14 @@ const router = createBrowserRouter([
       },
       {
         path: "game",
-        element: <EnterGame/>,
+        element: <JoinGame/>,
       },
     ],
+  },
+
+  {
+    path: "game",
+    element: <GamePage />,
   },
   
 

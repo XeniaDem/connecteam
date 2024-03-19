@@ -1,19 +1,19 @@
 
-import styles from "./EnterGame.module.css"
-import ellipse1 from "../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../app/assets/ellipse2.svg"
-import logoBig from "../../../app/assets/logoBig.svg"
-import logoSmall from "../../../app/assets/logoSmall.svg"
-import { Button } from "../../../components/button/Button"
+import styles from "./JoinGame.module.css"
+import ellipse1 from "../../app/assets/ellipse1.svg"
+import ellipse2 from "../../app/assets/ellipse2.svg"
+import logoBig from "../../app/assets/logoBig.svg"
+import logoSmall from "../../app/assets/logoSmall.svg"
+import { Button } from "../../components/button/Button"
 import { useEffect, useState } from "react"
-import { get, post, readServerError } from "../../../utils/api"
+import { get, post, readServerError } from "../../utils/api"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../../utils/authSlice"
+import { selectToken } from "../../utils/authSlice"
 import { isMobile } from "react-device-detect"
 
 
-export function EnterGame() {
+export function JoinGame() {
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -22,10 +22,13 @@ export function EnterGame() {
   const code = location.hash.slice(1);
   const [gameName, setGameName] = useState("")
   const [gameDate, setGameDate] = useState("")
+  const [gameStatus, setGameStatus] = useState("")
+  const [gameCreatorId, setGameCreatorId] = useState("")
 
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [joinError, setJoinError] = useState("");
 
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -44,6 +47,9 @@ export function EnterGame() {
     var messageParsed = JSON.parse(message);
     setGameName(messageParsed.name)
     setGameDate((new Date(messageParsed.start_date)).toLocaleString())
+    setGameStatus(messageParsed.status)
+    setGameCreatorId(messageParsed.creator_id)
+
   }
 
 
@@ -53,7 +59,7 @@ export function EnterGame() {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     if (message.includes("incorrect")) {
-      setJoinError("Неверный код приглашения.")
+      setJoinError("Неверный код приглашения")
       return;
     }
 
@@ -83,6 +89,8 @@ export function EnterGame() {
     var messageParsed = JSON.parse(message);
     var name = messageParsed.first_name
     var surname = messageParsed.second_name
+    var id = messageParsed.id
+    setId(id)
     setName(name)
     setSurname(surname)
 
@@ -110,11 +118,21 @@ export function EnterGame() {
       return;
     }
     try {
-      if (token != "") {
-        const response = await post('games/' + code, undefined, token)
-        setJoinError("")
+      if (gameStatus == "not_started") {
+        if (token != "") {
+          const response = await post('games/' + code, undefined, token)
+          setJoinError("")
+        }
+        navigate("/game", { state: { isCreator: isCreator } })
+        // подключение к веб-сокет серверу
       }
-      // подключение к веб-сокет серверу
+      if (gameStatus == "in_process") {
+        //////////////////
+      }
+      if (gameStatus == "finished") {
+        //////////////////
+      }
+
     }
     catch (error: any) {
       readJoinError(error.response.text)
@@ -125,15 +143,16 @@ export function EnterGame() {
 
 
 
+  const [isCreator, setIsCreator] = useState(false)
   useEffect(() => {
     validatePathname()
+    if (token != "")
+      fetchMe()
   }, []);
 
   useEffect(() => {
-    if (token != "")
-      fetchMe()
-
-  }, []);
+    id && gameCreatorId && setIsCreator(id == gameCreatorId)
+  }, [id, gameCreatorId]);
   return (
     <div>
       <div className={styles.container}>
@@ -153,11 +172,9 @@ export function EnterGame() {
             {!isMobile ? <img src={logoBig} /> : <img src={logoSmall} />}
           </div>
           <div className={styles.title}>
-            Вас пригласили в игру <span className={styles.title1}> {gameName} </span> <br /> <span className={styles.date}> Начало игры: {gameDate} </span>
+
+            {!isCreator ? "Вас пригласили в игру" : "Вы являетесь организатором игры"} <span className={styles.title1}> {gameName} </span> <br /> <span className={styles.date}> Начало игры: {gameDate} </span>
           </div>
-          {/* <Button text={"Продолжить"} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className={styles.continueButton} /> */}
 
           {token == "" ?
             <div>

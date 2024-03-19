@@ -1,13 +1,13 @@
 
 import styles from "./RateAnswer.module.css"
-import ellipse1 from "../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../app/assets/ellipse2.svg"
+import ellipse1 from "../../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import exit from "../exit.svg"
 import dots from "../dots.svg"
-import { Players } from "../../startGame/players/Players"
+// import { Players } from "../../startGame/players/Players"
 import { Question } from "../question/Question"
 import { Timer } from "../timer/Timer"
-import { Button } from "../../../components/button/Button"
+import { Button } from "../../../../components/button/Button"
 import { Rounds } from "../rounds/Rounds"
 import { StarRating } from "./starRating/StarRating"
 
@@ -39,7 +39,7 @@ export function RateAnswer(props: Props) {
             }} className={styles.exitButton} />
           </div>
 
-          <Players />
+          {/* <Players /> */}
 
           <div className={styles.content}>
             <div className={styles.question}>
@@ -87,7 +87,7 @@ export function RateAnswer(props: Props) {
             <img src={exit} />
           </div>
 
-          <Players />
+          {/* <Players /> */}
 
           <div className={styles.middle}>
             <div className={styles.title}>

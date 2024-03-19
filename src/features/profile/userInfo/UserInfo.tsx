@@ -280,7 +280,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
       const response = await get('users/password', token)
 
-      dispatch(signIn({ token: "", access: "" }))
+      dispatch(signIn({ token: "", access: "", id: ""}))
       navigate("link_sent", { state: { email: email } })
 
 

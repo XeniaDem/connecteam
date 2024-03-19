@@ -1,14 +1,14 @@
 
 import styles from "./ChooseTopic.module.css"
-import ellipse1 from "../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../app/assets/ellipse2.svg"
+import ellipse1 from "../../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import exit from "../exit.svg"
 import dots from "../dots.svg"
-import { Players } from "../../startGame/players/Players"
-import { Button } from "../../../components/button/Button"
-import { TopicModel } from "../../adminPage/questionsPage/topic/Topic"
+// import { Players } from "../../startGame/players/Players"
+import { Button } from "../../../../components/button/Button"
+import { TopicModel } from "../../../adminPage/questionsPage/topic/Topic"
 import { useEffect, useState } from "react"
-import { Topic } from "../../topic/Topic"
+import { Topic } from "../../../topic/Topic"
 
 
 type Props = {
@@ -34,7 +34,7 @@ export function ChooseTopic(props: Props) {
           {/* <div className={styles.exit}>
             <img src={exit} />
           </div> */}
-          <Players />
+          {/* <Players /> */}
           <div className={styles.middle}>
             <div className={styles.title}>
               Организатор игры выбирает тему
@@ -105,7 +105,7 @@ export function ChooseTopic(props: Props) {
             }} className={styles.exitButton} />
           </div>} */}
 
-          <Players />
+          {/* <Players /> */}
 
           <div className={styles.title}>
             Выберите тему вопросов раунда

@@ -3,7 +3,6 @@ import styles from "./WaitGame.module.css"
 import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
 
-import { Button } from "../../../components/button/Button"
 
 
 type Props = {
@@ -30,18 +29,6 @@ export function WaitGame(props: Props) {
           {props.date}
         </div>
 
-        <Button text={"Зарегистрироваться"} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className={styles.registerButton} />
-        <div className={styles.footerContainer}>
-          <div className={styles.footerItem}>
-            Уже есть аккаунт?
-          </div>
-          <Button text={"Войти"} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.footerButton} />
-
-        </div>
       </div>
     </div>
   )
