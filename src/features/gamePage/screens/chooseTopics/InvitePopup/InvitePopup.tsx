@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Button } from "../../../../components/button/Button"
+import { Button } from "../../../../../components/button/Button"
 import styles from "./InvitePopup.module.css"
 
 type Props = {

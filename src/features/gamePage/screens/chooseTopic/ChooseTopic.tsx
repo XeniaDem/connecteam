@@ -1,7 +1,5 @@
 
 import styles from "./ChooseTopic.module.css"
-import ellipse1 from "../../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import exit from "../exit.svg"
 import dots from "../dots.svg"
 // import { Players } from "../../startGame/players/Players"
@@ -15,7 +13,6 @@ type Props = {
   isCreator: boolean;
 }
 
-ChooseTopic.defaultProps = { isCreator: true }
 
 
 export function ChooseTopic(props: Props) {
@@ -23,14 +20,6 @@ export function ChooseTopic(props: Props) {
     return (
       <div>
         <div className={styles.container}>
-          <div className={styles.ellipse1}>
-            <img src={ellipse1} />
-
-          </div>
-          <div className={styles.ellipse2}>
-            <img src={ellipse2} />
-
-          </div>
           {/* <div className={styles.exit}>
             <img src={exit} />
           </div> */}
@@ -93,12 +82,6 @@ export function ChooseTopic(props: Props) {
     return (
       <div>
         <div className={styles.container}>
-          <div className={styles.ellipse1}>
-            <img src={ellipse1} />
-          </div>
-          <div className={styles.ellipse2}>
-            <img src={ellipse2} />
-          </div>
           {/* {!isMobile && <div className={styles.exit}>
             <Button text={""} onClick={function (): void {
               throw new Error("Function not implemented.")
@@ -133,7 +116,12 @@ export function ChooseTopic(props: Props) {
           {startError && formSubmitted && (<div className={styles.errorMessage}>
             {startError}
           </div>)}
-          <Button text={"Начать раунд"} onClick={() => setFormSubmitted(true)} className={styles.startButton} />
+          <Button text={"Начать раунд"} onClick={() => {
+            setFormSubmitted(true);
+            if (startError)
+              return
+          }}
+            className={styles.startButton} />
         </div>
       </div>
     )

@@ -11,10 +11,11 @@ import { get, readServerError } from "../../utils/api"
 import { Plan } from "../profile/planInfo/PlanInfo"
 import { GameResults } from "../gameResults/GameResults"
 import { JoinGame } from "../joinGame/JoinGame"
-import { AnswerQuestion } from "../gamePage/processGame/answerQuestion/AnswerQuestion"
-import { ChooseTopic } from "../gamePage/processGame/chooseTopic/ChooseTopic"
-import { RateAnswer } from "../gamePage/processGame/rateAnswer/RateAnswer"
-import { ChooseTopics } from "../gamePage/startGame/chooseTopics/ChooseTopics"
+
+import { ChooseTopic } from "../gamePage/screens/chooseTopic/ChooseTopic"
+import { RateAnswer } from "../gamePage/screens/rateAnswer/RateAnswer"
+import { ChooseTopics } from "../gamePage/screens/chooseTopics/ChooseTopics"
+import { AnswerQuestion } from "../gamePage/screens/answerQuestion/AnswerQuestion"
 
 
 
@@ -122,8 +123,8 @@ export function UserPage() {
       <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
       <JoinGame/>
-      <ChooseTopics/>
-      <ChooseTopic/>
+      <ChooseTopics onButonClicked={()=> null}/>
+      {/* <ChooseTopic/> */}
       <AnswerQuestion/>
       <RateAnswer/>
       <GameResults/>

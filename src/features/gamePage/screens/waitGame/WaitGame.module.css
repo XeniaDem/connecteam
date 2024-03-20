@@ -2,13 +2,11 @@
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
-height: 960px;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 gap: 10px;
-background-color: #171717;
 
 }
 
@@ -92,25 +90,6 @@ z-index: 1;
 box-shadow: none;
 
 }
-
-
-
-.ellipse1 {
-  position: absolute;
-  top: 0px;
-    left: 0px;
-    
-}
-
-
-
-.ellipse2 {
-  position: absolute;
-  bottom: 0px;
-    right: 0px;
-    
-}
-
 
 
 

@@ -24,25 +24,21 @@ export function Rounds(props: Props) {
         continue;
 
       } else {
-        rounds.push(<Round numRound={i} last={true} />)
+        rounds.push(<Round numRound={i} started={false} last={true} />)
         continue;
       }
     }
     if (i <= props.currentRound) {
-      rounds.push(<Round numRound={i} started={true} />)
+      rounds.push(<Round numRound={i} started={true} last={false} />)
       continue;
     }
-    rounds.push(<Round numRound={i} />)
+    rounds.push(<Round numRound={i} started={false} last={false}/>)
   }
 
 
   return (
     <div className={styles.container}>
       {rounds}
-
-
     </div>
   )
-
-
 }

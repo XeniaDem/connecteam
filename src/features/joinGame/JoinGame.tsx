@@ -23,6 +23,7 @@ export function JoinGame() {
   const [gameName, setGameName] = useState("")
   const [gameDate, setGameDate] = useState("")
   const [gameStatus, setGameStatus] = useState("")
+  const [gameId, setGameId] = useState("")
   const [gameCreatorId, setGameCreatorId] = useState("")
 
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -47,6 +48,7 @@ export function JoinGame() {
     var messageParsed = JSON.parse(message);
     setGameName(messageParsed.name)
     setGameDate((new Date(messageParsed.start_date)).toLocaleString())
+    setGameId(messageParsed.id)
     setGameStatus(messageParsed.status)
     setGameCreatorId(messageParsed.creator_id)
 
@@ -123,7 +125,7 @@ export function JoinGame() {
           const response = await post('games/' + code, undefined, token)
           setJoinError("")
         }
-        navigate("/game", { state: { isCreator: isCreator } })
+        navigate("/game", { state: { gameId: gameId } })
         // подключение к веб-сокет серверу
       }
       if (gameStatus == "in_process") {

@@ -4,8 +4,8 @@ import styles from "./Player.module.css"
 import smallCrown from "./smallCrown.svg"
 import photo from "./samplePhoto.svg"
 import disconnected from "./disconnected.svg"
-import { Button } from "../../../../../components/button/Button";
-import { InvitePopup } from "../../chooseTopics/InvitePopup/InvitePopup";
+import { Button } from "../../../../components/button/Button";
+import { InvitePopup } from "../../screens/chooseTopics/InvitePopup/InvitePopup";
 import disableScroll from 'disable-scroll';
 import { useState } from "react";
 
@@ -14,23 +14,21 @@ export type PlayerModel = {
   isCreator: boolean;
   isYou: boolean;
   isAnswering: boolean;
-  joined: boolean;
   connected: boolean;
   name: string;
   photoUrl: string;
 }
 
 type Props = {
-  savedPlayer: PlayerModel;
-
-
+  savedPlayer?: PlayerModel;
+  joined: boolean;
 
 }
 
 Player.defaultProps = { isCreator: false, isYou: false, isAnswering: false, joined: true, connected: true, name: "Ксения", photoUrl: "" }
 
 
-export function Player({savedPlayer}: Props) {
+export function Player({joined, savedPlayer}: Props) {
 
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -46,7 +44,7 @@ export function Player({savedPlayer}: Props) {
 
   }
 
-  if (savedPlayer.joined && savedPlayer.connected) {
+  if (joined && savedPlayer && savedPlayer.connected) {
     return (
       <div>
         {savedPlayer.isCreator ? (
@@ -95,7 +93,7 @@ export function Player({savedPlayer}: Props) {
       </div>
     )
   }
-  else if (savedPlayer.joined && !savedPlayer.connected) {
+  else if (joined && savedPlayer && !savedPlayer.connected) {
 
     return (
       <div>
@@ -114,7 +112,7 @@ export function Player({savedPlayer}: Props) {
     )
 
   }
-  else if (!savedPlayer.joined) {
+  else if (!joined) {
     return (
       <div>
         <Button text={"+"} onClick={openInvitePopup} className={styles.addButton} />

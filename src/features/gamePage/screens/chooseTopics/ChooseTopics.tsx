@@ -1,6 +1,4 @@
 import styles from "./ChooseTopics.module.css"
-import ellipse1 from "../../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import { Button } from "../../../../components/button/Button"
 import { useEffect, useState } from "react"
 import { TopicModel } from "../../../adminPage/questionsPage/topic/Topic"
@@ -11,38 +9,55 @@ import { useSelector } from "react-redux"
 import { get, readServerError } from "../../../../utils/api"
 
 
-
-export function ChooseTopics() {
-
+type Props = {
+  onButonClicked: (selected: string[]) => void;
+}
+export function ChooseTopics(props: Props) {
 
   const token = useSelector(selectToken)
 
-
-
   const [topics, setTopics] = useState<TopicModel[] | null>(null)
+  const [topicsIds, setTopicsIds] = useState<string[]> ([])
 
 
   const readTopics = (message: any) => {
-    // const messageParsed = JSON.parse(message);
+    const messageParsed = JSON.parse(message);
 
-    const topicsNum = 13 // (messageParsed.data.length);
+    const topicsNum = messageParsed.data.length;
 
     const topicModels = [];
+    const topicsIds = [];
     for (let i = 0; i < topicsNum; i++) {
 
 
       const topicModel = {
-        name: "Обучение", //messageParsed.data[i].name
-        id: i.toString()
+        name: messageParsed.data[i].title,
+        id: messageParsed.data[i].id
 
       }
       topicModels.push(topicModel)
+      topicsIds.push(topicModel.id)
 
     }
     setTopics(topicModels)
+    setTopicsIds(topicsIds)
 
   }
 
+  const fetchTopics = async () => {
+    try {
+
+      const response = await get('topics/', token)
+      readTopics(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
 
   const [planInfo, setPlanInfo] = useState<Plan>();
 
@@ -103,7 +118,7 @@ export function ChooseTopics() {
 
 
   const chooseRandomTopics = () => {
-    const newSelectedTopicsIds = [...Array(topics?.length).keys()].map(String)
+    const newSelectedTopicsIds = topicsIds
 
     setSelectedTopicsIds(shuffle(newSelectedTopicsIds).slice(0, topicLimit))
 
@@ -111,18 +126,18 @@ export function ChooseTopics() {
   }
 
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const getStartError = () => {
+  const getChooseError = () => {
     if (selectedTopicsIds.length < 3)
       return "Выберите хотя бы 3 темы";
 
 
   }
 
-  const startError = getStartError();
+  const chooseError = getChooseError();
 
 
   useEffect(() => {
-    readTopics("");
+    fetchTopics();
     fetchPlan();
 
 
@@ -135,14 +150,6 @@ export function ChooseTopics() {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.ellipse1}>
-          <img src={ellipse1} />
-
-        </div>
-        <div className={styles.ellipse2}>
-          <img src={ellipse2} />
-
-        </div>
         {/* {!isMobile && <div className={styles.exit}>
           <Button text={""} onClick={function (): void {
             throw new Error("Function not implemented.")
@@ -189,12 +196,17 @@ export function ChooseTopics() {
         <Button text={"Выбрать случайные " + topicLimit + (topicLimit == 3 ? " темы" : " тем")}
           onClick={chooseRandomTopics} className={styles.randomTopicsButton} />
 
-        {startError && formSubmitted && (<div className={styles.errorMessage}>
-          {startError}
+        {chooseError && formSubmitted && (<div className={styles.errorMessage}>
+          {chooseError}
 
         </div>)}
 
-        <Button text={"Начать игру"} onClick={() => setFormSubmitted(true)} className={styles.startButton} />
+        <Button text={"Подтвердить"} onClick={() => {
+          setFormSubmitted(true);
+          if (chooseError)
+            return;
+          props.onButonClicked(selectedTopicsIds)
+        }} className={styles.startButton} />
 
       </div>
 

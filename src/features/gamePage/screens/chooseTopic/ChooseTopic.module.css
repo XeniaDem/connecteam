@@ -8,11 +8,24 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding-top: 60px;
-  padding-bottom: 100px;
-  background-color: #171717;
 
 }
+
+
+.topics {
+
+  display: flex;
+  gap: 36px;
+  width: 99vw;
+  flex-wrap: wrap;
+  padding-bottom: 70px;
+  padding-top: 70px;
+  justify-content: center;
+
+
+}
+
+
 
 .exit {
   position: absolute;
@@ -39,35 +52,33 @@
 
 }
 
-.exitButton:hover,
-.exitButton:focus {
+.exitButton:hover {
 
   box-shadow: none;
 
 }
 
-
+.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+}
 
 .title {
-
   margin-top: 30px;
   color: #FFF;
   font-size: 50px;
   font-style: normal;
   font-weight: 700;
   line-height: 60px;
+  text-align: center;
 }
 
-.subtitle {
-  color: #FFF;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 34.737px;
-  /* 144.737% */
+.dots {
+  margin-top: 81px;
 }
-
-
 
 
 .startButton {
@@ -76,59 +87,13 @@
   flex-shrink: 0;
   border-radius: 40.783px;
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-  margin-top: 16px;
+  z-index: 1;
 }
 
-.randomTopicsButton {
-  width: 285.531px;
-  height: 59.667px;
-  flex-shrink: 0;
-  border-radius: 40.783px;
-  border: 1px solid var(--vd, #55C6F7);
-  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-}
-
-
-
-.ellipse1 {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-
-}
-
-
-
-.ellipse2 {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-
-}
-
-
-
-
-.topics {
-
-  display: flex;
-  gap: 36px;
-  width: 99vw;
-  flex-wrap: wrap;
-  padding-bottom: 70px;
-  padding-top: 70px;
-  justify-content: center;
-
-
-}
 
 .errorMessage {
- 
-  margin-bottom: -15px;
+
+  margin-top: -33px;
   color: red;
   font-size: 14.972px;
   font-style: normal;
@@ -136,6 +101,7 @@
   line-height: 24.33px;
   /* 162.5% */
 }
+
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
     padding-bottom: 20px;
@@ -144,6 +110,7 @@
     margin-top: 10px;
     font-size: 30px;
     line-height: normal;
+    text-align: center;
 
   }
   .subtitle {
@@ -169,12 +136,6 @@
     font-size: 14px;
     padding: 5px;
 
-  }
-  .ellipse1 {
-    display: none;
-  }
-  .ellipse2 {
-    display: none;
   }
 
 }

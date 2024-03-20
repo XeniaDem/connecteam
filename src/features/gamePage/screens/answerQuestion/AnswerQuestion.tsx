@@ -5,10 +5,10 @@ import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import exit from "../exit.svg"
 import dots from "../dots.svg"
 // import { Players } from "../../startGame/players/Players"
-import { Question } from "../question/Question"
-import { Timer } from "../timer/Timer"
+import { Question } from "../../components/question/Question"
+import { Timer } from "../../components/timer/Timer"
 import { Button } from "../../../../components/button/Button"
-import { Rounds } from "../rounds/Rounds"
+import { Rounds } from "../../components/rounds/Rounds"
 
 
 

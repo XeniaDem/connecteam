@@ -1,0 +1,57 @@
+
+.container {
+  min-height: 100vh;
+  background-color: #171717;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+
+.players {
+  font-family: 'Work Sans Variable', sans-serif;
+
+  display: flex;
+  justify-content: center;
+
+
+  gap: 46px;
+  flex-wrap: wrap;
+  /* margin-top: 100px; */
+
+
+}
+
+
+.ellipse1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+}
+
+
+
+.ellipse2 {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+}
+
+@media (max-width: 768px) and (orientation:portrait), (max-height:768px) and (orientation:landscape) {
+  .players {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
+  }
+
+}
