@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from "@mui/material";
 import { Delete, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../../utils/authSlice";
+import { selectToken } from "../../../../store/authSlice";
 
 
 export type GameModel = {
@@ -58,10 +58,8 @@ export function Game({ savedGame, onChange }: Props) {
 
         <div className={styles.group}>
           <div className={styles.name} onClick={() => {
-            if (savedGame.status == "not_started")
+            if (savedGame.status == "not_started" || savedGame.status == "in_progress")
               navigate("/invite/game#" + savedGame.invitationCode)
-            // if (savedGame.status == "in_process")
-            //   navigate("")
             // if (savedGame.status == "finished")
             //   navigate("")
           }}>

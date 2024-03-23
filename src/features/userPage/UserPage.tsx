@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
-import { selectToken } from "../../utils/authSlice"
+import { selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
 
 import { Plan } from "../profile/planInfo/PlanInfo"

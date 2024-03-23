@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { isMobile } from 'react-device-detect';
 import { useGetDimensions } from "../../../app/hooks/useGetDimensions"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../../utils/authSlice"
+import { selectToken } from "../../../store/authSlice"
 import { get, readServerError } from "../../../utils/api"
 
 

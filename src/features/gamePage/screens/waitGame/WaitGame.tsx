@@ -6,7 +6,6 @@ type Props = {
   date: string;
 }
 
-WaitGame.defaultProps = { name: "Игра", date: "19.10.2023" }
 
 export function WaitGame(props: Props) {
   return (
@@ -14,7 +13,7 @@ export function WaitGame(props: Props) {
       <div className={styles.container}>
       </div>
       <div className={styles.title}>
-        Ожидайте начала игры <br /> "{props.name}"
+        Ожидайте начала игры <br /> <span className={styles.title1}> {props.name} </span>
       </div>
       <div className={styles.date}>
         {props.date}

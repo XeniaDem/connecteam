@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
-import { selectToken } from "../../utils/authSlice"
+import { selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
 
 

@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { get, post } from "../../utils/api"
 import { isMobile } from 'react-device-detect';
 import { useSelector } from "react-redux"
-import { selectToken } from "../../utils/authSlice"
+import { selectToken } from "../../store/authSlice"
 
 
 export function JoinPlan() {

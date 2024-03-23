@@ -4,7 +4,7 @@ import { Button } from "../../../../components/button/Button"
 import styles from "../Popup.module.css"
 import disableScroll from 'disable-scroll';
 import { post, readServerError } from "../../../../utils/api";
-import { signIn, Access } from "../../../../utils/authSlice";
+import { signIn, Access } from "../../../../store/authSlice";
 import { useDispatch } from "react-redux";
 
 type Props = {

@@ -4,7 +4,7 @@ import { Topic } from "../../../topic/Topic";
 import { TopicModel } from "../topic/Topic";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../../utils/authSlice";
+import { selectToken } from "../../../../store/authSlice";
 import { Button } from "../../../../components/button/Button";
 import { FilePicker } from "./filePicker/FilePicker";
 import { post, readServerError } from "../../../../utils/api";
@@ -55,7 +55,7 @@ export function NewQuestionPage() {
 
         setFormSubmitted(false)
         setQuestionsText("")
-        navigate(-1);
+        navigate("/admin/questions_page")
 
       }
       catch (error: any) {
@@ -72,6 +72,7 @@ export function NewQuestionPage() {
   const { state } = useLocation();
 
   useEffect(() => {
+
     if (state == null) {
       navigate("/admin/questions_page")
     }
@@ -79,6 +80,13 @@ export function NewQuestionPage() {
 
 
   }, []);
+  useEffect(() => {
+    // window.location.reload()
+
+
+
+  }, []);
+
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 

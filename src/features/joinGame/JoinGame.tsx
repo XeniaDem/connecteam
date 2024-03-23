@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { get, post, readServerError } from "../../utils/api"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../utils/authSlice"
+import { selectToken } from "../../store/authSlice"
 import { isMobile } from "react-device-detect"
 
 
@@ -120,16 +120,13 @@ export function JoinGame() {
       return;
     }
     try {
-      if (gameStatus == "not_started") {
+      if (gameStatus == "not_started" || gameStatus == "in_progress") {
         if (token != "") {
           const response = await post('games/' + code, undefined, token)
           setJoinError("")
         }
         navigate("/game", { state: { gameId: gameId } })
         // подключение к веб-сокет серверу
-      }
-      if (gameStatus == "in_process") {
-        //////////////////
       }
       if (gameStatus == "finished") {
         //////////////////

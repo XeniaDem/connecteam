@@ -10,7 +10,7 @@ import validator from "validator"
 import disableScroll from 'disable-scroll';
 import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { useDispatch } from "react-redux"
-import { Access, signIn } from "../../../utils/authSlice"
+import { Access, signIn } from "../../../store/authSlice"
 import { post, readServerError } from "../../../utils/api"
 import { isMobile } from 'react-device-detect';
 

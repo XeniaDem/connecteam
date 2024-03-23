@@ -26,48 +26,14 @@
 }
 
 
-
-.exit {
-  position: absolute;
-  top: 80px;
-  /* right: 80px; */
-  left: max(calc(100vw - 130px), 1150px);
-
-
-
-}
-
-
-.exitButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  padding: 0px;
-  border: 4px solid transparent;
-
-  background: url("../exit.svg") no-repeat;
-  z-index: 1;
-
-}
-
-.exitButton:hover {
-
-  box-shadow: none;
-
-}
-
 .middle {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 200px;
 }
 
 .title {
-  margin-top: 30px;
   color: #FFF;
   font-size: 50px;
   font-style: normal;

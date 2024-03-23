@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { TopicModel } from "../../../adminPage/questionsPage/topic/Topic"
 import { Topic } from "../../../topic/Topic"
 import { Plan } from "../../../profile/planInfo/PlanInfo"
-import { selectToken } from "../../../../utils/authSlice"
+import { selectToken } from "../../../../store/authSlice"
 import { useSelector } from "react-redux"
 import { get, readServerError } from "../../../../utils/api"
 
@@ -144,19 +144,9 @@ export function ChooseTopics(props: Props) {
   }, []);
 
 
-
-
-  // console.log(selectedTopicsIds)
   return (
     <div>
       <div className={styles.container}>
-        {/* {!isMobile && <div className={styles.exit}>
-          <Button text={""} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.exitButton} />
-        </div>} */}
-
-        {/* <Players /> */}
 
         <div className={styles.title}>
           Выберите темы для игры

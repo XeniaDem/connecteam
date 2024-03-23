@@ -1,4 +1,3 @@
-
 .container {
   min-height: 100vh;
   background-color: #171717;
@@ -21,10 +20,33 @@
   gap: 46px;
   flex-wrap: wrap;
   /* margin-top: 100px; */
+  z-index: 1;
 
+}
+.exitButton {
+
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 0px;
+  border: 4px solid transparent;
+
+  background: url("./exit.svg") no-repeat;
+  z-index: 1;
 
 }
 
+.exitButton:hover,
+.exitButton:focus {
+
+  box-shadow: none;
+
+}
 
 .ellipse1 {
   position: absolute;
@@ -47,9 +69,11 @@
     flex-wrap: wrap;
     gap: 20px;
   }
+
   .ellipse1 {
     display: none;
   }
+
   .ellipse2 {
     display: none;
   }

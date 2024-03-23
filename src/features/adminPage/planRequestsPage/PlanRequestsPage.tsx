@@ -2,7 +2,7 @@ import styles from "./PlanRequestsPage.module.css"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../../utils/authSlice"
+import { selectToken } from "../../../store/authSlice"
 import { PlanModel } from "../usersPage/user/User"
 import { PlanRequest, RequestModel } from "./planRequest/PlanRequest"
 

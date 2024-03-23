@@ -2,7 +2,6 @@
 import styles from "./RateAnswer.module.css"
 import ellipse1 from "../../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../../app/assets/ellipse2.svg"
-import exit from "../exit.svg"
 import dots from "../dots.svg"
 // import { Players } from "../../startGame/players/Players"
 import { Question } from "../../components/question/Question"
@@ -32,11 +31,6 @@ export function RateAnswer(props: Props) {
           <div className={styles.ellipse2}>
             <img src={ellipse2} />
 
-          </div>
-          <div className={styles.exit}>
-            <Button text={""} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.exitButton} />
           </div>
 
           {/* <Players /> */}
@@ -82,9 +76,6 @@ export function RateAnswer(props: Props) {
           <div className={styles.ellipse2}>
             <img src={ellipse2} />
 
-          </div>
-          <div className={styles.exit}>
-            <img src={exit} />
           </div>
 
           {/* <Players /> */}

@@ -12,7 +12,7 @@ import { get, patch, post, readServerError } from "../../../utils/api"
 import { ImagePicker } from "../imagePicker/ImagePicker"
 import { PasswordPopup } from "./passwordPopup/PasswordPopup"
 import { useDispatch } from "react-redux"
-import { signIn } from "../../../utils/authSlice"
+import { signIn } from "../../../store/authSlice"
 import { isMobile } from 'react-device-detect';
 
 export type User = {

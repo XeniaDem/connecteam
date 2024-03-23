@@ -18,12 +18,6 @@ export function StartGame(props: Props) {
       <div className={styles.container}>
 
 
-        {/* <div className={styles.exit}>
-          <Button text={""} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.exitButton} />
-              </div> */}
-
 
         <div className={styles.crown}>
           <img src={crown} />

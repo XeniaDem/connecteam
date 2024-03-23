@@ -8,7 +8,7 @@ import { PlanList } from "../../planList/PlanList"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../../utils/authSlice"
+import { selectToken } from "../../../store/authSlice"
 
 
 export type Plan = {

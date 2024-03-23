@@ -5,7 +5,7 @@ import smallCrown from "./smallCrown.svg"
 import photo from "./samplePhoto.svg"
 import disconnected from "./disconnected.svg"
 import { Button } from "../../../../components/button/Button";
-import { InvitePopup } from "../../screens/chooseTopics/InvitePopup/InvitePopup";
+import { InvitePopup } from "../invitePopup/InvitePopup";
 import disableScroll from 'disable-scroll';
 import { useState } from "react";
 
@@ -22,13 +22,12 @@ export type PlayerModel = {
 type Props = {
   savedPlayer?: PlayerModel;
   joined: boolean;
+  gameId?: string;
 
 }
 
-Player.defaultProps = { isCreator: false, isYou: false, isAnswering: false, joined: true, connected: true, name: "Ксения", photoUrl: "" }
 
-
-export function Player({joined, savedPlayer}: Props) {
+export function Player({joined, savedPlayer, gameId}: Props) {
 
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -116,7 +115,7 @@ export function Player({joined, savedPlayer}: Props) {
     return (
       <div>
         <Button text={"+"} onClick={openInvitePopup} className={styles.addButton} />
-        {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} /> : null}
+        {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} gameId = {gameId} /> : null}
       </div>
 
     )

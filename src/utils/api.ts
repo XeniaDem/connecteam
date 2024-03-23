@@ -1,5 +1,5 @@
 import request from "superagent"
-import { signIn } from "./authSlice"
+import { signIn } from "../store/authSlice"
 import { useDispatch } from "react-redux"
 
 

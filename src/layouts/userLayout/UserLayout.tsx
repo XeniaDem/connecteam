@@ -3,7 +3,7 @@ import { Header } from "../../features/header/Header";
 import styles from "../Layout.module.css"
 import { useCheckAuth } from "../../app/hooks/useCheckAuth";
 import { useSelector } from "react-redux";
-import { selectAccess } from "../../utils/authSlice";
+import { selectAccess } from "../../store/authSlice";
 import { useEffect } from "react";
 
 

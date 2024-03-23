@@ -2,97 +2,38 @@
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
 }
-
-.exit {
-  position: absolute;
-  top: 80px;
-  right: 80px;
-  
-}
-
 
 .title {
-
-margin-top: 30px;
-color: #FFF;
-font-size: 50px;
-font-style: normal;
-font-weight: 700; 
-line-height: 60px;
-text-align: center;
-z-index: 1;
+  margin-top: -300px;
+  color: #FFF;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 60px;
+  text-align: center;
+  z-index: 1;
 }
 
-.date {
-  color: rgba(255, 255, 255, 0.18);
-text-align: center;
-font-size: 31.377px;
-font-style: normal;
-font-weight: 600;
-line-height: 45.135px; /* 143.851% */
-}
-
-
-
-.registerButton {
-  width: 285.531px;
-  height: 59.667px;
-  flex-shrink: 0;
-  border-radius: 40.783px;
-background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-margin-top: 54px;
-z-index: 1;
-}
-
-
-.footerContainer {
-  margin-top: 16px;
-display: flex;
-gap: 3px;
-}
-
-.footerItem {
-  color: #8E8E8E;
-font-size: 14.972px;
-font-style: normal;
-font-weight: 500;
-line-height: 24.33px; /* 162.5% */
-}
-
-.footerButton {
-
-border: none;
-color: #8E8E8E;
-background: none;
-font-size: 14.972px;
-font-style: normal;
-font-weight: 500;
-line-height: 24.33px; /* 162.5% */
-box-sizing: border-box;
-padding: 0px;
-text-decoration-line: underline;
-z-index: 1;
-
-
-}
-.footerButton:hover {
+.title1 {
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-box-shadow: none;
-
 }
 
-
-
-
-
-
+.date {
+  color: rgba(255, 255, 255, 0.18);
+  text-align: center;
+  font-size: 31.377px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 45.135px;
+  /* 143.851% */
+}

@@ -4,7 +4,7 @@ import padlock from "../../app/assets/padlock.svg"
 import logoSmall from "../../app/assets/logoSmall.svg"
 import styles from "../Layout.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { selectAccess, signIn } from "../../utils/authSlice";
+import { selectAccess, signIn } from "../../store/authSlice";
 import { useEffect } from "react";
 import { useCheckAuth } from "../../app/hooks/useCheckAuth";
 import { isMobile } from "react-device-detect";

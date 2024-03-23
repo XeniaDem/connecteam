@@ -8,7 +8,7 @@ import icon from "./icon.svg"
 import { InvitePopup } from "./invitePopup/InvitePopup"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
-import { selectToken } from "../../utils/authSlice"
+import { selectToken } from "../../store/authSlice"
 import { get, post, readServerError } from "../../utils/api"
 
 

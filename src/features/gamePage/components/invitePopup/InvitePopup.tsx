@@ -1,27 +1,66 @@
 
-import { useState } from "react";
-import { Button } from "../../../../../components/button/Button"
+import { useEffect, useState } from "react";
+import { Button } from "../../../../components/button/Button"
 import styles from "./InvitePopup.module.css"
+import { selectToken } from "../../../../store/authSlice";
+import { useSelector } from "react-redux";
+import { get, readServerError } from "../../../../utils/api";
 
 type Props = {
-  link: string;
+  gameId?: string;
   closePopup: () => void;
 
 }
 
-InvitePopup.defaultProps = { link: "https://connnecteam.com/forms/d/e/1FAIpQLSclRBDTVi0K" }
 
 
 
 export function InvitePopup(props: Props) {
+  const token = useSelector(selectToken)
   const [copiedHidden, setCopiedHidden] = useState(true);
   const copyLink = () => {
+    navigator.clipboard.writeText(link)
     setCopiedHidden(false)
     setTimeout(() => {
       setCopiedHidden(true);
     }, 3000);
 
   }
+
+  const [link, setLink] = useState("")
+
+
+  const readInvitationCode = (message: any) => {
+    alert(message)
+    const messageParsed = JSON.parse(message);
+    setLink("localhost:5173/invite/game#" + messageParsed.invitation_code)
+
+  }
+
+  const fetchGame = async () => {
+    try {
+
+      const response = await get('games/' + props.gameId, token)
+      readInvitationCode(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+
+  useEffect(() => {
+    fetchGame();
+
+
+  }, []);
+
+
+
 
   return (
     <div className={styles.background}>
@@ -40,7 +79,7 @@ export function InvitePopup(props: Props) {
             Ссылка
           </div>
           <div className={styles.link}>
-            {props.link}
+            {link && link}
           </div>
           <div className={styles.divider} />
           <div className={styles.info}>

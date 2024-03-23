@@ -4,7 +4,7 @@ import { post, readServerError } from "../../../utils/api";
 import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../utils/authSlice";
+import { selectToken } from "../../../store/authSlice";
 
 
 

@@ -5,7 +5,7 @@ import ellipse2 from "../../../app/assets/ellipse2.svg"
 import { PlanUserModel } from "../planUser/PlanUser";
 import {isMobile} from 'react-device-detect';
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../utils/authSlice";
+import { selectToken } from "../../../store/authSlice";
 import { Delete, readServerError } from "../../../utils/api";
 
 
