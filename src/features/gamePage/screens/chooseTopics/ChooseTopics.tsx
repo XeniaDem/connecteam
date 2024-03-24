@@ -1,8 +1,7 @@
 import styles from "./ChooseTopics.module.css"
 import { Button } from "../../../../components/button/Button"
 import { useEffect, useState } from "react"
-import { TopicModel } from "../../../adminPage/questionsPage/topic/Topic"
-import { Topic } from "../../../topic/Topic"
+import { Topic, TopicModel } from "../../../topic/Topic"
 import { Plan } from "../../../profile/planInfo/PlanInfo"
 import { selectToken } from "../../../../store/authSlice"
 import { useSelector } from "react-redux"
@@ -55,8 +54,6 @@ export function ChooseTopics(props: Props) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   const [planInfo, setPlanInfo] = useState<Plan>();
@@ -110,7 +107,6 @@ export function ChooseTopics(props: Props) {
 
 
   const [selectedTopicsIds, setSelectedTopicsIds] = useState<string[]>([]);
-  // var selectedTopicsIds: string[] = [];
 
   const shuffle = (array: string[]) => {
     return array.sort(() => Math.random() - 0.5);

@@ -53,9 +53,7 @@ export function Game({ savedGame, onChange }: Props) {
 
   return (
     <div>
-
       <div className={styles.container}>
-
         <div className={styles.group}>
           <div className={styles.name} onClick={() => {
             if (savedGame.status == "not_started" || savedGame.status == "in_progress")
@@ -68,14 +66,12 @@ export function Game({ savedGame, onChange }: Props) {
           <div className={styles.date}>
             {savedGame.date}
           </div>
-
         </div>
         <div className={styles.group}>
           <div className={styles.status}>
             {getStatus()}
           </div>
           {savedGame.status == "not_started" ?
-
             <IconButton onClick={deleteGame}>
               <svg width={0} height={0}>
                 <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
@@ -88,12 +84,7 @@ export function Game({ savedGame, onChange }: Props) {
             :
             null
           }
-
-
         </div>
-
-
-
       </div>
       <div className={styles.divider} />
     </div>

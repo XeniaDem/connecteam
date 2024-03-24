@@ -18,6 +18,7 @@ type Props = {
   date: string;
 
   isCreator: boolean;
+  onButtonClicked?: () => void;
 }
 
 GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
@@ -233,7 +234,7 @@ export function GameResults(props: Props) {
         )}
 
         <div className={styles.close}>
-          <Button text={"Закрыть"} onClick={() => navigate("/user_page")} className={styles.closeButton} />
+          <Button text={"Закрыть"} onClick={() => props.onButtonClicked} className={styles.closeButton} />
         </div>
       </div>
     </div >

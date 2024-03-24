@@ -1,64 +1,48 @@
 
 import styles from "./RateAnswer.module.css"
-import ellipse1 from "../../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import dots from "../dots.svg"
-// import { Players } from "../../startGame/players/Players"
-import { Question } from "../../components/question/Question"
-import { Timer } from "../../components/timer/Timer"
 import { Button } from "../../../../components/button/Button"
-import { Rounds } from "../../components/rounds/Rounds"
 import { StarRating } from "./starRating/StarRating"
+import { useState } from "react"
+import { Question } from "../../components/question/Question"
 
 
 type Props = {
   isAnswering: boolean;
   isCreator: boolean;
-}
+  nameAnswering: string;
+  question: string;
+  onButonClicked: (rating: number) => void;
 
-RateAnswer.defaultProps = { isAnswering: false, isCreator: false }
+}
 
 
 export function RateAnswer(props: Props) {
   if (!props.isAnswering) {
+
+    const [rating, setRating] = useState(0)
+
+    const set = (rating: number) => {
+      setRating(rating)
+    }
     return (
       <div>
         <div className={styles.container}>
-          <div className={styles.ellipse1}>
-            <img src={ellipse1} />
-
-          </div>
-          <div className={styles.ellipse2}>
-            <img src={ellipse2} />
-
-          </div>
-
-          {/* <Players /> */}
 
           <div className={styles.content}>
             <div className={styles.question}>
-              <Question />
+              <Question nameAnswering={props.nameAnswering} text = {props.question}/>
 
               <div className={styles.stars}>
-                <StarRating/>
+                <StarRating onRatingSet={set}/>
               </div>
 
+              <Button text={"Завершить оценивание"} onClick={() => props.onButonClicked(rating)} className={styles.finishButton} />
 
 
-              {props.isCreator ? (
-                <Button text={"Завершить оценивание"} onClick={function (): void {
-                  throw new Error("Function not implemented.")
-                }} className={styles.finishButton} />
-
-
-              ) : (
-                <div />
-              )}
             </div>
 
           </div>
-
-          <Rounds />
 
         </div>
 
@@ -69,16 +53,6 @@ export function RateAnswer(props: Props) {
     return (
       <div>
         <div className={styles.container}>
-          <div className={styles.ellipse1}>
-            <img src={ellipse1} />
-
-          </div>
-          <div className={styles.ellipse2}>
-            <img src={ellipse2} />
-
-          </div>
-
-          {/* <Players /> */}
 
           <div className={styles.middle}>
             <div className={styles.title}>
@@ -91,7 +65,7 @@ export function RateAnswer(props: Props) {
           </div>
 
 
-          {props.isCreator ? (
+          {/* {props.isCreator ? (
             <Button text={"Завершить оценивание"} onClick={function (): void {
               throw new Error("Function not implemented.")
             }} className={styles.finishButton} />
@@ -99,7 +73,7 @@ export function RateAnswer(props: Props) {
 
           ) : (
             <div />
-          )}
+          )} */}
 
 
 

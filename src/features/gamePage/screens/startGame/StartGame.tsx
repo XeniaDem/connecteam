@@ -1,7 +1,6 @@
 
 import styles from "./StartGame.module.css"
 import crown from "../crown.svg"
-import exit from "../exit.svg"
 import photo from "./photo.svg"
 import { Button } from "../../../../components/button/Button"
 
@@ -16,9 +15,6 @@ export function StartGame(props: Props) {
   return (
     <div>
       <div className={styles.container}>
-
-
-
         <div className={styles.crown}>
           <img src={crown} />
         </div>

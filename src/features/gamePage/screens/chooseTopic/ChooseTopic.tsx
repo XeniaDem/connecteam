@@ -2,9 +2,8 @@
 import styles from "./ChooseTopic.module.css"
 import dots from "../dots.svg"
 import { Button } from "../../../../components/button/Button"
-import { TopicModel } from "../../../adminPage/questionsPage/topic/Topic"
 import { useEffect, useState } from "react"
-import { Topic } from "../../../topic/Topic"
+import { Topic, TopicModel } from "../../../topic/Topic"
 
 
 type Props = {
@@ -16,9 +15,6 @@ type Props = {
 
 
 export function ChooseTopic(props: Props) {
-
-
-
   if (!props.isCreator) {
     return (
       <div>
@@ -37,12 +33,11 @@ export function ChooseTopic(props: Props) {
   }
   else {
 
-
     const [topics, setTopics] = useState<TopicModel[] | null>(null)
     const [selectedTopicId, setSelectedTopicId] = useState("");
 
     const [formSubmitted, setFormSubmitted] = useState(false);
-    
+
     const readTopics = () => {
       const messageParsed = JSON.parse(props.topics);
 
@@ -51,8 +46,9 @@ export function ChooseTopic(props: Props) {
       const topicModels = [];
       for (let i = 0; i < topicsNum; i++) {
         const topicModel = {
-          name: messageParsed[i].name,
-          id: messageParsed[i].id
+          name: messageParsed[i].title,
+          id: messageParsed[i].id,
+          used: (messageParsed[i].used == true)
 
         }
         topicModels.push(topicModel)
@@ -71,14 +67,12 @@ export function ChooseTopic(props: Props) {
 
 
     useEffect(() => {
+      console.log(props.topics)
       readTopics()
-
-
-    }, []);
+    }, [props.topics]);
     return (
       <div>
         <div className={styles.container}>
-
           <div className={styles.title}>
             Выберите тему вопросов раунда
           </div>
@@ -95,7 +89,7 @@ export function ChooseTopic(props: Props) {
               return (
                 <div>
                   <Topic name={topic.name} withCheckBox={false}
-                    selected={topic.id == selectedTopicId} onTopicClicked={onTopicClicked} />
+                    selected={topic.id == selectedTopicId} inactive = {topic.used} onTopicClicked={onTopicClicked} />
 
                 </div>
               )

@@ -5,16 +5,15 @@ import PauseIcon from '@mui/icons-material/Pause';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
 import { useTimer } from "use-timer";
+import { useEffect } from "react";
 
 type Props = {
   isCreator: boolean;
-
-
+  started: boolean;
 
 
 }
 
-Timer.defaultProps = { isCreator: true }
 
 export function Timer(props: Props) {
 
@@ -41,8 +40,14 @@ export function Timer(props: Props) {
     }
   }
 
-  
+  useEffect(() => {
+    if (props.started == true)
+      start()
+    if (props.started == false)
+      pause()
 
+
+  }, [props.started]);
 
 
 
@@ -53,12 +58,7 @@ export function Timer(props: Props) {
         <div className={styles.timerContainer}>
           <div className={styles.decor1} />
           <div className={styles.decor2} />
-          {time} <br/> {seconds(time)}
-
-
-
-
-
+          {time} <br /> {seconds(time)}
         </div>
 
         {props.isCreator ? (

@@ -89,10 +89,6 @@ const router = createBrowserRouter([
         path: "profile/link_sent",
         element: <LinkSent/>,
       },
-      {
-        path: "game_results",
-        element: <GameResults/>,
-      },
     ],
   },
 

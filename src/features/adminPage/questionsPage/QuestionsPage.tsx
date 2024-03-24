@@ -4,11 +4,11 @@ import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../../store/authSlice"
 import { useNavigate } from "react-router-dom"
-import { Topic, TopicModel } from "./topic/Topic"
-import { QuestionModel } from "./question/Question"
 import { Button } from "../../../components/button/Button"
 import disableScroll from 'disable-scroll';
 import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup"
+import { TopicModel } from "../../topic/Topic"
+import { Topic } from "./topic/Topic"
 
 
 

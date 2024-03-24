@@ -11,10 +11,13 @@ import { WaitGame } from "./screens/waitGame/WaitGame";
 import { StartGame } from "./screens/startGame/StartGame";
 import { Rounds } from "./components/rounds/Rounds";
 import { ChooseTopic } from "./screens/chooseTopic/ChooseTopic";
-import { GameScreen, selectGame, setGame, setRounds, updateCurrentScreen, updateRounds } from "../../store/gameSlice";
+import { GameScreen, selectGame, setGame, setRounds, setStage, setTimer, updateCurrentScreen, updateGame, updateRounds } from "../../store/gameSlice";
 import { store } from "../../store/store";
 import { Button } from "../../components/button/Button";
 import { GameError } from "./screens/gameError/GameError";
+import { AnswerQuestion } from "./screens/answerQuestion/AnswerQuestion";
+import { RateAnswer } from "./screens/rateAnswer/RateAnswer";
+import { GameResults } from "../gameResults/GameResults";
 
 
 
@@ -35,9 +38,12 @@ export function GamePage() {
 
     const clearData = () => {
         dispatch(setGame({ name: "", date: "", creatorId: "", id: "" }))
+        dispatch(updateGame({ gameStarted: false }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
         dispatch(updateRounds({ currentRound: 0 }))
+        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "", stageStarted: false }))
+        dispatch(setTimer({ timerStarted: false }))
 
     }
 
@@ -45,67 +51,74 @@ export function GamePage() {
 
 
 
-    const onGameStart = useCallback((messageObject: any) => {
-        // setCurrentScreen(GameScreen.ChooseTopic)
-        // const sender = messageObject.sender
-        // const senderId = sender.id
-        // const game = store.getState().game
-        // const id = game.userId
+    const onGameFinish = useCallback(() => {
+        dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameResults }))
+    }, [])
 
+    const onRoundFinish = useCallback(() => {
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
+    }, [])
+
+    const onRatingFinish = useCallback(() => {
+
+        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "", stageStarted: false }))
+        startStage()
+
+    }, [])
+
+    const onAnswerFinish = useCallback(() => {
+        // dispatch(setTimer({timerStarted: false}))
+        dispatch(updateCurrentScreen({ currentScreen: GameScreen.RateAnswer }))
+
+    }, [])
+    const onAnswerStart = useCallback(() => {
+
+        const game = store.getState().game
+
+        dispatch(setStage({ userAnswering: game.userAnswering, userAnsweringId: game.userAnsweringId, question: game.question, stageStarted: true }))
+        // dispatch(setTimer({timerStarted: true}))
+
+    }, [])
+
+    const onStageStart = useCallback((messageObject: any) => {
+        const payload = messageObject.payload
+        const topics = JSON.stringify(messageObject.target.topics)
+        const game = store.getState().game
 
 
+        dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question, stageStarted: false }))
+        dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum }))
+        updatePlayers(messageObject)
+        dispatch(updateCurrentScreen({ currentScreen: GameScreen.AnswerQuestion }))
+    }, [])
 
+    const onRoundStart = useCallback(() => {
+        const game = store.getState().game
+        dispatch(updateRounds({ currentRound: game.currentRound + 1 })) ///////////
+        startStage()
 
+    }, [])
 
-
-
+    const onGameStart = useCallback(() => {
+        dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
+        dispatch(updateGame({ gameStarted: true }))
     }, [])
 
     const onTopicsChoose = useCallback((messageObject: any) => {
         const sender = messageObject.sender
         const senderId = sender.id
 
-        const topics = messageObject.target.topics
+        const topics = JSON.stringify(messageObject.target.topics)
 
-        dispatch(setRounds({ topics: topics, roundsNum: topics.length }))
-
+        dispatch(setRounds({ topics: topics, roundsNum: messageObject.target.topics.length }))
 
         const game = store.getState().game
         const id = game.userId
-
-
 
         if (id == senderId) {
             dispatch(updateCurrentScreen({ currentScreen: GameScreen.StartGame }))
-
-
         }
 
-    }, [])
-
-    const updatePlayers = useCallback((messageObject: any) => {
-        const targetGame = messageObject.target
-        const playersNum = targetGame.users.length
-        const playersModels = [];
-
-        const game = store.getState().game
-        const creatorId = game.creatorId
-        const id = game.userId
-
-        for (let i = 0; i < playersNum; i++) {
-
-            const playerModel = {
-                isCreator: targetGame.users[i].id == creatorId,
-                isYou: targetGame.users[i].id == id,
-                isAnswering: false,
-                connected: true, ////////////////
-                name: targetGame.users[i].name,
-                photoUrl: "" ///////////////////
-            }
-            playersModels.push(playerModel)
-        }
-        setPlayers(playersModels)
     }, [])
 
 
@@ -137,6 +150,32 @@ export function GamePage() {
 
     }, [])
 
+
+    const updatePlayers = (messageObject: any) => {
+        const targetGame = messageObject.target
+        const playersNum = targetGame.users.length
+        const playersModels = [];
+
+        const game = store.getState().game
+        const creatorId = game.creatorId
+        const id = game.userId
+        const userAnsweringId = game.userAnsweringId
+
+        for (let i = 0; i < playersNum; i++) {
+
+            const playerModel = {
+                isCreator: targetGame.users[i].id == creatorId,
+                isYou: targetGame.users[i].id == id,
+                isAnswering: targetGame.users[i].id == userAnsweringId,
+                connected: true, ////////////////
+                name: targetGame.users[i].name,
+                photoUrl: "" ///////////////////
+            }
+            playersModels.push(playerModel)
+        }
+        setPlayers(playersModels)
+    }
+
     useEffect(() => {
 
 
@@ -149,8 +188,11 @@ export function GamePage() {
         };
 
         ws.onmessage = (event: MessageEvent<any>) => {
-            const message = event.data
-            alert(message)
+            const messageComing = event.data
+            const message = messageComing.split("\n")[0]; //////////////
+            if (messageComing.split("\n")[1] != undefined) {
+                alert(messageComing.split("\n")[1])
+            }
             const messageObject = message && JSON.parse(message)
             console.log(`Received message from server: ${event.data}`);
             if (messageObject.action == "join-success") {
@@ -163,7 +205,28 @@ export function GamePage() {
                 onTopicsChoose(messageObject)
             }
             if (messageObject.action == "start-game") {
-                onGameStart(messageObject)
+                onGameStart()
+            }
+            if (messageObject.action == "start-round") {
+                onRoundStart()
+            }
+            if (messageObject.action == "start-stage") {
+                onStageStart(messageObject)
+            }
+            if (messageObject.action == "start-answer") {
+                onAnswerStart()
+            }
+            if (messageObject.action == "end-answer") {
+                onAnswerFinish()
+            }
+            if (messageObject.action == "rate-end") {
+                onRatingFinish()
+            }
+            if (messageObject.action == "round-end") {
+                onRoundFinish()
+            }
+            if (messageObject.action == "game-end") {
+                onGameFinish()
             }
             if (messageObject.action == "error") {
                 if (messageObject.payload.includes("maximum number")) {
@@ -191,13 +254,14 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "join-game",
             target: { "id": state.gameId },
-            // sender: { "id": id }
         })
         webSocketRef.current?.send(message)
+        console.log("sent " + message)
 
     }, [])
 
     const chooseTopics = useCallback((selected: string[]) => {
+        const currentGame = store.getState().game
         const payload = []
         for (let i = 0; i < selected.length; i++) {
             payload.push({
@@ -207,33 +271,97 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "select-topic",
             target: { "id": state.gameId },
-            sender: { "id": Number.parseInt(game.userId) },
+            sender: { "id": Number.parseInt(currentGame.userId) },
             payload: payload
         })
         webSocketRef.current?.send(message)
+        console.log("sent " + message)
 
     }, [])
 
     const startGame = useCallback(() => {
-
+        const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "start-game",
             target: { "id": state.gameId },
-            sender: { "id": Number.parseInt(game.userId) },
+            sender: { "id": Number.parseInt(currentGame.userId) },
         })
         webSocketRef.current?.send(message)
+        console.log("sent " + message)
 
     }, [])
     const startRound = useCallback((selected: string) => {
-
+        const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "start-round",
             target: { "id": state.gameId },
-            sender: { "id": Number.parseInt(game.userId) },
+            sender: { "id": Number.parseInt(currentGame.userId) },
             payload: { "id": selected }
 
         })
         webSocketRef.current?.send(message)
+        console.log("sent " + message)
+
+    }, [])
+
+    const startStage = useCallback(() => {
+        const currentGame = store.getState().game
+        const message = JSON.stringify({
+            action: "start-stage",
+            target: { "id": state.gameId },
+            sender: { "id": Number.parseInt(currentGame.userId) },
+
+        })
+        webSocketRef.current?.send(message)
+        console.log("sent " + message)
+
+    }, [])
+
+    const startAnswer = useCallback(() => {
+        const currentGame = store.getState().game
+        const message = JSON.stringify({
+            action: "start-answer",
+            target: { "id": state.gameId },
+            sender: { "id": Number.parseInt(currentGame.userId) },
+        })
+        webSocketRef.current?.send(message)
+        console.log("sent " + message)
+
+    }, [])
+    const finishAnswer = useCallback(() => {
+        const currentGame = store.getState().game
+        const message = JSON.stringify({
+            action: "end-answer",
+            target: { "id": state.gameId },
+            sender: { "id": Number.parseInt(currentGame.userId) },
+        })
+        webSocketRef.current?.send(message)
+        console.log("sent " + message)
+
+    }, [])
+
+    const rateAnswer = useCallback((rating: number) => {
+        const currentGame = store.getState().game
+        const message = JSON.stringify({
+            action: "rate-user",
+            target: { "id": state.gameId },
+            sender: { "id": Number.parseInt(currentGame.userId) },
+            payload: { "user_id": Number.parseInt(currentGame.userAnsweringId), "value": rating }
+        })
+        webSocketRef.current?.send(message)
+        console.log("sent " + message)
+
+    }, [])
+
+    const leaveGame = useCallback(() => {
+        const currentGame = store.getState().game
+        const message = JSON.stringify({
+            action: "leave-game",
+            target: { "id": state.gameId },
+            sender: { "id": Number.parseInt(currentGame.userId) },
+        })
+        webSocketRef.current?.send(message)
+        console.log("sent " + message)
 
     }, [])
 
@@ -295,14 +423,12 @@ export function GamePage() {
                     }} className={styles.exitButton} />
                 </div>
                 <div className={styles.players}>
-                    <Player joined={false} gameId={state.gameId} />
+                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
                     {players?.map(player =>
                         <div>
                             <Player savedPlayer={player} joined={true} />
                         </div>
-
                     )}
-
                 </div>
                 <StartGame name={game.name} date={game.date} onButtonClicked={startGame} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
@@ -325,16 +451,72 @@ export function GamePage() {
                     }} className={styles.exitButton} />
                 </div>
                 <div className={styles.players}>
-                    <Player joined={false} gameId={state.gameId} />
+                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
                     {players?.map(player =>
                         <div>
                             <Player savedPlayer={player} joined={true} />
                         </div>
-
                     )}
-
                 </div>
-                {game.topics && <ChooseTopic isCreator={game.creatorId == game.userId} topics={game.topics} onButonClicked={startRound} />}
+                <ChooseTopic isCreator={game.creatorId == game.userId} topics={game.topics} onButonClicked={startRound} />
+                <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+            </div>
+        )
+    }
+    if (game.currentScreen == GameScreen.AnswerQuestion) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.ellipse1}>
+                    <img src={ellipse1} />
+                </div>
+                <div className={styles.ellipse2}>
+                    <img src={ellipse2} />
+                </div>
+                <div className={styles.exit}>
+                    <Button text={""} onClick={() => {
+                        clearData()
+                        navigate("/user_page")
+                    }} className={styles.exitButton} />
+                </div>
+                <div className={styles.players}>
+                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
+                    {players?.map(player =>
+                        <div>
+                            <Player savedPlayer={player} joined={true} />
+                        </div>
+                    )}
+                </div>
+                <AnswerQuestion isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
+                    nameAnswering={game.userAnswering} question={game.question} started={game.stageStarted} onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />
+                <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+            </div>
+        )
+    }
+    if (game.currentScreen == GameScreen.RateAnswer) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.ellipse1}>
+                    <img src={ellipse1} />
+                </div>
+                <div className={styles.ellipse2}>
+                    <img src={ellipse2} />
+                </div>
+                <div className={styles.exit}>
+                    <Button text={""} onClick={() => {
+                        clearData()
+                        navigate("/user_page")
+                    }} className={styles.exitButton} />
+                </div>
+                <div className={styles.players}>
+                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
+                    {players?.map(player =>
+                        <div>
+                            <Player savedPlayer={player} joined={true} />
+                        </div>
+                    )}
+                </div>
+                <RateAnswer isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
+                    nameAnswering={game.userAnswering} question={game.question} onButonClicked={rateAnswer} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
             </div>
         )
@@ -356,6 +538,12 @@ export function GamePage() {
                 </div>
                 <GameError error={error} clearData={clearData} />
             </div>
+        )
+    }
+    if (game.currentScreen == GameScreen.GameResults) {
+        return (
+            <GameResults name = {game.name} date = {game.date} isCreator = {game.creatorId == game.userId} onButtonClicked={clearData}/>
+
         )
     }
     return (

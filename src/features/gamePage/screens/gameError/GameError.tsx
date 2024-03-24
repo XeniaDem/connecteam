@@ -13,7 +13,6 @@ export function GameError(props: Props) {
   return (
     <div>
       <div className={styles.container}>
-
         <div className={styles.title}>
           {props.error}
         </div>

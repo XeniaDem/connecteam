@@ -4,7 +4,13 @@ import ellipse from "../../app/assets/ellipseSmall.svg"
 import TopicIcon from '@mui/icons-material/Topic';
 import {isMobile} from 'react-device-detect';
 
+export type TopicModel = {
+  name: string;
+  id: string;
+  used?: boolean;
 
+
+}
 type Props = {
   name: string;
   withCheckBox: boolean;

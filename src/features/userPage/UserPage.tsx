@@ -122,11 +122,6 @@ export function UserPage() {
     <div className={styles.container}>
       <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
-      <JoinGame/>
-      <ChooseTopics onButonClicked={()=> null}/>
-      {/* <ChooseTopic/> */}
-      <AnswerQuestion/>
-      <RateAnswer/>
       <GameResults/>
     </div>
   )
