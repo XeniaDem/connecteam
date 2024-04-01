@@ -74,7 +74,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
   }
 
   const editTopic = async () => {
-    alert(topicName)
     const data = {
       title: topicName
     }

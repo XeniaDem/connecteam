@@ -1,10 +1,10 @@
 import styles from "./PlanUsersPage.module.css"
 import { useEffect, useState } from "react"
-import { get, readServerError } from "../../utils/api"
+import { get, readServerError } from "../../../../utils/api"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../store/authSlice"
+import { selectToken } from "../../../../store/authSlice"
 import { useNavigate } from "react-router-dom"
-import { Button } from "../../components/button/Button"
+import { Button } from "../../../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
 import disableScroll from 'disable-scroll';
 import { InvitePopup } from "./InvitePopup/InvitePopup"

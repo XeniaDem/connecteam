@@ -35,9 +35,18 @@ export function GamePage() {
 
     const [players, setPlayers] = useState<PlayerModel[] | null>(null)
 
+    const [userLeftHidden, setUserLeftHidden] = useState(true);
+    const showUserLeft = () => {
+      setUserLeftHidden(false)
+      setTimeout(() => {
+        setUserLeftHidden(true);
+      }, 3000);
+  
+    }
+
 
     const clearData = () => {
-        dispatch(setGame({ name: "", date: "", creatorId: "", id: "" }))
+        dispatch(setGame({ name: "", date: "", id: "", creatorId: "", userId: "" }))
         dispatch(updateGame({ gameStarted: false }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
@@ -50,6 +59,11 @@ export function GamePage() {
     const webSocketRef = useRef<WebSocket | null>(null)
 
 
+
+    const onUserLeft = useCallback((messageObject: any) => {
+        showUserLeft()
+        updatePlayers(messageObject)
+    }, [])
 
     const onGameFinish = useCallback(() => {
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameResults }))
@@ -67,7 +81,6 @@ export function GamePage() {
     }, [])
 
     const onAnswerFinish = useCallback(() => {
-        // dispatch(setTimer({timerStarted: false}))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.RateAnswer }))
 
     }, [])
@@ -76,8 +89,6 @@ export function GamePage() {
         const game = store.getState().game
 
         dispatch(setStage({ userAnswering: game.userAnswering, userAnsweringId: game.userAnsweringId, question: game.question, stageStarted: true }))
-        // dispatch(setTimer({timerStarted: true}))
-
     }, [])
 
     const onStageStart = useCallback((messageObject: any) => {
@@ -133,7 +144,7 @@ export function GamePage() {
 
         const currentScreen = game.currentScreen != GameScreen.WaitGame ? game.currentScreen : (sender.id == targetGame.creator_id ? GameScreen.ChooseTopics : GameScreen.WaitGame)
 
-        dispatch(setGame({ name: targetGame.name, date: targetGame.date, creatorId: targetGame.creator_id, id: senderId }))
+        dispatch(setGame({ name: targetGame.name, date: targetGame.date, id: state.gameId, creatorId: targetGame.creator_id, userId: senderId }))
         dispatch(updateCurrentScreen({ currentScreen: currentScreen }))
 
 
@@ -164,6 +175,7 @@ export function GamePage() {
         for (let i = 0; i < playersNum; i++) {
 
             const playerModel = {
+                id: targetGame.users[i].id,
                 isCreator: targetGame.users[i].id == creatorId,
                 isYou: targetGame.users[i].id == id,
                 isAnswering: targetGame.users[i].id == userAnsweringId,
@@ -177,6 +189,14 @@ export function GamePage() {
     }
 
     useEffect(() => {
+        if (state == null) { /////////////////
+            navigate("/user_page")
+            return;
+        }
+        if (game.id != "" && game.id != state.gameId) {
+            console.log("clear")
+            clearData()
+        }
 
 
         const ws: WebSocket = new WebSocket('ws://localhost:8080/ws?token=' + token);
@@ -227,6 +247,9 @@ export function GamePage() {
             }
             if (messageObject.action == "game-end") {
                 onGameFinish()
+            }
+            if (messageObject.action == "user-left") {
+                onUserLeft(messageObject)
             }
             if (messageObject.action == "error") {
                 if (messageObject.payload.includes("maximum number")) {
@@ -379,6 +402,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
                     }} className={styles.exitButton} />
@@ -398,6 +422,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
 
@@ -418,6 +443,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
                     }} className={styles.exitButton} />
@@ -430,6 +456,9 @@ export function GamePage() {
                         </div>
                     )}
                 </div>
+                {!userLeftHidden && <div className={styles.errorMessage}>
+                    Пользователь покинул игру
+                </div>}
                 <StartGame name={game.name} date={game.date} onButtonClicked={startGame} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
             </div>
@@ -446,6 +475,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
                     }} className={styles.exitButton} />
@@ -458,6 +488,9 @@ export function GamePage() {
                         </div>
                     )}
                 </div>
+                {!userLeftHidden && <div className={styles.errorMessage}>
+                    Пользователь покинул игру
+                </div>}
                 <ChooseTopic isCreator={game.creatorId == game.userId} topics={game.topics} onButonClicked={startRound} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
             </div>
@@ -474,6 +507,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
                     }} className={styles.exitButton} />
@@ -486,6 +520,9 @@ export function GamePage() {
                         </div>
                     )}
                 </div>
+                {!userLeftHidden && <div className={styles.errorMessage}>
+                    Пользователь покинул игру
+                </div>}
                 <AnswerQuestion isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
                     nameAnswering={game.userAnswering} question={game.question} started={game.stageStarted} onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
@@ -503,6 +540,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
                     }} className={styles.exitButton} />
@@ -515,6 +553,9 @@ export function GamePage() {
                         </div>
                     )}
                 </div>
+                {!userLeftHidden && <div className={styles.errorMessage}>
+                    Пользователь покинул игру
+                </div>}
                 <RateAnswer isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
                     nameAnswering={game.userAnswering} question={game.question} onButonClicked={rateAnswer} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
@@ -532,6 +573,7 @@ export function GamePage() {
                 </div>
                 <div className={styles.exit}>
                     <Button text={""} onClick={() => {
+                        leaveGame()
                         clearData()
                         navigate("/user_page")
                     }} className={styles.exitButton} />
@@ -542,7 +584,11 @@ export function GamePage() {
     }
     if (game.currentScreen == GameScreen.GameResults) {
         return (
-            <GameResults name = {game.name} date = {game.date} isCreator = {game.creatorId == game.userId} onButtonClicked={clearData}/>
+            players && <GameResults name={game.name} date={game.date} isCreator={game.creatorId == game.userId} players={players} onButtonClicked={() => {
+                leaveGame()
+                clearData()
+                navigate("/user_page")
+            }} />
 
         )
     }

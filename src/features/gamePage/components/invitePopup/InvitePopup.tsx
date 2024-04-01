@@ -31,7 +31,6 @@ export function InvitePopup(props: Props) {
 
 
   const readInvitationCode = (message: any) => {
-    alert(message)
     const messageParsed = JSON.parse(message);
     setLink("localhost:5173/invite/game#" + messageParsed.invitation_code)
 

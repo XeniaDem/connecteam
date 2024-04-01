@@ -11,10 +11,11 @@ import { useState } from "react";
 
 export type PlayerModel = {
 
+  id: string;
   isCreator: boolean;
   isYou: boolean;
-  isAnswering: boolean;
-  connected: boolean;
+  isAnswering?: boolean;
+  connected?: boolean;
   name: string;
   photoUrl: string;
 }

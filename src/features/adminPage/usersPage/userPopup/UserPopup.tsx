@@ -84,7 +84,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   }
   var errorMessage = getErrorMessage()
   const changePlan = async () => {
-    alert (expiryDate && new Date(expiryDate).toISOString())
+    // alert (expiryDate && new Date(expiryDate).toISOString())
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;
@@ -97,7 +97,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
     try {
       var response;
       if (planType == undefined) {
-        response = await Delete('plans/' + savedUser.id.toString(), token)
+        response = await Delete('plans/cancel/' + savedUser.plan?.id.toString(), token)
 
       } else {
         response = await post('plans/' + savedUser.id.toString(), data, token)

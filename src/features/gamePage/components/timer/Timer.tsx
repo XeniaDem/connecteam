@@ -23,7 +23,7 @@ export function Timer(props: Props) {
     timerType: 'DECREMENTAL',
     endTime: 0,
     onTimeOver: () => {
-      alert('Time is over');
+      // alert('Time is over');
       reset();
     },
   });

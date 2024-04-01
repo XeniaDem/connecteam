@@ -4,13 +4,14 @@ import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
 import playersIcon from "./players.svg"
 import { Button } from "../../components/button/Button"
-import { Player, PlayerModel } from "./player/Player"
+import { Player } from "./player/Player"
 import { Result } from "./result/Result"
 import { DetailedResult, DetailedResultModel } from "./detailedResult/DetailedResult"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import GroupsIcon from '@mui/icons-material/Groups';
-import { isMobile, isTablet } from "react-device-detect"
+import { isMobile } from "react-device-detect"
+import { PlayerModel } from "../gamePage/components/player/Player"
 
 
 type Props = {
@@ -18,7 +19,8 @@ type Props = {
   date: string;
 
   isCreator: boolean;
-  onButtonClicked?: () => void;
+  onButtonClicked: () => void;
+  players: PlayerModel[] | null;
 }
 
 GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
@@ -41,18 +43,18 @@ export function GameResults(props: Props) {
     //   return;
     // }
 
-    const detailedResultsNum = 5; // messageParsed.data.length;
+    const detailedResultsNum = 2; // messageParsed.data.length;
 
 
     const detailedResultsModels = [];
     for (let i = 0; i < detailedResultsNum; i++) {
 
-      const scoresNum = 5 // (messageParsed.data[i].length);
+      const scoresNum = 3 // (messageParsed.data[i].length);
       const scoreModels = [];
       for (let j = 0; j < scoresNum; j++) {
         const scoreModel = {
-          score: 11,
-          question: "Как составлять расписание?", //messageParsed.data[i].questions[j].text
+          score: 5,
+          question: "Вопрос Х", //messageParsed.data[i].questions[j].text
 
         }
         scoreModels.push(scoreModel)
@@ -60,8 +62,8 @@ export function GameResults(props: Props) {
 
       const detailedResultModel = {
         id: (i + 1).toString(), //messageParsed.data[i].id,
-        name: "Ксения", //messageParsed.data[i].title,
-        result: 50,
+        name: (i == 0 ? "User 1": "User 2"), //messageParsed.data[i].title,
+        result: 15,
         scores: scoreModels,
         isYou: false
 
@@ -81,12 +83,12 @@ export function GameResults(props: Props) {
     //   return;
     // }
 
-    const scoresNum = 5 // (messageParsed.data[i].length);
+    const scoresNum = 3 // (messageParsed.data[i].length);
     const scoreModels = [];
     for (let j = 0; j < scoresNum; j++) {
       const scoreModel = {
-        score: 11,
-        question: "Как составлять расписание?", //messageParsed.data[i].questions[j].text
+        score: 5,
+        question: "Вопрос Х", //messageParsed.data[i].questions[j].text
 
       }
       scoreModels.push(scoreModel)
@@ -94,8 +96,8 @@ export function GameResults(props: Props) {
 
     const detailedResultModel = {
       id: "1", //messageParsed.data[i].id,
-      name: "Ксения", //messageParsed.data[i].title,
-      result: 50,
+      name: "", //messageParsed.data[i].title,
+      result: 15,
       scores: scoreModels,
       isYou: true
 
@@ -126,7 +128,7 @@ export function GameResults(props: Props) {
         name: "Ксения",
         isCreator: false, 
         isYou: true,
-        photo: ""
+        photoUrl: ""
 
       }
       playersModels.push(playerModel)
@@ -144,7 +146,7 @@ export function GameResults(props: Props) {
       readDetailedResults("")
     else
       readMyDetailedResult("")
-    readPlayers("")
+    // readPlayers("")
 
 
 
@@ -172,9 +174,9 @@ export function GameResults(props: Props) {
           <div className={styles.title}>
             {props.name}
           </div>
-          <div className={styles.date}>
+          {/* <div className={styles.date}>
             {props.date}
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.middle}>
@@ -186,7 +188,7 @@ export function GameResults(props: Props) {
               <div className={styles.subtitle}>
                 Участники:
               </div>
-              {players?.map(player =>
+              {props.players?.map(player =>
                   <div>
                     <Player savedPlayer={player} />
                   </div>
@@ -234,7 +236,7 @@ export function GameResults(props: Props) {
         )}
 
         <div className={styles.close}>
-          <Button text={"Закрыть"} onClick={() => props.onButtonClicked} className={styles.closeButton} />
+          <Button text={"Закрыть"} onClick={props.onButtonClicked} className={styles.closeButton} />
         </div>
       </div>
     </div >

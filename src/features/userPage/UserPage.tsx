@@ -1,7 +1,7 @@
 import styles from "./UserPage.module.css"
 import { LastGames } from "./lastGames/LastGames"
 import { PlanInfo } from "./planInfo/PlanInfo"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
@@ -9,13 +9,6 @@ import { selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
 
 import { Plan } from "../profile/planInfo/PlanInfo"
-import { GameResults } from "../gameResults/GameResults"
-import { JoinGame } from "../joinGame/JoinGame"
-
-import { ChooseTopic } from "../gamePage/screens/chooseTopic/ChooseTopic"
-import { RateAnswer } from "../gamePage/screens/rateAnswer/RateAnswer"
-import { ChooseTopics } from "../gamePage/screens/chooseTopics/ChooseTopics"
-import { AnswerQuestion } from "../gamePage/screens/answerQuestion/AnswerQuestion"
 
 
 
@@ -24,13 +17,15 @@ export function UserPage() {
   const token = useSelector(selectToken)
   
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [planInfo, setPlanInfo] = useState<Plan | null>(null)
 
   const readAnswer = (message: any) => {
     var messageParsed = JSON.parse(message);
-    console.log(JSON.stringify(messageParsed));
     var name = messageParsed.first_name
+    var surname = messageParsed.second_name
     setName(name)
+    setSurname(surname)
   }
 
 
@@ -120,9 +115,8 @@ export function UserPage() {
 
   return (
     <div className={styles.container}>
-      <PlanInfo name={name} savedPlan = {planInfo} onChange={onPlanChange}/>
+      <PlanInfo name={name} surname = {surname} savedPlan = {planInfo} onChange={onPlanChange}/>
       <LastGames id="games" />
-      <GameResults/>
     </div>
   )
 }

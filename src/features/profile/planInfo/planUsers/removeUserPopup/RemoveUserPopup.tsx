@@ -1,12 +1,11 @@
-import { Button } from "../../../components/button/Button"
+import { Button } from "../../../../../components/button/Button"
 import styles from "./RemoveUserPopup.module.css"
-import ellipse1 from "../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../app/assets/ellipse2.svg"
+import ellipse1 from "../../../../../app/assets/ellipse1.svg"
+import ellipse2 from "../../../../../app/assets/ellipse2.svg"
 import { PlanUserModel } from "../planUser/PlanUser";
-import {isMobile} from 'react-device-detect';
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../store/authSlice";
-import { Delete, readServerError } from "../../../utils/api";
+import { selectToken } from "../../../../../store/authSlice";
+import { Delete, readServerError } from "../../../../../utils/api";
 
 
 

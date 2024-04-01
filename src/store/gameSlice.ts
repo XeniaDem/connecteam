@@ -18,6 +18,7 @@ export enum GameScreen {
 export interface GameState {
   name: string;
   date: string;
+  id: string;
   creatorId: string;
   userId: string;
 
@@ -42,6 +43,7 @@ export interface GameState {
 const initialState: GameState = {
   name: localStorage.getItem("name") || "",
   date: localStorage.getItem("date") || "",
+  id: localStorage.getItem("id") || "",
   creatorId: localStorage.getItem("creatorId") || "",
   userId: localStorage.getItem("userId") || "",
 
@@ -68,15 +70,18 @@ export const gameSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setGame: (state, action: PayloadAction<{name: string, date: string, creatorId: string,id: string}>) => {
+    setGame: (state, action: PayloadAction<{name: string, date: string, id: string, creatorId: string, userId: string}>) => {
       state.name = action.payload.name
       state.date = action.payload.date
+      state.id = action.payload.id
       state.creatorId = action.payload.creatorId
-      state.userId = action.payload.id
+      state.userId = action.payload.userId
+      
       localStorage.setItem("name", action.payload.name)
       localStorage.setItem("date", action.payload.date)
+      localStorage.setItem("id", action.payload.id)
       localStorage.setItem("creatorId", action.payload.creatorId)
-      localStorage.setItem("userId", action.payload.id)
+      localStorage.setItem("userId", action.payload.userId)
     },
     updateGame: (state, action: PayloadAction<{gameStarted: boolean}>) => {
       state.gameStarted = action.payload.gameStarted

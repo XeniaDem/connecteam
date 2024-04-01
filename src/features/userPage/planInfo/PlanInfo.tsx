@@ -19,6 +19,7 @@ import { get, readServerError } from "../../../utils/api"
 
 type Props = {
   name: string;
+  surname: string;
 
   savedPlan: Plan | null;
 
@@ -30,7 +31,7 @@ type Props = {
 
 
 
-export function PlanInfo({ name, savedPlan, onChange }: Props) {
+export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const token = useSelector(selectToken)
 
   const width = useGetDimensions()[0]
@@ -93,7 +94,7 @@ export function PlanInfo({ name, savedPlan, onChange }: Props) {
             <img src={icon} />
           </div>}
           <div className={styles.title}>
-            Добро пожаловать, {name}!
+            Добро пожаловать, {name} {" "} {surname}!
           </div>
           <div className={styles.subtitle}>
             {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
@@ -142,7 +143,7 @@ export function PlanInfo({ name, savedPlan, onChange }: Props) {
               <img src={icon} />
             </div>}
             <div className={styles.title}>
-              Добро пожаловать, {name}!
+              Добро пожаловать, {name} {" "} {surname}!
             </div>
             <div className={styles.subtitle}>
               {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
@@ -194,7 +195,7 @@ export function PlanInfo({ name, savedPlan, onChange }: Props) {
               <img src={icon} />
             </div>}
             <div className={styles.title}>
-              Добро пожаловать, {name}!
+              Добро пожаловать, {name} {" "} {surname}!
             </div>
             <div className={styles.subtitle}>
               {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
@@ -251,7 +252,7 @@ export function PlanInfo({ name, savedPlan, onChange }: Props) {
 
         <div className={styles.container}>
           <div className={styles.title}>
-            Добро пожаловать, {name}!
+            Добро пожаловать, {name} {" "} {surname}!
           </div>
           <div className={styles.subtitle}>
             Выберите план:

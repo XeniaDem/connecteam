@@ -33,6 +33,8 @@ export function Game({ savedGame, onChange }: Props) {
   const getStatus = () => {
     if (savedGame.status == "not_started")
       return "Не начата"
+    if (savedGame.status == "in_progress")
+      return "В процессе"
   }
 
   const deleteGame = async () => {
