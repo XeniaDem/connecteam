@@ -87,57 +87,22 @@ export function LastGames(props: Props) {
     setGamesFetched(!gamesFetched)
   }
 
-  useEffect(() => {
-    getCreatedGames()
-    getAllGames()
 
-  }, [gamesFetched]);
+
+  // useEffect(() => {
+  //   getCreatedGames()
+  //   getAllGames()
+
+  // }, [gamesFetched]);
 
 
   const tabs: Tab[] = [
     {
       tabName: "Мои",
-      tabContent: <div>
-        {createdGames == null || createdGames.length == 0 ? (
-          <div className={styles.empty}>
-            Пока нет игр
-          </div>
-
-        ) : (
-
-          (createdGames?.map(game =>
-            <div>
-              <Game savedGame={game} onChange={onGamesChange} />
-            </div>
-
-          ))
-
-        )}
-
-      </div>
 
     },
     {
       tabName: "Участвую",
-      tabContent:
-        <div>
-          {allGames == null || allGames.length == 0 ? (
-            <div className={styles.empty}>
-              Пока нет игр
-            </div>
-
-          ) : (
-
-            (allGames?.map(game =>
-              <div>
-                <Game savedGame={game} onChange={onGamesChange} />
-              </div>
-
-            ))
-
-          )}
-
-        </div>
 
     }
   ];

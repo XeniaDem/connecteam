@@ -81,6 +81,20 @@
     
 }
 
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.39);
+  font-size: 38.507px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140.76%; /* 27.457px */
+  text-align: center;
+  margin-top: 300px;
+  
+  }
+
 
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
 
