@@ -12,9 +12,13 @@ import { useNavigate } from "react-router-dom"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { isMobile } from "react-device-detect"
 import { PlayerModel } from "../gamePage/components/player/Player"
+import { get, readServerError } from "../../utils/api"
+import { selectToken } from "../../store/authSlice"
+import { useSelector } from "react-redux"
 
 
 type Props = {
+  id: string;
   name: string;
   date: string;
 
@@ -23,11 +27,12 @@ type Props = {
   players: PlayerModel[] | null;
 }
 
-GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
+// GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
 
 export function GameResults(props: Props) {
 
   const navigate = useNavigate()
+  const token = useSelector(selectToken)
 
 
   const [detailedResults, setDetailedResults] = useState<DetailedResultModel[] | null>(null)
@@ -141,7 +146,22 @@ export function GameResults(props: Props) {
 
 
 
+  const fetchResults = async () => {
+    try {
+      const response = await get('games/results/' + props.id, token)
+      console.log(response)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+  }
+
+
   useEffect(() => {
+    fetchResults()
     if (props.isCreator)
       readDetailedResults("")
     else

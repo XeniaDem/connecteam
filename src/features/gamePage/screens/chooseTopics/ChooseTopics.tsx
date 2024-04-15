@@ -1,7 +1,7 @@
 import styles from "./ChooseTopics.module.css"
 import { Button } from "../../../../components/button/Button"
 import { useEffect, useState } from "react"
-import { Topic, TopicModel } from "../../../topic/Topic"
+import { Topic, TopicModel } from "../../components/topic/Topic"
 import { Plan } from "../../../profile/planInfo/PlanInfo"
 import { selectToken } from "../../../../store/authSlice"
 import { useSelector } from "react-redux"

@@ -51,8 +51,8 @@ export function GamePage() {
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
         dispatch(updateRounds({ currentRound: 0 }))
-        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "", stageStarted: false }))
-        dispatch(setTimer({ timerStarted: false }))
+        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: ""}))
+        dispatch(setTimer({ timerStarted: false, timeStart: "" }))
 
     }
 
@@ -75,20 +75,20 @@ export function GamePage() {
 
     const onRatingFinish = useCallback(() => {
 
-        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "", stageStarted: false }))
+        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: ""}))
         startStage()
 
     }, [])
 
     const onAnswerFinish = useCallback(() => {
+        dispatch(setTimer({timerStarted: false, timeStart: ""}))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.RateAnswer }))
 
     }, [])
-    const onAnswerStart = useCallback(() => {
+    const onAnswerStart = useCallback((messageObject: any) => {
 
-        const game = store.getState().game
-
-        dispatch(setStage({ userAnswering: game.userAnswering, userAnsweringId: game.userAnsweringId, question: game.question, stageStarted: true }))
+        // dispatch(setStage({ userAnswering: game.userAnswering, userAnsweringId: game.userAnsweringId, question: game.question, stageStarted: true}))
+        dispatch(setTimer({timerStarted: true, timeStart: messageObject.time}))
     }, [])
 
     const onStageStart = useCallback((messageObject: any) => {
@@ -97,7 +97,7 @@ export function GamePage() {
         const game = store.getState().game
 
 
-        dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question, stageStarted: false }))
+        dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question}))
         dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum }))
         updatePlayers(messageObject)
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.AnswerQuestion }))
@@ -135,7 +135,6 @@ export function GamePage() {
 
 
     const onMyGameJoin = useCallback((messageObject: any) => {
-        console.log("my join")
 
         const sender = messageObject.sender
         const senderId = sender.id
@@ -156,7 +155,6 @@ export function GamePage() {
 
 
     const onUserGameJoin = useCallback((messageObject: any) => {
-        console.log("user join")
         updatePlayers(messageObject)
 
     }, [])
@@ -234,7 +232,7 @@ export function GamePage() {
                 onStageStart(messageObject)
             }
             if (messageObject.action == "start-answer") {
-                onAnswerStart()
+                onAnswerStart(messageObject)
             }
             if (messageObject.action == "end-answer") {
                 onAnswerFinish()
@@ -524,7 +522,7 @@ export function GamePage() {
                     Пользователь покинул игру
                 </div>}
                 <AnswerQuestion isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
-                    nameAnswering={game.userAnswering} question={game.question} started={game.stageStarted} onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />
+                    nameAnswering={game.userAnswering} question={game.question} started={game.timerStarted} onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />
                 <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
             </div>
         )
@@ -584,7 +582,7 @@ export function GamePage() {
     }
     if (game.currentScreen == GameScreen.GameResults) {
         return (
-            players && <GameResults name={game.name} date={game.date} isCreator={game.creatorId == game.userId} players={players} onButtonClicked={() => {
+            players && <GameResults id = {game.id} name={game.name} date={game.date} isCreator={game.creatorId == game.userId} players={players} onButtonClicked={() => {
                 leaveGame()
                 clearData()
                 navigate("/user_page")

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "../../../components/button/Button"
 import disableScroll from 'disable-scroll';
 import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup"
-import { TopicModel } from "../../topic/Topic"
+import { TopicModel } from "../../gamePage/components/topic/Topic"
 import { Topic } from "./topic/Topic"
 
 
@@ -22,9 +22,6 @@ export function QuestionsPage() {
   const [fetched, setFetched] = useState(false)
 
   const [topics, setTopics] = useState<TopicModel[] | null>(null)
-  function delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
 
   const readTopics = async (message: any) => {

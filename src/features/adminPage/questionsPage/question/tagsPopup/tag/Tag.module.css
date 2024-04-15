@@ -1,0 +1,36 @@
+
+
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  height: 44.76px;
+  border-radius: 51.39px;
+
+  /*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(7.552681922912598px);
+
+  font-size: 17.955px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.125%;
+  /* 23.902px */
+  letter-spacing: -0.718px;
+
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  padding: 0px 5px;
+
+
+}
+
+.text {
+  margin-left: 5px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+

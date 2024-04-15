@@ -1,0 +1,80 @@
+.container {
+
+  position: relative;
+  font-family: 'Work Sans Variable', sans-serif;
+}
+
+
+.input {
+  height: 44.76px;
+  border-radius: 51.39px;
+
+  /*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(7.552681922912598px);
+
+  font-size: 17.955px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.125%;
+  /* 23.902px */
+  letter-spacing: -0.718px;
+
+  /* text-align: center;
+  align-items: center; */
+  justify-content: space-between;
+  display: flex;
+  padding: 0px 10px;
+  border: none;
+  outline: none;
+  color: #FFF;
+
+
+}
+
+.suggestions {
+  border: 1px solid #55C6F7;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  font-family: 'Work Sans Variable', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
+  padding-left: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: center;
+  margin-top: 5px;
+  max-height: 250px;
+  overflow-y: scroll;
+  height: fit-content;
+
+  border-radius: 20px;
+  color: #FFF;
+
+  scrollbar-color: red;
+}
+
+.suggestions.hidden {
+  /* Will hide the suggestions */
+  display: none;
+}
+
+.suggestion {
+  /* Styling of a single suggestion */
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0px 10px;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.suggestion:hover {
+  /* Changing background color on hover */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}

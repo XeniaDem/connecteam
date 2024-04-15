@@ -8,6 +8,8 @@ import { Delete, patch, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../../store/authSlice";
 import { useGetDimensions } from "../../../../app/hooks/useGetDimensions";
+import { TagsPopup } from "./tagsPopup/TagsPopup";
+import disableScroll from 'disable-scroll';
 
 
 
@@ -34,6 +36,18 @@ export function Question({ savedQuestion, onChange }: Props) {
   const [questionEditing, setQuestionEditing] = useState(false);
 
   const [questionText, setQuestionText] = useState("");
+
+  const [tagsOpen, setTagsOpen] = useState(false);
+
+  const openTagsPopup = () => {
+    disableScroll.on()
+    setTagsOpen(true)
+  }
+
+  const closeTagsPopup = () => {
+    disableScroll.off()
+    setTagsOpen(false)
+  }
 
 
   const handleQuestionEdit = () => {
@@ -145,18 +159,21 @@ export function Question({ savedQuestion, onChange }: Props) {
 
           </IconButton>
           <textarea className={!questionEditing ? styles.text : styles.textActive} placeholder={"Текст вопроса"} disabled={!questionEditing}
-            value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} style={ width > 748 ? {width: 0.7 * width} : {width: 350}} />
+            value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} style={width > 748 ? { width: 0.7 * width } : { width: 350 }} />
 
 
         </div>
 
       </div>
       <div className={styles.group}>
+        <Button text={"Теги"} onClick={openTagsPopup} className={styles.tagsButton} />
         <Button text={"Удалить"} onClick={deleteQuestion} className={styles.deleteButton} />
 
 
 
       </div>
+      {tagsOpen ? <TagsPopup closePopup={closeTagsPopup} token={token} question={savedQuestion.text}/> : null}
+
 
 
 

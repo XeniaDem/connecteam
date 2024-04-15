@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./NewQuestionPage.module.css"
-import { Topic, TopicModel } from "../../../topic/Topic";
+import { Topic, TopicModel } from "../../../gamePage/components/topic/Topic";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../../store/authSlice";

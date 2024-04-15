@@ -10,7 +10,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { Delete, get, patch, readServerError } from "../../../../utils/api";
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
-import { TopicModel } from "../../../topic/Topic";
+import { TopicModel } from "../../../gamePage/components/topic/Topic";
 
 
 type Props = {

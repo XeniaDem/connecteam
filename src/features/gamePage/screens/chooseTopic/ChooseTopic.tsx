@@ -3,7 +3,7 @@ import styles from "./ChooseTopic.module.css"
 import dots from "../dots.svg"
 import { Button } from "../../../../components/button/Button"
 import { useEffect, useState } from "react"
-import { Topic, TopicModel } from "../../../topic/Topic"
+import { Topic, TopicModel } from "../../components/topic/Topic"
 
 
 type Props = {

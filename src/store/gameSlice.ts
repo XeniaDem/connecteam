@@ -33,9 +33,11 @@ export interface GameState {
   userAnswering: string;
   userAnsweringId: string;
   question: string;
-  stageStarted: boolean;
+  // stageStarted: boolean;
+
 
   timerStarted: boolean;
+  timeStart: string;
   
 }
 
@@ -58,9 +60,11 @@ const initialState: GameState = {
   userAnswering: localStorage.getItem("userAnswering") || "",
   userAnsweringId: localStorage.getItem("userAnsweringId") || "",
   question: localStorage.getItem("question") || "",
-  stageStarted: localStorage.getItem("stageStarted") == "true" || false,
+  // stageStarted: localStorage.getItem("stageStarted") == "true" || false,
 
-  timerStarted: localStorage.getItem("timerStarted") == "true" || false
+
+  timerStarted: localStorage.getItem("timerStarted") == "true" || false,
+  timeStart: localStorage.getItem("timeStart") || ""
 
 }
 
@@ -76,7 +80,7 @@ export const gameSlice = createSlice({
       state.id = action.payload.id
       state.creatorId = action.payload.creatorId
       state.userId = action.payload.userId
-      
+
       localStorage.setItem("name", action.payload.name)
       localStorage.setItem("date", action.payload.date)
       localStorage.setItem("id", action.payload.id)
@@ -101,20 +105,22 @@ export const gameSlice = createSlice({
       state.currentRound = action.payload.currentRound
       localStorage.setItem("currentRound", action.payload.currentRound.toString())
     },
-    setStage: (state, action: PayloadAction<{userAnswering: string, userAnsweringId: string, question: string, stageStarted: boolean}>) => {
+    setStage: (state, action: PayloadAction<{userAnswering: string, userAnsweringId: string, question: string}>) => {
       state.userAnswering = action.payload.userAnswering
       state.userAnsweringId = action.payload.userAnsweringId
       state.question = action.payload.question
-      state.stageStarted = action.payload.stageStarted
+      // state.stageStarted = action.payload.stageStarted
 
       localStorage.setItem("userAnswering", action.payload.userAnswering)
       localStorage.setItem("userAnsweringId", action.payload.userAnsweringId)
       localStorage.setItem("question", action.payload.question)
-      localStorage.setItem("stageStarted", action.payload.stageStarted.toString())
+      // localStorage.setItem("stageStarted", action.payload.stageStarted.toString())
     },
-    setTimer: (state, action: PayloadAction<{timerStarted: boolean}>) => {
+    setTimer: (state, action: PayloadAction<{timerStarted: boolean, timeStart: string}>) => {
       state.timerStarted = action.payload.timerStarted
+      state.timeStart = action.payload.timeStart
       localStorage.setItem("timerStarted", action.payload.timerStarted.toString())
+      localStorage.setItem("timeStart", action.payload.timeStart)
     },
 
     

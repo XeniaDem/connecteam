@@ -36,13 +36,12 @@ export function AnswerQuestion(props: Props) {
               !props.started ? <Button text={"Начать ответ"} onClick={() => {props.onStartButonClicked()}} className={styles.button} />
                 :
                 <Button text={"Завершить ответ"} onClick={() => {props.onFinishButonClicked()}} className={styles.button} />
-
             ) : (
               null
             )}
           </div>
           <div className={styles.timer}>
-            <Timer isCreator={props.isCreator} started = {props.started} />
+            <Timer isCreator={props.isCreator} onTimeOver={props.onFinishButonClicked}/>
           </div>
         </div>
       </div>

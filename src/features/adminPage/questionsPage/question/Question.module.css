@@ -22,7 +22,7 @@
 
 .group {
   display: flex;
-  /* gap: 80px; */
+  gap: 10px;
 
   align-items: center;
 
@@ -106,6 +106,29 @@
 }
 
 .deleteButton:hover {
+  text-decoration: underline;
+  box-shadow: none;
+
+}
+
+.tagsButton {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.04em;
+
+  border: none;
+  z-index: 1;
+  padding: 0px 3px;
+
+
+}
+
+.tagsButton:hover {
   text-decoration: underline;
   box-shadow: none;
 

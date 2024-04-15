@@ -1,6 +1,6 @@
-import { CheckBox } from "../../components/checkBox/CheckBox";
+import { CheckBox } from "../../../../components/checkBox/CheckBox";
 import styles from "./Topic.module.css"
-import ellipse from "../../app/assets/ellipseSmall.svg"
+import ellipse from "../../../../app/assets/ellipseSmall.svg"
 import TopicIcon from '@mui/icons-material/Topic';
 import {isMobile} from 'react-device-detect';
 

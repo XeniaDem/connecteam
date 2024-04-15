@@ -1,15 +1,16 @@
-
 import styles from "./Timer.module.css"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
 import { useTimer } from "use-timer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectGame } from "../../../../store/gameSlice";
 
 type Props = {
   isCreator: boolean;
-  started: boolean;
+  onTimeOver: () => void;
 
 
 }
@@ -18,12 +19,15 @@ type Props = {
 export function Timer(props: Props) {
 
 
+  const game = useSelector(selectGame)
+
+  const [initialTime, setInitialTime] = useState(180)
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: 180,
+    initialTime: initialTime,
     timerType: 'DECREMENTAL',
     endTime: 0,
     onTimeOver: () => {
-      // alert('Time is over');
+      props.onTimeOver()
       reset();
     },
   });
@@ -41,13 +45,31 @@ export function Timer(props: Props) {
   }
 
   useEffect(() => {
-    if (props.started == true)
+    if (game.timerStarted == true) {
       start()
-    if (props.started == false)
+
+    }
+    if (game.timerStarted == false) {
       pause()
+    }
 
 
-  }, [props.started]);
+  }, [game.timerStarted]);
+
+  useEffect(() => {
+
+    console.log(game.timeStart)
+    if (game.timeStart == "" || game.timeStart == undefined) {
+      return;
+    }
+
+    const secDiff = (new Date().getTime() - new Date(game.timeStart).getTime()) / 1000;
+    console.log(new Date('2020-12-24 00:00:17').getTime() - new Date('2020-12-24 00:00:15').getTime()) ///////////////
+    // setInitialTime(180 - secDiff)
+
+
+
+  }, [game.timeStart]);
 
 
 
@@ -89,25 +111,11 @@ export function Timer(props: Props) {
 
             </IconButton>
 
-
-
-
-
-
-
-
-
-
-
           </div>
         ) : (
-          <div />
+          null
         )}
-
-
-
       </div>
-
     </div>
   )
 }

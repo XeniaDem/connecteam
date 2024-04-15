@@ -144,6 +144,7 @@ export function JoinGame() {
 
   const [isCreator, setIsCreator] = useState(false)
   useEffect(() => {
+    console.log(gameStatus)
     validatePathname()
     if (token != "")
       fetchMe()
@@ -161,17 +162,11 @@ export function JoinGame() {
         <div className={styles.ellipse2}>
           <img src={ellipse2} />
         </div>
-
-
-
-
         <div className={styles.body}>
-
           <div className={styles.connecteam}>
             {!isMobile ? <img src={logoBig} /> : <img src={logoSmall} />}
           </div>
           <div className={styles.title}>
-
             {!isCreator ? "Вас пригласили в игру" : "Вы являетесь организатором игры"} <span className={styles.title1}> {gameName} </span> <br /> <span className={styles.date}> Начало игры: {gameDate} </span>
           </div>
 
@@ -189,8 +184,6 @@ export function JoinGame() {
                 <Button text={"Войти"} onClick={() =>
                   navigate("/auth/login", { state: { gameInvitation: code } })
                 } className={styles.footerButton} />
-
-
               </div>
             </div>
             :
