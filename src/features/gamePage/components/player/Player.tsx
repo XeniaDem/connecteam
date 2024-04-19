@@ -18,6 +18,7 @@ export type PlayerModel = {
   connected?: boolean;
   name: string;
   photoUrl: string;
+
 }
 
 type Props = {

@@ -1,5 +1,6 @@
 
 import { PlayerModel } from "../../gamePage/components/player/Player";
+import { ResultModel } from "../result/Result";
 import styles from "./Player.module.css"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
@@ -12,7 +13,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 //   photo: string;
 // }
 type Props = {
-  savedPlayer: PlayerModel;
+  savedPlayer: ResultModel;
 
 
 }

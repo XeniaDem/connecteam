@@ -51,7 +51,7 @@ const initialState: GameState = {
 
   gameStarted: localStorage.getItem("gameStarted") == "true" || false,
 
-  currentScreen: localStorage.getItem("currentScreen") as GameScreen|| GameScreen.WaitGame,
+  currentScreen: localStorage.getItem("currentScreen") as GameScreen || GameScreen.WaitGame,
 
   topics: localStorage.getItem("topics") || "",
   roundsNum: Number.parseInt(localStorage.getItem("roundsNum") || "") || 0,

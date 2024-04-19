@@ -5,39 +5,44 @@ import ellipse2 from "../../app/assets/ellipse2.svg"
 import playersIcon from "./players.svg"
 import { Button } from "../../components/button/Button"
 import { Player } from "./player/Player"
-import { Result } from "./result/Result"
+import { Result, ResultModel } from "./result/Result"
 import { DetailedResult, DetailedResultModel } from "./detailedResult/DetailedResult"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { isMobile } from "react-device-detect"
-import { PlayerModel } from "../gamePage/components/player/Player"
 import { get, readServerError } from "../../utils/api"
 import { selectToken } from "../../store/authSlice"
 import { useSelector } from "react-redux"
 
 
 type Props = {
-  id: string;
-  name: string;
-  date: string;
+  gameId: string;
 
-  isCreator: boolean;
   onButtonClicked: () => void;
-  players: PlayerModel[] | null;
 }
 
-// GameResults.defaultProps = { name: "Игра", date: "19.10.2023", isCreator: true}
 
 export function GameResults(props: Props) {
 
-  const navigate = useNavigate()
   const token = useSelector(selectToken)
+
+  const [id, setId] = useState("")
+
+
+  const [name, setName] = useState("")
+  const [date, setDate] = useState("")
+  const [creatorId, setCreatorId] = useState("")
+  const [isCreator, setIsCreator] = useState(false)
+
+
+
 
 
   const [detailedResults, setDetailedResults] = useState<DetailedResultModel[] | null>(null)
   const [myDetailedResult, setMyDetailedResult] = useState<DetailedResultModel | null>(null)
-  const [players, setPlayers] = useState<PlayerModel[] | null>(null)
+
+  const [results, setResults] = useState<ResultModel[] | null>(null)
+  const [singleResult, setSingleResult] = useState<ResultModel | undefined>()
 
 
   const readDetailedResults = (message: any) => {
@@ -114,42 +119,85 @@ export function GameResults(props: Props) {
   }
 
 
-  const readPlayers = (message: any) => {
-    // const messageParsed = JSON.parse(message);
+  const readResults = async (message: any) => {
+    const messageParsed = JSON.parse(message);
 
-    // if (messageParsed.data == null) {
-    //   setTopics(null)
-    //   return;
-    // }
-
-    const playersNum = 5; // messageParsed.data.length;
-
-
-    const playersModels = [];
-    for (let i = 0; i < playersNum; i++) {
-
-      const playerModel = {
-        id: (i + 1).toString(),  //messageParsed.data[i].id,
-        name: "Ксения",
-        isCreator: false, 
-        isYou: true,
-        photoUrl: ""
-
-      }
-      playersModels.push(playerModel)
-
+    if (messageParsed.data == null) {
+      setResults(null)
+      return;
     }
-    setPlayers(playersModels)
 
+    const resultsNum = messageParsed.data.length;
 
+    const resultsModels = [];
+    for (let i = 0; i < resultsNum; i++) {
+      try {
+        const response = await get('users/' + messageParsed.data[i].user_id, token)
+        console.log(response.text)
+        const userData = JSON.parse(response.text);
+        const resultModel = {
+          id: userData.id,
+          name: userData.first_name + " " + userData.second_name,
+          isCreator: userData.id == creatorId, 
+          isYou: userData.id == id,
+          photoUrl: "",
+          result: messageParsed.data[i].value
+  
+        }
+        resultsModels.push(resultModel)
+  
+      }
+      catch (error: any) {
+        readServerError(error.response.text)
+        console.log("error:", error)
+      }
+    }
+    setResults(resultsModels)
+    setSingleResult(resultsModels?.find(result => result.id == id))
   }
 
 
 
   const fetchResults = async () => {
     try {
-      const response = await get('games/results/' + props.id, token)
-      console.log(response)
+      const response = await get('games/results/' + props.gameId, token)
+      readResults(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+  }
+
+
+  const readGame = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    setName(messageParsed.name)
+    setDate(new Date(messageParsed.start_date).toLocaleString())
+    setCreatorId(messageParsed.creator_id)
+    setIsCreator(id == creatorId)
+
+
+  }
+  const fetchGame = async () => {
+    try {
+      const response = await get('games/' + props.gameId, token)
+      readGame(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+  }
+
+  const fetchMe = async () => {
+    try {
+      const response = await get('users/me', token)
+      setId(JSON.parse(response.text).id)
 
     }
     catch (error: any) {
@@ -161,16 +209,17 @@ export function GameResults(props: Props) {
 
 
   useEffect(() => {
+    fetchMe()
+    fetchGame()
     fetchResults()
-    if (props.isCreator)
-      readDetailedResults("")
-    else
-      readMyDetailedResult("")
-    // readPlayers("")
+    // if (props.isCreator)
+    //   readDetailedResults("")
+    // else
+    //   readMyDetailedResult("")
 
 
 
-  }, []);
+  }, [isCreator]);
 
 
 
@@ -192,11 +241,11 @@ export function GameResults(props: Props) {
         </div>
         <div className={styles.gameInfo}>
           <div className={styles.title}>
-            {props.name}
+            {name}
           </div>
-          {/* <div className={styles.date}>
-            {props.date}
-          </div> */}
+          <div className={styles.date}>
+            {date}
+          </div>
         </div>
 
         <div className={styles.middle}>
@@ -208,9 +257,9 @@ export function GameResults(props: Props) {
               <div className={styles.subtitle}>
                 Участники:
               </div>
-              {props.players?.map(player =>
+              {results?.map(result =>
                   <div>
-                    <Player savedPlayer={player} />
+                    <Player savedPlayer={result} />
                   </div>
                 )}
             </div>
@@ -220,9 +269,9 @@ export function GameResults(props: Props) {
             <div className={styles.subtitle}>
               Результаты:
             </div>
-            {props.isCreator ? (
+            {isCreator ? (
               <div className={styles.allResults}>
-                {detailedResults?.map(result =>
+                {results?.map(result =>
                   <div>
                     <Result savedResult={result} />
                   </div>
@@ -230,12 +279,12 @@ export function GameResults(props: Props) {
               </div>
             ) : (
               <div className={styles.singleResult}>
-                {myDetailedResult && myDetailedResult.result + " баллов"}
+                {singleResult && singleResult.result + " баллов"}
               </div>
             )}
           </div>
         </div>
-        {props.isCreator ? (
+        {/* {props.isCreator ? (
           <div>
             <div className={styles.subtitle}>
               Общая сумма баллов каждого игрока:
@@ -253,7 +302,7 @@ export function GameResults(props: Props) {
             </div>
             {myDetailedResult && <DetailedResult savedDetailedResult={myDetailedResult} />}
           </div>
-        )}
+        )} */}
 
         <div className={styles.close}>
           <Button text={"Закрыть"} onClick={props.onButtonClicked} className={styles.closeButton} />

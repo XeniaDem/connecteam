@@ -2,9 +2,19 @@ import styles from "./Result.module.css"
 import { DetailedResultModel } from "../detailedResult/DetailedResult";
 import { isMobile } from "react-device-detect";
 
+export type ResultModel = {
+
+  id: string;
+  isCreator: boolean;
+  isYou: boolean;
+  name: string;
+  photoUrl: string;
+  result: number;
+
+}
 
 type Props = {
-  savedResult: DetailedResultModel;
+  savedResult: ResultModel;
 }
 
 

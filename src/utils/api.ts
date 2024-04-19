@@ -1,6 +1,4 @@
 import request from "superagent"
-import { signIn } from "../store/authSlice"
-import { useDispatch } from "react-redux"
 
 
 export const post = async <T extends Object>(url: string, body?: T, token?: string) => {

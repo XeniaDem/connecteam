@@ -275,6 +275,7 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "join-game",
             target: { "id": state.gameId },
+            time: new Date()
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -582,7 +583,7 @@ export function GamePage() {
     }
     if (game.currentScreen == GameScreen.GameResults) {
         return (
-            players && <GameResults id = {game.id} name={game.name} date={game.date} isCreator={game.creatorId == game.userId} players={players} onButtonClicked={() => {
+            players && <GameResults gameId = {game.id} onButtonClicked={() => {
                 leaveGame()
                 clearData()
                 navigate("/user_page")
