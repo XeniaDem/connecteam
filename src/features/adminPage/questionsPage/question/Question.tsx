@@ -10,6 +10,7 @@ import { selectToken } from "../../../../store/authSlice";
 import { useGetDimensions } from "../../../../app/hooks/useGetDimensions";
 import { TagsPopup } from "./tagsPopup/TagsPopup";
 import disableScroll from 'disable-scroll';
+import { TagModel } from "./tagsPopup/tag/Tag";
 
 
 
@@ -17,6 +18,7 @@ export type QuestionModel = {
   text: string;
   number: number;
   id: number;
+  tags: TagModel[];
 
 }
 
@@ -47,6 +49,7 @@ export function Question({ savedQuestion, onChange }: Props) {
   const closeTagsPopup = () => {
     disableScroll.off()
     setTagsOpen(false)
+    onChange()
   }
 
 
@@ -133,10 +136,6 @@ export function Question({ savedQuestion, onChange }: Props) {
 
 
 
-  console.log(width)
-
-
-
 
 
   return (
@@ -172,7 +171,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
 
       </div>
-      {tagsOpen ? <TagsPopup closePopup={closeTagsPopup} token={token} question={savedQuestion.text}/> : null}
+      {tagsOpen ? <TagsPopup closePopup={closeTagsPopup} savedQuestion={savedQuestion}/> : null}
 
 
 

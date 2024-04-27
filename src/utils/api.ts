@@ -19,6 +19,25 @@ export const post = async <T extends Object>(url: string, body?: T, token?: stri
 
 }
 
+export const put = async <T extends Object>(url: string, body?: T, token?: string) => {
+    try {
+        const response = await request.put('http://localhost:8000/' + url)
+            .set('Access-Control-Allow-Origin', '*')
+            .set('Accept', 'application/json')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+            .send(body)
+        return response;
+    } catch (error: any) {
+        if (error.status == 401) {
+            document.location.href = "/auth/login"
+        }
+        throw error;
+
+    }
+
+}
+
 export const get = async (url: string, token?: string) => {
     try {
         const response = await request.get('http://localhost:8000/' + url)

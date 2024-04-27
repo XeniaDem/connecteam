@@ -94,6 +94,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
   }
   const [questions, setQuestions] = useState<QuestionModel[] | null>(null)
   const readQuestions = (message: any) => {
+
     const messageParsed = JSON.parse(message);
 
     if (messageParsed.data == null) {
@@ -101,17 +102,31 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       return;
     }
     const questionsNum = messageParsed.data.length;
-    const questionModels = [];
-    for (let j = 0; j < questionsNum; j++) {
+    const questionsModels = [];
+    for (let i = 0; i < questionsNum; i++) {
+      const tagsModels = [];
+
+      const tagsNum = messageParsed.data[i].tags ? messageParsed.data[i].tags.length : 0;
+
+      for (let j = 0; j < tagsNum; j++) {
+        const tagModel = {
+          id: messageParsed.data[i].tags[j].id,
+          key: messageParsed.data[i].tags[j].name
+        }
+        tagsModels.push(tagModel)
+      }
+
+
       const questionModel = {
-        number: j + 1,
-        id: messageParsed.data[j].id,
-        text: messageParsed.data[j].content
+        number: i + 1,
+        id: messageParsed.data[i].id,
+        text: messageParsed.data[i].content,
+        tags: tagsModels
 
       }
-      questionModels.push(questionModel)
+      questionsModels.push(questionModel)
     }
-    setQuestions(questionModels);
+    setQuestions(questionsModels);
 
 
   }
@@ -125,7 +140,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
     }
     catch (error: any) {
-      readServerError(error.response.text)
+      // readServerError(error.response.text)
       console.log("error:", error)
     }
 
@@ -135,7 +150,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
   const changeQuestionsOpen = async () => {
     if (!questionsOpen) {
       fetchQuestions()
-      
+
     }
     else {
 
@@ -179,9 +194,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
           </div>
         </div>
         <div className={styles.group}>
-          {/* <div className={styles.count}>
-            (вопросов: {savedTopic.questions ? savedTopic.questions.length : 0})
-          </div> */}
           <IconButton onClick={() => changeQuestionsOpen()}>
 
             {!questionsOpen ? (

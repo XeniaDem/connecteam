@@ -46,7 +46,7 @@ export function RateAnswer(props: Props) {
       for (let j = 0; j < tagsNum; j++) {
         const tagModel = {
           id: j.toString(), //messageParsed.data[j].id,
-          text: "Коммуникабельность" //messageParsed.data[j].content
+          key: "Коммуникабельность" //messageParsed.data[j].content
   
         }
         tagsModels.push(tagModel)
@@ -102,7 +102,7 @@ export function RateAnswer(props: Props) {
                 }
                 )
                 }
-                <SearchBar/>
+                <SearchBar data = {[]} onSelectedChange={()=> null}/>  {/*//////////////////////////////////////*/}
 
 
 

@@ -5,20 +5,23 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export type TagModel = {
-  text: string;
+
   id: string;
+  key: string;
 
 }
 
 type Props = {
   savedTag: TagModel;
   onChange: () => void;
+  deleteTag: (id: string) => void;
+
 
 }
 
 
 
-export function Tag({ savedTag, onChange }: Props) {
+export function Tag({ savedTag, onChange, deleteTag }: Props) {
 
 
 
@@ -28,9 +31,9 @@ export function Tag({ savedTag, onChange }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.text}>
-        {savedTag.text}
+        {savedTag.key}
       </div>
-      <IconButton onClick={()=> null}>
+      <IconButton onClick={()=>deleteTag(savedTag.id)}>
 
         <DeleteIcon fontSize="medium" htmlColor="#5C5C5C"/>
       </IconButton>

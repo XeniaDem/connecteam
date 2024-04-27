@@ -3,90 +3,94 @@ import { Button } from "../../../../../components/button/Button"
 import styles from "./TagsPopup.module.css"
 import ellipse1 from "../../../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../../../app/assets/ellipse2.svg"
-import { post, readServerError } from "../../../../../utils/api";
+import { get, post, put, readServerError } from "../../../../../utils/api";
 import { Tag, TagModel } from "./tag/Tag";
 import { IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import DoneIcon from '@mui/icons-material/Done';
 import { SearchBar } from "../../../../../components/searchBar/SearchBar";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../../../../store/authSlice";
+import { QuestionModel } from "../Question";
 
 
 
 type Props = {
   closePopup: () => void;
-  token: string;
-  question: string;
+  savedQuestion: QuestionModel;
+
 
 
 }
 
 export function TagsPopup(props: Props) {
-
-  const [topicName, setTopicName] = useState("");
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const token = useSelector(selectToken)
 
 
-  const getErrorMessage = () => {
-    if (topicName.trim().length < 3) {
-      return ("Название темы должно содержать хотя бы 3 символа")
 
-    }
-  }
-  var errorMessage = getErrorMessage()
-
-
-  const [tags, setTags] = useState<TagModel[] | null>(null)
-
-  const readTags = (message: any) => {
-    // const messageParsed = JSON.parse(message);
-
-    // if (messageParsed.data == null) {
-    //   setTags(null);
-    //   return;
-    // }
-    const tagsNum = 5 //messageParsed.data.length;
-    const tagsModels = [];
-    for (let j = 0; j < tagsNum; j++) {
-      const tagModel = {
-        id: j.toString(), //messageParsed.data[j].id,
-        text: "Коммуникабельность" //messageParsed.data[j].content
-
-      }
-      tagsModels.push(tagModel)
-    }
-    setTags(tagsModels);
-
-
-  }
 
   const [newTagHidden, setNewTagHidden] = useState(true)
 
   const addTag = () => {
     if (newTagHidden == true) {
+      fetchAllTags()
+
       setNewTagHidden(false)
 
-     
+
     }
     else {
-       ///tbd
+      console.log(currentTag)
+      if (currentTag == null || newTags.find(tag => tag.id == currentTag.id)) {
+        return;
+      }
+      const tags = newTags.concat(currentTag)
+      setNewTags(tags)
+
+      ///tbd add tags
       setNewTagHidden(true)
 
     }
   }
+  const [allTags, setAllTags] = useState<TagModel[] | null>(null)
 
+  const [newTags, setNewTags] = useState<TagModel[]>(props.savedQuestion.tags)
 
-  const addTopic = async () => {
-    setFormSubmitted(true)
-    if (errorMessage != null) {
+  const [currentTag, setCurrentTag] = useState<TagModel | null>(null)
+
+  const readAllTags = (message: any) => {
+
+    console.log(message)
+    const messageParsed = JSON.parse(message);
+
+    if (messageParsed.data == null) {
+      setAllTags(null)
       return;
     }
-    const data = {
-      title: topicName
-    }
 
+    const tagsNum = messageParsed.data.length;
+
+
+    const tagsModels = [];
+    for (let i = 0; i < tagsNum; i++) {
+
+      const tagModel = {
+        id: messageParsed.data[i].id,
+        key: messageParsed.data[i].name,
+      }
+      tagsModels.push(tagModel)
+
+    }
+    setAllTags(tagsModels)
+
+  }
+
+
+
+  const fetchAllTags = async () => {
     try {
-      const response = await post('topics/', data, props.token)
-      props.closePopup()
+      const response = await get('tags/', token)
+      readAllTags(response.text)
 
     }
     catch (error: any) {
@@ -98,12 +102,59 @@ export function TagsPopup(props: Props) {
   }
 
 
+  const addTags = async () => {
+
+    const tags = []
+
+    if (newTags) {
+      for (let j = 0; j < newTags.length; j++) {
+        tags.push({
+          id: newTags[j].id
+        })
+      }
+    }
+
+    const data = JSON.stringify({
+      tags: tags
+    })
+
+
+    try {
+      const response = await put('questions/' + props.savedQuestion.id + '/tags', data, token)
+      props.closePopup()
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+  const deleteTag = (id: string) => {
+    const tag = newTags.find(tag => tag.id == id)
+    tag && console.log(tag.key)
+
+    // const index = tag ? newTags.indexOf(tag) : -1
+    // console.log(index)
+    const tags = newTags.filter(item => item != tag)
+    setNewTags(tags)
+    //   if (index > -1) {
+    //     const tags = (newTags.splice(index, 1));
+    //     setNewTags(tags)
+    //  }
+
+
+  }
+
   useEffect(() => {
     // readTags("")
+    console.log(newTags)
 
 
 
-  }, []);
+  }, [newTags]);
 
 
   return (
@@ -124,34 +175,36 @@ export function TagsPopup(props: Props) {
             <div className={styles.ellipse2}>
               <img src={ellipse2} />
             </div>
-            
+
             <div className={styles.title}>
               Теги
             </div>
             <div className={styles.subtitle}>
-              {props.question}
+              {props.savedQuestion.text}
             </div>
 
             <div className={styles.tags}>
 
-              {tags == null ? (
+              {newTags.length == 0 ? (
                 <div className={styles.empty}>
                   Пока не было добавлено ни одного тега
                 </div>
 
               ) : (
 
-                (tags?.map(tag =>
-                  <div>
-                    <Tag savedTag={tag} onChange={() => null} />
+                <div className={styles.tags}>
+                  {newTags?.map(tag =>
+                    <div>
+                      <Tag savedTag={tag} onChange={() => null} deleteTag={deleteTag} />
 
-                  </div>
+                    </div>
 
-                ))
+                  )}
+                </div>
               )}
-              {!newTagHidden ? <SearchBar/> : null}
+              {!newTagHidden ? allTags && <SearchBar data={allTags} onSelectedChange={setCurrentTag} /> : null}
 
- 
+
 
               <div className={styles.addButton}>
                 <IconButton onClick={addTag}>
@@ -174,16 +227,9 @@ export function TagsPopup(props: Props) {
             </div>
 
 
-
-
-
-            {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
-              {errorMessage}
-
-            </div>)}
           </div>
 
-          <Button text={"Сохранить"} onClick={addTopic} className={styles.saveButton} />
+          <Button text={"Сохранить"} onClick={addTags} className={styles.saveButton} />
 
         </div>
       </div>

@@ -3,25 +3,28 @@ import styles from "./SearchBar.module.css";
 import { get, readServerError } from "../../utils/api";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../store/authSlice";
+import { TagModel } from "../../features/adminPage/questionsPage/question/tagsPopup/tag/Tag";
 
-export type Tag = {
-  id: string;
-  name: string;
+
+type Props = {
+  data: any[]
+  onSelectedChange: (selected: any) => void;
+
 }
 
-export function SearchBar() {
+export function SearchBar(props: Props) {
   const [query, setQuery] = useState("");
   const token = useSelector(selectToken)
 
-  const [suggestions, setSuggestions] = useState<Tag[]>([]); // This is where we'll store the retrieved suggestions
+  const [suggestions, setSuggestions] = useState<typeof props.data>([]); // This is where we'll store the retrieved suggestions
   const [hideSuggestions, setHideSuggestions] = useState(true);
 
 
-  const getFilteredItems = (query: string, items: Tag[]) => {
+  const getFilteredItems = (query: string, items: any[]) => {
     if (!query) {
       setSuggestions(items);
     }
-    setSuggestions(items.filter((tag: Tag) => tag.name.toLowerCase().includes(query.toLowerCase())));
+    setSuggestions(items.filter((item: any) => item.key.toLowerCase().includes(query.toLowerCase())));
   };
 
 
@@ -31,64 +34,64 @@ export function SearchBar() {
 
 
 
-  const [tags, setTags] = useState<Tag[] | null>(null)
+  // const [tags, setTags] = useState<typeof props.data | null>(null)
 
-  // const items = tags;
+  // // const items = tags;
 
   
 
-  const readTags = (message: any) => {
-    console.log(message)
-    const messageParsed = JSON.parse(message);
+  // const readTags = (message: any) => {
+  //   console.log(message)
+  //   const messageParsed = JSON.parse(message);
 
-    if (messageParsed.data == null) {
-      setTags(null)
-      return;
-    }
+  //   if (messageParsed.data == null) {
+  //     setTags(null)
+  //     return;
+  //   }
 
-    const tagsNum = messageParsed.data.length;
-
-
-    const tagsModels = [];
-    for (let i = 0; i < tagsNum; i++) {
-
-      const tagModel = {
-        id: messageParsed.data[i].id,
-        name: messageParsed.data[i].name,
-      }
-      tagsModels.push(tagModel)
-
-    }
-    setTags(tagsModels)
-
-  }
+  //   const tagsNum = messageParsed.data.length;
 
 
+  //   const tagsModels = [];
+  //   for (let i = 0; i < tagsNum; i++) {
 
-  const fetchTags = async () => {
+  //     const tagModel = {
+  //       id: messageParsed.data[i].id,
+  //       name: messageParsed.data[i].name,
+  //     }
+  //     tagsModels.push(tagModel)
+
+  //   }
+  //   setTags(tagsModels)
+
+  // }
 
 
-    try {
-      const response = await get('tags/', token)
-      readTags(response.text)
 
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
+  // const fetchTags = async () => {
 
 
-  }
+  //   try {
+  //     const response = await get('tags/', token)
+  //     readTags(response.text)
+
+  //   }
+  //   catch (error: any) {
+  //     readServerError(error.response.text)
+  //     console.log("error:", error)
+  //   }
+
+
+  // }
 
 
   useEffect(() => {
-    tags && getFilteredItems(query, tags);
+    props.data && getFilteredItems(query, props.data);
 
   }, [query]);
 
   useEffect(() => {
-    fetchTags()
+    console.log(props.data)
 
   }, []);
 
@@ -119,8 +122,8 @@ export function SearchBar() {
           </div>
             :
             suggestions.map((suggestion) => (
-              <div className={styles.suggestion} onClick={() => { setQuery(suggestion.name); setHideSuggestions(true) }}>
-                {suggestion.name}
+              <div className={styles.suggestion} onClick={() => { setQuery(suggestion.key); setHideSuggestions(true); props.onSelectedChange(suggestion) }}>
+                {suggestion.key}
               </div>
             ))}
         </div>
