@@ -17,7 +17,7 @@ import { TagModel } from "./tagsPopup/tag/Tag";
 export type QuestionModel = {
   text: string;
   number: number;
-  id: number;
+  id: string;
   tags: TagModel[];
 
 }

@@ -5,7 +5,7 @@
 
   position: fixed;
   left: 84%;
-  transform: translate(-70%, -165%);
+  transform: translate(-70%, -140%);
   display: flex;
   flex-direction: column;
 
@@ -25,24 +25,8 @@
   backdrop-filter: blur(30.21428680419922px);
   position: relative;
   z-index: 1;
-
-}
-
-.container::before {
-  border-radius: 23.377px;
-  border: 0.5px solid transparent;
-  padding: 10px;
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
-  /*3*/
-  -webkit-mask:
-    /*4*/
-    linear-gradient(#fff 0 0) padding-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  /*5'*/
+  max-height: 380px;
+  overflow-y: scroll;
 
 }
 
@@ -51,35 +35,6 @@
 
 
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-
-}
-
-
-.closeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 23px;
-  height: 23px;
-  padding: 0px;
-  border: none;
-
-
-  background: url("../../../../../app/assets/close.svg") no-repeat;
-  z-index: 1;
-
-}
-
-.closeButton:hover,
-.closeButton:focus {
-
-  box-shadow: none;
-
-}
 
 .title {
 
@@ -105,68 +60,28 @@
 }
 
 
-.link {
-  color: #8E8E8E;
-  font-size: 13.918px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 22.616px;
-  /* 162.5% */
-}
 
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%);
-}
-
-.buttons {
-  margin-top: 30px;
+.notifications {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
-.copyButton {
-  width: 272.531px;
-  height: 53.667px;
-  flex-shrink: 0;
-  border-radius: 40.783px;
-  border: 1px solid var(--vd, #55C6F7);
-  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index: 1;
-
-}
-
-.info {
-  display: flex;
-  justify-content: center;
-}
-
-.copied {
-  margin-top: 10px;
-  margin-bottom: -30px;
-  color: white;
-  font-size: 13.918px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 22.616px;
-  /* 162.5% */
 
 
-}
+
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
-    width: 75vw;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    /* width: 75vw; */
     height: auto;
     gap: 8px;
     align-items: center;
     justify-content: center;
     padding: 40px;
-    padding-top: 20px;
-    top: 75%;
+    
+
 
   }
 
@@ -176,22 +91,6 @@
   }
   .subtitle {
     text-align: center;
-  }
-  .link {
-    width: 70vw;
-    line-break:anywhere;
-
-  }
-
-  .copyButton {
-    height: auto;
-    padding: 10px;
-    font-size: 14px;
-    margin-top: 10px;
-
-  }
-  .copied {
-    margin-top: 0px;
   }
 
 

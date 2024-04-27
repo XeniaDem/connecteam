@@ -134,16 +134,10 @@ export function TagsPopup(props: Props) {
 
   const deleteTag = (id: string) => {
     const tag = newTags.find(tag => tag.id == id)
-    tag && console.log(tag.key)
 
-    // const index = tag ? newTags.indexOf(tag) : -1
-    // console.log(index)
     const tags = newTags.filter(item => item != tag)
     setNewTags(tags)
-    //   if (index > -1) {
-    //     const tags = (newTags.splice(index, 1));
-    //     setNewTags(tags)
-    //  }
+
 
 
   }
@@ -195,7 +189,7 @@ export function TagsPopup(props: Props) {
                 <div className={styles.tags}>
                   {newTags?.map(tag =>
                     <div>
-                      <Tag savedTag={tag} onChange={() => null} deleteTag={deleteTag} />
+                      <Tag savedTag={tag} deleteTag={deleteTag} />
 
                     </div>
 

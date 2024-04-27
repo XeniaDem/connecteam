@@ -13,7 +13,6 @@ export type TagModel = {
 
 type Props = {
   savedTag: TagModel;
-  onChange: () => void;
   deleteTag: (id: string) => void;
 
 
@@ -21,7 +20,7 @@ type Props = {
 
 
 
-export function Tag({ savedTag, onChange, deleteTag }: Props) {
+export function Tag({ savedTag, deleteTag }: Props) {
 
 
 

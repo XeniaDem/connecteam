@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./NotificationsCenter.module.css"
 import { OutsideClick } from 'outsideclick-react'
+import { Notification, NotificationModel } from "./notification/Notification";
 
 
 type Props = {
@@ -11,19 +12,29 @@ type Props = {
 
 
 export function NotificationsCenter(props: Props) {
-  const [copiedHidden, setCopiedHidden] = useState(true);
-  const copyLink = () => {
-    navigator.clipboard.writeText(link)
-    setCopiedHidden(false)
-    setTimeout(() => {
-      setCopiedHidden(true);
-    }, 3000);
 
-  }
 
-  const [link, setLink] = useState("")
+  const [notifications, setNotifications] = useState<NotificationModel[]>()
+  const readNotifications = (message: any) => {
+    // const messageParsed = JSON.parse(message);
 
-  const fetchData = () => {
+    // if (messageParsed.data == null) {
+    //   setTags(null);
+    //   return;
+    // }
+    const notificationsNum = 5 //messageParsed.data.length;
+    const notificationsModels = [];
+    for (let j = 0; j < notificationsNum; j++) {
+      const notificationModel = {
+        id: j.toString(), //messageParsed.data[j].id,
+        name: "User", //messageParsed.data[j].content
+        surname: "user",
+
+
+      }
+      notificationsModels.push(notificationModel)
+    }
+    setNotifications(notificationsModels);
 
 
   }
@@ -31,7 +42,7 @@ export function NotificationsCenter(props: Props) {
 
   useEffect(() => {
 
-    fetchData()
+    readNotifications("")
   }, []);
 
 
@@ -49,32 +60,19 @@ export function NotificationsCenter(props: Props) {
 
 
         <div className={styles.title}>
-          Пригласите участника
+          Центр уведомлений
         </div>
-        <div className={styles.linkContainer}>
-          <div className={styles.subtitle}>
-            Ссылка
-          </div>
-          <div className={styles.link}>
-            {link}
-          </div>
-          <div className={styles.divider} />
-          <div className={styles.info}>
-            {!copiedHidden ? (<div className={styles.copied}>
-              Скопировано!
+        <div className={styles.notifications}>
+          {notifications?.map(notification =>
+            <div>
+              <Notification savedNotification={notification} onChange={()=> null} />
+
             </div>
-            ) : (
-              null
 
-            )}
-          </div>
+          )}
 
 
-        </div>
-        <div className={styles.buttons}>
-          <Button text={"Отправить приглашение"} onClick={() => null} className={styles.copyButton} />
 
-          <Button text={"Копировать"} onClick={copyLink} className={styles.copyButton} />
         </div>
 
       </div>

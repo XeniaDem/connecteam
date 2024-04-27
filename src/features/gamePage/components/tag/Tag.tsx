@@ -13,12 +13,6 @@ import { TagModel } from "../../../adminPage/questionsPage/question/tagsPopup/ta
 
 
 
-// export type TagModel = {
-//   text: string;
-//   id: number;
-
-// }
-
 type Props = {
   savedTag: TagModel;
   selected: boolean;
@@ -41,7 +35,7 @@ export function Tag({ savedTag, selected, onTagClicked }: Props) {
   return (
     <div className={selected ? styles.selected : styles.container} onClick={handleChange}>
       <div className={styles.text}>
-        {savedTag.text}
+        {savedTag.key}
       </div>
     </div>
 
