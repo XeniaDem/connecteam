@@ -140,14 +140,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                Не более 10 вопросов на каждую тему
-              </div>
-            </div>
-            <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
                 Возможность добавлять в одну игру не более 4 игроков
               </div>
             </div>
@@ -208,15 +200,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                5 тем с вопросами
-              </div>
-            </div>
-            <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
-                До 20 вопросов на каждую тему
+                До 5 тем с вопросами с возможностью выбора
               </div>
             </div>
             <div className={styles.textBox}>
@@ -295,15 +279,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                10 тем с вопросами
-              </div>
-            </div>
-            <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
-                До 50 вопросов на каждую тему
+                До 10 тем с вопросами с возможностью выбора
               </div>
             </div>
             <div className={styles.textBox}>

@@ -326,11 +326,6 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
         </div>}
         <div className={styles.right}>
-          {/* <div className={styles.settingsContainer}>
-            <Button text={"Расширенные настройки  <"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.settingsButton} />
-          </div> */}
           {isMobile && <div>
             <div className={styles.title}>
               Личные данные

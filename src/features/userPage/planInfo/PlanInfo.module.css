@@ -22,6 +22,7 @@
   padding-bottom: 56px;
   min-height: 800px;
 
+
 }
 
 .container::before {
@@ -43,6 +44,32 @@
   z-index: 1;
 }
 
+.up {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 100px;
+}
+.notifications {
+  margin-top: 150px;
+  display: flex;
+  height: 100px;
+  align-items: baseline;
+}
+.new {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:white;
+  background-color: red;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: 1px solid red;
+  border-radius: 10px;
+}
 
 .title {
   color: #FFF;
@@ -146,6 +173,14 @@
 
 
   }
+  .notifications {
+    margin-top: 90px;
+  }
+  .up {
+    padding-right: 0px;
+  }
+
+
 
   .subtitle {
     padding-left: 0px;

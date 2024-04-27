@@ -94,43 +94,50 @@ export function Registration() {
 
 
   const register = async () => {
+    setVerifySubmitted(true)
+
+    const data = {
+      "email": email,
+      "first_name": name,
+      "second_name": surname,
+      "password": password,
+      "verification_code": codeValue
+
+    }
+    try {
+      const response = await post('auth/sign-up', data)
+      closeVerifyPopup()
+      openSuccessPopup()
+     
+   
+    
+    }
+    catch (error: any) {
+      readVerifyError(error.response.text)
+      console.log("error:", error)
+    }
+  }
+
+  const verifyEmail = async () => {
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;
     }
     const data = {
       "email": email,
-      "first_name": name,
-      "second_name": surname,
-      "password": password
-
     }
     try {
-      const response = await post('auth/sign-up', data)
-      saveId(response.text)
+      const response = await post('auth/verify-email', data)
       setRegistrationError("")
-      verifyEmail()
       openVerifyPopup()
     }
     catch (error: any) {
       setRegistrationError(readRegistrationError(error.response.text))
       console.log("error:", error)
     }
-  }
-
-  const verifyEmail = async () => {
-    const data = {
-      "email": email,
-    }
-    try {
-      const response = await post('auth/verify-email', data)
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
 
   }
+
   const [codeValue, setCodeValue] = useState<undefined | string>('');
 
   const [verifySubmitted, setVerifySubmitted] = useState(false)
@@ -147,29 +154,12 @@ export function Registration() {
     var content = messageParsed.message
 
     if (content.includes("wrong verification code")) {
-      return ("Введенный код неверен. Пожалуйста, попробуйте еще раз")
+       setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз")
     }
     return content;
   }
 
-  const verifyUser = async () => {
-    setVerifySubmitted(true)
-    setVerifyError("")
-    const data = {
-      "id": id.toString(),
-      "code": codeValue
-    }
-    try {
-      const response = await post('auth/verify-user', data)
-      closeVerifyPopup()
-      openSuccessPopup()
-    }
-    catch (error: any) {
-      setVerifyError(readVerifyError(error.response.text))
-      console.log("error:", error)
-    }
 
-  }
 
 
   return (
@@ -219,7 +209,7 @@ export function Registration() {
           null
         )}
 
-        <Button text={"Зарегистрироваться"} onClick={register} className={styles.button} />
+        <Button text={"Зарегистрироваться"} onClick={verifyEmail} className={styles.button} />
         <div className={styles.footerContainer}>
           <div className={styles.footerItem}>
             Уже есть аккаунт?
@@ -229,7 +219,7 @@ export function Registration() {
           }} className={styles.footerButton} />
         </div>
       </div>
-      {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
+      {verifyOpen ? <EmailConfirmationPopup onClick={register}
         value={codeValue} onValueChange={setCodeValue}
         formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
       {successOpen ? <SuccessPopup email = {email} password={password} planInvitation={state && state.planInvitation} gameInvitation={state && state.gameInvitation}/> : null}

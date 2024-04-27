@@ -1,17 +1,16 @@
 
 import { useEffect, useState } from "react";
-import { Button } from "../../../../../components/button/Button"
-import styles from "./InvitePopup.module.css"
+import { Button } from "../../../../components/button/Button"
+import styles from "./NotificationsCenter.module.css"
+import { OutsideClick } from 'outsideclick-react'
+
 
 type Props = {
-  closePopup: () => void;
-  token: string;
-  invitationCode: string;
-
+  onBlur: () => void;
 }
 
 
-export function InvitePopup(props: Props) {
+export function NotificationsCenter(props: Props) {
   const [copiedHidden, setCopiedHidden] = useState(true);
   const copyLink = () => {
     navigator.clipboard.writeText(link)
@@ -24,23 +23,29 @@ export function InvitePopup(props: Props) {
 
   const [link, setLink] = useState("")
 
-  const fetchLink = () => {
-    setLink("localhost:5173/invite/plan#" + props.invitationCode)
+  const fetchData = () => {
+
 
   }
 
+
   useEffect(() => {
 
-    fetchLink()
+    fetchData()
   }, []);
 
-  return (
-    <div className={styles.background}>
-      <div className={styles.container}>
 
-        <div className={styles.close}>
-          <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
-        </div>
+
+
+
+  return (
+    <OutsideClick
+      onOutsideClick={() => {
+        props.onBlur()
+      }}
+      ignoreElement=".ignore"
+    >
+      <div className={styles.container}>
 
 
         <div className={styles.title}>
@@ -73,7 +78,7 @@ export function InvitePopup(props: Props) {
         </div>
 
       </div>
+    </OutsideClick>
 
-    </div>
   )
 }

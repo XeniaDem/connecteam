@@ -7,8 +7,6 @@ import logoBig from "../../../app/assets/logoBig.svg"
 import logoSmall from "../../../app/assets/logoSmall.svg"
 import { useEffect, useState } from "react"
 import validator from "validator"
-import disableScroll from 'disable-scroll';
-import { EmailConfirmationPopup } from "../registration/emailConfirmationPopup/EmailConfirmationPopup"
 import { useDispatch } from "react-redux"
 import { Access, signIn } from "../../../store/authSlice"
 import { post, readServerError } from "../../../utils/api"
@@ -37,15 +35,8 @@ export function Login() {
 
 
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [verifyOpen, setVerifyOpen] = useState(false);
 
 
-
-  const openVerifyPopup = () => {
-    disableScroll.on()
-    setVerifyOpen(true)
-
-  }
 
   const getErrorMessage = () => {
 
@@ -67,12 +58,6 @@ export function Login() {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
 
-    if (content.includes("User is not verified")) {
-      verifyEmail()
-      openVerifyPopup()
-      return ("Эл. адрес не верифицирован")
-
-    }
     if (content.includes("invalid login data")) {
       return ("Неверный логин или пароль. Попробуйте еще раз")
     }
@@ -93,6 +78,7 @@ export function Login() {
     access = messageParsed.access;
     const token = messageParsed.token;
     const id = messageParsed.id
+
     dispatch(signIn({ token: token, access: access as Access, id: id }));
 
   }
@@ -120,7 +106,6 @@ export function Login() {
       }
       else {
         if (state && state.planInvitation) {
-
           navigate("/invite/plan#" + state.planInvitation)
         }
         else if (state && state.gameInvitation) {
@@ -141,83 +126,10 @@ export function Login() {
 
   }
 
-  const [id, setId] = useState("");
-
-  const saveId = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var id = messageParsed.id
-
-    setId(id)
-
-  }
-  const verifyEmail = async () => {
-    const data = {
-      "email": email,
-    }
-    try {
-
-      const response = await post('auth/verify-email', data)
-      saveId(response.text)
 
 
 
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
 
-  }
-
-  const [codeValue, setCodeValue] = useState<undefined | string>('');
-
-
-  const [verifySubmitted, setVerifySubmitted] = useState(false)
-  const [verifyError, setVerifyError] = useState("")
-
-  const readVerifyError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
-
-    if (content.includes("wrong verification code")) {
-      return ("Введенный код неверен. Пожалуйста, попробуйте еще раз.")
-
-    }
-    return content;
-
-  }
-
-
-  const verifyUser = async () => {
-    setVerifySubmitted(true)
-    setVerifyError("")
-
-    const data = {
-      "id": id.toString(),
-      "code": codeValue?.toString()
-
-    }
-    try {
-
-      const response = await post('auth/verify-user', data)
-
-
-      setVerifyOpen(false)
-      login()
-
-    }
-    catch (error: any) {
-      setVerifyError(readVerifyError(error.response.text))
-      console.log("error:", error)
-    }
-
-  }
-
-
-  useEffect(() => {
-    // alert(state.planInvitation)
-    // alert(state.gameInvitation)
-  }, []);
 
   return (
     <div>
@@ -271,9 +183,6 @@ export function Login() {
           }} className={styles.footerButton} />
         </div>
       </div>
-      {verifyOpen ? <EmailConfirmationPopup onClick={verifyUser}
-        value={codeValue} onValueChange={setCodeValue}
-        formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
     </div>
   )
 }

@@ -1,22 +1,19 @@
-
 import { PlanInfo, Plan } from "./planInfo/PlanInfo"
 import styles from "./Profile.module.css"
 import { Company, CompanyInfo } from "./companyInfo/CompanyInfo"
 import { User, UserInfo } from "./userInfo/UserInfo"
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
-
 
 export function Profile() {
 
   const token = useSelector(selectToken)
 
   const [userInfo, setUserInfo] = useState<User | null>(null)
-
 
   const readUserInfo = (message: any) => {
     const messageParsed = JSON.parse(message);
@@ -89,14 +86,12 @@ export function Profile() {
 
   const [planFetched, setPlanFetched] = useState(false)
 
-
   const onUserChange = () => {
     setUserFetched(!userFetched)
   }
   const onPlanChange = () => {
     setPlanFetched(!planFetched)
   }
-
 
   useEffect(() => {
     disableScroll.off();
@@ -109,7 +104,6 @@ export function Profile() {
     fetchPlan();
 
   }, [planFetched]);
-
 
   const { state } = useLocation();
   const { targetId } = state || {};

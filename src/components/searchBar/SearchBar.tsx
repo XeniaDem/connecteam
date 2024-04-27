@@ -1,39 +1,98 @@
 import { useEffect, useState } from "react";
 import styles from "./SearchBar.module.css";
+import { get, readServerError } from "../../utils/api";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../store/authSlice";
 
-
+export type Tag = {
+  id: string;
+  name: string;
+}
 
 export function SearchBar() {
   const [query, setQuery] = useState("");
+  const token = useSelector(selectToken)
 
-  const [suggestions, setSuggestions] = useState<string[]>([]); // This is where we'll store the retrieved suggestions
+  const [suggestions, setSuggestions] = useState<Tag[]>([]); // This is where we'll store the retrieved suggestions
   const [hideSuggestions, setHideSuggestions] = useState(true);
 
 
-  const getFilteredItems = (query: string, items: any) => {
+  const getFilteredItems = (query: string, items: Tag[]) => {
     if (!query) {
       setSuggestions(items);
     }
-    setSuggestions(items.filter((country: string) => country.toLowerCase().includes(query.toLowerCase())));
+    setSuggestions(items.filter((tag: Tag) => tag.name.toLowerCase().includes(query.toLowerCase())));
   };
 
 
 
   const countries = ["Belgium", "India", "Bolivia", "New Zealand", "Australia", "Bangladesh", "Belgium", "India", "Bolivia", "New Zealand", "Australia", "Bangladesh", "Belgium", "India", "Bolivia", "New Zealand", "Australia", "Bangladesh"]
 
-  const items = countries;
 
 
 
+  const [tags, setTags] = useState<Tag[] | null>(null)
+
+  // const items = tags;
+
+  
+
+  const readTags = (message: any) => {
+    console.log(message)
+    const messageParsed = JSON.parse(message);
+
+    if (messageParsed.data == null) {
+      setTags(null)
+      return;
+    }
+
+    const tagsNum = messageParsed.data.length;
+
+
+    const tagsModels = [];
+    for (let i = 0; i < tagsNum; i++) {
+
+      const tagModel = {
+        id: messageParsed.data[i].id,
+        name: messageParsed.data[i].name,
+      }
+      tagsModels.push(tagModel)
+
+    }
+    setTags(tagsModels)
+
+  }
 
 
 
+  const fetchTags = async () => {
+
+
+    try {
+      const response = await get('tags/', token)
+      readTags(response.text)
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
 
 
   useEffect(() => {
-    getFilteredItems(query, items);
+    tags && getFilteredItems(query, tags);
 
   }, [query]);
+
+  useEffect(() => {
+    fetchTags()
+
+  }, []);
+
+
 
 
 
@@ -41,11 +100,11 @@ export function SearchBar() {
       <div className={styles.container}>
         <input
           onFocus={() => setHideSuggestions(false)}
-          // onBlur={async () => {
-          //   setTimeout(() => {
-          //     setHideSuggestions(true);
-          //   }, 200);
-          // }}
+          onBlur={async () => {
+            setTimeout(() => {
+              setHideSuggestions(true);
+            }, 200);
+          }}
           type="text"
           className={styles.input}
           placeholder="Поиск тега..."
@@ -60,8 +119,8 @@ export function SearchBar() {
           </div>
             :
             suggestions.map((suggestion) => (
-              <div className={styles.suggestion} onClick={() => { setQuery(suggestion); setHideSuggestions(true) }}>
-                {suggestion}
+              <div className={styles.suggestion} onClick={() => { setQuery(suggestion.name); setHideSuggestions(true) }}>
+                {suggestion.name}
               </div>
             ))}
         </div>

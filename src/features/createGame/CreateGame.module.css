@@ -283,7 +283,7 @@ background:red;
 
 }
 
-@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape) {
   .title {
     font-size: 30px;
     line-height: normal;

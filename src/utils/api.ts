@@ -1,6 +1,5 @@
 import request from "superagent"
 
-
 export const post = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {
         const response = await request.post('http://localhost:8000/' + url)
@@ -12,8 +11,6 @@ export const post = async <T extends Object>(url: string, body?: T, token?: stri
         return response;
     } catch (error: any) {
         if (error.status == 401) {
-            // const dispatch = useDispatch()
-            // dispatch(signIn({ token: "", access: "" }))
             document.location.href = "/auth/login"
         }
         throw error;
@@ -29,14 +26,9 @@ export const get = async (url: string, token?: string) => {
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
             .set('Authorization', `Bearer ${token}`)
-        //  if (response.status == 401) {
-        //     document.location.href = "/auth/login"
-        //  } 
         return response;
     } catch (error: any) {
         if (error.status == 401) {
-            // const dispatch = useDispatch()
-            // dispatch(signIn({ token: "", access: "" }))
             document.location.href = "/auth/login"
         }
         throw error;
@@ -57,8 +49,6 @@ export const patch = async <T extends Object>(url: string, body?: T, token?: str
         return response;
     } catch (error: any) {
         if (error.status == 401) {
-            // const dispatch = useDispatch()
-            // dispatch(signIn({ token: "", access: "" }))
             document.location.href = "/auth/login"
         }
         throw error;
@@ -77,8 +67,6 @@ export const Delete = async (url: string, token?: string) => {
         return response;
     } catch (error: any) {
         if (error.status == 401) {
-            // const dispatch = useDispatch()
-            // dispatch(signIn({ token: "", access: "" }))
             document.location.href = "/auth/login"
         }
         throw error;

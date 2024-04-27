@@ -83,9 +83,9 @@ export function Header(props: Props) {
             navigate("/admin/users_page")
           }} selected={location.pathname == "/admin/users_page"} />
 
-          <HeaderItem text="Запросы на план" onClick={() => {
+          {/* <HeaderItem text="Запросы на план" onClick={() => {
             navigate("/admin/plan_requests")
-          }} selected={location.pathname == "/admin/plan_requests"} />
+          }} selected={location.pathname == "/admin/plan_requests"} /> */}
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")

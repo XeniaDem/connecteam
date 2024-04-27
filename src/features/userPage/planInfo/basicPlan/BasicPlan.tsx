@@ -38,14 +38,6 @@ export function BasicPlan() {
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                Не более 10 вопросов на каждую тему
-              </div>
-            </div>
-            <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
                 Возможность добавлять в одну игру не более 4 игроков
               </div>
             </div>

@@ -98,7 +98,7 @@ export function GamePage() {
 
 
         dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question}))
-        dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum }))
+        dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum })) ////
         updatePlayers(messageObject)
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.AnswerQuestion }))
     }, [])
@@ -209,7 +209,7 @@ export function GamePage() {
             const messageComing = event.data
             const message = messageComing.split("\n")[0]; //////////////
             if (messageComing.split("\n")[1] != undefined) {
-                alert(messageComing.split("\n")[1])
+                // alert(messageComing.split("\n")[1])
             }
             const messageObject = message && JSON.parse(message)
             console.log(`Received message from server: ${event.data}`);
@@ -274,8 +274,7 @@ export function GamePage() {
     const joinGame = useCallback(() => {
         const message = JSON.stringify({
             action: "join-game",
-            target: { "id": state.gameId },
-            time: new Date()
+            target: { "id": state.gameId }
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)

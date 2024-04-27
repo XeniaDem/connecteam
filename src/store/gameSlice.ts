@@ -10,34 +10,29 @@ export enum GameScreen {
   AnswerQuestion = "answerQuestion",
   RateAnswer = "rateAnswer",
   GameResults = "gameResults"
-
-
-
 }
 
 export interface GameState {
-  name: string;
-  date: string;
-  id: string;
-  creatorId: string;
-  userId: string;
+  name: string; // Название игры
+  date: string; // Дата и время игры
+  id: string; // ID игры
+  creatorId: string; // ID создателя игры
+  userId: string; // ID игрока
 
-  gameStarted: boolean;
+  gameStarted: boolean; // Булевое значение, указывающее началась игра или нет
 
-  currentScreen: GameScreen;
+  currentScreen: GameScreen; // Текущий экран игры
 
-  topics: string;
-  roundsNum: number;
-  currentRound: number;
+  topics: string; // Темы игры
+  roundsNum: number; // Количество раундов игры
+  currentRound: number; // Значение текущего раунда
 
-  userAnswering: string;
-  userAnsweringId: string;
-  question: string;
-  // stageStarted: boolean;
+  userAnswering: string; // Имя отвечающего игрока
+  userAnsweringId: string; // ID отвечающего игрока
+  question: string; // Текущий вопрос
 
-
-  timerStarted: boolean;
-  timeStart: string;
+  timerStarted: boolean; // Булевое значение, указывающее запущен таймер или нет
+  timeStart: string; // Время последнего запуска таймера
   
 }
 
@@ -147,3 +142,7 @@ export const selectGame = (state: RootState) => state.game
 
 
 export default gameSlice.reducer
+
+
+
+

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { Question } from "../../components/question/Question"
 import { TagModel } from "../../../adminPage/questionsPage/question/tagsPopup/tag/Tag"
 import { Tag } from "../../components/tag/Tag"
+import { SearchBar } from "../../../../components/searchBar/SearchBar"
 
 
 type Props = {
@@ -101,6 +102,7 @@ export function RateAnswer(props: Props) {
                 }
                 )
                 }
+                <SearchBar/>
 
 
 

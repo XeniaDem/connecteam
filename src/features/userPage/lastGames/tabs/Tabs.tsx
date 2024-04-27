@@ -38,10 +38,9 @@ export function Tabs(props: Props) {
 
 
     const readGames = (message: any) => {
+        console.log("num " + games?.length)
         const messageParsed = JSON.parse(message);
         if (messageParsed.data == null) {
-            const newGames = games == null ? null : games
-            setGames(newGames)
             return;
         }
 
@@ -65,6 +64,7 @@ export function Tabs(props: Props) {
 
         const newGames = games == null ? gamesModels : games.concat(gamesModels)
         setGames(newGames)
+        // setGames(gamesModels)
     }
 
     const getCreatedGames = async () => { //////////////////////////
@@ -99,18 +99,37 @@ export function Tabs(props: Props) {
     const [gamesFetched, setGamesFetched] = useState(false)
 
     const onGamesChange = () => {
-      setGamesFetched(!gamesFetched)
+        // setGamesFetched(!gamesFetched)
+
+        setPageNum(0)
+        setGames(null)
+
     }
 
     useEffect(() => {
+        console.log ("____________________")
+        console.log("load")
 
-        console.log(pageNum)
+        console.log("page " + pageNum)
         if (activeTab == "Мои")
             getCreatedGames()
         if (activeTab == "Участвую")
             getAllGames()
 
-    }, [activeTab, gamesFetched, pageNum]);
+    }, [activeTab, pageNum]);
+
+    // useEffect(() => {
+    //     console.log("change")
+
+    //     setGames(null)
+    //     setPageNum(0)
+    //     if (activeTab == "Мои")
+    //         getCreatedGames()
+    //     if (activeTab == "Участвую")
+    //         getAllGames()
+    //     // alert(games?.length)
+
+    // }, [gamesFetched]);
 
     return (
         <div className={styles.container}>
@@ -119,7 +138,7 @@ export function Tabs(props: Props) {
                     {props.tabs.map(tab => {
                         const classname = cn(styles.tab, { [styles.activeTab]: (activeTab == tab.tabName) })
                         return (
-                            <div className={classname} onClick={() => {setActiveTab(tab.tabName); setGames(null); setPageNum(0)}}>
+                            <div className={classname} onClick={() => { setActiveTab(tab.tabName); setGames(null); setPageNum(0) }}>
 
                                 {tab.tabName}
 

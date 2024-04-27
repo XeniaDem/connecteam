@@ -14,6 +14,10 @@ import { useGetDimensions } from "../../../app/hooks/useGetDimensions"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../../store/authSlice"
 import { get, readServerError } from "../../../utils/api"
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { IconButton } from "@mui/material"
+import { NotificationsCenter } from "./notificationCenter/NotificationsCenter"
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 
 
 
@@ -46,6 +50,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
   const [trialApplicable, setTrialApplicable] = useState(false)
 
+  const [notificationsHidden, setNotificationsHidden] = useState(true)
+
 
   const fetchPreviousPlans = async () => {
     try {
@@ -66,8 +72,6 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
 
 
-
-
   useEffect(() => {
     setPlanType(savedPlan?.planType)
     setExpiryDate(savedPlan?.expiryDate)
@@ -85,73 +89,52 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
 
 
-  if (!(savedPlan == null)) {
-
-    if (planType == "basic") {
-      return (
-        <div className={styles.container}>
-          {!isMobile && width > 1110 && <div className={styles.icon}>
-            <img src={icon} />
-          </div>}
+  return (
+    <div>
+      <div className={styles.container}>
+        {!isMobile && width > 1110 && <div className={styles.icon}>
+          <img src={icon} />
+        </div>}
+        <div className={styles.up}>
           <div className={styles.title}>
             Добро пожаловать, {name} {" "} {surname}!
           </div>
-          <div className={styles.subtitle}>
-            {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
-            {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
-            {planStatus == "expired" ? "Срок действия плана истек:" : null}
-          </div>
-          <div className={styles.plan}>
-            <BasicPlan />
-          </div>
-          <div className={styles.footerContainer}>
-            {planStatus == "active" ? (
-              <div className={styles.footer}>
-                Дата истечения срока подписки {expiryDate}
-              </div>
-            ) : (
-              null
-            )
-            }
-            {planStatus == "active" ? (
-              <Button text={"Управлять планом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-            ) : (
-              null
-            )
-            }
-            {planStatus == "on_confirm" ? (
-              <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-            ) : (
-              null
-            )
-            }
-            {planStatus == "expired" ? (
-              <Button text={"Продлить план"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-            ) : (
-              null
-            )
-            }
+          <div className={styles.notifications}>
+            <IconButton onClick={() => setNotificationsHidden(!notificationsHidden)}>
+              <svg width={0} height={0}>
+                <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                  <stop offset={0} stopColor="#55C6F7" />
+                  <stop offset={1} stopColor="#2AF8BA" />
+                </linearGradient>
+              </svg>
+              <NotificationsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            </IconButton>
+            <div className={styles.new}>
+              1
+            </div>
           </div>
         </div>
-      )
-    }
-    else if (planType == "advanced") {
-      return (
-        <div>
-          <div className={styles.container}>
-            {!isMobile && width > 1110 && <div className={styles.icon}>
-              <img src={icon} />
-            </div>}
-            <div className={styles.title}>
-              Добро пожаловать, {name} {" "} {surname}!
-            </div>
+
+        {savedPlan != null ?
+          <div>
             <div className={styles.subtitle}>
               {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
               {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
               {planStatus == "expired" ? "Срок действия плана истек:" : null}
             </div>
             <div className={styles.plan}>
-              <AdvancedPlan />
+              {planType == "basic" ?
+                <BasicPlan />
+                :
+                <div>
+                  {planType == "advanced" ?
+                    <AdvancedPlan />
+                    :
+                    <PremiumPlan />
+                  }
+                </div>
+              }
+
             </div>
             <div className={styles.footerContainer}>
               {planStatus == "active" ? (
@@ -162,108 +145,34 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
                 null
               )
               }
-              {planStatus == "active" ? (
-                <Button text={"Управлять планом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-              ) : (
-                null
-              )
-              }
-              {planStatus == "on_confirm" ? (
-                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-              ) : (
-                null
-              )
-              }
-              {planStatus == "expired" ? (
-                <Button text={"Продлить план"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-              ) : (
-                null
-              )
-              }
+
+              <Button text={planStatus == "active" ? "Управлять планом" : (planStatus == "on_confirm" ? "Изменить заявку" : "Продлить план")}
+                onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
 
 
             </div>
           </div>
-        </div>
-      )
-    }
-    else if (planType == "premium") {
-      return (
-        <div>
-          <div className={styles.container}>
-            {!isMobile && width > 1110 && <div className={styles.icon}>
-              <img src={icon} />
-            </div>}
-            <div className={styles.title}>
-              Добро пожаловать, {name} {" "} {surname}!
-            </div>
+          :
+          <div>
             <div className={styles.subtitle}>
-              {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
-              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
-              {planStatus == "expired" ? "Срок действия плана истек:" : null}
+              Выберите план:
             </div>
-            <div className={styles.plan}>
-              <PremiumPlan />
-            </div>
-
-            <div className={styles.footerContainer}>
-              {planStatus == "active" ? (
-                <div className={styles.footer}>
-                  Дата истечения срока подписки {expiryDate}
-                </div>
-              ) : (
-                null
-              )
-              }
-
-              {planStatus == "active" ? (
-                <Button text={"Управлять планом"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-              ) : (
-                null
-              )
-              }
-              {planStatus == "on_confirm" ? (
-                <Button text={"Изменить заявку"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-              ) : (
-                null
-              )
-              }
-              {planStatus == "expired" ? (
-                <Button text={"Продлить план"} onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-              ) : (
-                null
-              )
-              }
-
-
-            </div>
-
+            <PlanList isLogged={true} onChange={onChange} trialApplicable={trialApplicable} />
           </div>
-        </div>
-      )
-    }
-  }
+        }
 
-
-  else if (savedPlan == null) { ////////////////////////////////////////////////////
-    return (
-
-      <div>
-
-        <div className={styles.container}>
-          <div className={styles.title}>
-            Добро пожаловать, {name} {" "} {surname}!
-          </div>
-          <div className={styles.subtitle}>
-            Выберите план:
-          </div>
-          <PlanList isLogged={true} onChange={onChange} trialApplicable={trialApplicable} />
-        </div>
 
 
       </div>
-    )
 
+      {!notificationsHidden ? <NotificationsCenter onBlur={() => setNotificationsHidden(true)}/> : null}
 
-  }
+    </div>
+  )
 }
+
+
+
+
+
+

@@ -30,17 +30,10 @@ export function AdvancedPlan() {
                   <img src={tick} />
                 </div>
                 <div className={styles.text}>
-                  5 тем с вопросами
+                  До 5 тем с вопросами с возможностью выбора
                 </div>
               </div>
-              <div className={styles.textBox}>
-                <div className={styles.tick}>
-                  <img src={tick} />
-                </div>
-                <div className={styles.text}>
-                  До 20 вопросов на каждую тему
-                </div>
-              </div>
+
               <div className={styles.textBox}>
                 <div className={styles.tick}>
                   <img src={tick} />

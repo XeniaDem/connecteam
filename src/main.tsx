@@ -35,10 +35,6 @@ const router = createBrowserRouter([
   },
 
 
-
-
-
-
   {
     path: "auth",
     element: <AuthLayout/>,
@@ -139,11 +135,6 @@ const router = createBrowserRouter([
     path: "game",
     element: <GamePage />,
   },
-  
-
-
-
-
   
 
 
