@@ -1,5 +1,5 @@
 import styles from "./GamePage.module.css"
-import { useCallback, useEffect, useRef, useState } from "react";
+import { JSXElementConstructor, ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
 import { selectToken } from "../../store/authSlice";
@@ -18,6 +18,14 @@ import { GameError } from "./screens/gameError/GameError";
 import { AnswerQuestion } from "./screens/answerQuestion/AnswerQuestion";
 import { RateAnswer } from "./screens/rateAnswer/RateAnswer";
 import { GameResults } from "../gameResults/GameResults";
+import { Audio } from "./components/audio/Audio";
+
+
+interface CommonGameScreenElementsProps {
+    gameStarted: boolean;
+    children: ReactNode
+
+};
 
 
 
@@ -37,11 +45,11 @@ export function GamePage() {
 
     const [userLeftHidden, setUserLeftHidden] = useState(true);
     const showUserLeft = () => {
-      setUserLeftHidden(false)
-      setTimeout(() => {
-        setUserLeftHidden(true);
-      }, 3000);
-  
+        setUserLeftHidden(false)
+        setTimeout(() => {
+            setUserLeftHidden(true);
+        }, 3000);
+
     }
 
 
@@ -51,7 +59,7 @@ export function GamePage() {
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
         dispatch(updateRounds({ currentRound: 0 }))
-        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: ""}))
+        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "" }))
         dispatch(setTimer({ timerStarted: false, timeStart: "" }))
 
     }
@@ -75,20 +83,20 @@ export function GamePage() {
 
     const onRatingFinish = useCallback(() => {
 
-        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: ""}))
+        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "" }))
         startStage()
 
     }, [])
 
     const onAnswerFinish = useCallback(() => {
-        dispatch(setTimer({timerStarted: false, timeStart: ""}))
+        dispatch(setTimer({ timerStarted: false, timeStart: "" }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.RateAnswer }))
 
     }, [])
     const onAnswerStart = useCallback((messageObject: any) => {
 
         // dispatch(setStage({ userAnswering: game.userAnswering, userAnsweringId: game.userAnsweringId, question: game.question, stageStarted: true}))
-        dispatch(setTimer({timerStarted: true, timeStart: messageObject.time}))
+        dispatch(setTimer({ timerStarted: true, timeStart: messageObject.time }))
     }, [])
 
     const onStageStart = useCallback((messageObject: any) => {
@@ -97,8 +105,8 @@ export function GamePage() {
         const game = store.getState().game
 
 
-        dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question}))
-        dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum })) ////
+        dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question }))
+        // dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum })) ////
         updatePlayers(messageObject)
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.AnswerQuestion }))
     }, [])
@@ -389,200 +397,117 @@ export function GamePage() {
 
 
 
+    const CommonGameScreenElements: React.FC<CommonGameScreenElementsProps> = ({
+        gameStarted,
+        children, // children передается автоматически через пропс children
+    }) => (
+        <div>
+            <div className={styles.ellipse1}>
+                <img src={ellipse1} />
+            </div>
+            <div className={styles.ellipse2}>
+                <img src={ellipse2} />
+            </div>
+            <div className={styles.exit}>
+                <Button text={""} onClick={() => {
+                    leaveGame()
+                    clearData()
+                    navigate("/user_page")
+                }} className={styles.exitButton} />
+            </div>
+
+
+            {gameStarted ?
+                <div>
+                    <div className={styles.players}>
+                        {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
+                        {players?.map(player =>
+                            <div>
+                                <Player savedPlayer={player} joined={true} />
+                            </div>
+                        )}
+                    </div>
+                    {!userLeftHidden && <div className={styles.errorMessage}>
+                        Пользователь покинул игру
+                    </div>}
+
+                    {children}
+                    <div className={styles.audio}>
+                        <Audio />
+                    </div>
+                    <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+                </div>
+                :
+                <div>
+                    {children}
+                    <div className={styles.audio}>
+                        <Audio />
+                    </div>
+                </div>
+            }
+        </div>
+    );
+
+
     if (game.currentScreen == GameScreen.WaitGame) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-                    }} className={styles.exitButton} />
-                </div>
-                <WaitGame name={game.name} date={game.date} />
+                <CommonGameScreenElements gameStarted={false} children={<WaitGame name={game.name} date={game.date} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.ChooseTopics) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-
-                    }} className={styles.exitButton} />
-                </div>
-                <ChooseTopics onButonClicked={chooseTopics} />
+                <CommonGameScreenElements gameStarted={false} children={<ChooseTopics onButonClicked={chooseTopics} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.StartGame) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-                    }} className={styles.exitButton} />
-                </div>
-                <div className={styles.players}>
-                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
-                    {players?.map(player =>
-                        <div>
-                            <Player savedPlayer={player} joined={true} />
-                        </div>
-                    )}
-                </div>
-                {!userLeftHidden && <div className={styles.errorMessage}>
-                    Пользователь покинул игру
-                </div>}
-                <StartGame name={game.name} date={game.date} onButtonClicked={startGame} />
-                <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+                <CommonGameScreenElements gameStarted={true} children
+                    ={<StartGame name={game.name} date={game.date} onButtonClicked={startGame} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.ChooseTopic) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-                    }} className={styles.exitButton} />
-                </div>
-                <div className={styles.players}>
-                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
-                    {players?.map(player =>
-                        <div>
-                            <Player savedPlayer={player} joined={true} />
-                        </div>
-                    )}
-                </div>
-                {!userLeftHidden && <div className={styles.errorMessage}>
-                    Пользователь покинул игру
-                </div>}
-                <ChooseTopic isCreator={game.creatorId == game.userId} topics={game.topics} onButonClicked={startRound} />
-                <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+                <CommonGameScreenElements gameStarted={true} children
+                    ={<ChooseTopic isCreator={game.creatorId == game.userId} topics={game.topics} onButonClicked={startRound} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.AnswerQuestion) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-                    }} className={styles.exitButton} />
-                </div>
-                <div className={styles.players}>
-                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
-                    {players?.map(player =>
-                        <div>
-                            <Player savedPlayer={player} joined={true} />
-                        </div>
-                    )}
-                </div>
-                {!userLeftHidden && <div className={styles.errorMessage}>
-                    Пользователь покинул игру
-                </div>}
-                <AnswerQuestion isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
-                    nameAnswering={game.userAnswering} question={game.question} started={game.timerStarted} onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />
-                <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+                <CommonGameScreenElements gameStarted={true} children
+                    ={<AnswerQuestion isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
+                        nameAnswering={game.userAnswering} question={game.question} started={game.timerStarted}
+                        onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.RateAnswer) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-                    }} className={styles.exitButton} />
-                </div>
-                <div className={styles.players}>
-                    {!game.gameStarted && <Player joined={false} gameId={state.gameId} />}
-                    {players?.map(player =>
-                        <div>
-                            <Player savedPlayer={player} joined={true} />
-                        </div>
-                    )}
-                </div>
-                {!userLeftHidden && <div className={styles.errorMessage}>
-                    Пользователь покинул игру
-                </div>}
-                <RateAnswer isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
-                    nameAnswering={game.userAnswering} question={game.question} onButonClicked={rateAnswer} />
-                <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
+                <CommonGameScreenElements gameStarted={true} children
+                    ={<RateAnswer isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
+                        nameAnswering={game.userAnswering} question={game.question} onButonClicked={rateAnswer} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.GameError) {
         return (
             <div className={styles.container}>
-                <div className={styles.ellipse1}>
-                    <img src={ellipse1} />
-                </div>
-                <div className={styles.ellipse2}>
-                    <img src={ellipse2} />
-                </div>
-                <div className={styles.exit}>
-                    <Button text={""} onClick={() => {
-                        leaveGame()
-                        clearData()
-                        navigate("/user_page")
-                    }} className={styles.exitButton} />
-                </div>
-                <GameError error={error} clearData={clearData} />
+                <CommonGameScreenElements gameStarted={false} children={<GameError error={error} clearData={clearData} />} />
             </div>
         )
     }
     if (game.currentScreen == GameScreen.GameResults) {
         return (
-            players && <GameResults gameId = {game.id} onButtonClicked={() => {
+            players && <GameResults gameId={game.id} onButtonClicked={() => {
                 leaveGame()
                 clearData()
                 navigate("/user_page")

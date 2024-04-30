@@ -14,6 +14,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@a2seven/yoo-checkout": "^1.1.4",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fontsource-variable/work-sans": "^5.0.17",
@@ -36,7 +37,8 @@
     "superagent": "^8.1.2",
     "use-file-picker": "^2.1.1",
     "use-timer": "^2.0.1",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
+    "yookassa": "^0.1.1"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.2.0",

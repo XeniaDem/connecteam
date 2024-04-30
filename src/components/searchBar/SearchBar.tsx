@@ -9,6 +9,7 @@ import { TagModel } from "../../features/adminPage/questionsPage/question/tagsPo
 type Props = {
   data: any[]
   onSelectedChange: (selected: any) => void;
+  placeholder: string;
 
 }
 
@@ -110,10 +111,11 @@ export function SearchBar(props: Props) {
           }}
           type="text"
           className={styles.input}
-          placeholder="Поиск тега..."
+          placeholder={props.placeholder}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
+            props.onSelectedChange(null)
           }}
         />
         <div className={`${styles.suggestions} ${hideSuggestions && styles.hidden}`}>

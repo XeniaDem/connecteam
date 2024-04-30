@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Plan } from "../profile/planInfo/PlanInfo";
 import { ChoosePlanPopup } from "./choosePlanPopup/ChoosePlanPopup";
 import disableScroll from 'disable-scroll';
+import { handlePayment } from "./payment/payment";
 
 type Props = {
   isLogged: boolean;
@@ -44,7 +45,8 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
       if (type == "basic" && trialApplicable) {
         setIsTrial(true)
       }
-      openChoosePlanPopup()
+      handlePayment()
+      // openChoosePlanPopup()
     }
 
   }

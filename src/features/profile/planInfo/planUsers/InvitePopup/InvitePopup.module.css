@@ -8,6 +8,7 @@
   backdrop-filter: blur(2px) brightness(0.5);
   z-index: 1;
 
+
 }
 
 
@@ -15,8 +16,9 @@
   font-family: 'Work Sans Variable', sans-serif;
 
 
+  overflow-y: scroll;
   position: fixed;
-  top: 85%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
@@ -28,7 +30,6 @@
 
 
   width: 50vw;
-  height: 300px;
 
   flex-shrink: 0;
 
@@ -118,6 +119,7 @@
 
 
 .link {
+  text-align: center;
   color: #8E8E8E;
   font-size: 13.918px;
   font-style: normal;
@@ -134,8 +136,8 @@
 .buttons {
   margin-top: 30px;
   display: flex;
-  flex-direction: column;
   gap: 20px;
+  align-items: baseline;
 }
 
 .copyButton {
@@ -171,17 +173,14 @@
 }
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
-    width: 75vw;
     height: auto;
     gap: 8px;
     align-items: center;
     justify-content: center;
     padding: 40px;
     padding-top: 20px;
-    top: 75%;
 
   }
-
   .title {
     font-size: 20px;
     line-height: normal;
