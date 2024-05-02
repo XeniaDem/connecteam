@@ -4,10 +4,19 @@ import { Button } from "../../components/button/Button";
 import styles from "./PlanList.module.css"
 import tick from "../../app/assets/tickSmall.svg"
 import { useEffect, useState } from "react";
-import { Plan } from "../profile/planInfo/PlanInfo";
 import { ChoosePlanPopup } from "./choosePlanPopup/ChoosePlanPopup";
 import disableScroll from 'disable-scroll';
-import { handlePayment } from "./payment/payment";
+import { PlanInfo } from "../profile/planInfo/PlanInfo";
+
+export type Plan = {
+  id: string;
+  planType: string;
+  expiryDate: string;
+  planAccess: string;
+  status: string;
+  invitationCode?: string;
+  isTrial: boolean;
+}
 
 type Props = {
   isLogged: boolean;
@@ -34,19 +43,20 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
   }
 
 
-  const [newPlan, setNewPlan] = useState<string | undefined>();
-  const [isTrial, setIsTrial] = useState(false)
+  const [newPlan, setNewPlan] = useState("");
 
-  const choosePlan = (type?: string) => {
+
+  const [buyingTrial, setBuyingTrial] = useState(false)
+
+  const choosePlan = (type: string) => {
     if (!isLogged) {
       navigate("/auth/register")
     } else {
       setNewPlan(type)
       if (type == "basic" && trialApplicable) {
-        setIsTrial(true)
+        setBuyingTrial(true)
       }
-      handlePayment()
-      // openChoosePlanPopup()
+      openChoosePlanPopup()
     }
 
   }
@@ -90,6 +100,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
   }
 
   useEffect(() => {
+
     readAccess()
   }, [planInfo]);
 
@@ -110,9 +121,13 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
               <div className={styles.nameActive}>
                 Простой
               </div>
-              <div className={styles.subtitle}>
-                {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
-              </div>
+              {planInfo?.isTrial ?
+                <div className={styles.subtitle}>
+                  У вас оформлен пробный доступ
+                </div>
+                :
+                null
+              }
             </div>
           ) : (
             <div className={styles.name}>
@@ -142,7 +157,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                Возможность добавлять в одну игру не более 4 игроков
+                Возможность приглашать в одну игру не более 4 игроков
               </div>
             </div>
           </div>
@@ -166,7 +181,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
               <div className={styles.offer}>
                 {isLogged && !trialApplicable ? null : "Попробуйте бесплатный доступ на 14 дней!"}
               </div>
-              <Button text={"Выбрать"} onClick={() => choosePlan("basic")} className={isLogged ? styles.inactive : styles.active} />
+              {!advancedActive && !premiumActive && <Button text={"Выбрать"} onClick={() => choosePlan("basic")} className={isLogged ? styles.inactive : styles.active} />}
             </div>
           )}
         </div>
@@ -177,9 +192,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
             <div className={styles.up}>
               <div className={styles.nameActive}>
                 Расширенный
-              </div>
-              <div className={styles.subtitle}>
-                {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
               </div>
             </div>
           ) : (
@@ -213,14 +225,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 Возможность приглашать в одну игру до 5 игроков
               </div>
             </div>
-            {/* <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
-                Возможность выбора тем для конкректной игры
-              </div>
-            </div> */}
           </div>
 
           {advancedActive ? (
@@ -238,7 +242,7 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
 
           ) : (
             <div>
-              <Button text={"Выбрать"} onClick={() => choosePlan("advanced")} className={styles.inactive} />
+              {!premiumActive && <Button text={"Выбрать"} onClick={() => choosePlan("advanced")} className={styles.inactive} />}
             </div>
           )}
         </div>
@@ -248,9 +252,6 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
             <div className={styles.up}>
               <div className={styles.nameActive}>
                 Широкий
-              </div>
-              <div className={styles.subtitle}>
-                {planInfo && planInfo.status == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором." : null}
               </div>
             </div>
           ) : (
@@ -289,17 +290,9 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
                 <img src={tick} />
               </div>
               <div className={styles.text}>
-                Возможность добавлять в одну игру до 7 игроков
+                Возможность приглашать в одну игру до 7 игроков
               </div>
             </div>
-            {/* <div className={styles.textBox}>
-              <div className={styles.tick}>
-                <img src={tick} />
-              </div>
-              <div className={styles.text}>
-                Возможность выбора тем для конкректной игры
-              </div>
-            </div> */}
           </div>
 
           {premiumActive ? (
@@ -327,7 +320,8 @@ export function PlanList({ isLogged, planInfo, trialApplicable, onChange }: Prop
         </div>
       </div>
       {
-        choosePlanOpen ? <ChoosePlanPopup planType={newPlan} isTrial = {isTrial} closePopup={closeChoosePlanPopup}
+        choosePlanOpen ? <ChoosePlanPopup newPlanType={newPlan} currentPlan={planInfo}
+          buyingTrial={buyingTrial} closePopup={closeChoosePlanPopup}
           onChange={onChange != null ? onChange : () => null} /> : null
       }
     </div >

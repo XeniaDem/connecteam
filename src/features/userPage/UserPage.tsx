@@ -7,8 +7,8 @@ import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
+import { Plan } from "../planList/PlanList"
 
-import { Plan } from "../profile/planInfo/PlanInfo"
 
 
 
@@ -47,6 +47,7 @@ export function UserPage() {
     }
     const messageParsed = JSON.parse(message);
     const planInfo = {
+      id: messageParsed.id,
       planType: messageParsed.plan_type,
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
@@ -55,6 +56,7 @@ export function UserPage() {
       isTrial: messageParsed.is_trial
     }
     setPlanInfo(planInfo);
+    console.log(planInfo)
   }
 
   const fetchPlan = async () => {

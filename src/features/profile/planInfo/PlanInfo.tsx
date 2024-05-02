@@ -4,23 +4,14 @@ import ellipse2 from "../../../app/assets/ellipse2.svg"
 import ellipse3 from "../../../app/assets/ellipse3.svg"
 import icon1 from "./icon1.svg"
 import icon2 from "./icon2.svg"
-import { PlanList } from "../../planList/PlanList"
+import { Plan, PlanList } from "../../planList/PlanList"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../../store/authSlice"
 
 
-export type Plan = {
-  planType: string;
-  expiryDate: string;
-  planAccess: string;
-  status: string;
-  invitationCode?: string;
-  isTrial?: boolean;
 
-
-}
 type Props = {
   savedPlan: Plan | null;
   onChange: () => void;

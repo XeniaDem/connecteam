@@ -12,27 +12,22 @@ import { Delete, readServerError } from "../../../../../utils/api";
 type Props = {
   closePopup: () => void;
   planUser: PlanUserModel;
-  token: string;
+  planId: string;
   onChange: () => void;
 
 }
 
 export function RemoveUserPopup(props: Props) {
   const token = useSelector(selectToken)
-
-
   const removePlanUser = async () => {
     try {
-      const response = await Delete ('plans/' + props.planUser.id, token)
+      const response = await Delete ('plans/' + props.planId + '/members/'+ props.planUser.id, token)
       props.closePopup()
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 

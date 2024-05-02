@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectToken, signIn } from "../../store/authSlice"
 import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
-import { Plan } from "../profile/planInfo/PlanInfo"
 import { isMobile } from 'react-device-detect';
+import { Plan } from "../planList/PlanList"
 
 
 type Props = {
@@ -20,7 +20,7 @@ type Props = {
   mainHeader?: boolean;
 
 }
-export function Header(props: Props) {
+export function Header (props: Props) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -38,13 +38,16 @@ export function Header(props: Props) {
     }
     const messageParsed = JSON.parse(message);
     const planInfo = {
+      id: messageParsed.id,
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0, 10),
       planAccess: messageParsed.plan_access,
-      status: messageParsed.status
+      status: messageParsed.status,
+      isTrial: messageParsed.is_trial
 
     }
     setPlanInfo(planInfo);
+    console.log("jdjdj "+ planInfo)
 
   }
 

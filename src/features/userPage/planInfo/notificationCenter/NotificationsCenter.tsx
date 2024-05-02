@@ -16,23 +16,24 @@ export function NotificationsCenter(props: Props) {
 
   const [notifications, setNotifications] = useState<NotificationModel[]>()
   const readNotifications = (message: any) => {
-    // const messageParsed = JSON.parse(message);
+    const messageParsed = JSON.parse(message);
 
-    // if (messageParsed.data == null) {
-    //   setTags(null);
-    //   return;
-    // }
-    const notificationsNum = 5 //messageParsed.data.length;
+    if (messageParsed.data == null) {
+      return;
+    }
+    const notificationsNum = messageParsed.data.length;
+    console.log(notificationsNum)
     const notificationsModels = [];
-    for (let j = 0; j < notificationsNum; j++) {
+    for (let i = 0; i < notificationsNum; i++) {
       const notificationModel = {
-        id: j.toString(), //messageParsed.data[j].id,
-        name: "User", //messageParsed.data[j].content
-        surname: "user",
+        type: messageParsed.data[i].type,
+        payload: messageParsed.data[i].payload,
+        date: messageParsed.data[i].date
 
 
       }
       notificationsModels.push(notificationModel)
+      console.log(notificationModel.type)
     }
     setNotifications(notificationsModels);
 
@@ -42,7 +43,22 @@ export function NotificationsCenter(props: Props) {
 
   useEffect(() => {
 
-    readNotifications("")
+    readNotifications(JSON.stringify({
+      data: [
+        {
+          type: "invite-game",
+          payload: "a1e3e32b-9c49-48ac-bdbd-d7ae16161fdb",
+          date: "0001-01-01T00:00:00Z"
+        },
+        {
+          type: "game-start",
+          payload: "a1e3e32b-9c49-48ac-bdbd-d7ae16161fdb",
+          date: "0001-01-01T00:00:00Z"
+        }
+      ]
+    }
+
+    ))
   }, []);
 
 
@@ -54,7 +70,6 @@ export function NotificationsCenter(props: Props) {
       onOutsideClick={() => {
         props.onBlur()
       }}
-      ignoreElement=".ignore"
     >
       <div className={styles.container}>
 
@@ -65,7 +80,7 @@ export function NotificationsCenter(props: Props) {
         <div className={styles.notifications}>
           {notifications?.map(notification =>
             <div>
-              <Notification savedNotification={notification} onChange={()=> null} />
+              <Notification savedNotification={notification} onChange={() => null} />
 
             </div>
 

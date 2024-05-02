@@ -1,12 +1,11 @@
 
 import styles from "./PlanInfo.module.css"
 import icon from "./icon.svg"
-import { PlanList } from "../../planList/PlanList"
+import { Plan, PlanList } from "../../planList/PlanList"
 import { BasicPlan } from "./basicPlan/BasicPlan"
 import { AdvancedPlan } from "./advancedPlan/AdvancedPlan"
 import { PremiumPlan } from "./premiumPlan/PremiumPlan"
 import { Button } from "../../../components/button/Button"
-import { Plan } from "../../profile/planInfo/PlanInfo"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { isMobile } from 'react-device-detect';
@@ -17,7 +16,6 @@ import { get, readServerError } from "../../../utils/api"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { IconButton } from "@mui/material"
 import { NotificationsCenter } from "./notificationCenter/NotificationsCenter"
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 
 
 
@@ -39,6 +37,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const token = useSelector(selectToken)
 
   const width = useGetDimensions()[0]
+  const height = useGetDimensions()[1]
   const navigate = useNavigate()
 
 
@@ -92,7 +91,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   return (
     <div>
       <div className={styles.container}>
-        {!isMobile && width > 1110 && <div className={styles.icon}>
+        {!isMobile && width > 1110 && height > 763 && <div className={styles.icon}>
           <img src={icon} />
         </div>}
         <div className={styles.up}>

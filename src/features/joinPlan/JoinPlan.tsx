@@ -130,7 +130,7 @@ export function JoinPlan() {
           </div>
 
           <div className={styles.title}>
-            Пользователь <span className={styles.title1}> {name} </span> пригласил Вас присоединиться к плану.
+            Пользователь <span className={styles.title1}> {name} </span> пригласил Вас присоединиться к плану
           </div>
           {token == "" ?
             <div className={styles.buttons} >

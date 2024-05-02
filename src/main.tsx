@@ -25,6 +25,7 @@ import { JoinPlan } from "./features/joinPlan/JoinPlan"
 import { JoinGame } from "./features/joinGame/JoinGame"
 import { InviteLayout } from "./layouts/inviteLayout/InviteLayout"
 import { GamePage } from "./features/gamePage/GamePage"
+import { PurchaseResult } from "./features/planList/purchaseResult/PurchaseResult"
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,21 @@ const router = createBrowserRouter([
         path: "profile/link_sent",
         element: <LinkSent/>,
       },
+    ],
+  },
+  {
+    path: "purchase",
+
+    children: [
+      {
+        path: "plan",
+        element: <PurchaseResult />,
+      },
+      {
+        path: "upgrade",
+        element: <PurchaseResult />,
+      },
+
     ],
   },
 

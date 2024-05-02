@@ -3,9 +3,9 @@
   font-family: 'Work Sans Variable', sans-serif;
 
 
-  position: fixed;
+  position: absolute;
   left: 84%;
-  transform: translate(-70%, -140%);
+  transform: translate(-70%, -200%);
   display: flex;
   flex-direction: column;
 
@@ -23,7 +23,7 @@
 
   background: linear-gradient(174deg, #1D1D1D 2.72%, rgba(29, 29, 29, 0.9) 115.36%);
   backdrop-filter: blur(30.21428680419922px);
-  position: relative;
+
   z-index: 1;
   max-height: 380px;
   overflow-y: scroll;

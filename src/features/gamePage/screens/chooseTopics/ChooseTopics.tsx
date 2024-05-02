@@ -2,10 +2,10 @@ import styles from "./ChooseTopics.module.css"
 import { Button } from "../../../../components/button/Button"
 import { useEffect, useState } from "react"
 import { Topic, TopicModel } from "../../components/topic/Topic"
-import { Plan } from "../../../profile/planInfo/PlanInfo"
 import { selectToken } from "../../../../store/authSlice"
 import { useSelector } from "react-redux"
 import { get, readServerError } from "../../../../utils/api"
+import { Plan } from "../../../planList/PlanList"
 
 
 type Props = {
@@ -64,10 +64,12 @@ export function ChooseTopics(props: Props) {
     }
     const messageParsed = JSON.parse(message);
     const planInfo = {
+      id: messageParsed.id,
       planType: messageParsed.plan_type,
       expiryDate: messageParsed.expiry_date.substring(0, 10),
       planAccess: messageParsed.plan_access,
-      status: messageParsed.status
+      status: messageParsed.status,
+      isTrial: messageParsed.is_trial
 
     }
     setPlanInfo(planInfo);

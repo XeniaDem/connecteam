@@ -40,7 +40,6 @@ export function GamePage() {
 
     const [error, setError] = useState("")
 
-
     const [players, setPlayers] = useState<PlayerModel[] | null>(null)
 
     const [userLeftHidden, setUserLeftHidden] = useState(true);

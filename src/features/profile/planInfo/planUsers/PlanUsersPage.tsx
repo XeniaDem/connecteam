@@ -54,7 +54,7 @@ export function PlanUsersPage() {
 
   const fetchPlanUsers = async () => {
     try {
-      const response = await get('plans/members/' + invitationCode, token)
+      const response = await get('plans/' + holderPlanId + '/members', token)
       readPlanUsers(response.text)
       return;
 
@@ -94,6 +94,7 @@ export function PlanUsersPage() {
 
 
   const [invitationCode, setInvitationCode] = useState("")
+  const [holderPlanId, setHolderPlanId] = useState("")
   const [holderId, setHolderId] = useState("")
 
   const readPlanInfo = (message: any) => {
@@ -105,6 +106,7 @@ export function PlanUsersPage() {
       navigate("/user_page")
     }
     setInvitationCode(messageParsed.invitation_code)
+    setHolderPlanId(messageParsed.id)
     setHolderId(messageParsed.holder_id)
 
 
@@ -126,15 +128,12 @@ export function PlanUsersPage() {
 
 
   useEffect(() => {
-
-    invitationCode && fetchPlanUsers()
-  }, [invitationCode, fetched]);
+    holderPlanId && fetchPlanUsers()
+  }, [holderPlanId, fetched]);
 
 
   useEffect(() => {
     fetchPlan()
-
-
   }, []);
 
   return (
@@ -160,7 +159,7 @@ export function PlanUsersPage() {
             {planUsers != null ? (
               planUsers?.map(user =>
                 <div>
-                  <PlanUser planUser={user} token={token} onChange={onChange} />
+                  <PlanUser planId = {holderPlanId} planUser={user} onChange={onChange} />
                 </div>
               )
             ) : (

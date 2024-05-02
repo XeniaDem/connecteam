@@ -1,4 +1,4 @@
-import { PlanInfo, Plan } from "./planInfo/PlanInfo"
+
 import styles from "./Profile.module.css"
 import { Company, CompanyInfo } from "./companyInfo/CompanyInfo"
 import { User, UserInfo } from "./userInfo/UserInfo"
@@ -8,6 +8,8 @@ import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
+import { Plan } from "../planList/PlanList"
+import { PlanInfo } from "./planInfo/PlanInfo"
 
 export function Profile() {
 
@@ -49,10 +51,12 @@ export function Profile() {
     }
     const messageParsed = JSON.parse(message);
     const planInfo = {
+      id: messageParsed.id,
       planType: messageParsed.plan_type,
       expiryDate: new Date(messageParsed.expiry_date).toLocaleDateString(),
       planAccess: messageParsed.plan_access,
-      status: messageParsed.status
+      status: messageParsed.status,
+      isTrial: messageParsed.is_trial
     }
     setPlanInfo(planInfo);
   }
