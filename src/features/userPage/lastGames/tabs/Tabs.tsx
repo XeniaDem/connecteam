@@ -1,4 +1,3 @@
-
 import { ReactNode, useEffect, useState } from "react"
 import cn from 'classnames';
 import styles from "./Tabs.module.css"
@@ -16,26 +15,22 @@ export type Tab = {
 }
 type Props = {
     tabs: Tab[];
+    userId: string;
 
 }
 
 
 export function Tabs(props: Props) {
 
+    const token = useSelector(selectToken)
+
     const [activeTab, setActiveTab] = useState(props.tabs[0].tabName);
-    // const tab = props.tabs.find(tab => tab.tabName == activeTab)
 
     const [pageNum, setPageNum] = useState(0)
 
-
     useBottomScrollListener(() => setPageNum(pageNum + 1));
 
-
-    const token = useSelector(selectToken)
-
-
     const [games, setGames] = useState<GameModel[] | null>(null)
-
 
     const readGames = (message: any) => {
         console.log("num " + games?.length)
@@ -43,7 +38,6 @@ export function Tabs(props: Props) {
         if (messageParsed.data == null) {
             return;
         }
-
 
         const gamesNum = (messageParsed.data.length);
 
@@ -53,10 +47,10 @@ export function Tabs(props: Props) {
             const gameModel = {
                 id: messageParsed.data[i].id,
                 name: messageParsed.data[i].name,
-                date: (new Date(messageParsed.data[i].start_date)).toLocaleString(),
+                date: messageParsed.data[i].start_date,
                 status: messageParsed.data[i].status,
-                invitationCode: messageParsed.data[i].invitation_code
-
+                invitationCode: messageParsed.data[i].invitation_code,
+                creatorId: messageParsed.data[i].creator_id
             }
             gamesModels.push(gameModel)
 
@@ -64,72 +58,37 @@ export function Tabs(props: Props) {
 
         const newGames = games == null ? gamesModels : games.concat(gamesModels)
         setGames(newGames)
-        // setGames(gamesModels)
     }
 
-    const getCreatedGames = async () => { //////////////////////////
+    const getGames = async (type: string) => { //////////////////////////
         try {
-            const response = await get('games/created/' + pageNum, token)
-            readGames(response.text)
-
+            var response;
+            if (type == "created")
+                response = await get('games/created/' + pageNum, token)
+            else if (type == "all")
+                response = await get('games/all/' + pageNum, token)
+            response && readGames(response.text)
         }
         catch (error: any) {
             readServerError(error.response.text)
             console.log("error:", error)
         }
-
-
-
-    }
-    const getAllGames = async () => { //////////////////////////
-        try {
-            const response = await get('games/all/' + pageNum, token)
-            readGames(response.text)
-
-        }
-        catch (error: any) {
-            readServerError(error.response.text)
-            console.log("error:", error)
-        }
-
-
-
     }
 
-    const [gamesFetched, setGamesFetched] = useState(false)
 
-    const onGamesChange = () => {
-        // setGamesFetched(!gamesFetched)
-
-        setPageNum(0)
-        setGames(null)
-
-    }
-
+    // const onGamesChange = () => {
+    //     setPageNum(0)
+    //     setGames(null)
+    // }
+ 
     useEffect(() => {
-        console.log ("____________________")
-        console.log("load")
-
-        console.log("page " + pageNum)
         if (activeTab == "Мои")
-            getCreatedGames()
+            getGames("created")
         if (activeTab == "Участвую")
-            getAllGames()
+            getGames("all")
 
     }, [activeTab, pageNum]);
 
-    // useEffect(() => {
-    //     console.log("change")
-
-    //     setGames(null)
-    //     setPageNum(0)
-    //     if (activeTab == "Мои")
-    //         getCreatedGames()
-    //     if (activeTab == "Участвую")
-    //         getAllGames()
-    //     // alert(games?.length)
-
-    // }, [gamesFetched]);
 
     return (
         <div className={styles.container}>
@@ -160,7 +119,7 @@ export function Tabs(props: Props) {
 
                         (games?.map(game =>
                             <div>
-                                <Game savedGame={game} onChange={onGamesChange} />
+                                <Game savedGame={game} isCreator={props.userId == game.creatorId} />
                             </div>
 
                         ))
@@ -171,6 +130,6 @@ export function Tabs(props: Props) {
 
             </div>
 
-        </div >
+        </div>
     )
 }

@@ -22,7 +22,7 @@ export function UsersPage() {
     for (let i = 0; i < usersNum; i++) {
       var isYou = (messageParsed.data[i].id == id)
       if (plans)
-        var plan = plans?.find((element) => element.userId == messageParsed.data[i].id); ///////////////
+        var plan = plans?.find((element) => element.holderId == messageParsed.data[i].id); ///////////////
       const userModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
@@ -97,12 +97,9 @@ export function UsersPage() {
   }
 
   const [plans, setPlans] = useState<PlanModel[] | null>(null)
+
   const readPlans = (message: any) => {
-
-
-
     const messageParsed = JSON.parse(message);
-    // alert(JSON.stringify(messageParsed))
     if (messageParsed.data == null) {
       setPlans(null)
       return;
@@ -115,15 +112,15 @@ export function UsersPage() {
       const planModel = {
         id: messageParsed.data[i].id,
         planType: messageParsed.data[i].plan_type,
-        userId: messageParsed.data[i].user_id,
+        holderId: messageParsed.data[i].holder_id,
         expiryDate: messageParsed.data[i].expiry_date.substring(0, 10),
         status: messageParsed.data[i].status,
       }
       planModels.push(planModel)
 
+
     }
     setPlans(planModels)
-    // setUsersFetched(true)
 
   }
 
@@ -143,24 +140,17 @@ export function UsersPage() {
 
   }
 
-
-
-
   const [usersFetched, setUsersFetched] = useState(false)
 
 
 
   const onUsersChange = () => {
     setUsersFetched(!usersFetched)
-
   }
 
 
   useEffect(() => {
-
-
     fetchUsers();
-
   }, [usersFetched]);
 
 
@@ -176,18 +166,13 @@ export function UsersPage() {
         Список пользователей
       </div>
       <div className={styles.users}>
-
-
         {users?.map(user =>
           <div>
             <User savedUser={user} onChange={onUsersChange} />
           </div>
-
         )}
 
       </div>
-
-
     </div>
   )
 }

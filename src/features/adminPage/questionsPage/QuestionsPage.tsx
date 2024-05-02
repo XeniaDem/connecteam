@@ -85,7 +85,7 @@ export function QuestionsPage() {
 
   const onChange = () => {
     setFetched(!fetched)
-
+    // window.location.reload()
   }
 
 

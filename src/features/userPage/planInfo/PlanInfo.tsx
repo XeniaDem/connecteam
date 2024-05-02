@@ -22,13 +22,8 @@ import { NotificationsCenter } from "./notificationCenter/NotificationsCenter"
 type Props = {
   name: string;
   surname: string;
-
   savedPlan: Plan | null;
-
   onChange: () => void;
-
-
-
 }
 
 
@@ -118,7 +113,6 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
           <div>
             <div className={styles.subtitle}>
               {planStatus == "active" ? (!isTrial ? "Вам доступен план:" : "У вас оформлен пробный доступ:") : null}
-              {planStatus == "on_confirm" ? "Ваша заявка находится на рассмотрении администратором:" : null}
               {planStatus == "expired" ? "Срок действия плана истек:" : null}
             </div>
             <div className={styles.plan}>
@@ -145,7 +139,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
               )
               }
 
-              <Button text={planStatus == "active" ? "Управлять планом" : (planStatus == "on_confirm" ? "Изменить заявку" : "Продлить план")}
+              <Button text={planStatus == "active" ? "Управлять планом" : "Продлить план"}
                 onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
 
 

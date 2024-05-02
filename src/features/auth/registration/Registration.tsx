@@ -17,8 +17,6 @@ import {isMobile} from 'react-device-detect';
 
 export function Registration() {
   const { state } = useLocation();
-  // const { planInvitation } = state.planInvitation || {};
-  // const { gameInvitation } = state.gameInvitation || {};
 
   const navigate = useNavigate()
 
@@ -76,22 +74,24 @@ export function Registration() {
   const [registrationError, setRegistrationError] = useState("")
 
 
-  const [id, setId] = useState("");
-  const saveId = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.id
-    var id = content
-    setId(id)
-  }
+  // const [id, setId] = useState("");
+  // const saveId = (message: any) => {
+  //   var messageParsed = JSON.parse(message);
+  //   var content = messageParsed.id
+  //   var id = content
+  //   setId(id)
+  // }
+  
+
   const readRegistrationError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message
-    if (content.includes("duplicate key value violates")) {
-      return ("Пользователь с таким эл. адресом уже существует")
+
+    if (content.includes("wrong verification code")) {
+       setRegistrationError("Введенный код неверен. Пожалуйста, попробуйте еще раз")
     }
     return content;
   }
-
 
   const register = async () => {
     setVerifySubmitted(true)
@@ -113,10 +113,21 @@ export function Registration() {
     
     }
     catch (error: any) {
-      readVerifyError(error.response.text)
+      readRegistrationError(error.response.text)
       console.log("error:", error)
     }
   }
+
+  const readVerifyError = (message: any) => {
+    var messageParsed = JSON.parse(message);
+    var content = messageParsed.message
+    if (content.includes("already used")) {
+      return ("Пользователь с таким эл. адресом уже существует")
+    }
+    return content;
+  }
+
+
 
   const verifyEmail = async () => {
     setFormSubmitted(true)
@@ -128,11 +139,11 @@ export function Registration() {
     }
     try {
       const response = await post('auth/verify-email', data)
-      setRegistrationError("")
+      setVerifyError("")
       openVerifyPopup()
     }
     catch (error: any) {
-      setRegistrationError(readRegistrationError(error.response.text))
+      setVerifyError(readVerifyError(error.response.text))
       console.log("error:", error)
     }
 
@@ -149,15 +160,7 @@ export function Registration() {
     setSuccessOpen(true)
   }
 
-  const readVerifyError = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var content = messageParsed.message
 
-    if (content.includes("wrong verification code")) {
-       setVerifyError("Введенный код неверен. Пожалуйста, попробуйте еще раз")
-    }
-    return content;
-  }
 
 
 
@@ -201,9 +204,9 @@ export function Registration() {
 
         </div>)}
 
-        {formSubmitted && registrationError ? (
+        {formSubmitted && verifyError ? (
           <div className={styles.errorMessage}>
-            {registrationError}
+            {verifyError}
           </div>
         ) : (
           null
@@ -221,7 +224,7 @@ export function Registration() {
       </div>
       {verifyOpen ? <EmailConfirmationPopup onClick={register}
         value={codeValue} onValueChange={setCodeValue}
-        formSubmitted={verifySubmitted} errorMessage={verifyError} /> : null}
+        formSubmitted={verifySubmitted} errorMessage={registrationError} /> : null}
       {successOpen ? <SuccessPopup email = {email} password={password} planInvitation={state && state.planInvitation} gameInvitation={state && state.gameInvitation}/> : null}
     </div>
   )

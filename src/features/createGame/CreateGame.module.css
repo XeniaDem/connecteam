@@ -151,8 +151,6 @@ input[type="time"i] {
 
 
 
-
-
 }
 input[type="datetime-local"i] {
 
@@ -253,35 +251,6 @@ background:red;
 }
 
 
-.calendar {
-  color: #FFF;
-  text-decoration: none;
-  text-align: center;
-
-  width: 250px;
-  border: 1px solid #55C6F7;
-  padding: 10px;
-  border-radius: 20px;
-
-
-}
-
-.tile {
-  background-color: #171717;
-
-  font-family: 'Work Sans Variable', sans-serif;
-  color: #FFF;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 22px;
-  letter-spacing: 0em;
-  padding: 5px;
-  border: none;
-
-
-
-
-}
 
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape) {
   .title {

@@ -18,14 +18,17 @@ export function UserPage() {
   
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [userId, setUserId] = useState("")
   const [planInfo, setPlanInfo] = useState<Plan | null>(null)
 
   const readAnswer = (message: any) => {
     var messageParsed = JSON.parse(message);
     var name = messageParsed.first_name
     var surname = messageParsed.second_name
+    var userId = messageParsed.id
     setName(name)
     setSurname(surname)
+    setUserId(userId)
   }
 
 
@@ -118,7 +121,7 @@ export function UserPage() {
   return (
     <div className={styles.container}>
       <PlanInfo name={name} surname = {surname} savedPlan = {planInfo} onChange={onPlanChange}/>
-      <LastGames id="games" />
+      <LastGames id="games" userId={userId}/>
     </div>
   )
 }

@@ -10,12 +10,13 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 export type PlanModel = {
   id: string,
-  userId: string;
+  holderId: string;
   planType: string;
   expiryDate: string;
   status: string;
   duration?: string;
 }
+
 export type UserModel = {
   id: string;
   name: string;
@@ -44,6 +45,7 @@ export function User({ savedUser, onChange}: Props) {
   const closeUserPopup = () => {
     disableScroll.off()
     setUserOpen(false)
+    // window.location.reload()
     onChange()
   }
 

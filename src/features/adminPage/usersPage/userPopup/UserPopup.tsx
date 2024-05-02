@@ -105,7 +105,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
       }
       // setNewPlan("")
       setPlanChanging(false)
-      closePopup()
+      // closePopup()
 
 
     }

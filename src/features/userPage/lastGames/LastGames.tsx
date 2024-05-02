@@ -1,17 +1,12 @@
-
-import { useSelector } from "react-redux";
-import { Button } from "../../../components/button/Button"
 import styles from "./LastGames.module.css"
-import { selectToken } from "../../../store/authSlice";
 import { Tab, Tabs } from "./tabs/Tabs";
-import { Game, GameModel } from "./game/Game";
-import { get, readServerError } from "../../../utils/api";
-import { useEffect, useState } from "react";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 
 
 type Props = {
   id: string;
+  userId: string;
 }
 
 
@@ -37,14 +32,14 @@ export function LastGames(props: Props) {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-      <div className={styles.container} id={props.id} >
+      <div className={styles.container} id={props.id}>
         <div className={styles.title}>
           Последние игры
         </div>
         <div className={styles.subtitle}>
-          Кликните на игру, чтобы посмотреть ее состояние
+          Кликните на кнопку <span> <KeyboardArrowRightIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> </span> чтобы посмотреть состояние игры
         </div>
-        <Tabs tabs={tabs} />
+        <Tabs tabs={tabs} userId={props.userId}/>
         {/* <div className={styles.filtration}>
           <Button text={""} onClick={function (): void {
             throw new Error("Function not implemented.")
