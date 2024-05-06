@@ -43,10 +43,10 @@ export function SuccessPopup(props: Props) {
       }
       else {
         if (props.planInvitation != null) {
-          navigate("/invite/plan#" + props.planInvitation)
+          navigate("/invite/plan/" + props.planInvitation)
         }
         else if (props.gameInvitation != null) {
-          navigate("/invite/game#" + props.gameInvitation)
+          navigate("/invite/game/" + props.gameInvitation)
         }
         else {
           navigate("/user_page")

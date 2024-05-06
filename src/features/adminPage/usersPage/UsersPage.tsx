@@ -3,12 +3,14 @@ import { useEffect, useState } from "react"
 import { PlanModel, User, UserModel } from "./user/User"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../../store/authSlice"
+import { selectId, selectToken } from "../../../store/authSlice"
 
 
 export function UsersPage() {
 
   const token = useSelector(selectToken)
+
+  const id = useSelector(selectId)
 
   const [users, setUsers] = useState<UserModel[] | null>(null)
 
@@ -49,7 +51,6 @@ export function UsersPage() {
 
   const fetchUsers = async () => {
 
-    fetchMe()
     fetchPlans()
     await delay(100);
 
@@ -58,34 +59,6 @@ export function UsersPage() {
       const response = await get('users/list', token)
       readUsers(response.text)
       return;
-
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
-
-
-  }
-  const [id, setId] = useState("");
-
-
-  const readId = (message: any) => {
-
-    var messageParsed = JSON.parse(message);
-
-    var id = messageParsed.id
-    setId(id)
-
-
-  }
-
-
-  const fetchMe = async () => {
-    try {
-
-      const response = await get('users/me', token)
-      readId(response.text)
 
     }
     catch (error: any) {

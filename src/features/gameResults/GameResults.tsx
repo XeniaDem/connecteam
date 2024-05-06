@@ -11,7 +11,7 @@ import { useEffect, useState } from "react"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { isMobile } from "react-device-detect"
 import { get, readServerError } from "../../utils/api"
-import { selectToken } from "../../store/authSlice"
+import { selectId, selectToken } from "../../store/authSlice"
 import { useSelector } from "react-redux"
 
 
@@ -26,7 +26,8 @@ export function GameResults(props: Props) {
 
   const token = useSelector(selectToken)
 
-  const [id, setId] = useState("")
+  const id = useSelector(selectId)
+  // const [id, setId] = useState("")
 
 
   const [name, setName] = useState("")
@@ -194,22 +195,9 @@ export function GameResults(props: Props) {
 
   }
 
-  const fetchMe = async () => {
-    try {
-      const response = await get('users/me', token)
-      setId(JSON.parse(response.text).id)
-
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
-
-  }
 
 
   useEffect(() => {
-    fetchMe()
     fetchGame()
     fetchResults()
     // if (props.isCreator)

@@ -35,6 +35,9 @@ export function PurchaseResult() {
       return "Вы уже приобрели подписку"
 
     }
+    if (content.includes("not paid")) {
+      return "Не удалось приобрести подписку"
+    }
     return content;
 
 
@@ -54,6 +57,7 @@ export function PurchaseResult() {
       }
       // response && setPurchaseResult(readPurchaseResult(response.text))
       setPurchaseResult("Вы успешно приобрели подписку")
+      return;
     }
     catch (error: any) {
       setPurchaseResult(readPurchaseResult(error.response.text))
@@ -66,10 +70,10 @@ export function PurchaseResult() {
 
   useEffect(() => {
 
-    console.log(orderId)
 
     if (location.pathname == "/purchase/plan") {
       handlePurchase("purchase")
+      return;
 
     } else if (location.pathname == "/purchase/upgrade") {
       handlePurchase("upgrade")

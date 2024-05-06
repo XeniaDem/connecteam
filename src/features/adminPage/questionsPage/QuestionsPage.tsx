@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import { get, readServerError } from "../../../utils/api"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../../store/authSlice"
-import { useNavigate } from "react-router-dom"
 import { Button } from "../../../components/button/Button"
 import disableScroll from 'disable-scroll';
 import { NewTopicPopup } from "./newTopicPopup/NewTopicPopup"
@@ -12,10 +11,7 @@ import { Topic } from "./topic/Topic"
 
 
 
-
 export function QuestionsPage() {
-
-  const navigate = useNavigate()
 
   const token = useSelector(selectToken)
 
@@ -52,8 +48,6 @@ export function QuestionsPage() {
 
 
   const fetchTopics = async () => {
-
-
     try {
       const response = await get('topics/', token)
       readTopics(response.text)
@@ -93,8 +87,6 @@ export function QuestionsPage() {
 
   useEffect(() => {
     fetchTopics()
-
-
   }, [fetched]);
 
   return (

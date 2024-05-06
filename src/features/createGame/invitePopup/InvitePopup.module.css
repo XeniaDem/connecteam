@@ -53,7 +53,11 @@
   /*5'*/
 
 }
-
+.buttons {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
 
 .close {
   position: absolute;
@@ -153,7 +157,15 @@
 
 }
 
+.logo {
+  z-index: 1;
+  cursor: pointer;
+}
 
+.logos {
+  display: flex;
+  gap: 5px;
+}
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
     width: 75vw;

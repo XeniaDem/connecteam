@@ -6,7 +6,7 @@ import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
 import logoBig from "../../app/assets/logoBig.svg"
 import logoSmall from "../../app/assets/logoSmall.svg"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { get, post } from "../../utils/api"
 import { isMobile } from 'react-device-detect';
 import { useSelector } from "react-redux"
@@ -15,10 +15,12 @@ import { selectToken } from "../../store/authSlice"
 
 export function JoinPlan() {
   const navigate = useNavigate()
-  const location = useLocation()
 
   const token = useSelector(selectToken)
-  const code = location.hash.slice(1);
+
+  let {code} = useParams<{code?: string}>();
+
+
   const [name, setName] = useState("")
   const [id, setId] = useState("")
 
@@ -61,7 +63,7 @@ export function JoinPlan() {
   }
 
   const validatePathname = async () => {
-    if (!code || code == "") {
+    if (!code) {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     try {

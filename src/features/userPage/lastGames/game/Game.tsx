@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import styles from "./Game.module.css"
-import DeleteIcon from '@mui/icons-material/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton } from "@mui/material";
 import { Delete, patch, post, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ export type GameModel = {
 type Props = {
   savedGame: GameModel;
   isCreator: boolean;
-  
+
 
 }
 
@@ -133,7 +133,7 @@ export function Game({ savedGame, isCreator }: Props) {
   useEffect(() => {
     const date = savedGame.date.split('T')[0] + 'T'
     const time = savedGame.date.split('T')[1].slice(0, -1)
-    console.log(date + time)
+
 
     setGameName(savedGame.name)
     setGameDate(date + time)
@@ -149,6 +149,12 @@ export function Game({ savedGame, isCreator }: Props) {
           {savedGame.status == "not_started" ?
             isCreator && (<div>
               <IconButton onClick={cancelGame}>
+                <svg width={0} height={0}>
+                  <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                    <stop offset={0} stopColor="#55C6F7" />
+                    <stop offset={1} stopColor="#2AF8BA" />
+                  </linearGradient>
+                </svg>
                 <ClearIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
               </IconButton>
 
@@ -172,6 +178,12 @@ export function Game({ savedGame, isCreator }: Props) {
         <div className={styles.group}>
           {savedGame.status == "not_started" ?
             isCreator && (<IconButton onClick={handleDateEdit}>
+              <svg width={0} height={0}>
+                <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                  <stop offset={0} stopColor="#55C6F7" />
+                  <stop offset={1} stopColor="#2AF8BA" />
+                </linearGradient>
+              </svg>
               {!dateEditing ? (<EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
               ) : (
                 <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
@@ -194,21 +206,21 @@ export function Game({ savedGame, isCreator }: Props) {
             {getStatus()}
           </div>
           {savedGame.status == "not_started" ?
-            <IconButton onClick={deleteGame}>
+            !isCreator && (<IconButton onClick={deleteGame}>
               <svg width={0} height={0}>
                 <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
                   <stop offset={0} stopColor="#55C6F7" />
                   <stop offset={1} stopColor="#2AF8BA" />
                 </linearGradient>
               </svg>
-              <DeleteIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-            </IconButton>
+              <LogoutIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            </IconButton>)
             :
             null
           }
           {savedGame.status != "cancelled" && <IconButton onClick={() => {
             if (savedGame.status == "not_started" || savedGame.status == "in_progress")
-              navigate("/invite/game#" + savedGame.invitationCode)
+              navigate("/game/" + savedGame.id)
             // if (savedGame.status == "finished")
             //   navigate("")
           }}>

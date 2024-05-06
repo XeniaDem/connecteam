@@ -72,15 +72,6 @@ export function Registration() {
 
 
   const [registrationError, setRegistrationError] = useState("")
-
-
-  // const [id, setId] = useState("");
-  // const saveId = (message: any) => {
-  //   var messageParsed = JSON.parse(message);
-  //   var content = messageParsed.id
-  //   var id = content
-  //   setId(id)
-  // }
   
 
   const readRegistrationError = (message: any) => {

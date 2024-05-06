@@ -116,7 +116,51 @@
   /* 162.5% */
   z-index: 1;
 }
+.input {
+  margin-top: 20px;
+  font-family: 'Work Sans Variable', sans-serif;
+  width: 285.531px;
+  height: 46.667px;
+  border-radius: 40.783px;
+  border: 1px solid var(--vd, #55C6F7);
+  background: rgba(0, 0, 0, 0.1);
+  padding: 15px 26px;
+  color: #8E8E8E;
+  font-size: 13.918px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.616px;
+  /* 162.5% */
+  box-sizing: border-box;
+  color: #FFF;
+  z-index: 1;
+  outline: none;
+}
 
+.errorMessage {
+  color: red;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+  display: flex;
+  justify-content: end;
+  padding: 0px;
+
+}
+
+
+
+.sendButton {
+  width: 285.531px;
+  height: 46.667px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  z-index: 1;
+
+}
 
 .link {
   text-align: center;
@@ -134,7 +178,6 @@
 }
 
 .buttons {
-  margin-top: 30px;
   display: flex;
   gap: 20px;
   align-items: baseline;
@@ -170,6 +213,15 @@
   /* 162.5% */
 
 
+}
+
+.logo {
+  z-index: 1;
+  cursor: pointer;
+}
+.logos {
+  display: flex;
+  gap: 5px;
 }
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {

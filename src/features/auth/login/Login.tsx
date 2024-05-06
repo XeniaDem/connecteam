@@ -5,23 +5,20 @@ import ellipse1 from "../../../app/assets/ellipse1.svg"
 import ellipse2 from "../../../app/assets/ellipse2.svg"
 import logoBig from "../../../app/assets/logoBig.svg"
 import logoSmall from "../../../app/assets/logoSmall.svg"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import validator from "validator"
 import { useDispatch } from "react-redux"
 import { Access, signIn } from "../../../store/authSlice"
-import { post, readServerError } from "../../../utils/api"
+import { post } from "../../../utils/api"
 import { isMobile } from 'react-device-detect';
 
 
 export function Login() {
 
   const { state } = useLocation();
-  // const { planInvitation } = state.planInvitation || {};
-  // const { gameInvitation } = state.gameInvitation || {};
 
   const navigate = useNavigate()
 
-  // const isMobile = useIsMobile()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -73,11 +70,10 @@ export function Login() {
   let access = ""
 
   const saveAccessAndToken = (message: any) => {
-
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
     const token = messageParsed.token;
-    const id = messageParsed.id
+    const id = messageParsed.user_id
 
     dispatch(signIn({ token: token, access: access as Access, id: id }));
 
@@ -106,11 +102,10 @@ export function Login() {
       }
       else {
         if (state && state.planInvitation) {
-          navigate("/invite/plan#" + state.planInvitation)
+          navigate("/invite/plan/" + state.planInvitation)
         }
         else if (state && state.gameInvitation) {
-
-          navigate("/invite/game#" + state.gameInvitation)
+          navigate("/invite/game/" + state.gameInvitation)
         }
         else {
           navigate("/user_page")

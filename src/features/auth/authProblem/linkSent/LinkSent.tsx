@@ -6,6 +6,7 @@ import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import { Button } from "../../../../components/button/Button"
 import { useLocation, useNavigate } from "react-router-dom"
 import {isMobile} from 'react-device-detect';
+import { useEffect, useState } from "react"
 
 
 export function LinkSent() {
@@ -15,13 +16,25 @@ export function LinkSent() {
   const { email } = state || {};
 
 
+  const [maskedEmail, setMaskedEmail] = useState("")
   const maskEmail = (email: string) => {
+
     var name = email.split('@')[0]; 
     var domen = email.split('@')[1]; 
     var newName = name[0] + name.slice(0, name.length - 1).replace(/./g, '*')
-    return newName + "@" + domen;
+    setMaskedEmail(newName + "@" + domen)
   }
 
+  useEffect(() => {
+    console.log(email)
+    
+    if (!email) {
+      navigate("/user_page")
+      return;
+    }
+    maskEmail(email)
+    
+  }, []);
   return (
     <div>
       <div className={styles.container}>
@@ -42,7 +55,7 @@ export function LinkSent() {
         <div className={styles.text}>
           Мы отправили электронное письмо на адрес {" "}
           <span className={styles.email}>
-            {maskEmail(email)}
+            {maskedEmail}
           </span>
           {" "} с временным паролем.
         </div>

@@ -49,30 +49,19 @@
 
 }
 
+.date {
+  color: rgba(255, 255, 255, 0.39);
 
-.email {
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 35px;
-  letter-spacing: -0.05em;
-  display: flex;
+  font-size: 15.817px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.76%;
+  /* 32.117px */
+  letter-spacing: -1.141px;
   align-items: center;
-  color: #595959;
-  width: 350px;
 
-
-}
-
-
-
-.period {
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 35px;
-  letter-spacing: -0.05em;
   display: flex;
-  align-items: center;
-  color: #595959;
+
 
 }
 

@@ -177,7 +177,7 @@ export function PlanUsersPage() {
           null
         )}
       </div>
-      {inviteUserOpen ? <InvitePopup token={token} closePopup={closeInviteUserPopup} invitationCode={invitationCode} /> : null}
+      {inviteUserOpen ? <InvitePopup closePopup={closeInviteUserPopup} invitationCode={invitationCode} planId={holderPlanId}/> : null}
     </div>
   )
 }

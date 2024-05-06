@@ -4,9 +4,16 @@ import { Button } from "../../../../../components/button/Button"
 import styles from "./InvitePopup.module.css"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { IconButton } from "@mui/material";
+import validator from "validator";
 import { SearchBar } from "../../../../../components/searchBar/SearchBar";
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import SendIcon from '@mui/icons-material/Send';
+import { useSelector } from "react-redux";
+import { selectId, selectToken } from "../../../../../store/authSlice";
+import { get, post, readServerError } from "../../../../../utils/api";
+import { useNavigate } from "react-router-dom";
+import telegramLogo from "../../../../../app/assets/telegram.png"
+import whatsappLogo from "../../../../../app/assets/whatsapp.png"
 
 type SearchUserModel = {
   id: string,
@@ -15,13 +22,18 @@ type SearchUserModel = {
 
 type Props = {
   closePopup: () => void;
-  token: string;
   invitationCode: string;
+  planId: string;
 
 }
 
 
 export function InvitePopup(props: Props) {
+
+  const token = useSelector(selectToken)
+
+  const id = useSelector(selectId)
+
   const [copiedHidden, setCopiedHidden] = useState(true);
   const copyLink = () => {
     navigator.clipboard.writeText(link)
@@ -32,26 +44,78 @@ export function InvitePopup(props: Props) {
 
   }
 
+  const [email, setEmail] = useState("")
+
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
+  const getEmailErrorMessage = () => {
+    if (!validator.isEmail(email)) {
+      return "Некорректно введен адрес эл. почты"
+    }
+
+    return null
+  }
+  var emailErrorMessage = getEmailErrorMessage()
+
+
+  const sendEmailInvite = () => { ///////////////////////////////
+    setFormSubmitted(true)
+    if (emailErrorMessage != null) {
+      return;
+    }
+
+
+
+  }
+
 
 
   const [users, setUsers] = useState<SearchUserModel[]>([])
 
   const [currentUser, setCurrentUser] = useState<SearchUserModel>()
 
-  const addUsers = () => {
-    const users = []
-    for (let i = 0; i < 10; i++) {
+  const readUsers = (message: any) => {
 
+    const messageParsed = JSON.parse(message);
+
+    const usersNum = (messageParsed.data.length);
+
+    const userModels = [];
+    for (let i = 0; i < usersNum; i++) {
+      var isYou = (messageParsed.data[i].id == id) ////////////////
+      if (isYou)
+        continue;
+      var access = messageParsed.data[i].access
+      if (access == "admin" || access == "superadmin")
+        continue;
       const userModel = {
-        id: i.toString(),
-        key: "Имя Фамилия Email",
+        id: messageParsed.data[i].id,
+        key: messageParsed.data[i].first_name + " " + messageParsed.data[i].second_name + " " + messageParsed.data[i].email
+
       }
-      users.push(userModel)
+      userModels.push(userModel)
 
     }
-    setUsers(users)
+    setUsers(userModels)
 
   }
+
+  const fetchUsers = async () => {
+
+    try {
+      const response = await get('users/list', token)
+      readUsers(response.text)
+      return;
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
 
   const [link, setLink] = useState("")
 
@@ -60,36 +124,51 @@ export function InvitePopup(props: Props) {
 
   const addUser = () => {
     if (findUserHidden == true) {
-      // fetchAllTags()
-
       setFindUserHidden(false)
-
-
     }
     else {
       if (currentUser == null) {
         return;
       }
+      inviteUser()
 
 
-      ///tbd add user
       setFindUserHidden(true)
 
     }
   }
 
+  const inviteUser = async () => {
+    const data = {
+      "user_id": currentUser?.id
+    }
+    try {
+      const response = await post('plans/invite/' + props.planId, data, token)
 
 
-  const fetchLink = () => {
-    setLink("localhost:5173/invite/plan#" + props.invitationCode)
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
 
   }
 
+
+
+  const fetchLink = () => {
+    setLink("localhost:5173/invite/plan/" + props.invitationCode)
+
+  }
+
+  const text = "Вас пригласили присоединиться к плану доступа в Connecteam! Перейдите по ссылке, чтобы принять приглашение."
+
+
+
   useEffect(() => {
-
+    fetchUsers()
     fetchLink()
-
-    addUsers()
   }, []);
 
   return (
@@ -134,6 +213,16 @@ export function InvitePopup(props: Props) {
 
 
         </div>
+        <input className={styles.input} placeholder="Эл. адрес" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
+
+        {formSubmitted && (emailErrorMessage) ? (
+          <div className={styles.errorMessage}>
+            {emailErrorMessage}
+          </div>
+        ) : (
+          null
+        )}
+        <Button text={"Отправить"} onClick={sendEmailInvite} className={styles.sendButton} />
 
         <div className={styles.buttons}>
           {!findUserHidden ? <SearchBar data={users} onSelectedChange={setCurrentUser} placeholder="Поиск пользователя..." /> : null}
@@ -150,8 +239,18 @@ export function InvitePopup(props: Props) {
 
 
         </div>
-
-        <Button text={"Отправить через соц. сети"} onClick={() => null} className={styles.copyButton} />
+        <div className={styles.logos}>
+          <div className={styles.logo}>
+            <img src={telegramLogo} onClick={() => {
+              window.open("https://telegram.me/share/url?url=" + link + "&text=" + text, "_blank");
+            }} />
+          </div>
+          <div className={styles.logo}>
+            <img src={whatsappLogo} onClick={() => {
+              window.open("https://wa.me/?text=" + link + " " + text, "_blank");
+            }} />
+          </div>
+        </div>
 
       </div>
 

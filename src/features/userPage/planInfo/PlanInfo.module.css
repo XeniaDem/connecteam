@@ -54,6 +54,7 @@
   display: flex;
   height: 100px;
   align-items: baseline;
+  position: relative;
 }
 .new {
   width: 20px;

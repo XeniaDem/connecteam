@@ -39,10 +39,13 @@ export function CreateGame() {
 
 
   const [invitationCode, setInvitationCode] = useState("")
-  const readInvitationCode = (message: any) => {
+  const [gameId, setGameId] = useState("")
+  const readGameData = (message: any) => {
+    console.log(message)
     var messageParsed = JSON.parse(message);
   
     setInvitationCode(messageParsed.invitation_code)
+    setGameId(messageParsed.id)
 
 
   }
@@ -73,7 +76,7 @@ export function CreateGame() {
       const response = await post('games/', data, token)
       setCreateError("")
       setGameCreated(true);
-      readInvitationCode(response.text)
+      readGameData(response.text)
      
      
 
@@ -102,7 +105,7 @@ export function CreateGame() {
 
   }
   const openCopyPopup = () => {
-    navigator.clipboard.writeText("localhost:5173/invite/game#" + invitationCode)
+    navigator.clipboard.writeText("localhost:5173/invite/game/" + invitationCode)
     setCopyOpen(true)
     setTimeout(() => {
       setCopyOpen(false);
@@ -205,12 +208,12 @@ export function CreateGame() {
                 Игра успешно создана!
               </div>
               <Button text={"Добавить участника"} onClick={openInvitePopup} className={styles.inviteButton} />
-              <Button text={"Скопировать ссылку на игру"} onClick={openCopyPopup} className={styles.inviteButton} />
+              <Button text={"Скопировать ссылку-приглашение"} onClick={openCopyPopup} className={styles.inviteButton} />
             </div>
           }
         </div>
       </div>
-      {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} /> : null}
+      {inviteOpen ? <InvitePopup invitationCode = {invitationCode} gameId={gameId} closePopup={closeInvitePopup} /> : null}
       {copyOpen ? <CopyPopup /> : null}
     </div>
   )

@@ -46,6 +46,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
   const [notificationsHidden, setNotificationsHidden] = useState(true)
 
+  const [notificationsCount, setNotificationsCount] = useState(0)
+
 
   const fetchPreviousPlans = async () => {
     try {
@@ -54,6 +56,23 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
       if (JSON.parse(response.text).data == null) {
         setTrialApplicable(true)
       }
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+
+  }
+
+  const fetchNotifications = async () => {
+    try {
+
+      const response = await get('notifications/', token)
+      setNotificationsCount(JSON.parse(response.text).data ? JSON.parse(response.text).data.length : 0)
+      return;
+      
 
     }
     catch (error: any) {
@@ -80,6 +99,14 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
   }, [savedPlan]);
 
+  useEffect(() => {
+    fetchNotifications()
+
+
+
+
+  }, []);
+
 
 
 
@@ -94,7 +121,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
             Добро пожаловать, {name} {" "} {surname}!
           </div>
           <div className={styles.notifications}>
-            <IconButton onClick={() => setNotificationsHidden(!notificationsHidden)}>
+            <IconButton onClick={() => setNotificationsHidden(false)}>
               <svg width={0} height={0}>
                 <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
                   <stop offset={0} stopColor="#55C6F7" />
@@ -103,9 +130,9 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
               </svg>
               <NotificationsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>
-            <div className={styles.new}>
-              1
-            </div>
+            {notificationsCount > 0 && <div className={styles.new}>
+              {notificationsCount}
+            </div>}
           </div>
         </div>
 

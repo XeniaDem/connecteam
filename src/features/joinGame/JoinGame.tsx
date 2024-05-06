@@ -7,7 +7,7 @@ import logoSmall from "../../app/assets/logoSmall.svg"
 import { Button } from "../../components/button/Button"
 import { useEffect, useState } from "react"
 import { get, post, readServerError } from "../../utils/api"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectToken } from "../../store/authSlice"
 import { isMobile } from "react-device-detect"
@@ -19,7 +19,9 @@ export function JoinGame() {
   const location = useLocation()
 
   const token = useSelector(selectToken)
-  const code = location.hash.slice(1);
+
+  let {code} = useParams<{code?: string}>();
+  
   const [gameName, setGameName] = useState("")
   const [gameDate, setGameDate] = useState("")
   const [gameStatus, setGameStatus] = useState("")
@@ -69,7 +71,7 @@ export function JoinGame() {
   }
 
   const validatePathname = async () => {
-    if (!code || code == "") {
+    if (!code) {
       token == "" ? navigate("/") : navigate("/user_page")
     }
     try {
@@ -125,11 +127,14 @@ export function JoinGame() {
           const response = await post('games/' + code, undefined, token)
           setJoinError("")
         }
-        navigate("/game", { state: { gameId: gameId } })
+        navigate("/game/" + gameId, { state: { gameId: gameId } })
         // подключение к веб-сокет серверу
       }
       if (gameStatus == "finished") {
         //////////////////
+      }
+      if (gameStatus == "cancelled") {
+         setJoinError("Игра отменена")
       }
 
     }
@@ -144,7 +149,7 @@ export function JoinGame() {
 
   const [isCreator, setIsCreator] = useState(false)
   useEffect(() => {
-    console.log(gameStatus)
+    console.log(code)
     validatePathname()
     if (token != "")
       fetchMe()

@@ -47,7 +47,6 @@ export function Header (props: Props) {
 
     }
     setPlanInfo(planInfo);
-    console.log("jdjdj "+ planInfo)
 
   }
 

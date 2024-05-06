@@ -137,18 +137,19 @@ const router = createBrowserRouter([
 
     children: [
       {
-        path: "plan",
+        path: "plan/:code",
         element: <JoinPlan/>,
+        
       },
       {
-        path: "game",
+        path: "game/:code",
         element: <JoinGame/>,
       },
     ],
   },
 
   {
-    path: "game",
+    path: "game/:gameId",
     element: <GamePage />,
   },
   
