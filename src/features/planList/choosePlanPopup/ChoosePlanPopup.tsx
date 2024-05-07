@@ -95,7 +95,6 @@ export function ChoosePlanPopup(props: Props) {
 
 
   const handlePurchase = async (plan: string, returnUrl: string) => {
-
     const data = {
       "plan": plan,
       "return_url": returnUrl
@@ -105,17 +104,12 @@ export function ChoosePlanPopup(props: Props) {
     try {
       const response = await post('payment/', data, token)
       dispatch(setPurchaseData({ orderId: JSON.parse(response.text).order_id, planId: props.currentPlan?.id }));
-
       document.location.href = (JSON.parse(response.text).confirmation_url)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
-
   }
 
   useEffect(() => {

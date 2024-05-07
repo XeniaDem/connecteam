@@ -57,7 +57,7 @@ export function AuthProblem() {
     }
     try {
       const response = await patch('auth/password', data)
-      navigate("link_sent", { state: { email: email } })
+      navigate("/auth/link_sent", { state: { email: email } })
     }
     catch (error: any) {
       setRestoreError(readRestoreError(error.response.text))

@@ -77,6 +77,7 @@ export function Notification({ savedNotification, onChange }: Props) {
   }
 
 
+  const [planId, setPlanId] = useState<string>()
   const [planHolderId, setPlanHolderId] = useState<string>()
   const [planInvitationCode, setPlanInvitationCode] = useState<string>()
 
@@ -84,6 +85,7 @@ export function Notification({ savedNotification, onChange }: Props) {
   const savePlanData = (message: any) => {
     console.log("abc " + message)
     var messageParsed = JSON.parse(message);
+    setPlanId(messageParsed.id)
     setPlanHolderId(messageParsed.holder_id)
     setPlanInvitationCode(messageParsed.invitation_code)
 
@@ -165,7 +167,6 @@ export function Notification({ savedNotification, onChange }: Props) {
     }, []);
 
     useEffect(() => {
-      console.log("kjjnx")
       gameCreatorId && fetchInvitor(gameCreatorId)
     }, [gameCreatorId]);
 
@@ -177,7 +178,7 @@ export function Notification({ savedNotification, onChange }: Props) {
 
 
 
-    const [isAccepted, setIsAccepted] = useState(false)
+    // const [isAccepted, setIsAccepted] = useState(false)
 
     /////////////////////////////////
 
@@ -258,34 +259,40 @@ export function Notification({ savedNotification, onChange }: Props) {
 
     useEffect(() => {
       fetchPlan()
-      fetchMyPlan()
+      // fetchMyPlan()
     }, []);
 
     useEffect(() => {
       planHolderId && fetchInvitor(planHolderId)
     }, [planHolderId]);
 
+    // const [currentPlanId, setCurrentPlanId] = useState<string>()
 
-    const [currentPlanId, setCurrentPlanId] = useState<string>()
+    // useEffect(() => {
+    //   console.log(planHolderId)
+    //   console.log(currentPlanId)
+    // }, []);
 
-    const readPlanInfo = (message: any) => {
-      if (message == "") {
-        return;
-      }
-      const messageParsed = JSON.parse(message);
-      setCurrentPlanId(messageParsed.id);
-    }
 
-    const fetchMyPlan = async () => {
-      try {
-        const response = await get('plans/current', token)
-        readPlanInfo(response.text)
-      }
-      catch (error: any) {
-        readServerError(error.response.text)
-        console.log("error:", error)
-      }
-    }
+
+    // const readPlanInfo = (message: any) => {
+    //   if (message == "") {
+    //     return;
+    //   }
+    //   const messageParsed = JSON.parse(message);
+    //   setCurrentPlanId(messageParsed.id);
+    // }
+
+    // const fetchMyPlan = async () => {
+    //   try {
+    //     const response = await get('plans/current', token)
+    //     readPlanInfo(response.text)
+    //   }
+    //   catch (error: any) {
+    //     readServerError(error.response.text)
+    //     console.log("error:", error)
+    //   }
+    // }
 
 
 
@@ -305,7 +312,7 @@ export function Notification({ savedNotification, onChange }: Props) {
           <div className={styles.group}>
 
             <div className={styles.controlButtons}>
-              {currentPlanId != planHolderId && (<IconButton onClick={() => navigate("/invite/plan/" + planInvitationCode)}>
+              {(<IconButton onClick={() => navigate("/invite/plan/" + planInvitationCode)}>
                 <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
               </IconButton>)}
 

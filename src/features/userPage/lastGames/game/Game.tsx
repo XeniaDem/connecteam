@@ -83,10 +83,42 @@ export function Game({ savedGame, isCreator }: Props) {
 
   }
 
-  const handleNameEdit = () => {
-    if (!nameEditing) {
-      setNameEditing(!nameEditing);
+  const editName = async () => {
+    const data = {
+      "name": gameName
     }
+    try {
+      const response = await patch('games/' + savedGame.id + '/name', data, token)
+      window.location.reload()
+
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+  }
+
+  const editDate = async () => {
+    console.log(new Date(gameDate).toISOString())
+    const data = {
+      "start_date": new Date(gameDate).toISOString()
+    }
+    try {
+      const response = await patch('games/' + savedGame.id + '/date', data, token)
+      window.location.reload()
+
+
+    }
+    catch (error: any) {
+      readServerError(error.response.text)
+      console.log("error:", error)
+    }
+
+  }
+
+  const handleNameEdit = () => {
 
     if (nameEditing) {
 
@@ -94,15 +126,12 @@ export function Game({ savedGame, isCreator }: Props) {
         if (gameName.trim().length < 3) {
           return;
         }
-        setNameEditing(!nameEditing);
-        //editName() //tbd
+        editName()
 
       }
-      else {
-        setNameEditing(!nameEditing);
-        // alert("Ничего не сохраняем")
-      }
     }
+    setNameEditing(!nameEditing);
+
 
   }
 
@@ -117,9 +146,8 @@ export function Game({ savedGame, isCreator }: Props) {
         if (gameDate == "") {
           return;
         }
-        // alert("topicchange")
+        editDate()
         setDateEditing(!dateEditing);
-        // editDate() //tbd
 
       }
       else {

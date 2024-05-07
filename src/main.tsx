@@ -26,12 +26,19 @@ import { JoinGame } from "./features/joinGame/JoinGame"
 import { InviteLayout } from "./layouts/inviteLayout/InviteLayout"
 import { GamePage } from "./features/gamePage/GamePage"
 import { PurchaseResult } from "./features/planList/purchaseResult/PurchaseResult"
+import { PageNotFound } from "./features/pageNotFound/PageNotFound"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <App />
+    ),
+  },
+  {
+    path: "*",
+    element: (
+      <PageNotFound />
     ),
   },
 
@@ -54,7 +61,7 @@ const router = createBrowserRouter([
         element: <AuthProblem />,
       },
       {
-        path: "forgot_password/link_sent",
+        path: "link_sent",
         element: <LinkSent/>,
       },
     ],

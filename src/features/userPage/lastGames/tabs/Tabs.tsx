@@ -33,7 +33,7 @@ export function Tabs(props: Props) {
     const [games, setGames] = useState<GameModel[] | null>(null)
 
     const readGames = (message: any) => {
-        console.log("num " + games?.length)
+        console.log("games num " + games?.length)
         const messageParsed = JSON.parse(message);
         if (messageParsed.data == null) {
             return;
