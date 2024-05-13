@@ -4,8 +4,6 @@ import { RootState} from "./store"
 export interface PurchaseState {
   orderId: string;
   planId: string | undefined;
-
-  
 }
 
 
@@ -26,13 +24,7 @@ export const purchaseSlice = createSlice({
       localStorage.setItem("orderId", action.payload.orderId)
       localStorage.setItem("planId", action.payload.planId || "")
     },
-
-
-
-
   },
-
-
 })
 
 export const { setPurchaseData } = purchaseSlice.actions

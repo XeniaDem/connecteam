@@ -16,6 +16,7 @@ export type Plan = {
   status: string;
   invitationCode?: string;
   isTrial: boolean;
+  holderId?: string;
 }
 
 type Props = {

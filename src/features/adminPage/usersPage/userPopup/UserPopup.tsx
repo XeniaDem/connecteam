@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Button } from "../../../../components/button/Button"
 import styles from "./userPopup.module.css"
@@ -10,8 +9,6 @@ import ellipse2 from "../../../../app/assets/ellipse2.svg"
 import defaultPhoto from "../../../../app/assets/defaultphoto.svg"
 import { useSelector } from "react-redux";
 import { selectAccess, selectToken } from "../../../../store/authSlice";
-
-
 
 type Props = {
   closePopup: () => void;
@@ -27,19 +24,15 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   const token = useSelector(selectToken)
   const myAccess = useSelector(selectAccess)
 
-
   const [access, setAccess] = useState("")
   const [planType, setPlanType] = useState<string | undefined>("")
   const [expiryDate, setExpiryDate] = useState<string | undefined>("")
-
 
   const [planChanging, setPlanChanging] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
 
 
-
   const readPlan = () => {
-
     if (planType == undefined)
       return ("Нет доступа")
     if (planType == "basic")
@@ -63,9 +56,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   }
 
   const onPlanValueChange = (value: { label: any; }) => {
-
     if (value.label == readPlan()) {
-      // setNewPlan("")
       setPlanChanging(false)
       return;
     }
@@ -74,17 +65,15 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
   }
 
-
   const getErrorMessage = () => {
-
     if (expiryDate == undefined) {
       return ("Выберите дату истечения плана")
     }
     return null
   }
   var errorMessage = getErrorMessage()
+
   const changePlan = async () => {
-    // alert (expiryDate && new Date(expiryDate).toISOString())
     setFormSubmitted(true)
     if (errorMessage != null) {
       return;
@@ -131,9 +120,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
       access: newAccess
     }
     try {
-
       const response = await patch('users/access', data, token)
-      // setNewPlan("")
       setPlanChanging(false)
       closePopup()
 
@@ -155,35 +142,9 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   }, [savedUser]);
 
 
-
-
-  // const getDuration = () => {
-  //   // const today = new Date().toISOString().split('T')[0]
-  //   let today = new Date()
-  //   let expiry = new Date(expiryDate)
-
-  //   let timeDuration =
-  //     expiry.getTime() - today.getTime();
-
-  //   // Calculating the no. of days between
-  //   // two dates
-  //   let daysDuration =
-  //     Math.round
-  //       (timeDuration / (1000 * 3600 * 24));
-
-  //   return (daysDuration)
-
-  // }
-
-
   return (
-
-
-
     <div className={styles.background}>
       <div className={styles.container}>
-
-
         <div className={styles.close}>
           <Button text={""} onClick={closePopup} className={styles.closeButton} />
         </div>
@@ -236,18 +197,13 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
               {myAccess == "superadmin" ? (
                 <div className={styles.makeAdmin}>
-
                   <Button text={access == "admin" ? "Убрать доступ администратора" : "Назначить администратором"}
                     onClick={changeAccess} className={styles.footerButton} />
-
                 </div>
 
               ) : (
                 null
               )}
-
-
-
             </div>
           </div>
         </div>
@@ -255,20 +211,16 @@ export function UserPopup({ savedUser, closePopup }: Props) {
         {formSubmitted && (errorMessage) ? (
           <div className={styles.errorMessage}>
             {errorMessage}
-
           </div>
-
         ) : (
           null
         )}
         {planChanging ? (
           <Button text={"Сохранить"} onClick={changePlan} className={styles.saveButton} />
-
         ) : (
           null
         )}
       </div>
-
     </div>
   )
 }

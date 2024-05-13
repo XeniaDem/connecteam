@@ -19,7 +19,6 @@ export type QuestionModel = {
   number: number;
   id: string;
   tags: TagModel[];
-
 }
 
 type Props = {
@@ -144,7 +143,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
       <div className={styles.group}>
         <div className={styles.counter}>
-          Вопрос {" "} {savedQuestion.number}
+          {savedQuestion.number} {"."}
         </div>
 
         <div className={styles.smallGroup}>

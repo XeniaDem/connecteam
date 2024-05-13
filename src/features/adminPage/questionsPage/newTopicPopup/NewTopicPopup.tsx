@@ -87,7 +87,7 @@ export function NewTopicPopup(props: Props) {
             </div>)}
           </div>
 
-          <Button text={"Добавить тему"} onClick={addTopic} className={styles.addButton} />
+          <Button text={"Добавить"} onClick={addTopic} className={styles.addButton} />
 
         </div>
       </div>

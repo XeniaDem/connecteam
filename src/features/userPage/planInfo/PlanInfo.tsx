@@ -11,11 +11,13 @@ import { useNavigate } from "react-router-dom"
 import { isMobile } from 'react-device-detect';
 import { useGetDimensions } from "../../../app/hooks/useGetDimensions"
 import { useSelector } from "react-redux"
-import { selectToken } from "../../../store/authSlice"
-import { get, readServerError } from "../../../utils/api"
+import { selectId, selectToken } from "../../../store/authSlice"
+import { get, patch, readServerError } from "../../../utils/api"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { IconButton } from "@mui/material"
 import { NotificationsCenter } from "./notificationCenter/NotificationsCenter"
+import { NotificationModel, NotificationType } from "./notificationCenter/notification/Notification"
+import { GameModel } from "../lastGames/game/Game"
 
 
 
@@ -31,9 +33,13 @@ type Props = {
 export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const token = useSelector(selectToken)
 
+  const id = useSelector(selectId)
+
   const width = useGetDimensions()[0]
   const height = useGetDimensions()[1]
   const navigate = useNavigate()
+
+
 
 
   const [planType, setPlanType] = useState<string | undefined>()
@@ -45,8 +51,6 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const [trialApplicable, setTrialApplicable] = useState(false)
 
   const [notificationsHidden, setNotificationsHidden] = useState(true)
-
-  const [notificationsCount, setNotificationsCount] = useState(0)
 
 
   const fetchPreviousPlans = async () => {
@@ -66,13 +70,172 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
   }
 
+  const [notifications, setNotifications] = useState<NotificationModel[]>()
+
+  const readNotifications = async (message: any) => {
+    console.log(message)
+    const messageParsed = JSON.parse(message);
+
+    if (messageParsed.data == null) {
+      return;
+    }
+    const notificationsNum = messageParsed.data.length;
+    const notificationsModels = [];
+    for (let i = 0; i < notificationsNum; i++) {
+      const payload = messageParsed.data[i].payload
+      const type = messageParsed.data[i].type
+      var notificationModel: NotificationModel
+      if (type == "invite-game" || type == "game-cancel" || type == "game-start") {
+        var gameData: GameModel;
+        try {
+          var response;
+          response = await get('games/' + payload, token)
+          gameData = {
+            id: JSON.parse(response.text).id,
+            name: JSON.parse(response.text).name,
+            date: (new Date(JSON.parse(response.text).start_date)).toLocaleString().slice(0, -3),
+            invitationCode: JSON.parse(response.text).invitation_code,
+            creatorId: JSON.parse(response.text).creator_id
+          }
+          response = await get('users/' + gameData.creatorId, token)
+          const invitor = JSON.parse(response.text).first_name + " " + JSON.parse(response.text).second_name
+
+          var accepted;
+          if (type == "invite-game") {
+            response = await get('games/' + gameData.id + '/members', token)
+            const membersNum = JSON.parse(response.text).members.length
+            const membersIds = []
+            for (let j = 0; j < membersNum; j++) {
+              membersIds.push(JSON.parse(response.text).members[j].id)
+            }
+            if (membersIds.includes(id)) {
+              accepted = true;
+            }
+
+          }
+          notificationModel = {
+            type: messageParsed.data[i].type,
+            date: new Date(messageParsed.data[i].date).toLocaleString(),
+            game: gameData,
+            invitor: invitor,
+            accepted: accepted,
+            seen: messageParsed.data[i].seen /////////////////
+          }
+          notificationsModels.push(notificationModel)
+        }
+        catch (error: any) {
+          readServerError(error.response.text)
+          console.log("error:", error)
+        }
+        continue;
+
+
+      }
+      else if (type == "invite-sub" || type == "delete-sub") {
+        var planData: Plan;
+        try {
+          var response;
+          response = await get('plans/' + payload, token)
+          planData = {
+            id: JSON.parse(response.text).id,
+            invitationCode: JSON.parse(response.text).invitation_code,
+            holderId: JSON.parse(response.text).holder_id,
+            planType: "",
+            planAccess: "",
+            expiryDate: "",
+            status: "",
+            isTrial: false,
+
+          }
+          response = await get('users/' + planData.holderId, token)
+          const invitor = JSON.parse(response.text).first_name + " " + JSON.parse(response.text).second_name
+
+          var accepted;
+          if (type == "invite-sub") {
+            response = await get('plans/current', token)
+            if (response.text)
+              var currentPlanId = JSON.parse(response.text).id
+            accepted = currentPlanId == planData.id
+
+          }
+          notificationModel = {
+            type: messageParsed.data[i].type,
+            date: new Date(messageParsed.data[i].date).toLocaleString(),
+            plan: planData,
+            invitor: invitor,
+            accepted: accepted,
+            seen: messageParsed.data[i].seen /////////////////
+
+          }
+          notificationsModels.push(notificationModel)
+        }
+        catch (error: any) {
+          readServerError(error.response.text)
+          console.log("error:", error)
+        }
+
+
+      }
+
+    }
+    // gameData = {
+    //   id: "",
+    //   name: "Game 1",
+    //   date: (new Date().toLocaleString()).slice(0, -3),
+    //   invitationCode: "",
+    //   creatorId: ""
+    // }
+    // planData = {
+    //   id: "",
+    //   invitationCode: "",
+    //   holderId: "",
+    //   planType: "",
+    //   planAccess: "",
+    //   expiryDate: "",
+    //   status: "",
+    //   isTrial: false,
+
+    // }
+    // const cancelGame = {
+    //   type: NotificationType.CancelGameNotification,
+    //   date: new Date().toLocaleString(),
+    //   game: gameData,
+    //   invitor: "",
+    //   seen: false
+
+    // }
+    // const startGame = {
+    //   type: NotificationType.StartGameNotification,
+    //   date: new Date().toLocaleString(),
+    //   game: gameData,
+    //   invitor: "",
+    //   seen: false
+
+    // }
+    // const deleteSub = {
+    //   type: NotificationType.DeleteFromSubNotification,
+    //   date: new Date().toLocaleString(),
+    //   game: gameData,
+    //   invitor: "User 2",
+    //   seen: false
+
+    // }
+    // notificationsModels.push(cancelGame)
+    // notificationsModels.push(startGame)
+    // notificationsModels.push(deleteSub)
+    notificationsModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    setNotifications(notificationsModels);
+
+
+  }
+
   const fetchNotifications = async () => {
     try {
 
       const response = await get('notifications/', token)
-      setNotificationsCount(JSON.parse(response.text).data ? JSON.parse(response.text).data.length : 0)
-      return;
-      
+      readNotifications(response.text)
+
 
     }
     catch (error: any) {
@@ -82,6 +245,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
 
   }
+
 
 
 
@@ -99,10 +263,11 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
   }, [savedPlan]);
 
+
+ 
+
   useEffect(() => {
     fetchNotifications()
-
-
 
 
   }, []);
@@ -130,8 +295,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
               </svg>
               <NotificationsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>
-            {notificationsCount > 0 && <div className={styles.new}>
-              {notificationsCount}
+            {notifications && notifications?.length > 0 && <div className={styles.new}>
+              {notifications?.length}
             </div>}
           </div>
         </div>
@@ -185,7 +350,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
       </div>
 
-      {!notificationsHidden ? <NotificationsCenter onBlur={() => setNotificationsHidden(true)}/> : null}
+      {!notificationsHidden ? <NotificationsCenter onBlur={() => {setNotificationsHidden(true); fetchNotifications()}} notifications={notifications} /> : null}
 
     </div>
   )

@@ -22,6 +22,7 @@ import { Audio } from "./components/audio/Audio";
 import { useParams } from "react-router-dom";
 
 
+
 interface CommonGameScreenElementsProps {
     gameStarted: boolean;
     children: ReactNode
@@ -36,7 +37,7 @@ export function GamePage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const game = useSelector(selectGame)
-    
+
     let { gameId } = useParams();
 
     const [error, setError] = useState("")
@@ -127,9 +128,9 @@ export function GamePage() {
         const sender = messageObject.sender
         const senderId = sender.id
 
-        const topics = JSON.stringify(messageObject.target.topics)
+        // const topics = JSON.stringify(messageObject.payload.topics)
 
-        dispatch(setRounds({ topics: topics, roundsNum: messageObject.target.topics.length }))
+        // dispatch(setRounds({ topics: topics, roundsNum: messageObject.target.topics.length }))
 
         const game = store.getState().game
         const id = game.userId
@@ -146,12 +147,12 @@ export function GamePage() {
 
         const sender = messageObject.sender
         const senderId = sender.id
-        const targetGame = messageObject.target
+        const payload = messageObject.payload
         const game = store.getState().game
 
-        const currentScreen = game.currentScreen != GameScreen.WaitGame ? game.currentScreen : (sender.id == targetGame.creator_id ? GameScreen.ChooseTopics : GameScreen.WaitGame)
+        const currentScreen = game.currentScreen != GameScreen.WaitGame ? game.currentScreen : (sender.id == payload.creator_id ? GameScreen.ChooseTopics : GameScreen.WaitGame)
 
-        gameId && dispatch(setGame({ name: targetGame.name, date: targetGame.date, id: gameId, creatorId: targetGame.creator_id, userId: senderId }))
+        gameId && dispatch(setGame({ name: payload.name, date: payload.date, id: gameId, creatorId: payload.creator_id, userId: senderId }))
         dispatch(updateCurrentScreen({ currentScreen: currentScreen }))
 
 
@@ -169,8 +170,12 @@ export function GamePage() {
 
 
     const updatePlayers = (messageObject: any) => {
-        const targetGame = messageObject.target
-        const playersNum = targetGame.users.length
+        const payload = messageObject.payload
+        if (!payload.users) {
+            setPlayers(null)
+            return;
+        }
+        const playersNum = payload.users.length
         const playersModels = [];
 
         const game = store.getState().game
@@ -181,12 +186,12 @@ export function GamePage() {
         for (let i = 0; i < playersNum; i++) {
 
             const playerModel = {
-                id: targetGame.users[i].id,
-                isCreator: targetGame.users[i].id == creatorId,
-                isYou: targetGame.users[i].id == id,
-                isAnswering: targetGame.users[i].id == userAnsweringId,
+                id: payload.users[i].id,
+                isCreator: payload.users[i].id == creatorId,
+                isYou: payload.users[i].id == id,
+                isAnswering: payload.users[i].id == userAnsweringId,
                 connected: true, ////////////////
-                name: targetGame.users[i].name,
+                name: payload.users[i].name,
                 photoUrl: "" ///////////////////
             }
             playersModels.push(playerModel)
@@ -259,11 +264,11 @@ export function GamePage() {
                 onUserLeft(messageObject)
             }
             if (messageObject.action == "error") {
-                if (messageObject.payload.includes("maximum number")) {
+                if (messageObject.payload.message.includes("max number")) {
                     setError("Превышен лимит участников игры")
                     dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
                 }
-                if (messageObject.payload.includes("game in progress")) {
+                if (messageObject.payload.message.includes("game in progress")) {
                     setError("Игра уже начата")
                     dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
                 }
@@ -283,27 +288,36 @@ export function GamePage() {
     const joinGame = useCallback(() => {
         const message = JSON.stringify({
             action: "join-game",
-            target: { "id": gameId }
+            target: gameId
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
 
     }, [])
 
-    const chooseTopics = useCallback((selected: string[]) => {
+    const chooseTopics = useCallback((selected?: string[]) => {
         const currentGame = store.getState().game
-        const payload = []
-        for (let i = 0; i < selected.length; i++) {
-            payload.push({
-                id: selected[i],
+        var message;
+        if (selected) {
+            const payload = []
+            for (let i = 0; i < selected.length; i++) {
+                payload.push({
+                    id: selected[i],
+                })
+            }
+            message = JSON.stringify({
+                action: "select-topic",
+                target: gameId,
+                sender: { "id": currentGame.userId },
+                payload: payload
+            })
+        } else {
+            message = JSON.stringify({
+                action: "select-topic",
+                target: gameId,
+                sender: { "id": currentGame.userId },
             })
         }
-        const message = JSON.stringify({
-            action: "select-topic",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
-            payload: payload
-        })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
 
@@ -313,8 +327,8 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "start-game",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
+            target: gameId,
+            sender: { "id": currentGame.userId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -324,8 +338,8 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "start-round",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
+            target: gameId,
+            sender: { "id": currentGame.userId },
             payload: { "id": selected }
 
         })
@@ -338,8 +352,8 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "start-stage",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
+            target: gameId,
+            sender: { "id": currentGame.userId },
 
         })
         webSocketRef.current?.send(message)
@@ -351,8 +365,8 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "start-answer",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
+            target: gameId,
+            sender: { "id": currentGame.userId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -362,8 +376,8 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "end-answer",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
+            target: gameId,
+            sender: { "id": currentGame.userId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -374,9 +388,9 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "rate-user",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
-            payload: { "user_id": Number.parseInt(currentGame.userAnsweringId), "value": rating }
+            target: gameId,
+            sender: { "id": currentGame.userId },
+            payload: { "user_id": currentGame.userAnsweringId, "value": rating }
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -387,8 +401,8 @@ export function GamePage() {
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "leave-game",
-            target: { "id": gameId },
-            sender: { "id": Number.parseInt(currentGame.userId) },
+            target: gameId,
+            sender: { "id": currentGame.userId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -417,11 +431,11 @@ export function GamePage() {
                 }} className={styles.exitButton} />
             </div>
 
-
             {gameStarted ?
                 <div>
                     <div className={styles.players}>
-                        {!game.gameStarted && <Player joined={false} gameId={gameId} />}
+                        {/* {!game.gameStarted && <Player joined={false} gameId={gameId} />} */}
+
                         {players?.map(player =>
                             <div>
                                 <Player savedPlayer={player} joined={true} />
@@ -468,7 +482,7 @@ export function GamePage() {
         return (
             <div className={styles.container}>
                 <CommonGameScreenElements gameStarted={true} children
-                    ={<StartGame name={game.name} date={game.date} onButtonClicked={startGame} />} />
+                    ={<StartGame name={game.name} date={game.date} id ={gameId} onButtonClicked={startGame} />} />
             </div>
         )
     }

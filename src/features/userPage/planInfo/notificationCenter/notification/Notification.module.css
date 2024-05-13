@@ -3,6 +3,7 @@
   min-height: 82px;
 
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -15,7 +16,6 @@
 .group {
   display: flex;
   /* gap: 30px; */
-
   align-items: center;
   flex-wrap: wrap;
   row-gap: 0px;
@@ -34,7 +34,12 @@
 
   align-items: center;
   color: #FFF;
-  cursor: pointer;
+}
+
+.new {
+  display: flex;
+  justify-content: end;
+  /* margin-top: -20px; */
 }
 
 .nameActive {
@@ -67,6 +72,7 @@
 
 
 .footerButton {
+  padding: 0px;
   color: #5C5C5C;
   font-size: 16px;
   font-style: normal;

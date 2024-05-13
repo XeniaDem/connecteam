@@ -83,7 +83,7 @@ export function Timer(props: Props) {
           {time} <br /> {seconds(time)}
         </div>
 
-        {props.isCreator ? (
+        {/* {props.isCreator ? (
           <div className={styles.controlButtons}>
 
 
@@ -114,7 +114,7 @@ export function Timer(props: Props) {
           </div>
         ) : (
           null
-        )}
+        )} */}
       </div>
     </div>
   )

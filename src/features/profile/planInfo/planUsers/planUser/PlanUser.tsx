@@ -31,8 +31,6 @@ export function PlanUser({ planId, planUser, onChange }: Props) {
 
   const [removeUserOpen, setRemoveUserOpen] = useState(false);
 
-
-
   const openRemoveUserPopup = () => {
     disableScroll.on()
     setRemoveUserOpen(true)
@@ -45,14 +43,12 @@ export function PlanUser({ planId, planUser, onChange }: Props) {
   }
 
 
-
-
   return (
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.photo}>
-            {(planUser.photo == "") ? <PhotoCameraIcon fontSize={!isMobile ? "large" : "small"} sx={{ fill: "url(#linearColors)" }} /> : <img src={planUser.photo} />}
+            {(!planUser.photo) ? <PhotoCameraIcon fontSize={!isMobile ? "large" : "small"} sx={{ fill: "url(#linearColors)" }} /> : <img src={planUser.photo} />}
           </div>
 
           <div className={planUser.isHolder ? styles.nameActive : styles.name} >

@@ -13,28 +13,22 @@ import useAutosizeTextArea from "../../../../app/hooks/useAutoResizeTextArea";
 
 export function NewQuestionPage() {
 
-
-
   const navigate = useNavigate()
 
   const token = useSelector(selectToken)
 
-
   const [questionsText, setQuestionsText] = useState("");
-
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
 
   const getErrorMessage = () => {
     if (questionsText.trim() == "") {
-      return ("Введите текст вопроса.")
+      return ("Введите текст вопроса")
 
     }
   }
   var errorMessage = getErrorMessage()
-
-
 
 
   const addQuestions = async () => {
@@ -97,16 +91,11 @@ export function NewQuestionPage() {
     const file = files[0];
     reader.onload = (e: any) => {
       const fileContent = e.target.result;
-      // console.log(file);
       setQuestionsText(fileContent)
-
     };
-
-    // reader.onerror = (e) => alert(e.target.error.name);
     reader.readAsText(file);
-
-
   }
+
   return (
     <div>
       <div className={styles.container}>
@@ -127,14 +116,10 @@ export function NewQuestionPage() {
           Выбранная тема
         </div>
 
-
-
         <div className={styles.topic}>
           {topic && <Topic name={topic.name} withCheckBox={false}
             selected={true} onTopicClicked={() => null} />}
         </div>
-
-
 
         <div className={styles.subtitle}>
           Задайте вопрос
@@ -145,22 +130,15 @@ export function NewQuestionPage() {
           <div className={styles.filePicker}>
             <FilePicker onFilesSelected={showSelectedFile} />
           </div>
-
         </div>
         {errorMessage && formSubmitted && (<div className={styles.errorMessage}>
           {errorMessage}
-
         </div>)}
-
 
         <div className={styles.buttonContainer}>
           <Button text={"Добавить вопросы"} onClick={addQuestions} className={styles.addButton} />
         </div>
-
       </div>
-
-
-
     </div>
   )
 }

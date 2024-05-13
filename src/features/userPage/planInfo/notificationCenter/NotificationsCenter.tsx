@@ -1,55 +1,26 @@
-
-import { useEffect, useState } from "react";
-import { Button } from "../../../../components/button/Button"
 import styles from "./NotificationsCenter.module.css"
 import { OutsideClick } from 'outsideclick-react'
 import { Notification, NotificationModel } from "./notification/Notification";
-import { get, readServerError } from "../../../../utils/api";
-import { selectToken } from "../../../../store/authSlice";
+import { patch, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
+import { selectToken } from "../../../../store/authSlice";
 
 
 type Props = {
   onBlur: () => void;
+  notifications: NotificationModel[] | undefined;
 }
 
 
 export function NotificationsCenter(props: Props) {
-
-
   const token = useSelector(selectToken)
 
-  const [notifications, setNotifications] = useState<NotificationModel[]>()
-  const readNotifications = (message: any) => {
-    const messageParsed = JSON.parse(message);
 
-    if (messageParsed.data == null) {
-      return;
-    }
-    const notificationsNum = messageParsed.data.length;
-    const notificationsModels = [];
-    for (let i = 0; i < notificationsNum; i++) {
-      const notificationModel = {
-        type: messageParsed.data[i].type,
-        payload: messageParsed.data[i].payload,
-        date: new Date(messageParsed.data[i].date).toLocaleString()
-
-
-      }
-      notificationsModels.push(notificationModel)
-    }
-    setNotifications(notificationsModels);
-
-
-  }
-
-  const fetchNotifications = async () => {
+  const markNotificationsRead = async () => {
     try {
 
-      const response = await get('notifications/', token)
-      readNotifications(response.text)
-
-
+      const response = await patch('notifications/', undefined, token)
+      console.log("read")
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -60,47 +31,29 @@ export function NotificationsCenter(props: Props) {
   }
 
 
-  useEffect(() => {
-    fetchNotifications()
-
-
-  }, []);
-
-
-
-
-
   return (
     <OutsideClick
       onOutsideClick={() => {
+        markNotificationsRead()
         props.onBlur()
       }}
     >
       <div className={styles.container}>
-
-
         <div className={styles.title}>
           Центр уведомлений
         </div>
         <div className={styles.notifications}>
-          {notifications == null ? (
+          {props.notifications == null ? (
             <div className={styles.empty}>
               Нет уведомлений
             </div>
-
           ) : (
-
-            (notifications?.map(notification =>
+            (props.notifications?.map(notification =>
               <div>
-                <Notification savedNotification={notification} onChange={() => null} />
-
+                <Notification savedNotification={notification} />
               </div>
             ))
-
           )}
-
-
-
         </div>
       </div>
     </OutsideClick>

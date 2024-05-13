@@ -99,6 +99,7 @@
   line-height: 32.132px;
   /* 229.09% */
   margin-bottom: 16px;
+  z-index: 1;
 }
 
 .footerContainer {

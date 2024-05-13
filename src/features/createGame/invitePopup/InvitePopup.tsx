@@ -12,6 +12,7 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import SendIcon from '@mui/icons-material/Send';
 import telegramLogo from "../../../app/assets/telegram.png"
 import whatsappLogo from "../../../app/assets/whatsapp.png"
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 type SearchUserModel = {
   id: string,
@@ -32,7 +33,7 @@ export function InvitePopup(props: Props) {
   const token = useSelector(selectToken)
 
   const id = useSelector(selectId)
-  
+
   const [email, setEmail] = useState("")
 
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -45,6 +46,16 @@ export function InvitePopup(props: Props) {
     return null
   }
   var emailErrorMessage = getEmailErrorMessage()
+
+  const [copiedHidden, setCopiedHidden] = useState(true);
+  const copyLink = () => {
+    navigator.clipboard.writeText(link)
+    setCopiedHidden(false)
+    setTimeout(() => {
+      setCopiedHidden(true);
+    }, 3000);
+
+  }
 
 
   const sendEmailInvite = () => { ///////////////////////////////
@@ -162,11 +173,40 @@ export function InvitePopup(props: Props) {
         <div className={styles.close}>
           <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
         </div>
-
-
         <div className={styles.title}>
-          Укажите электронный адрес приглашаемого пользователя
+          Пригласите участника
         </div>
+        <div className={styles.linkContainer}>
+          <div className={styles.subtitle}>
+            Ссылка
+          </div>
+          <div className={styles.link}>
+            {link}
+            <IconButton onClick={copyLink}>
+              <svg width={0} height={0}>
+                <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                  <stop offset={0} stopColor="#55C6F7" />
+                  <stop offset={1} stopColor="#2AF8BA" />
+                </linearGradient>
+              </svg>
+              <ContentCopyIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            </IconButton>
+          </div>
+
+          <div className={styles.divider} />
+          <div className={styles.info}>
+            {!copiedHidden ? (<div className={styles.copied}>
+              Скопировано!
+            </div>
+            ) : (
+              null
+
+            )}
+          </div>
+
+
+        </div>
+
 
         <input className={styles.input} placeholder="Эл. адрес" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
 

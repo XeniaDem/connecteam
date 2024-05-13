@@ -100,9 +100,9 @@ export function CompanyInfo({ savedCompany, token, onChange }: Props) {
             <ImagePicker isUser={false} />
           </div>}
 
-          <Field isInput={true} title={"Название компании"} placeholder="Название" disabled={!isDataChanging} value={name} onValueChange={setName} />
-          <Field isInput={true} title={"Веб-сайт компании"} placeholder="Веб-сайт" disabled={!isDataChanging} value={website} onValueChange={setWebsite} />
-          <Field isTextArea={true} title={"О компании"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} />
+          <Field isInput={true} title={"Название компании"} placeholder="Название" disabled={!isDataChanging} value={name} onValueChange={setName} maxLength={64} />
+          <Field isInput={true} title={"Веб-сайт компании"} placeholder="Веб-сайт" disabled={!isDataChanging} value={website} onValueChange={setWebsite} maxLength={64}/>
+          <Field isTextArea={true} title={"О компании"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} maxLength={256} />
 
           <div className={styles.footerButtons}>
             <Button text={!isDataChanging ? "Редактировать данные" : "Сохранить"} onClick={handleDataChange} className={styles.footerButton} />

@@ -13,6 +13,10 @@ export const post = async <T extends Object>(url: string, body?: T, token?: stri
         if (error.status == 401) {
             document.location.href = "/auth/login"
         }
+        else if (error.message.includes('network is offline')) {
+            alert("Сервер недоступен.")
+            document.location.href = "/"
+        }
         throw error;
 
     }
@@ -32,6 +36,10 @@ export const put = async <T extends Object>(url: string, body?: T, token?: strin
         if (error.status == 401) {
             document.location.href = "/auth/login"
         }
+        else if (error.message.includes('network is offline')) {
+            alert("Сервер недоступен.")
+            document.location.href = "/"
+        }
         throw error;
 
     }
@@ -49,6 +57,10 @@ export const get = async (url: string, token?: string) => {
     } catch (error: any) {
         if (error.status == 401) {
             document.location.href = "/auth/login"
+        }  
+        else if (error.message.includes('network is offline')) {
+            alert("Сервер недоступен.")
+            document.location.href = "/"
         }
         throw error;
 
@@ -70,6 +82,10 @@ export const patch = async <T extends Object>(url: string, body?: T, token?: str
         if (error.status == 401) {
             document.location.href = "/auth/login"
         }
+        else if (error.message.includes('network is offline')) {
+            alert("Сервер недоступен.")
+            document.location.href = "/"
+        }
         throw error;
 
     }
@@ -87,6 +103,10 @@ export const Delete = async (url: string, token?: string) => {
     } catch (error: any) {
         if (error.status == 401) {
             document.location.href = "/auth/login"
+        }
+        else if (error.message.includes('network is offline')) {
+            alert("Сервер недоступен.")
+            document.location.href = "/"
         }
         throw error;
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styles from "./LastGames.module.css"
 import { Tab, Tabs } from "./tabs/Tabs";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -17,13 +18,18 @@ export function LastGames(props: Props) {
   const tabs: Tab[] = [
     {
       tabName: "Мои",
-
     },
     {
       tabName: "Участвую",
-
     }
   ];
+
+  // useEffect(() => {
+  //   console.log("2 " + props.userId)
+
+
+  // }, []);
+
   return (
     <div>
       <svg width={0} height={0}>
@@ -39,7 +45,7 @@ export function LastGames(props: Props) {
         <div className={styles.subtitle}>
           Кликните на кнопку <span> <KeyboardArrowRightIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> </span> чтобы посмотреть состояние игры
         </div>
-        <Tabs tabs={tabs} userId={props.userId}/>
+        <Tabs tabs={tabs} userId = {props.userId}/>
         {/* <div className={styles.filtration}>
           <Button text={""} onClick={function (): void {
             throw new Error("Function not implemented.")

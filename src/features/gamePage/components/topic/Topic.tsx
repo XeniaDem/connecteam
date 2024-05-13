@@ -8,8 +8,6 @@ export type TopicModel = {
   name: string;
   id: string;
   used?: boolean;
-
-
 }
 type Props = {
   name: string;

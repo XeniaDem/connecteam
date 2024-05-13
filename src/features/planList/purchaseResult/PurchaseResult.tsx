@@ -28,7 +28,7 @@ export function PurchaseResult() {
 
   const [purchaseResult, setPurchaseResult] = useState("")
 
-  const readPurchaseResult = (message: any) => {
+  const readPurchaseError = (message: any) => {
     var messageParsed = JSON.parse(message);
     var content = messageParsed.message;
     if (content.includes("already has") || content.includes("already succeeded")) { //////////////////
@@ -43,8 +43,7 @@ export function PurchaseResult() {
 
   }
 
-  const handlePurchase = async (type: string) => {
-
+  const handlePurchaseResult = async (type: string) => {
     const data = {
       "order_id": orderId,
     }
@@ -55,16 +54,13 @@ export function PurchaseResult() {
       } else if (type == "upgrade")  {
         response = await patch('plans/upgrade/' + planId, data, token)
       }
-      // response && setPurchaseResult(readPurchaseResult(response.text))
       setPurchaseResult("Вы успешно приобрели подписку")
       return;
     }
     catch (error: any) {
-      setPurchaseResult(readPurchaseResult(error.response.text))
+      setPurchaseResult(readPurchaseError(error.response.text))
       console.log("error:", error)
     }
-    // dispatch(setPurchaseData({orderId: "", planId: undefined}))
-
   }
 
 
@@ -72,11 +68,11 @@ export function PurchaseResult() {
 
 
     if (location.pathname == "/purchase/plan") {
-      handlePurchase("purchase")
+      handlePurchaseResult("purchase")
       return;
 
     } else if (location.pathname == "/purchase/upgrade") {
-      handlePurchase("upgrade")
+      handlePurchaseResult("upgrade")
 
     }
 

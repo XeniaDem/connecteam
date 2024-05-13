@@ -87,7 +87,7 @@ bottom: 0; */
   border: none;
 
 
-  background: url("../../../app/assets/close.svg") no-repeat;
+  background: url("../../../../../app/assets/close.svg") no-repeat;
   z-index: 2;
 
 }

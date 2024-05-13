@@ -41,6 +41,7 @@ export function QuestionsPage() {
       topicModels.push(topicModel)
 
     }
+    topicModels.sort((a, b) => a.name.localeCompare(b.name))
     setTopics(topicModels)
 
   }

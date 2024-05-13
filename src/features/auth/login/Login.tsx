@@ -74,6 +74,7 @@ export function Login() {
     access = messageParsed.access;
     const token = messageParsed.token;
     const id = messageParsed.user_id
+    console.log(message)
 
     dispatch(signIn({ token: token, access: access as Access, id: id }));
 

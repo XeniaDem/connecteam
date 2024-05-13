@@ -126,6 +126,7 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       }
       questionsModels.push(questionModel)
     }
+    questionsModels.sort((a, b) => a.text.localeCompare(b.text))
     setQuestions(questionsModels);
 
 

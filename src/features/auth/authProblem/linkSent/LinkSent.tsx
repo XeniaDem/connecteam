@@ -49,7 +49,7 @@ export function LinkSent() {
 
         </div>}
         <div className={styles.title}>
-          Ссылка отправлена
+          Письмо отправлено
 
         </div>
         <div className={styles.text}>

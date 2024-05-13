@@ -127,11 +127,11 @@ export function JoinGame() {
           const response = await post('games/' + code, undefined, token)
           setJoinError("")
         }
-        navigate("/game/" + gameId, { state: { gameId: gameId } })
+        navigate("/game/" + gameId)
         // подключение к веб-сокет серверу
       }
       if (gameStatus == "finished") {
-        //////////////////
+        setJoinError("Игра завершена")
       }
       if (gameStatus == "cancelled") {
          setJoinError("Игра отменена")

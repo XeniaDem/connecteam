@@ -24,7 +24,7 @@ export function UsersPage() {
     for (let i = 0; i < usersNum; i++) {
       var isYou = (messageParsed.data[i].id == id)
       if (plans)
-        var plan = plans?.find((element) => element.holderId == messageParsed.data[i].id); ///////////////
+        var plan = plans?.find((element) => element.holderId == messageParsed.data[i].id);
       const userModel = {
         id: messageParsed.data[i].id,
         name: messageParsed.data[i].first_name,
@@ -39,6 +39,7 @@ export function UsersPage() {
       userModels.push(userModel)
 
     }
+    userModels.sort((a, b) => a.name.localeCompare(b.name))
     setUsers(userModels)
     setUsersFetched(true)
 

@@ -5,10 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export type TagModel = {
-
   id: string;
   key: string;
-
 }
 
 type Props = {
@@ -21,11 +19,6 @@ type Props = {
 
 
 export function Tag({ savedTag, deleteTag }: Props) {
-
-
-
-
-
 
   return (
     <div className={styles.container}>

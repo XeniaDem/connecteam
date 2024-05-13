@@ -18,7 +18,7 @@ export function UserPage() {
   
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [userId, setUserId] = useState("")
+  const [userId, setUserId] = useState(null)
   const [planInfo, setPlanInfo] = useState<Plan | null>(null)
 
   const readAnswer = (message: any) => {
@@ -29,6 +29,7 @@ export function UserPage() {
     setName(name)
     setSurname(surname)
     setUserId(userId)
+    console.log(userId)
   }
 
 
@@ -59,7 +60,6 @@ export function UserPage() {
       isTrial: messageParsed.is_trial
     }
     setPlanInfo(planInfo);
-    console.log(planInfo)
   }
 
   const fetchPlan = async () => {
@@ -75,15 +75,11 @@ export function UserPage() {
 
 
 
-  const [userFetched, setUserFetched] = useState(false)
+  // const [userFetched, setUserFetched] = useState(false)
 
   const [planFetched, setPlanFetched] = useState(false)
 
 
-  const onUserChange = () => {
-    setUserFetched(!userFetched)
-
-  }
   const onPlanChange = () => {
     setPlanFetched(!planFetched)
 
@@ -94,11 +90,10 @@ export function UserPage() {
     disableScroll.off()
     fetchUserPage();
 
-  }, [userFetched]);
+  }, []);
 
   useEffect(() => {
     disableScroll.off()
-
     fetchPlan();
 
   }, [planFetched]);
@@ -121,7 +116,7 @@ export function UserPage() {
   return (
     <div className={styles.container}>
       <PlanInfo name={name} surname = {surname} savedPlan = {planInfo} onChange={onPlanChange}/>
-      <LastGames id="games" userId={userId}/>
+      {userId && <LastGames id="games" userId = {userId}/>}
     </div>
   )
 }

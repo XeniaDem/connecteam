@@ -9,14 +9,14 @@ import { Plan } from "../../../planList/PlanList"
 
 
 type Props = {
-  onButonClicked: (selected: string[]) => void;
+  onButonClicked: (selected?: string[]) => void;
 }
 export function ChooseTopics(props: Props) {
 
   const token = useSelector(selectToken)
 
   const [topics, setTopics] = useState<TopicModel[] | null>(null)
-  const [topicsIds, setTopicsIds] = useState<string[]> ([])
+  const [topicsIds, setTopicsIds] = useState<string[]>([])
 
 
   const readTopics = (message: any) => {
@@ -27,8 +27,6 @@ export function ChooseTopics(props: Props) {
     const topicModels = [];
     const topicsIds = [];
     for (let i = 0; i < topicsNum; i++) {
-
-
       const topicModel = {
         name: messageParsed.data[i].title,
         id: messageParsed.data[i].id
@@ -93,8 +91,8 @@ export function ChooseTopics(props: Props) {
   }
 
   const getTopicLimit = () => {
-    if (planInfo?.planType == "basic")
-      return 3;
+    // if (planInfo?.planType == "basic")
+    //   return 3;
     if (planInfo?.planType == "advanced")
       return 5;
     if (planInfo?.planType == "premium")
@@ -135,12 +133,55 @@ export function ChooseTopics(props: Props) {
 
 
   useEffect(() => {
+
     fetchTopics();
     fetchPlan();
 
-
   }, []);
 
+  // useEffect(() => {
+
+  //   if (planInfo?.planType == "basic") {
+  //     props.onButonClicked()
+  //     return;
+  //   }
+
+
+  // }, [planInfo]);
+
+  if (planInfo?.planType == "basic") {
+    return (
+      <div>
+        <div className={styles.container}>
+
+          <div className={styles.title}>
+            Темы игры сгенерированы
+          </div>
+          <div className={styles.subtitle}>
+            Количество тем 3
+          </div>
+          <div className={styles.questions}>
+            <div className={styles.question1}>
+              ?
+            </div>
+            <div className={styles.question2}>
+              ?
+            </div>
+            <div className={styles.question3}>
+              ?
+            </div>
+          </div>
+
+          <Button text={"Продолжить"} onClick={() => {
+            props.onButonClicked()
+          }} className={styles.startButton} />
+
+        </div>
+
+      </div>
+
+    )
+  }
 
   return (
     <div>
@@ -181,7 +222,7 @@ export function ChooseTopics(props: Props) {
 
         </div>
 
-        <Button text={"Выбрать случайные " + topicLimit + (topicLimit == 3 ? " темы" : " тем")}
+        <Button text={"Выбрать случайные " + topicLimit + " тем"}
           onClick={chooseRandomTopics} className={styles.randomTopicsButton} />
 
         {chooseError && formSubmitted && (<div className={styles.errorMessage}>

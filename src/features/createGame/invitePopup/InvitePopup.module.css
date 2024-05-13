@@ -96,15 +96,25 @@
 
 .title {
 
-
   color: #FFF;
   text-align: center;
-
-  font-size: 22.612px;
+  font-size: 27.612px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 35px;
   /* 126.757% */
+  z-index: 1;
+}
+
+.subtitle {
+  margin-top: 20px;
+  color: #FFF;
+  font-size: 16.701px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 27.14px;
+  /* 162.5% */
+  z-index: 1;
 }
 
 
@@ -131,6 +141,20 @@
   outline: none;
 }
 
+.link {
+  text-align: center;
+  color: #8E8E8E;
+  font-size: 13.918px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.616px;
+  /* 162.5% */
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%);
+}
 
 .errorMessage {
   color: red;

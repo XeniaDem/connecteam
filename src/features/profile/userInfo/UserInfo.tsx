@@ -335,10 +335,10 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
           </div>}
 
-          <Field isInput={true} title={"Имя"} disabled={!isDataChanging} value={name} onValueChange={setName} />
-          <Field isInput={true} title={"Фамилия"} disabled={!isDataChanging} value={surname} onValueChange={setSurname} />
+          <Field isInput={true} title={"Имя"} disabled={!isDataChanging} value={name} onValueChange={setName} maxLength={32} />
+          <Field isInput={true} title={"Фамилия"} disabled={!isDataChanging} value={surname} onValueChange={setSurname} maxLength={32}/>
 
-          <Field isTextArea={true} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} />
+          <Field isTextArea={true} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} maxLength={256} />
 
 
 
@@ -354,7 +354,7 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
             <Button text={"Восстановить пароль"} onClick={restorePassword} className={styles.footerButton} />
 
           </div>
-          <Field isInput={true} title={"Электронный адрес"} disabled={!isEmailChanging} value={email} onValueChange={setEmail} />
+          <Field isInput={true} title={"Электронный адрес"} disabled={!isEmailChanging} value={email} onValueChange={setEmail} maxLength={64}/>
 
           <div className={styles.footerButtons}>
             {emailErrorMessage && isEmailChanging && (<div className={styles.errorMessage}>

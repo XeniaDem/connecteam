@@ -18,22 +18,15 @@ export function JoinPlan() {
 
   const token = useSelector(selectToken)
 
-  let {code} = useParams<{code?: string}>();
+  let { code } = useParams<{ code?: string }>();
 
 
   const [name, setName] = useState("")
-  const [id, setId] = useState("")
+  const [holderId, setHolderId] = useState("")
 
   const [isForbidden, setIsForbidden] = useState(false)
   const [errorMessage, setErrorMessage] = useState("");
 
-
-
-  const saveId = (message: any) => {
-    var messageParsed = JSON.parse(message);
-    var id = messageParsed.holder_id
-    setId(id)
-  }
 
 
 
@@ -58,6 +51,11 @@ export function JoinPlan() {
       setErrorMessage("Неверный код приглашения")
       return;
     }
+    if (message.includes("already participant")) {
+      setErrorMessage("Вы уже являетесь участником плана")
+      return;
+    }
+    
 
     setErrorMessage(message)
   }
@@ -68,7 +66,7 @@ export function JoinPlan() {
     }
     try {
       const response = await get('validate/plan/' + code)
-      saveId(response.text)
+      setHolderId(JSON.parse(response.text).holder_id)
     }
     catch (error: any) {
       readJoinError(error.response.text)
@@ -78,7 +76,7 @@ export function JoinPlan() {
 
   const getInvitor = async () => {
     try {
-      const response = await get('users/' + id, token)
+      const response = await get('users/' + holderId, token)
       setName(JSON.parse(response.text).first_name + " " + JSON.parse(response.text).second_name)
     }
     catch (error: any) {
@@ -91,6 +89,7 @@ export function JoinPlan() {
   const joinPlan = async () => {
     try {
       const response = await post('plans/join/' + code, undefined, token)
+      // console.log(response.text)
       navigate("/user_page")
     }
     catch (error: any) {
@@ -113,9 +112,9 @@ export function JoinPlan() {
 
   useEffect(() => {
     if (token != "")
-      id && getInvitor()
+      holderId && getInvitor()
 
-  }, [id]);
+  }, [holderId]);
 
   return (
     <div>
@@ -143,7 +142,7 @@ export function JoinPlan() {
 
                 </div>
                 <Button text={"Войти"} onClick={() =>
-                  navigate("/auth/login", { state: { inviteCode: code } })
+                  navigate("/auth/login", { state: { planInvitation: code } })
                 } className={styles.footerButton} />
 
               </div>

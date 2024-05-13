@@ -24,6 +24,7 @@ export function PlanUsersPage() {
 
 
   const readPlanUsers = (message: any) => {
+    console.log(message)
     const messageParsed = JSON.parse(message);
 
     const usersNum = (messageParsed.data.length);

@@ -1,10 +1,10 @@
-import { ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import cn from 'classnames';
 import styles from "./Tabs.module.css"
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../../store/authSlice";
+import { selectId, selectToken } from "../../../../store/authSlice";
 import { get, readServerError } from "../../../../utils/api";
-import { Game, GameModel } from "../game/Game";
+import { Game, GameModel, GameStatus } from "../game/Game";
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
@@ -16,7 +16,6 @@ export type Tab = {
 type Props = {
     tabs: Tab[];
     userId: string;
-
 }
 
 
@@ -44,6 +43,7 @@ export function Tabs(props: Props) {
         const gamesModels = [];
         for (let i = 0; i < gamesNum; i++) {
 
+            
             const gameModel = {
                 id: messageParsed.data[i].id,
                 name: messageParsed.data[i].name,
@@ -57,10 +57,21 @@ export function Tabs(props: Props) {
         }
 
         const newGames = games == null ? gamesModels : games.concat(gamesModels)
+
+        function compare(a: GameModel, b: GameModel) {
+            if (a.status && b.status && a.status > b.status) {
+                return -1;
+            }
+            if (a.status && b.status && a.status < b.status) {
+                return 1;
+            }
+            return 0;
+        }
+        newGames.sort(compare)
         setGames(newGames)
     }
 
-    const getGames = async (type: string) => { //////////////////////////
+    const getGames = async (type: string) => {
         try {
             var response;
             if (type == "created")
@@ -76,18 +87,28 @@ export function Tabs(props: Props) {
     }
 
 
-    // const onGamesChange = () => {
-    //     setPageNum(0)
-    //     setGames(null)
-    // }
- 
     useEffect(() => {
+        // console.log("pageNum " + pageNum)
         if (activeTab == "Мои")
             getGames("created")
         if (activeTab == "Участвую")
             getGames("all")
 
     }, [activeTab, pageNum]);
+
+    // useEffect(() => {
+    //     const element = document.getElementById("games");
+    //     element && element.scrollIntoView();
+
+
+
+    // }, [activeTab]);
+
+    // useEffect(() => {
+    //   console.log("3 " + props.userId)
+
+
+    // }, []);
 
 
     return (

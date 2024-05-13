@@ -11,23 +11,29 @@ import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ClearIcon from '@mui/icons-material/Clear';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import disableScroll from 'disable-scroll';
+import { InvitePopup } from "../../../createGame/invitePopup/InvitePopup";
 
+export enum GameStatus {
+  Cancelled = "cancelled",
+  Finished = "finished",
+  NotStarted = "not_started",
+  InProgress = "in_progress",
+}
 
 export type GameModel = {
   id: string;
   name: string;
   date: string;
-  status: string;
+  status?: GameStatus;
   invitationCode: string;
   creatorId: string;
-
 }
 
 type Props = {
   savedGame: GameModel;
   isCreator: boolean;
-
-
 }
 
 
@@ -44,15 +50,29 @@ export function Game({ savedGame, isCreator }: Props) {
   const [dateEditing, setDateEditing] = useState(false)
 
 
+  const [inviteOpen, setInviteOpen] = useState(false);
 
 
+  const openInvitePopup = () => {
+    disableScroll.on()
+    setInviteOpen(true)
+
+  }
+
+  const closeInvitePopup = () => {
+    disableScroll.off()
+    setInviteOpen(false)
+
+  }
   const getStatus = () => {
-    if (savedGame.status == "cancelled")
+    if (savedGame.status == GameStatus.Cancelled)
       return "Отменена"
-    if (savedGame.status == "not_started")
+    if (savedGame.status == GameStatus.NotStarted)
       return "Не начата"
-    if (savedGame.status == "in_progress")
+    if (savedGame.status == GameStatus.InProgress)
       return "В процессе"
+    if (savedGame.status == GameStatus.Finished)
+      return "Завершена"
   }
 
   const deleteGame = async () => {
@@ -119,50 +139,33 @@ export function Game({ savedGame, isCreator }: Props) {
   }
 
   const handleNameEdit = () => {
-
     if (nameEditing) {
-
       if (savedGame.name != gameName) {
         if (gameName.trim().length < 3) {
           return;
         }
         editName()
-
       }
     }
     setNameEditing(!nameEditing);
-
-
   }
 
   const handleDateEdit = () => {
-    if (!dateEditing) {
-      setDateEditing(!dateEditing);
-    }
-
     if (dateEditing) {
-
       if (savedGame.date != gameDate) {
         if (gameDate == "") {
           return;
         }
         editDate()
-        setDateEditing(!dateEditing);
-
-      }
-      else {
-        setDateEditing(!dateEditing);
-        // alert("Ничего не сохраняем")
       }
     }
+    setDateEditing(!dateEditing);
 
   }
 
   useEffect(() => {
     const date = savedGame.date.split('T')[0] + 'T'
     const time = savedGame.date.split('T')[1].slice(0, -1)
-
-
     setGameName(savedGame.name)
     setGameDate(date + time)
 
@@ -174,7 +177,7 @@ export function Game({ savedGame, isCreator }: Props) {
       <div className={styles.container}>
 
         <div className={styles.group}>
-          {savedGame.status == "not_started" ?
+          {savedGame.status == GameStatus.NotStarted ?
             isCreator && (<div>
               <IconButton onClick={cancelGame}>
                 <svg width={0} height={0}>
@@ -204,14 +207,8 @@ export function Game({ savedGame, isCreator }: Props) {
         </div>
 
         <div className={styles.group}>
-          {savedGame.status == "not_started" ?
+          {savedGame.status == GameStatus.NotStarted ?
             isCreator && (<IconButton onClick={handleDateEdit}>
-              <svg width={0} height={0}>
-                <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
-                  <stop offset={0} stopColor="#55C6F7" />
-                  <stop offset={1} stopColor="#2AF8BA" />
-                </linearGradient>
-              </svg>
               {!dateEditing ? (<EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
               ) : (
                 <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
@@ -227,38 +224,33 @@ export function Game({ savedGame, isCreator }: Props) {
           </div>
         </div>
 
-
-
         <div className={styles.group}>
           <div className={styles.status}>
             {getStatus()}
           </div>
-          {savedGame.status == "not_started" ?
-            !isCreator && (<IconButton onClick={deleteGame}>
-              <svg width={0} height={0}>
-                <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
-                  <stop offset={0} stopColor="#55C6F7" />
-                  <stop offset={1} stopColor="#2AF8BA" />
-                </linearGradient>
-              </svg>
+          {savedGame.status == GameStatus.NotStarted && !isCreator && (<IconButton onClick={deleteGame}>
               <LogoutIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-            </IconButton>)
-            :
-            null
-          }
-          {savedGame.status != "cancelled" && <IconButton onClick={() => {
-            if (savedGame.status == "not_started" || savedGame.status == "in_progress")
+            </IconButton>)}
+ 
+          {savedGame.status == GameStatus.NotStarted && isCreator && <IconButton onClick={openInvitePopup}>
+
+            <GroupAddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+
+          </IconButton>}
+
+          {savedGame.status != GameStatus.Cancelled && <IconButton onClick={() => {
+            if (savedGame.status == GameStatus.NotStarted || savedGame.status == GameStatus.InProgress)
               navigate("/game/" + savedGame.id)
             // if (savedGame.status == "finished")
             //   navigate("")
           }}>
-
             <KeyboardArrowRightIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
           </IconButton>}
+
         </div>
       </div>
       <div className={styles.divider} />
+      {inviteOpen ? <InvitePopup invitationCode = {savedGame.invitationCode} gameId={savedGame.id} closePopup={closeInvitePopup} /> : null}
     </div>
   )
 }
