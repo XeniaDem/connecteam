@@ -27,6 +27,7 @@ import { InviteLayout } from "./layouts/inviteLayout/InviteLayout"
 import { GamePage } from "./features/gamePage/GamePage"
 import { PurchaseResult } from "./features/planList/purchaseResult/PurchaseResult"
 import { PageNotFound } from "./features/pageNotFound/PageNotFound"
+import { GameResults } from "./features/gameResults/GameResults"
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,11 @@ const router = createBrowserRouter([
         path: "profile/link_sent",
         element: <LinkSent/>,
       },
+      {
+        path: "game_results",
+        element: <GameResults/>,
+      },
+
     ],
   },
   {
@@ -165,9 +171,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

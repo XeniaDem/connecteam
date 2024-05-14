@@ -26,9 +26,6 @@ type Props = {
 export function TagsPopup(props: Props) {
   const token = useSelector(selectToken)
 
-
-
-
   const [newTagHidden, setNewTagHidden] = useState(true)
 
   const addTag = () => {
@@ -36,18 +33,13 @@ export function TagsPopup(props: Props) {
       fetchAllTags()
 
       setNewTagHidden(false)
-
-
     }
     else {
-      console.log(currentTag)
       if (currentTag == null || newTags.find(tag => tag.id == currentTag.id)) {
         return;
       }
       const tags = newTags.concat(currentTag)
       setNewTags(tags)
-
-      ///tbd add tags
       setNewTagHidden(true)
 
     }
@@ -59,8 +51,6 @@ export function TagsPopup(props: Props) {
   const [currentTag, setCurrentTag] = useState<TagModel | null>(null)
 
   const readAllTags = (message: any) => {
-
-    console.log(message)
     const messageParsed = JSON.parse(message);
 
     if (messageParsed.data == null) {
@@ -69,8 +59,6 @@ export function TagsPopup(props: Props) {
     }
 
     const tagsNum = messageParsed.data.length;
-
-
     const tagsModels = [];
     for (let i = 0; i < tagsNum; i++) {
 
@@ -91,14 +79,11 @@ export function TagsPopup(props: Props) {
     try {
       const response = await get('tags/', token)
       readAllTags(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
@@ -118,7 +103,6 @@ export function TagsPopup(props: Props) {
       tags: tags
     })
 
-
     try {
       const response = await put('questions/' + props.savedQuestion.id + '/tags', data, token)
       props.closePopup()
@@ -128,27 +112,14 @@ export function TagsPopup(props: Props) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   const deleteTag = (id: string) => {
     const tag = newTags.find(tag => tag.id == id)
-
     const tags = newTags.filter(item => item != tag)
     setNewTags(tags)
-
-
-
   }
 
-  useEffect(() => {
-    // readTags("")
-    console.log(newTags)
-
-
-
-  }, [newTags]);
 
 
   return (
@@ -196,24 +167,25 @@ export function TagsPopup(props: Props) {
                   )}
                 </div>
               )}
-              {!newTagHidden ? allTags && <SearchBar data={allTags} onSelectedChange={setCurrentTag} placeholder="Поиск тега..." /> : null}
+              <div className={styles.addTag}>
+                {!newTagHidden ? allTags && <SearchBar data={allTags} onSelectedChange={setCurrentTag} placeholder="Поиск тега..." /> : null}
 
 
 
-              <div className={styles.addButton}>
-                <IconButton onClick={addTag}>
+                <div className={styles.addButton}>
+                  <IconButton onClick={addTag}>
 
 
-                  {newTagHidden ? (
-                    <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-                  ) : (
-                    <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+                    {newTagHidden ? (
+                      <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+                    ) : (
+                      <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
 
-                  )}
-                </IconButton>
+                    )}
+                  </IconButton>
+                </div>
               </div>
-
 
 
 

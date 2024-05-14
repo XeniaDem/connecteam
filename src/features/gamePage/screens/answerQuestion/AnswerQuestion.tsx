@@ -33,15 +33,15 @@ export function AnswerQuestion(props: Props) {
           <div className={styles.question}>
             <Question text={props.question} nameAnswering={props.nameAnswering} />
             {props.isAnswering ? (
-              !props.started ? <Button text={"Начать ответ"} onClick={() => {props.onStartButonClicked()}} className={styles.button} />
+              !props.started ? <Button text={"Начать ответ"} onClick={() => { props.onStartButonClicked() }} className={styles.button} />
                 :
-                <Button text={"Завершить ответ"} onClick={() => {props.onFinishButonClicked()}} className={styles.button} />
+                <Button text={"Завершить ответ"} onClick={() => { props.onFinishButonClicked() }} className={styles.button} />
             ) : (
               null
             )}
           </div>
           <div className={styles.timer}>
-            <Timer isCreator={props.isCreator} onTimeOver={props.onFinishButonClicked}/>
+            <Timer isCreator={props.isCreator} onTimeOver={props.onFinishButonClicked} />
           </div>
         </div>
       </div>

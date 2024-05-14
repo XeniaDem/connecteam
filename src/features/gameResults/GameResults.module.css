@@ -12,6 +12,7 @@
   padding-right: 90px;
   background-color: #171717;
   min-height: 100vh;
+  margin-top: 70px;
 
 
 }
@@ -154,11 +155,15 @@
   align-items: flex-end;
   flex-wrap: wrap;
 
-
-
-
-
 }
+
+.tags {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+
 
 .close {
 

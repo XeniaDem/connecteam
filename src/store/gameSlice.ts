@@ -15,9 +15,9 @@ export enum GameScreen {
 export interface GameState {
   name: string; // Название игры
   date: string; // Дата и время игры
-  id: string; // ID игры
+  gameId: string; // ID игры
   creatorId: string; // ID создателя игры
-  userId: string; // ID игрока
+  playerId: string; // ID игрока
 
   gameStarted: boolean; // Булевое значение, указывающее началась игра или нет
 
@@ -27,9 +27,10 @@ export interface GameState {
   roundsNum: number; // Количество раундов игры
   currentRound: number; // Значение текущего раунда
 
-  userAnswering: string; // Имя отвечающего игрока
-  userAnsweringId: string; // ID отвечающего игрока
+  playerAnswering: string; // Имя отвечающего игрока
+  playerAnsweringId: string; // ID отвечающего игрока
   question: string; // Текущий вопрос
+  tags: string;
 
   timerStarted: boolean; // Булевое значение, указывающее запущен таймер или нет
   timeStart: string; // Время последнего запуска таймера
@@ -40,9 +41,9 @@ export interface GameState {
 const initialState: GameState = {
   name: localStorage.getItem("name") || "",
   date: localStorage.getItem("date") || "",
-  id: localStorage.getItem("id") || "",
+  gameId: localStorage.getItem("gameId") || "",
   creatorId: localStorage.getItem("creatorId") || "",
-  userId: localStorage.getItem("userId") || "",
+  playerId: localStorage.getItem("playerId") || "",
 
   gameStarted: localStorage.getItem("gameStarted") == "true" || false,
 
@@ -52,9 +53,10 @@ const initialState: GameState = {
   roundsNum: Number.parseInt(localStorage.getItem("roundsNum") || "") || 0,
   currentRound: Number.parseInt(localStorage.getItem("currentRound") || "") || 0,
 
-  userAnswering: localStorage.getItem("userAnswering") || "",
-  userAnsweringId: localStorage.getItem("userAnsweringId") || "",
+  playerAnswering: localStorage.getItem("playerAnswering") || "",
+  playerAnsweringId: localStorage.getItem("playerAnsweringId") || "",
   question: localStorage.getItem("question") || "",
+  tags: localStorage.getItem("tags") || "",
   // stageStarted: localStorage.getItem("stageStarted") == "true" || false,
 
 
@@ -69,18 +71,18 @@ export const gameSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setGame: (state, action: PayloadAction<{name: string, date: string, id: string, creatorId: string, userId: string}>) => {
+    setGame: (state, action: PayloadAction<{name: string, date: string, gameId: string, creatorId: string, playerId: string}>) => {
       state.name = action.payload.name
       state.date = action.payload.date
-      state.id = action.payload.id
+      state.gameId = action.payload.gameId
       state.creatorId = action.payload.creatorId
-      state.userId = action.payload.userId
+      state.playerId = action.payload.playerId
 
       localStorage.setItem("name", action.payload.name)
       localStorage.setItem("date", action.payload.date)
-      localStorage.setItem("id", action.payload.id)
+      localStorage.setItem("gameId", action.payload.gameId)
       localStorage.setItem("creatorId", action.payload.creatorId)
-      localStorage.setItem("userId", action.payload.userId)
+      localStorage.setItem("playerId", action.payload.playerId)
     },
     updateGame: (state, action: PayloadAction<{gameStarted: boolean}>) => {
       state.gameStarted = action.payload.gameStarted
@@ -100,15 +102,17 @@ export const gameSlice = createSlice({
       state.currentRound = action.payload.currentRound
       localStorage.setItem("currentRound", action.payload.currentRound.toString())
     },
-    setStage: (state, action: PayloadAction<{userAnswering: string, userAnsweringId: string, question: string}>) => {
-      state.userAnswering = action.payload.userAnswering
-      state.userAnsweringId = action.payload.userAnsweringId
+    setStage: (state, action: PayloadAction<{playerAnswering: string, playerAnsweringId: string, question: string, tags: string}>) => {
+      state.playerAnswering = action.payload.playerAnswering
+      state.playerAnsweringId = action.payload.playerAnsweringId
       state.question = action.payload.question
+      state.tags = action.payload.tags
       // state.stageStarted = action.payload.stageStarted
 
-      localStorage.setItem("userAnswering", action.payload.userAnswering)
-      localStorage.setItem("userAnsweringId", action.payload.userAnsweringId)
+      localStorage.setItem("playerAnswering", action.payload.playerAnswering)
+      localStorage.setItem("playerAnsweringId", action.payload.playerAnsweringId)
       localStorage.setItem("question", action.payload.question)
+      localStorage.setItem("tags", action.payload.tags)
       // localStorage.setItem("stageStarted", action.payload.stageStarted.toString())
     },
     setTimer: (state, action: PayloadAction<{timerStarted: boolean, timeStart: string}>) => {

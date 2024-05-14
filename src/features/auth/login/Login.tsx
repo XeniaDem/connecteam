@@ -76,7 +76,7 @@ export function Login() {
     const id = messageParsed.user_id
     console.log(message)
 
-    dispatch(signIn({ token: token, access: access as Access, id: id }));
+    dispatch(signIn({ token: token, access: access as Access, userId: id }));
 
   }
 

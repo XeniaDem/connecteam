@@ -21,7 +21,7 @@ export function Timer(props: Props) {
 
   const game = useSelector(selectGame)
 
-  const [initialTime, setInitialTime] = useState(180)
+  const [initialTime, setInitialTime] = useState<number>(180)
   const { time, start, pause, reset, status } = useTimer({
     initialTime: initialTime,
     timerType: 'DECREMENTAL',
@@ -58,16 +58,17 @@ export function Timer(props: Props) {
 
   useEffect(() => {
 
-    console.log(game.timeStart)
+    // console.log(game.timeStart)
     if (game.timeStart == "" || game.timeStart == undefined) {
       return;
     }
-
     const secDiff = (new Date().getTime() - new Date(game.timeStart).getTime()) / 1000;
-    console.log(new Date('2020-12-24 00:00:17').getTime() - new Date('2020-12-24 00:00:15').getTime()) ///////////////
-    // setInitialTime(180 - secDiff)
 
+    (secDiff < 180) && setInitialTime(180 - secDiff)
+    console.log(secDiff)
+  
 
+  
 
   }, [game.timeStart]);
 

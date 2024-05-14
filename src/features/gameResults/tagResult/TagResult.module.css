@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  
+ 
+  
+}
+
+.tag {
+  font-family: 'Work Sans Variable', sans-serif;
+  height: 44.76px;
+  border-radius: 51.39px;
+
+  /*background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));*/
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(7.552681922912598px);
+
+  font-size: 17.955px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.125%;
+  /* 23.902px */
+  letter-spacing: -0.718px;
+
+  text-align: center;
+  align-items: center;
+  display: flex;
+  padding: 0x 5px;
+  padding-right: 10px;
+
+
+}
+
+.text {
+  margin-left: 5px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+.name {
+  color: #FFF;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34.737px;
+  /* 144.737% */
+
+  display: flex;
+
+
+  gap: 5px;
+  min-width: 70px;
+
+}
+
+
+.nameYou {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34.737px;
+  /* 144.737% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+
+
+  display: flex;
+  gap: 5px;
+  min-width: 70px;
+}

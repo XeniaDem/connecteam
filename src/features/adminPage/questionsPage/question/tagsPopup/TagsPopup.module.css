@@ -159,6 +159,9 @@
   z-index: 1;
 
 }
+.addTag {
+  display: flex;
+}
 
 .addButton {
   margin-top: -3px;

@@ -62,7 +62,7 @@ export function ChangePasswordPopup(props: Props) {
     }
     try {
 
-      const response = await patch('users/change-password', data, props.token)
+      const response = await patch('password', data, props.token)
       props.closePopup();
 
 

@@ -55,12 +55,12 @@ export function GamePage() {
 
 
     const clearData = () => {
-        dispatch(setGame({ name: "", date: "", id: "", creatorId: "", userId: "" }))
+        dispatch(setGame({ name: "", date: "", gameId: "", creatorId: "", playerId: "" }))
         dispatch(updateGame({ gameStarted: false }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
         dispatch(updateRounds({ currentRound: 0 }))
-        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "" }))
+        dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         dispatch(setTimer({ timerStarted: false, timeStart: "" }))
 
     }
@@ -71,20 +71,26 @@ export function GamePage() {
 
     const onUserLeft = useCallback((messageObject: any) => {
         showUserLeft()
-        updatePlayers(messageObject)
+        // updatePlayers(messageObject)
+        removePlayer(messageObject.sender.id)
     }, [])
 
     const onGameFinish = useCallback(() => {
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameResults }))
     }, [])
 
-    const onRoundFinish = useCallback(() => {
+    const onRoundFinish = useCallback((messageObject: any) => {
+        const topics = JSON.stringify(messageObject.payload)
+        const game = store.getState().game
+
+        dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
+
     }, [])
 
     const onRatingFinish = useCallback(() => {
 
-        dispatch(setStage({ userAnswering: "", userAnsweringId: "", question: "" }))
+        dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         startStage()
 
     }, [])
@@ -102,24 +108,31 @@ export function GamePage() {
 
     const onStageStart = useCallback((messageObject: any) => {
         const payload = messageObject.payload
-        const topics = JSON.stringify(messageObject.target.topics)
+        const tags = JSON.stringify(payload.question.tags)
         const game = store.getState().game
 
 
-        dispatch(setStage({ userAnswering: payload.user.name, userAnsweringId: payload.user.id, question: payload.question }))
+        const name = players?.find(player => player.id = payload.user)?.name
+        dispatch(setStage({ playerAnswering: payload.user.name, playerAnsweringId: payload.user.id, question: payload.question.content, tags: tags }))
         // dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum })) ////
-        updatePlayers(messageObject)
+
+        // updatePlayers(messageObject) /////////////////////////////////////////////////////////////////////// !!!
+
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.AnswerQuestion }))
     }, [])
 
     const onRoundStart = useCallback(() => {
         const game = store.getState().game
+        console.log("GAE: " + game.currentRound)
         dispatch(updateRounds({ currentRound: game.currentRound + 1 })) ///////////
         startStage()
 
     }, [])
 
-    const onGameStart = useCallback(() => {
+    const onGameStart = useCallback((messageObject: any) => {
+        const topics = JSON.stringify(messageObject.payload.topics)
+
+        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.topics.length }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
         dispatch(updateGame({ gameStarted: true }))
     }, [])
@@ -128,12 +141,12 @@ export function GamePage() {
         const sender = messageObject.sender
         const senderId = sender.id
 
-        // const topics = JSON.stringify(messageObject.payload.topics)
+        const topics = JSON.stringify(messageObject.payload)
 
-        // dispatch(setRounds({ topics: topics, roundsNum: messageObject.target.topics.length }))
+        // dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.length }))
 
         const game = store.getState().game
-        const id = game.userId
+        const id = game.playerId
 
         if (id == senderId) {
             dispatch(updateCurrentScreen({ currentScreen: GameScreen.StartGame }))
@@ -152,7 +165,7 @@ export function GamePage() {
 
         const currentScreen = game.currentScreen != GameScreen.WaitGame ? game.currentScreen : (sender.id == payload.creator_id ? GameScreen.ChooseTopics : GameScreen.WaitGame)
 
-        gameId && dispatch(setGame({ name: payload.name, date: payload.date, id: gameId, creatorId: payload.creator_id, userId: senderId }))
+        gameId && dispatch(setGame({ name: payload.name, date: payload.date, gameId: gameId, creatorId: payload.creator_id, playerId: senderId }))
         dispatch(updateCurrentScreen({ currentScreen: currentScreen }))
 
 
@@ -180,8 +193,8 @@ export function GamePage() {
 
         const game = store.getState().game
         const creatorId = game.creatorId
-        const id = game.userId
-        const userAnsweringId = game.userAnsweringId
+        const id = game.playerId
+        const userAnsweringId = game.playerAnsweringId
 
         for (let i = 0; i < playersNum; i++) {
 
@@ -189,8 +202,7 @@ export function GamePage() {
                 id: payload.users[i].id,
                 isCreator: payload.users[i].id == creatorId,
                 isYou: payload.users[i].id == id,
-                isAnswering: payload.users[i].id == userAnsweringId,
-                connected: true, ////////////////
+                // isAnswering: payload.users[i].id == userAnsweringId,
                 name: payload.users[i].name,
                 photoUrl: "" ///////////////////
             }
@@ -199,13 +211,24 @@ export function GamePage() {
         setPlayers(playersModels)
     }
 
+
+    const removePlayer = (id: string) => {
+        const newPlayers = players?.filter(player => player.id != id)
+        newPlayers && setPlayers(newPlayers)
+
+
+    }
+
+
+
+
     useEffect(() => {
 
         if (!gameId) { /////////////////
             navigate("/user_page")
             return;
         }
-        if (game.id != "" && game.id != gameId) {
+        if (game.gameId != "" && game.gameId != gameId) {
             console.log("clear")
             clearData()
         }
@@ -220,65 +243,74 @@ export function GamePage() {
         };
 
         ws.onmessage = (event: MessageEvent<any>) => {
-            const messageComing = event.data
-            const message = messageComing.split("\n")[0]; //////////////
-            if (messageComing.split("\n")[1] != undefined) {
-                // alert(messageComing.split("\n")[1])
-            }
-            const messageObject = message && JSON.parse(message)
             console.log(`Received message from server: ${event.data}`);
-            if (messageObject.action == "join-success") {
-                onMyGameJoin(messageObject)
-            }
-            if (messageObject.action == "join-game") {
-                onUserGameJoin(messageObject)
-            }
-            if (messageObject.action == "select-topic") {
-                onTopicsChoose(messageObject)
-            }
-            if (messageObject.action == "start-game") {
-                onGameStart()
-            }
-            if (messageObject.action == "start-round") {
-                onRoundStart()
-            }
-            if (messageObject.action == "start-stage") {
-                onStageStart(messageObject)
-            }
-            if (messageObject.action == "start-answer") {
-                onAnswerStart(messageObject)
-            }
-            if (messageObject.action == "end-answer") {
-                onAnswerFinish()
-            }
-            if (messageObject.action == "rate-end") {
-                onRatingFinish()
-            }
-            if (messageObject.action == "round-end") {
-                onRoundFinish()
-            }
-            if (messageObject.action == "game-end") {
-                onGameFinish()
-            }
-            if (messageObject.action == "user-left") {
-                onUserLeft(messageObject)
-            }
-            if (messageObject.action == "error") {
-                if (messageObject.payload.message.includes("max number")) {
-                    setError("Превышен лимит участников игры")
-                    dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
+            const messageComing = event.data
+            const messages = messageComing.split("\n")
+            messages.forEach((message: string) => {
+                const messageObject = message && JSON.parse(message)
+                if (messageObject.action == "join-success") {
+                    onMyGameJoin(messageObject)
                 }
-                if (messageObject.payload.message.includes("game in progress")) {
-                    setError("Игра уже начата")
-                    dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
+                if (messageObject.action == "join-game") {
+                    onUserGameJoin(messageObject)
+                }
+                if (messageObject.action == "select-topic") {
+                    onTopicsChoose(messageObject)
+                }
+                if (messageObject.action == "start-game") {
+                    onGameStart(messageObject)
+                }
+                if (messageObject.action == "start-round") {
+                    onRoundStart()
+                }
+                if (messageObject.action == "start-stage") {
+                    onStageStart(messageObject)
+                }
+                if (messageObject.action == "start-answer") {
+                    onAnswerStart(messageObject)
+                }
+                if (messageObject.action == "end-answer") {
+                    onAnswerFinish()
+                }
+                if (messageObject.action == "rate-end") {
+                    onRatingFinish()
+                }
+                if (messageObject.action == "round-end") {
+                    onRoundFinish(messageObject)
+                }
+                if (messageObject.action == "game-end") {
+                    onGameFinish()
+                }
+                if (messageObject.action == "user-left") {
+                    onUserLeft(messageObject)
+                }
+                if (messageObject.action == "error") {
+                    if (messageObject.payload.message.includes("max number")) {
+                        setError("Превышен лимит участников игры")
+                        dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
+                    }
+                    if (messageObject.payload.message.includes("game in progress")) {
+                        setError("Игра уже начата")
+                        dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
+                    }
+
                 }
 
-            }
+
+
+
+
+            });
+
+
+
 
         };
 
         ws.onclose = () => {
             console.log('Disconnected from server');
+            setError("Игровой сервис недоступен")
+            dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
         };
 
 
@@ -308,14 +340,14 @@ export function GamePage() {
             message = JSON.stringify({
                 action: "select-topic",
                 target: gameId,
-                sender: { "id": currentGame.userId },
+                sender: { "id": currentGame.playerId },
                 payload: payload
             })
         } else {
             message = JSON.stringify({
                 action: "select-topic",
                 target: gameId,
-                sender: { "id": currentGame.userId },
+                sender: { "id": currentGame.playerId },
             })
         }
         webSocketRef.current?.send(message)
@@ -328,7 +360,7 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "start-game",
             target: gameId,
-            sender: { "id": currentGame.userId },
+            sender: { "id": currentGame.playerId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -339,8 +371,8 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "start-round",
             target: gameId,
-            sender: { "id": currentGame.userId },
-            payload: { "id": selected }
+            sender: { "id": currentGame.playerId },
+            payload: selected
 
         })
         webSocketRef.current?.send(message)
@@ -353,7 +385,7 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "start-stage",
             target: gameId,
-            sender: { "id": currentGame.userId },
+            sender: { "id": currentGame.playerId },
 
         })
         webSocketRef.current?.send(message)
@@ -366,7 +398,7 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "start-answer",
             target: gameId,
-            sender: { "id": currentGame.userId },
+            sender: { "id": currentGame.playerId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -377,20 +409,26 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "end-answer",
             target: gameId,
-            sender: { "id": currentGame.userId },
+            sender: { "id": currentGame.playerId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
 
     }, [])
 
-    const rateAnswer = useCallback((rating: number) => {
+    const rateAnswer = useCallback((rating: number, selected: string[]) => {
+        const tags = []
+        for (let i = 0; i < selected.length; i++) {
+            tags.push(selected[i])
+        }
+
+
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "rate-user",
             target: gameId,
-            sender: { "id": currentGame.userId },
-            payload: { "user_id": currentGame.userAnsweringId, "value": rating }
+            sender: { "id": currentGame.playerId },
+            payload: { "value": rating, "user_id": currentGame.playerAnsweringId, "tags": tags }
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -402,7 +440,7 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "leave-game",
             target: gameId,
-            sender: { "id": currentGame.userId },
+            sender: { "id": currentGame.playerId },
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -438,7 +476,7 @@ export function GamePage() {
 
                         {players?.map(player =>
                             <div>
-                                <Player savedPlayer={player} joined={true} />
+                                <Player savedPlayer={player} isAnswering={game.playerAnsweringId == player.id} />
                             </div>
                         )}
                     </div>
@@ -482,7 +520,7 @@ export function GamePage() {
         return (
             <div className={styles.container}>
                 <CommonGameScreenElements gameStarted={true} children
-                    ={<StartGame name={game.name} date={game.date} id ={gameId} onButtonClicked={startGame} />} />
+                    ={<StartGame name={game.name} date={game.date} id={gameId} onButtonClicked={startGame} />} />
             </div>
         )
     }
@@ -490,7 +528,7 @@ export function GamePage() {
         return (
             <div className={styles.container}>
                 <CommonGameScreenElements gameStarted={true} children
-                    ={<ChooseTopic isCreator={game.creatorId == game.userId} topics={game.topics} onButonClicked={startRound} />} />
+                    ={<ChooseTopic isCreator={game.creatorId == game.playerId} topics={game.topics} onButonClicked={startRound} />} />
             </div>
         )
     }
@@ -498,8 +536,8 @@ export function GamePage() {
         return (
             <div className={styles.container}>
                 <CommonGameScreenElements gameStarted={true} children
-                    ={<AnswerQuestion isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
-                        nameAnswering={game.userAnswering} question={game.question} started={game.timerStarted}
+                    ={<AnswerQuestion isCreator={game.creatorId == game.playerId} isAnswering={game.playerAnsweringId == game.playerId}
+                        nameAnswering={game.playerAnswering} question={game.question} started={game.timerStarted}
                         onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />} />
             </div>
         )
@@ -508,8 +546,8 @@ export function GamePage() {
         return (
             <div className={styles.container}>
                 <CommonGameScreenElements gameStarted={true} children
-                    ={<RateAnswer isCreator={game.creatorId == game.userId} isAnswering={game.userAnsweringId == game.userId}
-                        nameAnswering={game.userAnswering} question={game.question} onButonClicked={rateAnswer} />} />
+                    ={<RateAnswer isCreator={game.creatorId == game.playerId} isAnswering={game.playerAnsweringId == game.playerId}
+                        nameAnswering={game.playerAnswering} question={game.question} tags={game.tags} onButonClicked={rateAnswer} />} />
             </div>
         )
     }
@@ -522,7 +560,7 @@ export function GamePage() {
     }
     if (game.currentScreen == GameScreen.GameResults) {
         return (
-            players && <GameResults gameId={game.id} onButtonClicked={() => {
+            players && <GameResults gameId={game.gameId} onButtonClicked={() => {
                 leaveGame()
                 clearData()
                 navigate("/user_page")

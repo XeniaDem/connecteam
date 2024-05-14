@@ -22,10 +22,11 @@ export function SuccessPopup(props: Props) {
   const saveAccessAndToken = (message: any) => {
 
     var messageParsed = JSON.parse(message);
+    alert(message)
     access = messageParsed.access;
     const token = messageParsed.token;
-    const id = messageParsed.id;
-    dispatch(signIn({ token: token, access: access as Access, id: id}));
+    const id = messageParsed.user_id;
+    dispatch(signIn({ token: token, access: access as Access, userId: id}));
 
   }
 

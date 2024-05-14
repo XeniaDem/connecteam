@@ -51,6 +51,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const [trialApplicable, setTrialApplicable] = useState(false)
 
   const [notificationsHidden, setNotificationsHidden] = useState(true)
+  const [newNotificationsCount, setNewNotificationsCount] = useState(0)
 
 
   const fetchPreviousPlans = async () => {
@@ -73,7 +74,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const [notifications, setNotifications] = useState<NotificationModel[]>()
 
   const readNotifications = async (message: any) => {
-    console.log(message)
+    // console.log(message)
     const messageParsed = JSON.parse(message);
 
     if (messageParsed.data == null) {
@@ -119,7 +120,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
             game: gameData,
             invitor: invitor,
             accepted: accepted,
-            seen: messageParsed.data[i].seen /////////////////
+            read: messageParsed.data[i].is_read
           }
           notificationsModels.push(notificationModel)
         }
@@ -164,7 +165,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
             plan: planData,
             invitor: invitor,
             accepted: accepted,
-            seen: messageParsed.data[i].seen /////////////////
+            read: messageParsed.data[i].is_read
 
           }
           notificationsModels.push(notificationModel)
@@ -223,6 +224,9 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
     // notificationsModels.push(cancelGame)
     // notificationsModels.push(startGame)
     // notificationsModels.push(deleteSub)
+
+    setNewNotificationsCount(notificationsModels.filter(notification => notification.read == false).length)
+
     notificationsModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     setNotifications(notificationsModels);
@@ -264,7 +268,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   }, [savedPlan]);
 
 
- 
+
 
   useEffect(() => {
     fetchNotifications()
@@ -295,8 +299,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
               </svg>
               <NotificationsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>
-            {notifications && notifications?.length > 0 && <div className={styles.new}>
-              {notifications?.length}
+            {notifications && newNotificationsCount > 0 && <div className={styles.new}>
+              {newNotificationsCount}
             </div>}
           </div>
         </div>
@@ -350,7 +354,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
       </div>
 
-      {!notificationsHidden ? <NotificationsCenter onBlur={() => {setNotificationsHidden(true); fetchNotifications()}} notifications={notifications} /> : null}
+      {!notificationsHidden ? <NotificationsCenter onBlur={() => { setNotificationsHidden(true); fetchNotifications() }} notifications={notifications} /> : null}
 
     </div>
   )

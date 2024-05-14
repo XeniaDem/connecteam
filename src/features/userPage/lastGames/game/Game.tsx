@@ -5,7 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton } from "@mui/material";
 import { Delete, patch, post, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../../../store/authSlice";
+import { selectId, selectToken } from "../../../../store/authSlice";
 import { useEffect, useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
@@ -17,7 +17,7 @@ import { InvitePopup } from "../../../createGame/invitePopup/InvitePopup";
 
 export enum GameStatus {
   Cancelled = "cancelled",
-  Finished = "finished",
+  Ended = "ended",
   NotStarted = "not_started",
   InProgress = "in_progress",
 }
@@ -41,6 +41,7 @@ type Props = {
 export function Game({ savedGame, isCreator }: Props) {
   const navigate = useNavigate()
   const token = useSelector(selectToken)
+  const id = useSelector(selectId)
 
   const [gameName, setGameName] = useState("")
   const [gameDate, setGameDate] = useState("")
@@ -71,7 +72,7 @@ export function Game({ savedGame, isCreator }: Props) {
       return "Не начата"
     if (savedGame.status == GameStatus.InProgress)
       return "В процессе"
-    if (savedGame.status == GameStatus.Finished)
+    if (savedGame.status == GameStatus.Ended)
       return "Завершена"
   }
 
@@ -241,8 +242,8 @@ export function Game({ savedGame, isCreator }: Props) {
           {savedGame.status != GameStatus.Cancelled && <IconButton onClick={() => {
             if (savedGame.status == GameStatus.NotStarted || savedGame.status == GameStatus.InProgress)
               navigate("/game/" + savedGame.id)
-            // if (savedGame.status == "finished")
-            //   navigate("")
+            if (savedGame.status == GameStatus.Ended)
+              navigate("game_results", { state: { gameId: savedGame.id}})
           }}>
             <KeyboardArrowRightIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
           </IconButton>}

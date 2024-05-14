@@ -23,7 +23,7 @@ export type NotificationModel = {
   plan?: Plan;
   invitor: string;
   accepted?: boolean;
-  seen: boolean;
+  read: boolean;
 }
 
 type Props = {
@@ -48,7 +48,7 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.game?.name} {" "} {savedNotification.game?.date} {" "}
               </span>
               отменена
-              {!savedNotification.seen && (<div className={styles.new}>
+              {!savedNotification.read && (<div className={styles.new}>
                 <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
               </div>)}
             </div>
@@ -87,7 +87,7 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.game?.name} {" "} {savedNotification.game?.date}
               </span>
 
-              {!savedNotification.seen && (<div className={styles.new}>
+              {!savedNotification.read && (<div className={styles.new}>
                 <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
               </div>)}
             </div>
@@ -130,7 +130,7 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.game?.name} {" "} {savedNotification.game?.date} {" "}
               </span>
               скоро начнется
-              {!savedNotification.seen && (<div className={styles.new}>
+              {!savedNotification.read && (<div className={styles.new}>
                 <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
               </div>)}
             </div>
@@ -163,7 +163,7 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.invitor} {" "}
               </span>
               пригласил Вас присоединиться к плану
-              {!savedNotification.seen && (<div className={styles.new}>
+              {!savedNotification.read && (<div className={styles.new}>
                 <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
               </div>)}
             </div>
@@ -201,7 +201,7 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.invitor} {" "}
               </span>
               удалил Вас из участников плана
-              {!savedNotification.seen && (<div className={styles.new}>
+              {!savedNotification.read && (<div className={styles.new}>
                 <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
               </div>)}
             </div>

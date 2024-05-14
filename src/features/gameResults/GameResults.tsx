@@ -6,28 +6,30 @@ import playersIcon from "./players.svg"
 import { Button } from "../../components/button/Button"
 import { Player } from "./player/Player"
 import { Result, ResultModel } from "./result/Result"
-import { DetailedResult, DetailedResultModel } from "./detailedResult/DetailedResult"
 import { useEffect, useState } from "react"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { isMobile } from "react-device-detect"
 import { get, readServerError } from "../../utils/api"
 import { selectId, selectToken } from "../../store/authSlice"
 import { useSelector } from "react-redux"
+import { useLocation, useNavigate } from "react-router-dom"
+import { TagResult } from "./tagResult/TagResult"
 
 
 type Props = {
-  gameId: string;
+  gameId?: string;
 
-  onButtonClicked: () => void;
+  onButtonClicked?: () => void;
 }
 
 
 export function GameResults(props: Props) {
 
   const token = useSelector(selectToken)
+  const userId = useSelector(selectId)
+  const { state } = useLocation();
 
-  const id = useSelector(selectId)
-  // const [id, setId] = useState("")
+  const navigate = useNavigate()
 
 
   const [name, setName] = useState("")
@@ -37,91 +39,16 @@ export function GameResults(props: Props) {
 
 
 
-
-
-  const [detailedResults, setDetailedResults] = useState<DetailedResultModel[] | null>(null)
-  const [myDetailedResult, setMyDetailedResult] = useState<DetailedResultModel | null>(null)
-
   const [results, setResults] = useState<ResultModel[] | null>(null)
   const [singleResult, setSingleResult] = useState<ResultModel | undefined>()
 
 
-  const readDetailedResults = (message: any) => {
-    // const messageParsed = JSON.parse(message);
-
-    // if (messageParsed.data == null) {
-    //   setTopics(null)
-    //   return;
-    // }
-
-    const detailedResultsNum = 2; // messageParsed.data.length;
-
-
-    const detailedResultsModels = [];
-    for (let i = 0; i < detailedResultsNum; i++) {
-
-      const scoresNum = 3 // (messageParsed.data[i].length);
-      const scoreModels = [];
-      for (let j = 0; j < scoresNum; j++) {
-        const scoreModel = {
-          score: 5,
-          question: "Вопрос Х", //messageParsed.data[i].questions[j].text
-
-        }
-        scoreModels.push(scoreModel)
-      }
-
-      const detailedResultModel = {
-        id: (i + 1).toString(), //messageParsed.data[i].id,
-        name: (i == 0 ? "User 1": "User 2"), //messageParsed.data[i].title,
-        result: 15,
-        scores: scoreModels,
-        isYou: false
-
-      }
-      detailedResultsModels.push(detailedResultModel)
-
-    }
-    setDetailedResults(detailedResultsModels)
-
-
-  }
-  const readMyDetailedResult = (message: any) => {
-    // const messageParsed = JSON.parse(message);
-
-    // if (messageParsed.data == null) {
-    //   setTopics(null)
-    //   return;
-    // }
-
-    const scoresNum = 3 // (messageParsed.data[i].length);
-    const scoreModels = [];
-    for (let j = 0; j < scoresNum; j++) {
-      const scoreModel = {
-        score: 5,
-        question: "Вопрос Х", //messageParsed.data[i].questions[j].text
-
-      }
-      scoreModels.push(scoreModel)
-    }
-
-    const detailedResultModel = {
-      id: "1", //messageParsed.data[i].id,
-      name: "", //messageParsed.data[i].title,
-      result: 15,
-      scores: scoreModels,
-      isYou: true
-
-    }
-
-    setMyDetailedResult(detailedResultModel)
-
-
-  }
 
 
   const readResults = async (message: any) => {
+    console.log("results " + message)
     const messageParsed = JSON.parse(message);
+
 
     if (messageParsed.data == null) {
       setResults(null)
@@ -133,20 +60,41 @@ export function GameResults(props: Props) {
     const resultsModels = [];
     for (let i = 0; i < resultsNum; i++) {
       try {
-        const response = await get('users/' + messageParsed.data[i].user_id, token)
-        console.log(response.text)
+
+        var response;
+        if (props.gameId)
+          response = await get('games/' + props.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
+        else
+          response = await get('games/' + state.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
+
+        const tags = []
+        const tagsData = JSON.parse(response.text);
+        if (tagsData.data) {
+          for (let j = 0; j < tagsData.data.length; j++) {
+            const tagModel = {
+              id: tagsData.data[j].id,
+              key: tagsData.data[j].name
+            }
+            tags.push(tagModel)
+          }
+        }
+
+
+
+        response = await get('users/' + messageParsed.data[i].user_id, token)
         const userData = JSON.parse(response.text);
         const resultModel = {
           id: userData.id,
           name: userData.first_name + " " + userData.second_name,
-          isCreator: userData.id == creatorId, 
-          isYou: userData.id == id,
+          isCreator: userData.id == creatorId,
+          isYou: userData.id == userId,
           photoUrl: "",
-          result: messageParsed.data[i].value
-  
+          result: messageParsed.data[i].value,
+          tags: tags
+
         }
         resultsModels.push(resultModel)
-  
+
       }
       catch (error: any) {
         readServerError(error.response.text)
@@ -154,14 +102,19 @@ export function GameResults(props: Props) {
       }
     }
     setResults(resultsModels)
-    setSingleResult(resultsModels?.find(result => result.id == id))
+    setSingleResult(resultsModels?.find(result => result.id == userId))
   }
 
 
 
   const fetchResults = async () => {
     try {
-      const response = await get('games/results/' + props.gameId, token)
+      var response;
+      if (props.gameId)
+        response = await get('games/' + props.gameId + '/results', token)
+      else
+        response = await get('games/' + state.gameId + '/results', token)
+
       readResults(response.text)
 
     }
@@ -173,18 +126,28 @@ export function GameResults(props: Props) {
   }
 
 
+
+
   const readGame = (message: any) => {
     const messageParsed = JSON.parse(message);
+    console.log("my id " + userId)
+    console.log("creator id " + creatorId)
+
     setName(messageParsed.name)
     setDate(new Date(messageParsed.start_date).toLocaleString())
     setCreatorId(messageParsed.creator_id)
-    setIsCreator(id == creatorId)
+    setIsCreator(userId == messageParsed.creator_id)
 
 
   }
   const fetchGame = async () => {
     try {
-      const response = await get('games/' + props.gameId, token)
+      var response;
+      if (props.gameId)
+        response = await get('games/' + props.gameId, token)
+      else
+        response = await get('games/' + state.gameId, token)
+
       readGame(response.text)
 
     }
@@ -200,10 +163,6 @@ export function GameResults(props: Props) {
   useEffect(() => {
     fetchGame()
     fetchResults()
-    // if (props.isCreator)
-    //   readDetailedResults("")
-    // else
-    //   readMyDetailedResult("")
 
 
 
@@ -239,17 +198,17 @@ export function GameResults(props: Props) {
         <div className={styles.middle}>
           <div className={styles.playersContainer}>
             <div className={styles.icon}>
-              {(!isMobile) ? <img src={playersIcon} /> : <GroupsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> }
+              {(!isMobile) ? <img src={playersIcon} /> : <GroupsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />}
             </div>
             <div className={styles.playerList}>
               <div className={styles.subtitle}>
                 Участники:
               </div>
               {results?.map(result =>
-                  <div>
-                    <Player savedPlayer={result} />
-                  </div>
-                )}
+                <div>
+                  <Player savedPlayer={result} />
+                </div>
+              )}
             </div>
           </div>
 
@@ -272,30 +231,24 @@ export function GameResults(props: Props) {
             )}
           </div>
         </div>
-        {/* {props.isCreator ? (
-          <div>
-            <div className={styles.subtitle}>
-              Общая сумма баллов каждого игрока:
-            </div>
-            {detailedResults?.map(detailedResult =>
-              <div>
-                <DetailedResult savedDetailedResult={detailedResult} />
-              </div>
-            )}
-          </div>
-        ) : (
-          <div>
-            <div className={styles.subtitle}>
-              Баллы за вопросы:
-            </div>
-            {myDetailedResult && <DetailedResult savedDetailedResult={myDetailedResult} />}
-          </div>
-        )} */}
 
+        <div >
+          {isCreator ? (
+            <div className={styles.tags}>
+              {results?.map(result =>
+                <div>
+                  <TagResult savedResult={result} />
+                </div>
+              )}
+            </div>
+          ) : (
+            singleResult && <TagResult savedResult={singleResult} />
+          )}
+        </div>
         <div className={styles.close}>
-          <Button text={"Закрыть"} onClick={props.onButtonClicked} className={styles.closeButton} />
+          <Button text={"Закрыть"} onClick={props.onButtonClicked ? props.onButtonClicked : () => navigate("/user_page")} className={styles.closeButton} />
         </div>
       </div>
-    </div >
+    </div>
   )
 }

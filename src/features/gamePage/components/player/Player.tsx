@@ -8,14 +8,14 @@ import { Button } from "../../../../components/button/Button";
 import { InvitePopup } from "../invitePopup/InvitePopup";
 import disableScroll from 'disable-scroll';
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectGame } from "../../../../store/gameSlice";
 
 export type PlayerModel = {
 
   id: string;
   isCreator: boolean;
   isYou: boolean;
-  isAnswering?: boolean;
-  connected?: boolean;
   name: string;
   photoUrl: string;
 
@@ -23,29 +23,17 @@ export type PlayerModel = {
 
 type Props = {
   savedPlayer?: PlayerModel;
-  joined: boolean;
-  gameId?: string;
+  isAnswering: boolean
 
 }
 
 
-export function Player({joined, savedPlayer, gameId}: Props) {
+export function Player({savedPlayer, isAnswering }: Props) {
 
 
-  const [inviteOpen, setInviteOpen] = useState(false);
-  
-  const openInvitePopup = () => {
-    disableScroll.on()
-    setInviteOpen(true)
+  const game = useSelector(selectGame)
 
-  }
-  const closeInvitePopup = () => {
-    disableScroll.off()
-    setInviteOpen(false)
-
-  }
-
-  if (joined && savedPlayer && savedPlayer.connected) {
+  if (savedPlayer) {
     return (
       <div>
         {savedPlayer.isCreator ? (
@@ -64,7 +52,7 @@ export function Player({joined, savedPlayer, gameId}: Props) {
           </div>
         )}
 
-        {savedPlayer.isAnswering ? (
+        {isAnswering ? ( ////////////////
           <div className={styles.photoAnswering}>
             <img src={photo} />
           </div>
@@ -93,34 +81,5 @@ export function Player({joined, savedPlayer, gameId}: Props) {
 
       </div>
     )
-  }
-  else if (joined && savedPlayer && !savedPlayer.connected) {
-
-    return (
-      <div>
-        <div className={styles.container}>
-          <div className={styles.photoDisconnected}>
-            <img src={disconnected} />
-          </div>
-          <div className={styles.nameDisconnected}>
-            {savedPlayer.name}
-          </div>
-
-        </div>
-      </div>
-
-
-    )
-
-  }
-  else if (!joined) {
-    return (
-      <div>
-        <Button text={"+"} onClick={openInvitePopup} className={styles.addButton} />
-        {inviteOpen ? <InvitePopup closePopup={closeInvitePopup} gameId = {gameId} /> : null}
-      </div>
-
-    )
-
   }
 }

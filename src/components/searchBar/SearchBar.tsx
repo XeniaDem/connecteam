@@ -91,10 +91,10 @@ export function SearchBar(props: Props) {
 
   }, [query]);
 
-  useEffect(() => {
-    console.log(props.data)
+  // useEffect(() => {
+  //   console.log(props.data)
 
-  }, []);
+  // }, []);
 
 
 

@@ -1,21 +1,11 @@
 
-import { PlayerModel } from "../../gamePage/components/player/Player";
 import { ResultModel } from "../result/Result";
 import styles from "./Player.module.css"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
-// export type PlayerModel = {
-//   id: string;
-//   isCreator: boolean;
-//   isYou: boolean;
-//   name: string;
-//   photo: string;
-// }
 type Props = {
   savedPlayer: ResultModel;
-
-
 }
 
 
@@ -37,7 +27,7 @@ export function Player({ savedPlayer }: Props) {
                 (Организатор)
               </div>
             ) : (
-              <div />
+              null
             )}
           </div>
         </div>
@@ -51,14 +41,12 @@ export function Player({ savedPlayer }: Props) {
             {savedPlayer.isCreator ? (
               <div className={styles.name}>
                 (Организатор)
-
               </div>
             ) : (
-              <div />
+              null
             )}
           </div>
         </div>
-
       )
       }
     </div>

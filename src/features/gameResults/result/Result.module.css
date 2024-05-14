@@ -82,6 +82,9 @@ font-size: 30.556px;
 font-style: normal;
 font-weight: 700;
 line-height: 43.954px; /* 143.851% */
+display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

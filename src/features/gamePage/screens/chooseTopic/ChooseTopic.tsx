@@ -67,7 +67,6 @@ export function ChooseTopic(props: Props) {
 
 
     useEffect(() => {
-      console.log(props.topics)
       readTopics()
     }, [props.topics]);
     return (

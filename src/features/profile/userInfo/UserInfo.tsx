@@ -278,9 +278,9 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
   const restorePassword = async () => {
     try {
 
-      const response = await get('users/password', token)
+      const response = await patch('users/password', undefined, token)
 
-      dispatch(signIn({ token: "", access: "", id: ""}))
+      dispatch(signIn({ token: "", access: "", userId: ""}))
       navigate("link_sent", { state: { email: email } })
 
 

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
-import { selectToken } from "../../store/authSlice"
+import { selectId, selectToken } from "../../store/authSlice"
 import { get, readServerError } from "../../utils/api"
 import { Plan } from "../planList/PlanList"
 
@@ -15,6 +15,7 @@ import { Plan } from "../planList/PlanList"
 export function UserPage() {
 
   const token = useSelector(selectToken)
+  const id = useSelector(selectId)
   
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -29,7 +30,6 @@ export function UserPage() {
     setName(name)
     setSurname(surname)
     setUserId(userId)
-    console.log(userId)
   }
 
 
@@ -77,11 +77,11 @@ export function UserPage() {
 
   // const [userFetched, setUserFetched] = useState(false)
 
-  const [planFetched, setPlanFetched] = useState(false)
+  // const [planFetched, setPlanFetched] = useState(false)
 
 
   const onPlanChange = () => {
-    setPlanFetched(!planFetched)
+    window.location.reload()
 
   }
 
@@ -89,6 +89,7 @@ export function UserPage() {
   useEffect(() => {
     disableScroll.off()
     fetchUserPage();
+    console.log(id)
 
   }, []);
 
@@ -96,7 +97,7 @@ export function UserPage() {
     disableScroll.off()
     fetchPlan();
 
-  }, [planFetched]);
+  }, []);
 
 
 

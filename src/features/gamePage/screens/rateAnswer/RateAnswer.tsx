@@ -21,7 +21,8 @@ type Props = {
   isCreator: boolean;
   nameAnswering: string;
   question: string;
-  onButonClicked: (rating: number) => void;
+  tags: string;
+  onButonClicked: (rating: number, selected: string[]) => void;
 
 }
 
@@ -41,21 +42,23 @@ export function RateAnswer(props: Props) {
       setRating(rating)
     }
 
-    const [tags, setTags] = useState<TagModel[] | null>(null)
+    const [tags, setTags] = useState<TagModel[] | null>()
 
-    const readTags = (message: any) => {
-      // const messageParsed = JSON.parse(message);
+    const readTags = () => {
+      console.log(props.tags)
+      if (props.tags == "") {
+        setTags(null);
+        return;
+      }
+      const messageParsed = JSON.parse(props.tags);
 
-      // if (messageParsed.data == null) {
-      //   setTags(null);
-      //   return;
-      // }
-      const tagsNum = 10 //messageParsed.data.length;
+    
+      const tagsNum = messageParsed.length;
       const tagsModels = [];
       for (let j = 0; j < tagsNum; j++) {
         const tagModel = {
-          id: j.toString(), //messageParsed.data[j].id,
-          key: "Тег" //messageParsed.data[j].content
+          id: messageParsed[j].id,
+          key: messageParsed[j].name
 
         }
         tagsModels.push(tagModel)
@@ -67,48 +70,41 @@ export function RateAnswer(props: Props) {
 
     const [selectedTagsIds, setSelectedTagsIds] = useState<string[]>([]);
 
-
-
     const [allTags, setAllTags] = useState<TagModel[] | null>(null)
-
-    // const [newTags, setNewTags] = useState<TagModel[]>([])
-
 
     const [currentTag, setCurrentTag] = useState<TagModel | null>(null)
 
     const addTag = () => {
       if (newTagHidden == true) {
         fetchAllTags()
-  
         setNewTagHidden(false)
-  
-  
       }
       else {
-        // console.log(currentTag)
         if (currentTag == null || tags && tags.find(tag => tag.id == currentTag.id)) {
           return;
         }
        
-        tags && setTags(tags.concat(currentTag))
-  
-        ///tbd add tags
+        if (tags) {
+          setTags(tags.concat(currentTag))
+        } else {
+          const newTags = []
+          newTags.push(currentTag)
+          setTags(newTags)
+
+        }
         setNewTagHidden(true)
   
       }
     }
 
     const readAllTags = (message: any) => {
-
       const messageParsed = JSON.parse(message);
-
       if (messageParsed.data == null) {
         setAllTags(null)
         return;
       }
 
       const tagsNum = messageParsed.data.length;
-
 
       const tagsModels = [];
       for (let i = 0; i < tagsNum; i++) {
@@ -141,7 +137,8 @@ export function RateAnswer(props: Props) {
     }
 
     useEffect(() => {
-      readTags("")
+      console.log(props.tags)
+      readTags()
 
 
 
@@ -159,8 +156,6 @@ export function RateAnswer(props: Props) {
               </div>
 
               <div className={styles.tags}>
-
-
 
                 {tags?.map(tag => {
                   const onTagClicked = (newValue: boolean) => {
@@ -186,68 +181,35 @@ export function RateAnswer(props: Props) {
 
                 <div className={styles.addButton}>
                   <IconButton onClick={addTag}>
-
-
                     {newTagHidden ? (
                       <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
                     ) : (
                       <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
-
                     )}
                   </IconButton>
                 </div>
-                {/* <SearchBar data={[]} onSelectedChange={() => null} />  ////////////////////////////////////// */}
-
-
-
               </div>
 
-
-
-
-              <Button text={"Завершить оценивание"} onClick={() => props.onButonClicked(rating)} className={styles.finishButton} />
-
-
+              <Button text={"Завершить оценивание"} onClick={() => props.onButonClicked(rating, selectedTagsIds)} className={styles.finishButton} />
             </div>
-
           </div>
-
         </div>
-
-      </div >
+      </div>
     )
   }
   else {
     return (
       <div>
         <div className={styles.container}>
-
           <div className={styles.middle}>
             <div className={styles.title}>
               Игроки оценивают ваш ответ
             </div>
-
             <div className={styles.dots}>
               <img src={dots} />
             </div>
           </div>
-
-
-          {/* {props.isCreator ? (
-            <Button text={"Завершить оценивание"} onClick={function (): void {
-              throw new Error("Function not implemented.")
-            }} className={styles.finishButton} />
-
-
-          ) : (
-            <div />
-          )} */}
-
-
-
         </div>
-
       </div>
     )
   }

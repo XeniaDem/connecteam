@@ -118,7 +118,19 @@
 }
 
 
+.copied {
+  /* margin-top: 10px;
+  margin-bottom: -30px; */
+  color: white;
+  text-align: center;
+  font-size: 13.918px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.616px;
+  /* 162.5% */
 
+
+}
 
 
 .input {
