@@ -24,11 +24,6 @@ export function LastGames(props: Props) {
     }
   ];
 
-  // useEffect(() => {
-  //   console.log("2 " + props.userId)
-
-
-  // }, []);
 
   return (
     <div>
@@ -46,22 +41,6 @@ export function LastGames(props: Props) {
           Кликните на кнопку <span> <KeyboardArrowRightIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> </span> чтобы посмотреть состояние игры
         </div>
         <Tabs tabs={tabs} userId = {props.userId}/>
-        {/* <div className={styles.filtration}>
-          <Button text={""} onClick={function (): void {
-            throw new Error("Function not implemented.")
-          }} className={styles.filterButton} />
-
-
-          <div className={styles.filterText}>
-            Фильтрация по играм
-          </div>
-
-
-
-
-        </div> */}
-
-
       </div>
     </div>
   )

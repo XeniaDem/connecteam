@@ -84,7 +84,7 @@ export function InvitePopup(props: Props) {
       if (isYou)
         continue;
       var access = messageParsed.data[i].access
-      if (access == "admin" || access == "superadmin")
+      if (access == "admin" || access == "super_admin")
         continue;
       const userModel = {
         id: messageParsed.data[i].id,

@@ -1,4 +1,3 @@
-
 import styles from "./PlanInfo.module.css"
 import icon from "./icon.svg"
 import { Plan, PlanList } from "../../planList/PlanList"
@@ -6,17 +5,18 @@ import { BasicPlan } from "./basicPlan/BasicPlan"
 import { AdvancedPlan } from "./advancedPlan/AdvancedPlan"
 import { PremiumPlan } from "./premiumPlan/PremiumPlan"
 import { Button } from "../../../components/button/Button"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { isMobile } from 'react-device-detect';
 import { useGetDimensions } from "../../../app/hooks/useGetDimensions"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { selectId, selectToken } from "../../../store/authSlice"
-import { get, patch, readServerError } from "../../../utils/api"
+import { get, readServerError } from "../../../utils/api"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { IconButton } from "@mui/material"
 import { NotificationsCenter } from "./notificationCenter/NotificationsCenter"
-import { NotificationModel, NotificationType } from "./notificationCenter/notification/Notification"
+import { selectNotifications, updateNotifications } from "../../../store/notificationsSlice"
+import { NotificationModel } from "./notificationCenter/notification/Notification"
 import { GameModel } from "../lastGames/game/Game"
 
 
@@ -32,14 +32,14 @@ type Props = {
 
 export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const token = useSelector(selectToken)
-
   const id = useSelector(selectId)
+  const notificationsCount = useSelector(selectNotifications)
+  const dispatch = useDispatch()
 
   const width = useGetDimensions()[0]
   const height = useGetDimensions()[1]
+
   const navigate = useNavigate()
-
-
 
 
   const [planType, setPlanType] = useState<string | undefined>()
@@ -51,30 +51,53 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   const [trialApplicable, setTrialApplicable] = useState(false)
 
   const [notificationsHidden, setNotificationsHidden] = useState(true)
-  const [newNotificationsCount, setNewNotificationsCount] = useState(0)
 
 
   const fetchPreviousPlans = async () => {
     try {
-
       const response = await get('plans/', token)
       if (JSON.parse(response.text).data == null) {
         setTrialApplicable(true)
       }
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
+
+
+  const webSocketRef = useRef<WebSocket | null>(null)
+  useEffect(() => {
+
+
+    const ws: WebSocket = new WebSocket('ws://localhost:8081/ws?token=' + token);
+    webSocketRef.current = ws;
+
+    ws.onopen = () => {
+      console.log('Connected to server');
+      fetchNotifications()
+    };
+
+    ws.onmessage = (event: MessageEvent<any>) => {
+      console.log(`Received message from server: ${event.data}`);
+      const messageComing = event.data
+      const messages = messageComing.split("\n")
+      messages.forEach((message: string) => {
+        dispatch(updateNotifications({notificationsCount: notificationsCount + 1}))
+      
+      });
+    };
+
+    ws.onclose = () => {
+      console.log('Disconnected from server');
+    };
+
+  }, []);
 
   const [notifications, setNotifications] = useState<NotificationModel[]>()
 
   const readNotifications = async (message: any) => {
-    // console.log(message)
     const messageParsed = JSON.parse(message);
 
     if (messageParsed.data == null) {
@@ -179,53 +202,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
       }
 
     }
-    // gameData = {
-    //   id: "",
-    //   name: "Game 1",
-    //   date: (new Date().toLocaleString()).slice(0, -3),
-    //   invitationCode: "",
-    //   creatorId: ""
-    // }
-    // planData = {
-    //   id: "",
-    //   invitationCode: "",
-    //   holderId: "",
-    //   planType: "",
-    //   planAccess: "",
-    //   expiryDate: "",
-    //   status: "",
-    //   isTrial: false,
 
-    // }
-    // const cancelGame = {
-    //   type: NotificationType.CancelGameNotification,
-    //   date: new Date().toLocaleString(),
-    //   game: gameData,
-    //   invitor: "",
-    //   seen: false
-
-    // }
-    // const startGame = {
-    //   type: NotificationType.StartGameNotification,
-    //   date: new Date().toLocaleString(),
-    //   game: gameData,
-    //   invitor: "",
-    //   seen: false
-
-    // }
-    // const deleteSub = {
-    //   type: NotificationType.DeleteFromSubNotification,
-    //   date: new Date().toLocaleString(),
-    //   game: gameData,
-    //   invitor: "User 2",
-    //   seen: false
-
-    // }
-    // notificationsModels.push(cancelGame)
-    // notificationsModels.push(startGame)
-    // notificationsModels.push(deleteSub)
-
-    setNewNotificationsCount(notificationsModels.filter(notification => notification.read == false).length)
+    dispatch(updateNotifications({notificationsCount: notificationsModels.filter(notification => notification.read == false).length}))
 
     notificationsModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -236,22 +214,18 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
   const fetchNotifications = async () => {
     try {
-
       const response = await get('notifications/', token)
       readNotifications(response.text)
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
+  
+  useEffect(() => {
 
-
-
+  }, []);
 
   useEffect(() => {
     setPlanType(savedPlan?.planType)
@@ -261,23 +235,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
     if (savedPlan == null) {
       fetchPreviousPlans()
     }
-    // alert(savedPlan?.status)
-
-
 
   }, [savedPlan]);
-
-
-
-
-  useEffect(() => {
-    fetchNotifications()
-
-
-  }, []);
-
-
-
 
   return (
     <div>
@@ -290,7 +249,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
             Добро пожаловать, {name} {" "} {surname}!
           </div>
           <div className={styles.notifications}>
-            <IconButton onClick={() => setNotificationsHidden(false)}>
+            <IconButton onClick={() => {setNotificationsHidden(false); fetchNotifications()}}>
               <svg width={0} height={0}>
                 <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
                   <stop offset={0} stopColor="#55C6F7" />
@@ -299,8 +258,8 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
               </svg>
               <NotificationsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             </IconButton>
-            {notifications && newNotificationsCount > 0 && <div className={styles.new}>
-              {newNotificationsCount}
+            {notificationsCount > 0 && <div className={styles.new}>
+              {notificationsCount}
             </div>}
           </div>
         </div>
@@ -326,14 +285,11 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
             </div>
             <div className={styles.footerContainer}>
-              {planStatus == "active" ? (
+              {planStatus == "active" &&
                 <div className={styles.footer}>
                   Дата истечения срока подписки {expiryDate}
-                </div>
-              ) : (
-                null
-              )
-              }
+                </div>}
+
 
               <Button text={planStatus == "active" ? "Управлять планом" : "Продлить план"}
                 onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
@@ -350,11 +306,9 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
           </div>
         }
 
-
-
       </div>
 
-      {!notificationsHidden ? <NotificationsCenter onBlur={() => { setNotificationsHidden(true); fetchNotifications() }} notifications={notifications} /> : null}
+      {!notificationsHidden ? <NotificationsCenter onBlur={() => { setNotificationsHidden(true);}} notifications={notifications}/> : null}
 
     </div>
   )

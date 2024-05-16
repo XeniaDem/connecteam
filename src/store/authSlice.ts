@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState} from "./store"
 
-export type Access = "superadmin" | "admin" | "user" | ""
+export type Access = "super_admin" | "admin" | "user" | ""
 export interface AuthState {
   token: string;
   access: Access;

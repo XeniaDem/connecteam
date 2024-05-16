@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import cn from 'classnames';
 import styles from "./Tabs.module.css"
 import { useSelector } from "react-redux";
-import { selectId, selectToken } from "../../../../store/authSlice";
+import { selectToken } from "../../../../store/authSlice";
 import { get, readServerError } from "../../../../utils/api";
-import { Game, GameModel, GameStatus } from "../game/Game";
+import { Game, GameModel } from "../game/Game";
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
@@ -32,7 +32,6 @@ export function Tabs(props: Props) {
     const [games, setGames] = useState<GameModel[] | null>(null)
 
     const readGames = (message: any) => {
-        console.log("games num " + games?.length)
         const messageParsed = JSON.parse(message);
         if (messageParsed.data == null) {
             return;
@@ -43,7 +42,6 @@ export function Tabs(props: Props) {
         const gamesModels = [];
         for (let i = 0; i < gamesNum; i++) {
 
-            
             const gameModel = {
                 id: messageParsed.data[i].id,
                 name: messageParsed.data[i].name,
@@ -53,7 +51,6 @@ export function Tabs(props: Props) {
                 creatorId: messageParsed.data[i].creator_id
             }
             gamesModels.push(gameModel)
-
         }
 
         const newGames = games == null ? gamesModels : games.concat(gamesModels)
@@ -88,7 +85,6 @@ export function Tabs(props: Props) {
 
 
     useEffect(() => {
-        // console.log("pageNum " + pageNum)
         if (activeTab == "Мои")
             getGames("created")
         if (activeTab == "Участвую")
@@ -96,19 +92,6 @@ export function Tabs(props: Props) {
 
     }, [activeTab, pageNum]);
 
-    // useEffect(() => {
-    //     const element = document.getElementById("games");
-    //     element && element.scrollIntoView();
-
-
-
-    // }, [activeTab]);
-
-    // useEffect(() => {
-    //   console.log("3 " + props.userId)
-
-
-    // }, []);
 
 
     return (
@@ -119,9 +102,7 @@ export function Tabs(props: Props) {
                         const classname = cn(styles.tab, { [styles.activeTab]: (activeTab == tab.tabName) })
                         return (
                             <div className={classname} onClick={() => { setActiveTab(tab.tabName); setGames(null); setPageNum(0) }}>
-
                                 {tab.tabName}
-
                             </div>
                         )
                     })}
@@ -129,7 +110,6 @@ export function Tabs(props: Props) {
                 <div className={styles.rectangle} />
             </div>
             <div className={styles.content}>
-                {/* {tab?.tabContent || null} */}
                 <div>
                     {games == null || games.length == 0 ? (
                         <div className={styles.empty}>
@@ -137,20 +117,14 @@ export function Tabs(props: Props) {
                         </div>
 
                     ) : (
-
                         (games?.map(game =>
                             <div>
                                 <Game savedGame={game} isCreator={props.userId == game.creatorId} />
                             </div>
-
                         ))
-
                     )}
-
                 </div>
-
             </div>
-
         </div>
     )
 }

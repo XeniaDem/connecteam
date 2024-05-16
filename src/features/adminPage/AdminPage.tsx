@@ -33,14 +33,7 @@ export function AdminPage() {
           Пользователи
         </div>
         <img src={users} />
-
       </div>
-      {/* <div className={styles.section} onClick={() => navigate("/admin/plan_requests")}>
-      <div className={styles.subtitle}>
-          Запросы на план
-        </div>
-        <img src={users} />
-      </div> */}
     </div>
   )
 }

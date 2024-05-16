@@ -58,24 +58,18 @@ export function Question({ savedQuestion, onChange }: Props) {
     }
 
     if (questionEditing) {
-
       if (savedQuestion.text != questionText) {
         if (questionText == "") {
           return;
         }
-        // alert("questionchange")
         setQuestionEditing(!questionEditing);
         editQuestion()
         onChange()
       }
       else {
         setQuestionEditing(!questionEditing);
-        // alert("Ничего не сохраняем")
       }
     }
-
-
-
   }
 
 
@@ -110,9 +104,7 @@ export function Question({ savedQuestion, onChange }: Props) {
 
 
   useEffect(() => {
-
     setQuestionText(savedQuestion.text)
-
   }, [savedQuestion]);
 
 
@@ -123,29 +115,20 @@ export function Question({ savedQuestion, onChange }: Props) {
       const e = event || window.event;
 
       if (e.keyCode == 13) {
-
         e.preventDefault();
       }
-
-
-
     }
 
   }, []);
 
 
 
-
-
   return (
     <div className={styles.container}>
-
-
       <div className={styles.group}>
         <div className={styles.counter}>
           {savedQuestion.number} {"."}
         </div>
-
         <div className={styles.smallGroup}>
           <IconButton onClick={handleQuestionEdit}>
             {!questionEditing ? (<EditIcon fontSize="medium" htmlColor="#5C5C5C" />
@@ -153,31 +136,17 @@ export function Question({ savedQuestion, onChange }: Props) {
               <DoneIcon fontSize="medium" htmlColor="#5C5C5C" />
             )}
 
-
-
           </IconButton>
           <textarea className={!questionEditing ? styles.text : styles.textActive} placeholder={"Текст вопроса"} disabled={!questionEditing}
             value={questionText} onChange={(event) => { setQuestionText(event.target.value) }} style={width > 748 ? { width: 0.7 * width } : { width: 350 }} />
-
-
         </div>
-
       </div>
       <div className={styles.group}>
         <Button text={"Теги"} onClick={openTagsPopup} className={styles.tagsButton} />
         <Button text={"Удалить"} onClick={deleteQuestion} className={styles.deleteButton} />
-
-
-
       </div>
-      {tagsOpen ? <TagsPopup closePopup={closeTagsPopup} savedQuestion={savedQuestion}/> : null}
-
-
-
-
+      {tagsOpen ? <TagsPopup closePopup={closeTagsPopup} savedQuestion={savedQuestion} /> : null}
     </div>
-
-
   )
 }
 

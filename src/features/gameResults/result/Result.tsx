@@ -3,7 +3,6 @@ import styles from "./Result.module.css"
 import { isMobile } from "react-device-detect";
 
 export type ResultModel = {
-
   id: string;
   isCreator: boolean;
   isYou: boolean;
@@ -11,7 +10,6 @@ export type ResultModel = {
   photoUrl: string;
   result: number;
   tags: TagModel[];
-
 }
 
 type Props = {
@@ -32,7 +30,6 @@ export function Result({ savedResult }: Props) {
             Вы
           </div>
         ) : (
-
           <div className={styles.name}>
             {savedResult.name}
           </div>

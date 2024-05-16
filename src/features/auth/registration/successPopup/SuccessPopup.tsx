@@ -22,9 +22,8 @@ export function SuccessPopup(props: Props) {
   const saveAccessAndToken = (message: any) => {
 
     var messageParsed = JSON.parse(message);
-    alert(message)
     access = messageParsed.access;
-    const token = messageParsed.token;
+    const token = messageParsed.access_token;
     const id = messageParsed.user_id;
     dispatch(signIn({ token: token, access: access as Access, userId: id}));
 
@@ -39,7 +38,7 @@ export function SuccessPopup(props: Props) {
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
 
-      if (access == "admin" || access == "superadmin") {
+      if (access == "admin" || access == "super_admin") {
         navigate("/admin")
       }
       else {

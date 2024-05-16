@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Game.module.css"
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton } from "@mui/material";
-import { Delete, patch, post, readServerError } from "../../../../utils/api";
+import { Delete, patch, readServerError } from "../../../../utils/api";
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../../../store/authSlice";
 import { useEffect, useState } from "react";
@@ -41,7 +41,6 @@ type Props = {
 export function Game({ savedGame, isCreator }: Props) {
   const navigate = useNavigate()
   const token = useSelector(selectToken)
-  const id = useSelector(selectId)
 
   const [gameName, setGameName] = useState("")
   const [gameDate, setGameDate] = useState("")
@@ -80,22 +79,17 @@ export function Game({ savedGame, isCreator }: Props) {
     try {
       const response = await Delete('games/' + savedGame.id, token)
       window.location.reload()
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
   }
 
   const cancelGame = async () => {
     try {
       const response = await patch('games/' + savedGame.id + '/cancel', undefined, token)
       window.location.reload()
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -200,7 +194,6 @@ export function Game({ savedGame, isCreator }: Props) {
             :
             null
           }
-
           <div>
             <input className={!nameEditing ? styles.name : styles.nameActive} placeholder={"Название игры"} disabled={!nameEditing}
               value={gameName} onChange={(event) => { setGameName(event.target.value) }} />
@@ -218,7 +211,6 @@ export function Game({ savedGame, isCreator }: Props) {
             :
             null
           }
-
           <div>
             <input type="datetime-local" min={new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf(":"))}
               className={styles.input} placeholder="Дата игры" disabled={!dateEditing} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />

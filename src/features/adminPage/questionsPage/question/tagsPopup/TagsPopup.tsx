@@ -123,16 +123,12 @@ export function TagsPopup(props: Props) {
 
 
   return (
-
     <div>
-
       <div className={styles.background}>
         <div className={styles.container}>
-
           <div className={styles.close}>
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
-
           <div className={styles.body}>
             <div className={styles.ellipse1}>
               <img src={ellipse1} />
@@ -140,7 +136,6 @@ export function TagsPopup(props: Props) {
             <div className={styles.ellipse2}>
               <img src={ellipse2} />
             </div>
-
             <div className={styles.title}>
               Теги
             </div>
@@ -149,29 +144,21 @@ export function TagsPopup(props: Props) {
             </div>
 
             <div className={styles.tags}>
-
               {newTags.length == 0 ? (
                 <div className={styles.empty}>
                   Пока не было добавлено ни одного тега
                 </div>
-
               ) : (
-
                 <div className={styles.tags}>
                   {newTags?.map(tag =>
                     <div>
                       <Tag savedTag={tag} deleteTag={deleteTag} />
-
                     </div>
-
                   )}
                 </div>
               )}
               <div className={styles.addTag}>
                 {!newTagHidden ? allTags && <SearchBar data={allTags} onSelectedChange={setCurrentTag} placeholder="Поиск тега..." /> : null}
-
-
-
                 <div className={styles.addButton}>
                   <IconButton onClick={addTag}>
 
@@ -180,18 +167,11 @@ export function TagsPopup(props: Props) {
                       <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
                     ) : (
                       <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
-
                     )}
                   </IconButton>
                 </div>
               </div>
-
-
-
             </div>
-
-
           </div>
 
           <Button text={"Сохранить"} onClick={addTags} className={styles.saveButton} />

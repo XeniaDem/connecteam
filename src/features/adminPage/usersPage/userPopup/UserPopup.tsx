@@ -66,7 +66,8 @@ export function UserPopup({ savedUser, closePopup }: Props) {
   }
 
   const getErrorMessage = () => {
-    if (expiryDate == undefined) {
+    // alert(expiryDate)
+    if (expiryDate == "") {
       return ("Выберите дату истечения плана")
     }
     return null
@@ -158,11 +159,9 @@ export function UserPopup({ savedUser, closePopup }: Props) {
 
             </div>
             <div className={styles.photo}>
-              {(savedUser.photo == "") ? <img src={defaultPhoto} /> : <img src={savedUser.photo} />}
+              {(!savedUser.photo) ? <img src={defaultPhoto} /> : <img src={savedUser.photo} />}
 
             </div>
-
-
           </div>
           <div className={styles.right}>
             <div className={styles.ellipse2}>
@@ -179,9 +178,7 @@ export function UserPopup({ savedUser, closePopup }: Props) {
                   dropDownValue={readPlan()} onDropDownValueChange={onPlanValueChange} />
               )}
 
-
               {planType ? (
-
                 <div className={styles.expiry}>
                   <div className={styles.text}>
                     Дата истечения
@@ -194,13 +191,11 @@ export function UserPopup({ savedUser, closePopup }: Props) {
               ) : (
                 null
               )}
-
-              {myAccess == "superadmin" ? (
+              {myAccess == "super_admin" ? (
                 <div className={styles.makeAdmin}>
                   <Button text={access == "admin" ? "Убрать доступ администратора" : "Назначить администратором"}
                     onClick={changeAccess} className={styles.footerButton} />
                 </div>
-
               ) : (
                 null
               )}

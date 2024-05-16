@@ -74,29 +74,19 @@ export function UserPage() {
   }
 
 
-
-  // const [userFetched, setUserFetched] = useState(false)
-
-  // const [planFetched, setPlanFetched] = useState(false)
-
-
   const onPlanChange = () => {
     window.location.reload()
-
   }
 
 
   useEffect(() => {
     disableScroll.off()
     fetchUserPage();
-    console.log(id)
-
   }, []);
 
   useEffect(() => {
     disableScroll.off()
     fetchPlan();
-
   }, []);
 
 

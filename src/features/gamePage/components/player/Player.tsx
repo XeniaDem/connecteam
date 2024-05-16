@@ -1,13 +1,7 @@
 
 import styles from "./Player.module.css"
-
 import smallCrown from "./smallCrown.svg"
 import photo from "./samplePhoto.svg"
-import disconnected from "./disconnected.svg"
-import { Button } from "../../../../components/button/Button";
-import { InvitePopup } from "../invitePopup/InvitePopup";
-import disableScroll from 'disable-scroll';
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectGame } from "../../../../store/gameSlice";
 

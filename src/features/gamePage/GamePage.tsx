@@ -26,9 +26,7 @@ import { useParams } from "react-router-dom";
 interface CommonGameScreenElementsProps {
     gameStarted: boolean;
     children: ReactNode
-
 };
-
 
 
 export function GamePage() {
@@ -71,7 +69,6 @@ export function GamePage() {
 
     const onUserLeft = useCallback((messageObject: any) => {
         showUserLeft()
-        // updatePlayers(messageObject)
         removePlayer(messageObject.sender.id)
     }, [])
 
@@ -89,7 +86,6 @@ export function GamePage() {
     }, [])
 
     const onRatingFinish = useCallback(() => {
-
         dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         startStage()
 
@@ -101,30 +97,19 @@ export function GamePage() {
 
     }, [])
     const onAnswerStart = useCallback((messageObject: any) => {
-
-        // dispatch(setStage({ userAnswering: game.userAnswering, userAnsweringId: game.userAnsweringId, question: game.question, stageStarted: true}))
         dispatch(setTimer({ timerStarted: true, timeStart: messageObject.time }))
     }, [])
 
     const onStageStart = useCallback((messageObject: any) => {
         const payload = messageObject.payload
         const tags = JSON.stringify(payload.question.tags)
-        const game = store.getState().game
-
-
-        const name = players?.find(player => player.id = payload.user)?.name
         dispatch(setStage({ playerAnswering: payload.user.name, playerAnsweringId: payload.user.id, question: payload.question.content, tags: tags }))
-        // dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum })) ////
-
-        // updatePlayers(messageObject) /////////////////////////////////////////////////////////////////////// !!!
-
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.AnswerQuestion }))
     }, [])
 
     const onRoundStart = useCallback(() => {
         const game = store.getState().game
-        console.log("GAE: " + game.currentRound)
-        dispatch(updateRounds({ currentRound: game.currentRound + 1 })) ///////////
+        dispatch(updateRounds({ currentRound: game.currentRound + 1 })) 
         startStage()
 
     }, [])
@@ -140,10 +125,6 @@ export function GamePage() {
     const onTopicsChoose = useCallback((messageObject: any) => {
         const sender = messageObject.sender
         const senderId = sender.id
-
-        const topics = JSON.stringify(messageObject.payload)
-
-        // dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.length }))
 
         const game = store.getState().game
         const id = game.playerId
@@ -170,8 +151,6 @@ export function GamePage() {
 
 
         updatePlayers(messageObject)
-
-
 
     }, [])
 
@@ -202,7 +181,6 @@ export function GamePage() {
                 id: payload.users[i].id,
                 isCreator: payload.users[i].id == creatorId,
                 isYou: payload.users[i].id == id,
-                // isAnswering: payload.users[i].id == userAnsweringId,
                 name: payload.users[i].name,
                 photoUrl: "" ///////////////////
             }
@@ -219,12 +197,8 @@ export function GamePage() {
 
     }
 
-
-
-
     useEffect(() => {
-
-        if (!gameId) { /////////////////
+        if (!gameId) { 
             navigate("/user_page")
             return;
         }
@@ -295,16 +269,7 @@ export function GamePage() {
                     }
 
                 }
-
-
-
-
-
             });
-
-
-
-
         };
 
         ws.onclose = () => {
@@ -312,9 +277,6 @@ export function GamePage() {
             setError("Игровой сервис недоступен")
             dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
         };
-
-
-
     }, []);
 
     const joinGame = useCallback(() => {
@@ -333,9 +295,7 @@ export function GamePage() {
         if (selected) {
             const payload = []
             for (let i = 0; i < selected.length; i++) {
-                payload.push({
-                    id: selected[i],
-                })
+                payload.push(selected[i])
             }
             message = JSON.stringify({
                 action: "select-topic",
@@ -472,8 +432,6 @@ export function GamePage() {
             {gameStarted ?
                 <div>
                     <div className={styles.players}>
-                        {/* {!game.gameStarted && <Player joined={false} gameId={gameId} />} */}
-
                         {players?.map(player =>
                             <div>
                                 <Player savedPlayer={player} isAnswering={game.playerAnsweringId == player.id} />
@@ -554,7 +512,10 @@ export function GamePage() {
     if (game.currentScreen == GameScreen.GameError) {
         return (
             <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={false} children={<GameError error={error} clearData={clearData} />} />
+                <CommonGameScreenElements gameStarted={false} children={<GameError error={error} onButtonClicked={() => {
+                clearData()
+                navigate("/user_page")
+            }}  />} />
             </div>
         )
     }

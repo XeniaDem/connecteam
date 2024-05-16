@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { get, readServerError } from "../../utils/api"
 import { isMobile } from 'react-device-detect';
 import { Plan } from "../planList/PlanList"
+import { updateNotifications } from "../../store/notificationsSlice"
 
 
 type Props = {
@@ -85,9 +86,6 @@ export function Header (props: Props) {
             navigate("/admin/users_page")
           }} selected={location.pathname == "/admin/users_page"} />
 
-          {/* <HeaderItem text="Запросы на план" onClick={() => {
-            navigate("/admin/plan_requests")
-          }} selected={location.pathname == "/admin/plan_requests"} /> */}
         </div>
         <Button text={"Выход"} onClick={() => {
           navigate("/")
@@ -127,12 +125,14 @@ export function Header (props: Props) {
           {isMobile && <Button text={"Выход"} onClick={() => {
             navigate("/")
             dispatch(signIn({ token: "", access: "", userId: "" }))
+            dispatch(updateNotifications({notificationsCount: 0}))
           }} className={styles.authButton} />}
         </div>
 
         {!isMobile && <Button text={"Выход"} onClick={() => {
           navigate("/")
           dispatch(signIn({ token: "", access: "", userId: "" }))
+          dispatch(updateNotifications({notificationsCount: 0}))
         }} className={styles.authButton} />}
       </div>
     )

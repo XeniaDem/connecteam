@@ -14,7 +14,6 @@ import { UserPage } from "./features/userPage/UserPage"
 import { AdminPage } from "./features/adminPage/AdminPage"
 import { UsersPage } from "./features/adminPage/usersPage/UsersPage"
 import { PlanUsersPage } from "./features/profile/planInfo/planUsers/PlanUsersPage"
-import { PlanRequestsPage } from "./features/adminPage/planRequestsPage/PlanRequestsPage"
 import { QuestionsPage } from "./features/adminPage/questionsPage/QuestionsPage"
 import { NewQuestionPage} from "./features/adminPage/questionsPage/newQuestionPage/NewQuestionPage"
 import { LinkSent } from "./features/auth/authProblem/linkSent/LinkSent"
@@ -128,10 +127,6 @@ const router = createBrowserRouter([
       {
         path: "users_page",
         element: <UsersPage />,
-      },
-      {
-        path: "plan_requests",
-        element: <PlanRequestsPage/>,
       },
       {
         path: "questions_page",

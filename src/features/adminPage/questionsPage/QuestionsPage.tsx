@@ -75,16 +75,9 @@ export function QuestionsPage() {
     setFetched(!fetched)
   }
 
-
-
-
   const onChange = () => {
     setFetched(!fetched)
-    // window.location.reload()
   }
-
-
-
 
   useEffect(() => {
     fetchTopics()
@@ -104,33 +97,20 @@ export function QuestionsPage() {
         </div>
         <Button text={"Добавить тему"} onClick={openNewTopicPopup} className={styles.addButton} />
       </div>
-
-
       <div className={styles.topics}>
-
         {topics == null ? (
           <div className={styles.empty}>
             Пока не было загружено ни одной темы
           </div>
-
         ) : (
-
           (topics?.map(topic =>
             <div>
               <Topic savedTopic={topic} token={token} onChange={onChange} />
-
             </div>
-
           ))
         )}
-
-
-
-
       </div>
       {newTopicOpen ? <NewTopicPopup closePopup={closeNewTopicPopup} token={token} /> : null}
-
-
     </div>
   )
 }

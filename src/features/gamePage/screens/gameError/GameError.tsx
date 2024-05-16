@@ -5,7 +5,7 @@ import styles from "./GameError.module.css"
 
 type Props = {
   error: string;
-  clearData: () => void;
+  onButtonClicked: () => void;
 }
 
 export function GameError(props: Props) {
@@ -16,7 +16,7 @@ export function GameError(props: Props) {
         <div className={styles.title}>
           {props.error}
         </div>
-        <Button text={"Назад"} onClick={() => { navigate("/user_page"); props.clearData() }} className={styles.backButton} />
+        <Button text={"Назад"} onClick={() => { props.onButtonClicked() }} className={styles.backButton} />
       </div>
 
     </div>

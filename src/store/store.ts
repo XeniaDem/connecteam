@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 import authReducer from "./authSlice"
 import gameReducer from "./gameSlice"
 import purchaseSlice from "./purchaseSlice"
+import notificationsSlice from "./notificationsSlice"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     game: gameReducer,
-    purchase: purchaseSlice
+    purchase: purchaseSlice,
+    notifications: notificationsSlice
   },
   
 })

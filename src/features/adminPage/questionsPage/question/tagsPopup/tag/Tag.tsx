@@ -26,14 +26,9 @@ export function Tag({ savedTag, deleteTag }: Props) {
         {savedTag.key}
       </div>
       <IconButton onClick={()=>deleteTag(savedTag.id)}>
-
         <DeleteIcon fontSize="medium" htmlColor="#5C5C5C"/>
       </IconButton>
-
-
     </div>
-
-
   )
 }
 

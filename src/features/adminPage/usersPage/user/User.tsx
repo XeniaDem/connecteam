@@ -66,7 +66,7 @@ export function User({ savedUser, onChange}: Props) {
         return ("Широкий")
     } else if (access == "admin")
       return ("Администратор")
-    else if (access == "superadmin")
+    else if (access == "super_admin")
       return ("Гл. администратор")
   }
 
@@ -89,11 +89,11 @@ export function User({ savedUser, onChange}: Props) {
 
         <div className={styles.group}>
           <div className={styles.photo}>
-            {access == "admin" || access == "superadmin" ?  (
+            {access == "admin" || access == "super_admin" ?  (
               <SupervisorAccountIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
 
             ) : (
-              (savedUser.photo == "") ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedUser.photo} />
+              (!savedUser.photo) ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedUser.photo} />
             )}
 
           </div>

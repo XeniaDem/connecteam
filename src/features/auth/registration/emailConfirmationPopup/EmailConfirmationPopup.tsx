@@ -18,15 +18,8 @@ export function EmailConfirmationPopup(props: Props) {
       <div className={styles.background}>
         <div className={styles.container}>
 
-          {/* <div className={styles.close}>
-      <Button text={""} onClick={function (): void {
-          throw new Error("Function not implemented.")
-        }} className={styles.closeButton} />
-          </div> */}
-
-
           <div className={styles.title}>
-            Введите код из письма, отправленного на указанный электронный адрес.
+            Введите код из письма, отправленного на указанный электронный адрес
           </div>
 
           <input className={styles.inputSmall} maxLength={4} placeholder="Код из письма" value={props.value}
@@ -35,17 +28,14 @@ export function EmailConfirmationPopup(props: Props) {
           {props.formSubmitted && props.errorMessage ? (
             <div className={styles.errorMessage}>
               {props.errorMessage}
-
             </div>
-
           ) : (
-            <div />
+            null
           )}
 
           <Button text={"Отправить"} onClick={props.onClick} className={styles.button} />
 
         </div>
-
       </div>
     </div>
   )

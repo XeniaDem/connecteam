@@ -130,7 +130,7 @@ export function JoinGame() {
         navigate("/game/" + gameId)
         // подключение к веб-сокет серверу
       }
-      if (gameStatus == "finished") {
+      if (gameStatus == "ended") {
         setJoinError("Игра завершена")
       }
       if (gameStatus == "cancelled") {

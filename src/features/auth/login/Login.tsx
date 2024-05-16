@@ -72,9 +72,8 @@ export function Login() {
   const saveAccessAndToken = (message: any) => {
     var messageParsed = JSON.parse(message);
     access = messageParsed.access;
-    const token = messageParsed.token;
+    const token = messageParsed.access_token;
     const id = messageParsed.user_id
-    console.log(message)
 
     dispatch(signIn({ token: token, access: access as Access, userId: id }));
 
@@ -91,14 +90,13 @@ export function Login() {
     const data = {
       "email": email,
       "password": password
-
     }
-    try {
 
+    try {
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
       setLoginError("")
-      if (access == "admin" || access == "superadmin") {
+      if (access == "admin" || access == "super_admin") {
         navigate("/admin")
       }
       else {
@@ -121,11 +119,6 @@ export function Login() {
     }
 
   }
-
-
-
-
-
 
   return (
     <div>

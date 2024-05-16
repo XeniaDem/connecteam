@@ -45,7 +45,6 @@ export function NewQuestionPage() {
 
       try {
         const response = await post('topics/' + topic?.id + "/questions/", data, token)
-
         setFormSubmitted(false)
         setQuestionsText("")
         navigate("/admin/questions_page")
@@ -65,19 +64,10 @@ export function NewQuestionPage() {
   const { state } = useLocation();
 
   useEffect(() => {
-
     if (state == null) {
       navigate("/admin/questions_page")
     }
     setTopic(state.topic)
-
-
-  }, []);
-  useEffect(() => {
-    // window.location.reload()
-
-
-
   }, []);
 
 

@@ -52,6 +52,7 @@ export function ChangePasswordPopup(props: Props) {
   }
 
   const changePassword = async () => {
+
     setFormSubmitted(true)
     if (passwordError != null) {
       return;
@@ -60,9 +61,10 @@ export function ChangePasswordPopup(props: Props) {
       new_password: password,
       old_password: oldPassword
     }
+    console.log(data)
     try {
 
-      const response = await patch('password', data, props.token)
+      const response = await patch('users/password', data, props.token)
       props.closePopup();
 
 

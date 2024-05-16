@@ -16,7 +16,7 @@ export function AdminLayout() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
-        if (access != "admin" && access != "superadmin") {
+        if (access != "admin" && access != "super_admin") {
             navigate("/user_page")
         }
 
@@ -51,7 +51,7 @@ export function AdminLayout() {
                 </div>
                 <Button text={"Выход"} onClick={() => {
                     navigate("/")
-                    dispatch(signIn({ token: "", access: "", id: "" }))
+                    dispatch(signIn({ token: "", access: "", userId: "" }))
                 }} className={styles.button} />
 
             </div>

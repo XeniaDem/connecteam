@@ -1,4 +1,4 @@
-import styles from "./Tag.module.css"
+import styles from "./TagResult.module.css"
 import { ResultModel } from "../result/Result";
 
 
@@ -10,7 +10,7 @@ type Props = {
 
 
 
-export function Tag({ savedResult }: Props) {
+export function TagResult({ savedResult }: Props) {
 
   return (
     <div className={styles.container}>
