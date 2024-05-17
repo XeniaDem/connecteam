@@ -31,18 +31,13 @@ export function GameResults(props: Props) {
 
   const navigate = useNavigate()
 
-
   const [name, setName] = useState("")
   const [date, setDate] = useState("")
   const [creatorId, setCreatorId] = useState("")
   const [isCreator, setIsCreator] = useState(false)
 
-
-
   const [results, setResults] = useState<ResultModel[] | null>(null)
   const [singleResult, setSingleResult] = useState<ResultModel | undefined>()
-
-
 
 
   const readResults = async (message: any) => {
@@ -78,9 +73,6 @@ export function GameResults(props: Props) {
             tags.push(tagModel)
           }
         }
-
-
-
         response = await get('users/' + messageParsed.data[i].user_id, token)
         const userData = JSON.parse(response.text);
         const resultModel = {

@@ -33,7 +33,7 @@ type Props = {
   onChange: () => void;
 }
 
-export function User({ savedUser, onChange}: Props) {
+export function User({ savedUser, onChange }: Props) {
 
 
   const [userOpen, setUserOpen] = useState(false);
@@ -49,8 +49,8 @@ export function User({ savedUser, onChange}: Props) {
     onChange()
   }
 
-  const[access, setAccess] = useState("")
-  const[plan, setPlan] = useState <PlanModel | undefined> ()
+  const [access, setAccess] = useState("")
+  const [plan, setPlan] = useState<PlanModel | undefined>()
 
 
 
@@ -85,17 +85,13 @@ export function User({ savedUser, onChange}: Props) {
   return (
     <div>
       <div className={styles.container}>
-
-
         <div className={styles.group}>
           <div className={styles.photo}>
-            {access == "admin" || access == "super_admin" ?  (
+            {access == "admin" || access == "super_admin" ? (
               <SupervisorAccountIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
             ) : (
               (!savedUser.photo) ? <PhotoCameraIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedUser.photo} />
             )}
-
           </div>
           {savedUser.isYou ? (
             <div className={styles.nameActive}>
@@ -109,9 +105,6 @@ export function User({ savedUser, onChange}: Props) {
           <div className={styles.email}>
             {savedUser.email}
           </div>
-
-
-
         </div>
         <div className={styles.group}>
           <div className={styles.text}>
@@ -120,7 +113,7 @@ export function User({ savedUser, onChange}: Props) {
           <div className={styles.access}>
 
             <div className={styles.accessText}>
-              {access  && readAccess()}
+              {access && readAccess()}
             </div>
 
             {(access == "user" && plan) ? (
@@ -130,9 +123,7 @@ export function User({ savedUser, onChange}: Props) {
               </div>
             ) : (
               null
-
             )}
-
           </div>
           <div className={styles.expiryDate}>
             {plan?.status == "active" ? "до " + new Date(plan.expiryDate).toLocaleDateString()
@@ -140,7 +131,6 @@ export function User({ savedUser, onChange}: Props) {
           </div>
         </div>
       </div>
-
       <div className={styles.divider} />
       {userOpen ? <UserPopup savedUser={savedUser} closePopup={closeUserPopup} onChange={onChange} /> : null}
     </div>

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "vite",
+    "start": "vite --port 5173",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
@@ -21,6 +21,8 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@reduxjs/toolkit": "^1.8.1",
+    "@zoom/meetingsdk": "^3.6.1",
+    "@zoomus/websdk": "^2.18.3",
     "classnames": "^2.5.1",
     "disable-scroll": "^0.6.0",
     "outsideclick-react": "^0.2.0",

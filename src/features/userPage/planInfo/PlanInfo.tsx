@@ -90,6 +90,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
     };
 
     ws.onclose = () => {
+      alert("Сервис уведомлений недоступен.")
       console.log('Disconnected from server');
     };
 

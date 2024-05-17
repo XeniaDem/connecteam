@@ -20,6 +20,7 @@ export interface GameState {
   playerId: string; // ID игрока
 
   gameStarted: boolean; // Булевое значение, указывающее началась игра или нет
+  meetingJwt: string;
 
   currentScreen: GameScreen; // Текущий экран игры
 
@@ -46,6 +47,7 @@ const initialState: GameState = {
   playerId: localStorage.getItem("playerId") || "",
 
   gameStarted: localStorage.getItem("gameStarted") == "true" || false,
+  meetingJwt: localStorage.getItem("meetingJwt") || "",
 
   currentScreen: localStorage.getItem("currentScreen") as GameScreen || GameScreen.WaitGame,
 
@@ -84,9 +86,12 @@ export const gameSlice = createSlice({
       localStorage.setItem("creatorId", action.payload.creatorId)
       localStorage.setItem("playerId", action.payload.playerId)
     },
-    updateGame: (state, action: PayloadAction<{gameStarted: boolean}>) => {
+    updateGame: (state, action: PayloadAction<{gameStarted: boolean, meetingJwt: string}>) => {
       state.gameStarted = action.payload.gameStarted
+      state.meetingJwt = action.payload.meetingJwt
       localStorage.setItem("gameStarted", action.payload.gameStarted.toString())
+      localStorage.setItem("meetingJwt", action.payload.meetingJwt.toString())
+
     },
     updateCurrentScreen: (state, action: PayloadAction<{currentScreen: GameScreen}>) => {
       state.currentScreen = action.payload.currentScreen

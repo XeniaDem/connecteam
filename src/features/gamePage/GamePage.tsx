@@ -54,7 +54,7 @@ export function GamePage() {
 
     const clearData = () => {
         dispatch(setGame({ name: "", date: "", gameId: "", creatorId: "", playerId: "" }))
-        dispatch(updateGame({ gameStarted: false }))
+        dispatch(updateGame({ gameStarted: false, meetingJwt: "" }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
         dispatch(updateRounds({ currentRound: 0 }))
@@ -119,7 +119,7 @@ export function GamePage() {
 
         dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.topics.length }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
-        dispatch(updateGame({ gameStarted: true }))
+        dispatch(updateGame({ gameStarted: true, meetingJwt: messageObject.payload.meeting_jwt}))
     }, [])
 
     const onTopicsChoose = useCallback((messageObject: any) => {
@@ -321,6 +321,7 @@ export function GamePage() {
             action: "start-game",
             target: gameId,
             sender: { "id": currentGame.playerId },
+            payload: "123456789"
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
