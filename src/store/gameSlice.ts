@@ -18,9 +18,12 @@ export interface GameState {
   gameId: string; // ID игры
   creatorId: string; // ID создателя игры
   playerId: string; // ID игрока
+  playerName: string; // Имя игрока
 
-  gameStarted: boolean; // Булевое значение, указывающее началась игра или нет
-  meetingJwt: string;
+  gameStarted: boolean; // Булевое значение, указывающее началась ли игра
+  meetingJwt: string; // Токен для подключения к аудиочату
+  meetingNumber: string; 
+  meetingPasscode: string;
 
   currentScreen: GameScreen; // Текущий экран игры
 
@@ -31,11 +34,10 @@ export interface GameState {
   playerAnswering: string; // Имя отвечающего игрока
   playerAnsweringId: string; // ID отвечающего игрока
   question: string; // Текущий вопрос
-  tags: string;
+  tags: string; // Теги текущего вопроса
 
-  timerStarted: boolean; // Булевое значение, указывающее запущен таймер или нет
+  timerStarted: boolean; // Булевое значение, указывающее запущен ли таймер
   timeStart: string; // Время последнего запуска таймера
-  
 }
 
 
@@ -45,9 +47,12 @@ const initialState: GameState = {
   gameId: localStorage.getItem("gameId") || "",
   creatorId: localStorage.getItem("creatorId") || "",
   playerId: localStorage.getItem("playerId") || "",
+  playerName: localStorage.getItem("playerName") || "",
 
   gameStarted: localStorage.getItem("gameStarted") == "true" || false,
   meetingJwt: localStorage.getItem("meetingJwt") || "",
+  meetingNumber: localStorage.getItem("meetingNumber") || "",
+  meetingPasscode: localStorage.getItem("meetingPasscode") || "",
 
   currentScreen: localStorage.getItem("currentScreen") as GameScreen || GameScreen.WaitGame,
 
@@ -73,26 +78,34 @@ export const gameSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setGame: (state, action: PayloadAction<{name: string, date: string, gameId: string, creatorId: string, playerId: string}>) => {
+    setGame: (state, action: PayloadAction<{name: string, date: string, gameId: string, creatorId: string, playerId: string, playerName: string}>) => {
       state.name = action.payload.name
       state.date = action.payload.date
       state.gameId = action.payload.gameId
       state.creatorId = action.payload.creatorId
       state.playerId = action.payload.playerId
+      state.playerName = action.payload.playerName
 
       localStorage.setItem("name", action.payload.name)
       localStorage.setItem("date", action.payload.date)
       localStorage.setItem("gameId", action.payload.gameId)
       localStorage.setItem("creatorId", action.payload.creatorId)
       localStorage.setItem("playerId", action.payload.playerId)
+      localStorage.setItem("playerName", action.payload.playerName)
     },
-    updateGame: (state, action: PayloadAction<{gameStarted: boolean, meetingJwt: string}>) => {
+    updateGame: (state, action: PayloadAction<{gameStarted: boolean, meetingJwt: string, meetingNumber: string, meetingPasscode: string;}>) => {
       state.gameStarted = action.payload.gameStarted
       state.meetingJwt = action.payload.meetingJwt
+      state.meetingNumber = action.payload.meetingNumber
+      state.meetingPasscode = action.payload.meetingPasscode
+
       localStorage.setItem("gameStarted", action.payload.gameStarted.toString())
-      localStorage.setItem("meetingJwt", action.payload.meetingJwt.toString())
+      localStorage.setItem("meetingJwt", action.payload.meetingJwt)
+      localStorage.setItem("meetingNumber", action.payload.meetingNumber)
+      localStorage.setItem("meetingPasscode", action.payload.meetingPasscode)
 
     },
+
     updateCurrentScreen: (state, action: PayloadAction<{currentScreen: GameScreen}>) => {
       state.currentScreen = action.payload.currentScreen
       localStorage.setItem("currentScreen", action.payload.currentScreen)
@@ -126,19 +139,7 @@ export const gameSlice = createSlice({
       localStorage.setItem("timerStarted", action.payload.timerStarted.toString())
       localStorage.setItem("timeStart", action.payload.timeStart)
     },
-
-    
-
-    
-
-
-
-
-
-
   },
-
-
 })
 
 export const { setGame, updateGame, updateCurrentScreen, setRounds, setStage, updateRounds, setTimer } = gameSlice.actions

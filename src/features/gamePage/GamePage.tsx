@@ -20,6 +20,7 @@ import { RateAnswer } from "./screens/rateAnswer/RateAnswer";
 import { GameResults } from "../gameResults/GameResults";
 import { Audio } from "./components/audio/Audio";
 import { useParams } from "react-router-dom";
+import ZoomMtgEmbedded from "@zoom/meetingsdk/embedded";
 
 
 
@@ -35,6 +36,8 @@ export function GamePage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const game = useSelector(selectGame)
+
+    const client = ZoomMtgEmbedded.createClient();
 
     let { gameId } = useParams();
 
@@ -53,13 +56,14 @@ export function GamePage() {
 
 
     const clearData = () => {
-        dispatch(setGame({ name: "", date: "", gameId: "", creatorId: "", playerId: "" }))
-        dispatch(updateGame({ gameStarted: false, meetingJwt: "" }))
+        dispatch(setGame({ name: "", date: "", gameId: "", creatorId: "", playerId: "", playerName: "" }))
+        dispatch(updateGame({ gameStarted: false, meetingJwt: "", meetingNumber: "", meetingPasscode: "" }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.WaitGame }))
         dispatch(setRounds({ topics: "", roundsNum: 0 }))
         dispatch(updateRounds({ currentRound: 0 }))
         dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         dispatch(setTimer({ timerStarted: false, timeStart: "" }))
+
 
     }
 
@@ -109,17 +113,17 @@ export function GamePage() {
 
     const onRoundStart = useCallback(() => {
         const game = store.getState().game
-        dispatch(updateRounds({ currentRound: game.currentRound + 1 })) 
+        dispatch(updateRounds({ currentRound: game.currentRound + 1 }))
         startStage()
 
     }, [])
 
     const onGameStart = useCallback((messageObject: any) => {
-        const topics = JSON.stringify(messageObject.payload.topics)
+        const topics = JSON.stringify(messageObject.payload.game.topics)
 
-        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.topics.length }))
+        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.game.topics.length }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
-        dispatch(updateGame({ gameStarted: true, meetingJwt: messageObject.payload.meeting_jwt}))
+        dispatch(updateGame({ gameStarted: true, meetingJwt: messageObject.payload.token, meetingNumber: messageObject.payload.meeting_number, meetingPasscode: messageObject.payload.passcode }))
     }, [])
 
     const onTopicsChoose = useCallback((messageObject: any) => {
@@ -141,12 +145,13 @@ export function GamePage() {
 
         const sender = messageObject.sender
         const senderId = sender.id
+        const senderName = sender.name
         const payload = messageObject.payload
         const game = store.getState().game
 
         const currentScreen = game.currentScreen != GameScreen.WaitGame ? game.currentScreen : (sender.id == payload.creator_id ? GameScreen.ChooseTopics : GameScreen.WaitGame)
 
-        gameId && dispatch(setGame({ name: payload.name, date: payload.date, gameId: gameId, creatorId: payload.creator_id, playerId: senderId }))
+        gameId && dispatch(setGame({ name: payload.name, date: payload.date, gameId: gameId, creatorId: payload.creator_id, playerId: senderId, playerName: senderName }))
         dispatch(updateCurrentScreen({ currentScreen: currentScreen }))
 
 
@@ -193,12 +198,10 @@ export function GamePage() {
     const removePlayer = (id: string) => {
         const newPlayers = players?.filter(player => player.id != id)
         newPlayers && setPlayers(newPlayers)
-
-
     }
 
     useEffect(() => {
-        if (!gameId) { 
+        if (!gameId) {
             navigate("/user_page")
             return;
         }
@@ -320,8 +323,7 @@ export function GamePage() {
         const message = JSON.stringify({
             action: "start-game",
             target: gameId,
-            sender: { "id": currentGame.playerId },
-            payload: "123456789"
+            sender: { "id": currentGame.playerId }
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -334,7 +336,6 @@ export function GamePage() {
             target: gameId,
             sender: { "id": currentGame.playerId },
             payload: selected
-
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
@@ -427,6 +428,9 @@ export function GamePage() {
                     leaveGame()
                     clearData()
                     navigate("/user_page")
+
+                    game.creatorId == game.playerId ? client.endMeeting() : client.leaveMeeting()
+
                 }} className={styles.exitButton} />
             </div>
 
@@ -444,94 +448,95 @@ export function GamePage() {
                     </div>}
 
                     {children}
-                    <div className={styles.audio}>
-                        <Audio />
-                    </div>
                     <Rounds roundsNum={game.roundsNum} currentRound={game.currentRound} />
                 </div>
                 :
-                <div>
-                    {children}
-                    <div className={styles.audio}>
-                        <Audio />
-                    </div>
-                </div>
+
+                children
+
             }
         </div>
     );
 
 
-    if (game.currentScreen == GameScreen.WaitGame) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={false} children={<WaitGame name={game.name} date={game.date} />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.ChooseTopics) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={false} children={<ChooseTopics onButonClicked={chooseTopics} />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.StartGame) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={true} children
-                    ={<StartGame name={game.name} date={game.date} id={gameId} onButtonClicked={startGame} />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.ChooseTopic) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={true} children
-                    ={<ChooseTopic isCreator={game.creatorId == game.playerId} topics={game.topics} onButonClicked={startRound} />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.AnswerQuestion) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={true} children
-                    ={<AnswerQuestion isCreator={game.creatorId == game.playerId} isAnswering={game.playerAnsweringId == game.playerId}
-                        nameAnswering={game.playerAnswering} question={game.question} started={game.timerStarted}
-                        onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.RateAnswer) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={true} children
-                    ={<RateAnswer isCreator={game.creatorId == game.playerId} isAnswering={game.playerAnsweringId == game.playerId}
-                        nameAnswering={game.playerAnswering} question={game.question} tags={game.tags} onButonClicked={rateAnswer} />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.GameError) {
-        return (
-            <div className={styles.container}>
-                <CommonGameScreenElements gameStarted={false} children={<GameError error={error} onButtonClicked={() => {
-                clearData()
-                navigate("/user_page")
-            }}  />} />
-            </div>
-        )
-    }
-    if (game.currentScreen == GameScreen.GameResults) {
-        return (
-            players && <GameResults gameId={game.gameId} onButtonClicked={() => {
-                leaveGame()
-                clearData()
-                navigate("/user_page")
-            }} />
-
-        )
-    }
     return (
-        null
-    )
+        <div>
 
+            {game.gameStarted &&
+                <div className={styles.audio}>
+                    <Audio client={client} />
+                </div>
+            }
+
+
+            {game.currentScreen == GameScreen.WaitGame &&
+                <div className={styles.container}>
+                    <CommonGameScreenElements gameStarted={false} children={<WaitGame name={game.name} date={game.date} />} />
+                </div>
+            }
+
+
+            {game.currentScreen == GameScreen.ChooseTopics &&
+                (
+                    <div className={styles.container}>
+                        <CommonGameScreenElements gameStarted={false} children={<ChooseTopics onButonClicked={chooseTopics} />} />
+                    </div>
+                )
+            }
+
+            {game.currentScreen == GameScreen.StartGame &&
+                <div className={styles.container}>
+                    <CommonGameScreenElements gameStarted={true} children
+                        ={<StartGame name={game.name} date={game.date} id={gameId} onButtonClicked={startGame} />} />
+                </div>
+
+            }
+
+            {game.currentScreen == GameScreen.ChooseTopic &&
+
+                <div className={styles.container}>
+                    <CommonGameScreenElements gameStarted={true} children
+                        ={<ChooseTopic isCreator={game.creatorId == game.playerId} topics={game.topics} onButonClicked={startRound} />} />
+                </div>
+
+            }
+            {game.currentScreen == GameScreen.AnswerQuestion &&
+
+                <div className={styles.container}>
+                    <CommonGameScreenElements gameStarted={true} children
+                        ={<AnswerQuestion isCreator={game.creatorId == game.playerId} isAnswering={game.playerAnsweringId == game.playerId}
+                            nameAnswering={game.playerAnswering} question={game.question} started={game.timerStarted}
+                            onStartButonClicked={startAnswer} onFinishButonClicked={finishAnswer} />} />
+                </div>
+            }
+            {game.currentScreen == GameScreen.RateAnswer &&
+
+                <div className={styles.container}>
+                    <CommonGameScreenElements gameStarted={true} children
+                        ={<RateAnswer isCreator={game.creatorId == game.playerId} isAnswering={game.playerAnsweringId == game.playerId}
+                            nameAnswering={game.playerAnswering} question={game.question} tags={game.tags} onButonClicked={rateAnswer} />} />
+                </div>
+
+            }
+            {game.currentScreen == GameScreen.GameError &&
+                <div className={styles.container}>
+                    <CommonGameScreenElements gameStarted={false} children={<GameError error={error} onButtonClicked={() => {
+                        clearData()
+                        navigate("/user_page")
+                        game.creatorId == game.playerId ? client.endMeeting() : client.leaveMeeting()
+                    }} />} />
+                </div>
+
+            }
+            {game.currentScreen == GameScreen.GameResults &&
+                players && <GameResults gameId={game.gameId} onButtonClicked={() => {
+                    leaveGame()
+                    clearData()
+                    navigate("/user_page")
+                    game.creatorId == game.playerId ? client.endMeeting() : client.leaveMeeting()
+                }} />
+            }
+
+        </div>
+    )
 }

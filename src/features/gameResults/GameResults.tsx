@@ -1,4 +1,3 @@
-
 import styles from "./GameResults.module.css"
 import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
@@ -18,7 +17,6 @@ import { TagResult } from "./tagResult/TagResult"
 
 type Props = {
   gameId?: string;
-
   onButtonClicked?: () => void;
 }
 
@@ -41,10 +39,7 @@ export function GameResults(props: Props) {
 
 
   const readResults = async (message: any) => {
-    console.log("results " + message)
     const messageParsed = JSON.parse(message);
-
-
     if (messageParsed.data == null) {
       setResults(null)
       return;
@@ -55,13 +50,11 @@ export function GameResults(props: Props) {
     const resultsModels = [];
     for (let i = 0; i < resultsNum; i++) {
       try {
-
         var response;
         if (props.gameId)
           response = await get('games/' + props.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
         else
           response = await get('games/' + state.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
-
         const tags = []
         const tagsData = JSON.parse(response.text);
         if (tagsData.data) {
@@ -86,7 +79,6 @@ export function GameResults(props: Props) {
 
         }
         resultsModels.push(resultModel)
-
       }
       catch (error: any) {
         readServerError(error.response.text)
@@ -106,15 +98,12 @@ export function GameResults(props: Props) {
         response = await get('games/' + props.gameId + '/results', token)
       else
         response = await get('games/' + state.gameId + '/results', token)
-
       readResults(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
   }
 
 
@@ -122,16 +111,13 @@ export function GameResults(props: Props) {
 
   const readGame = (message: any) => {
     const messageParsed = JSON.parse(message);
-    console.log("my id " + userId)
-    console.log("creator id " + creatorId)
 
     setName(messageParsed.name)
     setDate(new Date(messageParsed.start_date).toLocaleString())
     setCreatorId(messageParsed.creator_id)
     setIsCreator(userId == messageParsed.creator_id)
-
-
   }
+
   const fetchGame = async () => {
     try {
       var response;
@@ -139,15 +125,12 @@ export function GameResults(props: Props) {
         response = await get('games/' + props.gameId, token)
       else
         response = await get('games/' + state.gameId, token)
-
       readGame(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
   }
 
 
@@ -155,16 +138,12 @@ export function GameResults(props: Props) {
   useEffect(() => {
     fetchGame()
     fetchResults()
-
-
-
   }, [isCreator]);
 
 
 
   return (
     <div>
-
       <div className={styles.container}>
         <svg width={0} height={0}>
           <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
@@ -224,7 +203,10 @@ export function GameResults(props: Props) {
           </div>
         </div>
 
-        <div >
+        <div>
+          <div className={styles.subtitle}>
+            Теги:
+          </div>
           {isCreator ? (
             <div className={styles.tags}>
               {results?.map(result =>

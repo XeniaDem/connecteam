@@ -32,6 +32,7 @@
 }
 
 .suggestions {
+
   border: 1px solid #55C6F7;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   font-family: 'Work Sans Variable', sans-serif;
@@ -42,16 +43,17 @@
   padding-left: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
-  justify-content: center;
+
   margin-top: 5px;
-  max-height: 150px;
-  overflow-y: scroll;
-  height: fit-content;
+
+  position: relative;
+  overflow-y: auto;
+  height: 150px;
 
   border-radius: 20px;
   color: #FFF;
 
-  scrollbar-color: red;
+  /* height: 150px; */
 }
 
 .suggestions.hidden {

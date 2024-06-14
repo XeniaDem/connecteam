@@ -32,7 +32,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
   const [topicName, setTopicName] = useState("");
 
-
   const handleTopicEdit = () => {
     if (!topicEditing) {
       setTopicEditing(!topicEditing);
@@ -47,7 +46,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
         // alert("topicchange")
         setTopicEditing(!topicEditing);
         editTopic()
-
       }
       else {
         setTopicEditing(!topicEditing);
@@ -59,8 +57,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
 
   const deleteTopic = async () => {
-
-
     try {
       const response = await Delete('topics/' + savedTopic.id, token)
       onChange()
@@ -82,15 +78,11 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       const response = await patch('topics/' + savedTopic.id, data, token)
       onChange()
 
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
   const [questions, setQuestions] = useState<QuestionModel[] | null>(null)
   const readQuestions = (message: any) => {
@@ -115,8 +107,6 @@ export function Topic({ savedTopic, token, onChange }: Props) {
         }
         tagsModels.push(tagModel)
       }
-
-
       const questionModel = {
         number: i + 1,
         id: messageParsed.data[i].id,
@@ -126,14 +116,13 @@ export function Topic({ savedTopic, token, onChange }: Props) {
       }
       questionsModels.push(questionModel)
     }
-    questionsModels.sort((a, b) => a.text.localeCompare(b.text))
+    questionsModels.sort((a, b) => a.number - b.number)
     setQuestions(questionsModels);
 
 
   }
 
   const fetchQuestions = async () => {
-
     try {
       const response = await get('topics/' + savedTopic.id + "/questions/", token)
       readQuestions(response.text)
@@ -151,36 +140,25 @@ export function Topic({ savedTopic, token, onChange }: Props) {
   const changeQuestionsOpen = async () => {
     if (!questionsOpen) {
       fetchQuestions()
-
     }
     else {
-
       setQuestionsOpen(false)
     }
-
-
   }
 
   const onQuestionsChange = async () => {
     fetchQuestions()
-
   }
 
   useEffect(() => {
-
     setTopicName(savedTopic.name)
-
   }, [savedTopic]);
 
 
 
   return (
     <div>
-
-
       <div className={styles.container}>
-
-
         <div className={styles.group}>
           <IconButton onClick={handleTopicEdit}>
             {!topicEditing ? (<EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
@@ -188,30 +166,21 @@ export function Topic({ savedTopic, token, onChange }: Props) {
               <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
             )}
           </IconButton>
-
-          <div >
+          <div>
             <input className={!topicEditing ? styles.name : styles.nameActive} placeholder={"Название темы"} disabled={!topicEditing}
               value={topicName} onChange={(event) => { setTopicName(event.target.value) }} />
           </div>
         </div>
         <div className={styles.group}>
           <IconButton onClick={() => changeQuestionsOpen()}>
-
             {!questionsOpen ? (
               <KeyboardArrowLeftIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             ) : (
               <KeyboardArrowDownIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
             )}
-
           </IconButton>
           <Button text={"Удалить"} onClick={deleteTopic} className={styles.deleteButton} />
-
-
         </div>
-
-
-
       </div>
 
       {questionsOpen ? (
@@ -230,17 +199,14 @@ export function Topic({ savedTopic, token, onChange }: Props) {
 
             </IconButton>
           </div>
-
         </div>
       ) : (
         null
       )}
 
-
       <div className={styles.divider} />
 
     </div>
-
   )
 }
 

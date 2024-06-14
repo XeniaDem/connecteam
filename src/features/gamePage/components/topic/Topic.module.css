@@ -163,7 +163,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: 25.868px;
-  line-break: anywhere;
+  line-break: after-white-space;
   /* 120% */
 }
 

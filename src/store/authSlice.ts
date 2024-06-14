@@ -6,7 +6,6 @@ export interface AuthState {
   token: string;
   access: Access;
   userId: string;
-  
 }
 
 
@@ -30,13 +29,7 @@ export const authSlice = createSlice({
       localStorage.setItem("access", action.payload.access)
       localStorage.setItem("userId", action.payload.userId)
     },
-
-
-
-
   },
-
-
 })
 
 export const { signIn } = authSlice.actions
