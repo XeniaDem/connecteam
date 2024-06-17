@@ -1,9 +1,28 @@
-# vite-template-redux
+# How to launch
+
+## Installation
 
 Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
 
+In terminal, run the following command to clone the repo:
+
 ```sh
-npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
+git clone https://github.com/XeniaDem/connecteam.git
+```
+
+## Setup
+1. Install Node.js to your machine. This can be done by clicking the [link](https://nodejs.org/en).
+2. In terminal, cd into the cloned repository:
+```sh
+cd connecteam-main
+```
+3. Then install the dependencies:
+```sh
+npm install
+```
+4. Start the app in your browser:
+```sh
+npm run start
 ```
 
 ## Goals
