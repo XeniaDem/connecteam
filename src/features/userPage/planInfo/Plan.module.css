@@ -1,0 +1,96 @@
+.container {
+
+z-index: 1;
+}
+
+
+.title {
+  color: #FFF;
+
+font-size: 50px;
+font-style: normal;
+font-weight: 700;
+line-height: 71.925px; /* 143.851% */
+padding-top: 104px;
+padding-left: 51px;
+ 
+}
+
+.subtitle {
+  color: #FFF;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34.737px; /* 144.737% */
+  padding-left: 51px;
+}
+
+.name {
+  color: #FFF;
+  margin-left: 135px;
+  margin-top: 25px;
+  font-size: 26.476px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.125%; /* 35.246px */
+  letter-spacing: -1.059px;
+  text-transform: capitalize;
+
+}
+
+
+
+
+.textBox {
+  display: flex;
+flex-shrink: 0;
+
+align-items: center;
+
+
+}
+.textBoxes {
+  margin-top: 25px;
+  margin-left: 135px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  
+
+
+
+}
+
+.text {
+  color: rgba(255, 255, 255, 0.45);
+
+  font-size: 19.507px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.76%; /* 27.457px */
+  letter-spacing: -0.975px;
+  padding-left: 15px;
+  width: 450px;
+
+}
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+  .text {
+    width: auto;
+    font-size: 15px;
+    line-height: normal;
+    padding-right: 10px;
+  }
+  .textBoxes {
+    margin-left: 30px;
+    gap:5px;
+  }
+  .name {
+    margin-left: 30px;
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: normal;
+
+  }
+  
+
+}

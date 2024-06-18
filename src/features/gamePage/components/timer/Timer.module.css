@@ -1,0 +1,107 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+
+
+
+
+
+
+}
+
+.decor1 {
+  width: 60px;
+  height: 10px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+
+  border-radius: 50.336px;
+ 
+  position: absolute;
+
+  top: -41px;
+  right: 66px;
+}
+.decor2 {
+  width: 60px;
+  height: 10px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+
+  border-radius: 50.336px;
+
+  position: absolute;
+  transform: rotate(44.214deg);
+  top: -6px;
+  right: -29px;
+}
+
+
+
+
+.timerContainer {
+  position: relative;
+    width: 200px;
+    height: 200px;
+  
+    border-radius: 150.336px;
+  
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    text-align: center;
+  font-size: 36.663px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 43.996px; /* 120% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  }
+
+  .timerContainer::before {
+    border-radius: 150.336px;
+    border: 10px solid transparent;
+    padding: 10px; 
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
+    -webkit-mask: /*4*/
+       linear-gradient(#fff 0 0) padding-box, 
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; /*5'*/
+  
+  }
+  
+  
+
+
+
+  .controlButtons {
+    display:flex;
+  
+
+
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+

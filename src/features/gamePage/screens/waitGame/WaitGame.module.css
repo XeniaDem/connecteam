@@ -1,0 +1,38 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.title {
+  color: #FFF;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 60px;
+  text-align: center;
+  z-index: 1;
+}
+
+.title1 {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.date {
+  color: rgba(255, 255, 255, 0.18);
+  text-align: center;
+  font-size: 31.377px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 45.135px;
+  /* 143.851% */
+}

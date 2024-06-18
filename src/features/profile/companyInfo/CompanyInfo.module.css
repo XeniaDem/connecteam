@@ -1,0 +1,140 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+
+  display: flex;
+
+  gap: 60px;
+  justify-content: center;
+
+  position: relative;
+
+}
+
+.left {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.title {
+  color: #FFF;
+  text-align: center;
+
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 60px;
+  /* 120% */
+}
+
+.photo {
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+  border-radius: 305px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
+}
+
+.photo::before {
+  border-radius: 305px;
+  border: 10px solid transparent;
+  padding: 10px;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
+  /*3*/
+  -webkit-mask:
+    /*4*/
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  /*5'*/
+
+}
+
+.footerButton {
+  color: #5C5C5C;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.375px;
+  /* 139.844% */
+  border: none;
+  background: none;
+  text-decoration-line: underline;
+  z-index: 1;
+
+}
+
+.footerButton:hover {
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-shadow: none;
+
+}
+
+
+
+
+
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 750px;
+  margin-top: 175px;
+  z-index: 1;
+}
+
+.footerButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
+}
+
+.ellipse2 {
+  position: absolute;
+  top: -525px;
+  right: 0px;
+}
+@media (max-width: 821px) and (orientation:portrait) , (max-height:821px) and (orientation:landscape){
+  .container {
+    padding-right: 20px;
+  }
+  .title {
+    font-size: 30px;
+    line-height: normal;
+
+  }
+  .right {
+    margin-top: 0px;
+    gap: 10px;
+  }
+  .footerButton {
+    padding: 0px;
+    font-size: 10px;
+  }
+  .ellipse2 {
+    display: none;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1024px ) and (orientation:portrait) , (min-height: 821px) and (max-height: 1024px ) and (orientation:landscape){
+  .right {
+    margin-top: 0px;
+
+  }
+}
+

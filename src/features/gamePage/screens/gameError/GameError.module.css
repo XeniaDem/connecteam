@@ -1,0 +1,31 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.title {
+  color: #FFF;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 60px;
+  text-align: center;
+  z-index: 1;
+}
+
+
+.backButton {
+  width: 285.531px;
+  height: 59.667px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  margin-top: 16px;
+}

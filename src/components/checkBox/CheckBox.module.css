@@ -1,0 +1,54 @@
+.checkbox input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30.996px;
+  height: 30.996px;
+  flex-shrink: 0;
+
+  border-radius: 39.336px;
+  border: 3px solid var(--vd, #55C6F7);
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+}
+
+.checkbox input[type="checkbox"i]:disabled {
+  cursor: auto;
+
+
+
+}
+
+
+.label {
+  position: relative;
+
+}
+
+.check {
+
+  position: absolute;
+  top: 8px;
+  right: 9px;
+
+
+}
+
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+  .checkbox input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+    border-width: 1.5px;
+
+
+  }
+  .check {
+    top: 2px;
+    right: 5px;
+
+
+  }
+}

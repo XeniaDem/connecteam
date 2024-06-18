@@ -1,0 +1,162 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+
+  position: relative;
+
+  /*border-radius: 50px 0px 0px 50px;*/
+
+  background: linear-gradient(90deg, rgba(85, 198, 247, 0.10) 0%, rgba(42, 248, 186, 0.10) 107.16%), #171717;
+
+  padding-left: 81px;
+  padding-right: 81px;
+
+
+
+}
+
+
+.title {
+  color: #FFF;
+
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px;
+  margin-top: 187px;
+
+
+
+
+}
+
+.subtitle {
+  color: #FFF;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34.737px;
+  /* 144.737% */
+  padding-bottom: 57px;
+}
+
+
+
+
+
+.users {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.39);
+  font-size: 38.507px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140.76%;
+  /* 27.457px */
+  text-align: center;
+  margin-top: 230px;
+
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 100px;
+
+}
+
+
+.button {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(48, 48, 48, 0.93);
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 41.007px;
+  /* 143.851% */
+  border-radius: 39px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  box-sizing: border-box;
+  padding: 3px 3px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-shadow: none;
+  box-shadow:
+
+    3px -3px 10px #55C6F7,
+    -3px 3px 10px #2AF8BA;
+}
+
+.back {
+  position: absolute;
+  top: 211px;
+  right: 100px;
+
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0px;
+  border: 3px solid transparent;
+
+
+  background: url("../../../../app/assets/back.svg") no-repeat;
+  z-index: 1;
+
+}
+
+.backButton:hover {
+  box-shadow: none;
+
+}
+
+@media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: normal;
+    margin-top: 100px;
+
+
+  }
+
+  .subtitle {
+    font-size: 20px;
+    line-height: normal;
+    padding-bottom: 20px;
+  }
+
+  .back {
+    top: 131px;
+
+  }
+
+}

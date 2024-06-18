@@ -1,0 +1,77 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+box-shadow: 0px 4px 11.2px 0px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(4.400000095367432px);
+overflow: hidden;
+
+padding-bottom: 140px;
+
+/* background-attachment:fixed; */
+z-index: 5;
+background: url("./background.svg");
+background-size: 100%;
+
+
+}
+
+
+
+.title {
+
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px; /* 143.851% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+ padding-top: 60px;
+ padding-left: 53px;
+ position: relative;
+}
+
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 58px;
+  padding-left: 74px;
+}
+
+
+
+
+
+.ellipse2 {
+  position: absolute;
+  top: 100px;
+    right: 0px;
+    
+}
+
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+  .container {
+    padding-bottom: 10px;
+  }
+  .questions {
+    margin-top: 20px;
+    padding: 0px;
+    align-items: center;
+  }
+  .title {
+    font-size: 30px;
+    padding-top: 10px;
+    line-height: normal;
+
+  }
+}
+
+
+
+
+
+
+

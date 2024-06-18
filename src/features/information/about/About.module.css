@@ -1,0 +1,144 @@
+.container {
+
+
+
+  font-family: 'Work Sans Variable', sans-serif;
+  display: flex;
+  gap: 50px;
+
+}
+
+.text {
+  color: #FFF;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /* 125% */
+
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding-left: 54px;
+  padding-top: 76px;
+  /* width: 20%; */
+
+}
+
+
+.right {
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 51vw;
+  position: relative;
+  flex-shrink: 0;
+
+
+}
+
+.rectangle {
+  position: absolute;
+  width: 304.637px;
+  height: 33.374px;
+  flex-shrink: 0;
+  top: 204px;
+  right: 464px;
+
+}
+
+.title {
+  color: #FFF;
+
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 71.925px;
+  /* 143.851% */
+
+}
+
+
+.name {
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  /* 125% */
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+  .container {
+    font-family: 'Work Sans Variable', sans-serif;
+    flex-direction: column;
+    margin: 30px;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: normal;
+
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: normal;
+  }
+  .name {
+    font-size: 20px;
+    line-height: normal;
+  }
+  .right {
+    padding-top: 0px;
+    width: 80vw;
+    padding-left: 54px;
+  }
+  .left {
+    padding-top: 0px;
+    gap:20px;
+  }
+}
+
+@media (min-width: 763px) and (max-width: 1024px ) and (orientation:portrait) , (min-height: 763px) and (max-height: 1024px ) and (orientation:landscape){
+  .container {
+    font-family: 'Work Sans Variable', sans-serif;
+    flex-direction: column;
+    margin: 30px;
+    gap: 10px;
+  }
+  .right {
+    padding-top: 0px;
+  }
+  .text {
+    width: 90vw;
+  }
+
+  
+}
+
+@media (min-width: 1025px) and (orientation:portrait), (min-height: 1025px) and (orientation:landscape) {
+  .container {
+    gap: 50px;
+    flex-direction: row;
+  }
+  .right {
+    padding-top: 200px;
+  }
+  .text {
+    width: auto;
+  }
+  
+}

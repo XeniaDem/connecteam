@@ -1,0 +1,52 @@
+.container {
+  font-family: 'Work Sans Variable', sans-serif;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+flex-shrink: 0;
+border-radius: 20px;
+background: #232323;
+
+padding: 21px 21px;
+margin-top: 16px;
+
+
+
+
+
+}
+
+.text {
+  color: #FFF;
+font-size: 20.516px;
+font-style: normal;
+font-weight: 500;
+line-height: 24.505px; /* 119.444% */
+}
+
+@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+  .container {
+    width: 71vw;
+    padding: 12px 21px;
+    margin-top: 10px;
+
+  }
+  .text {
+    font-size: 10px;
+    line-height: normal;
+    
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
