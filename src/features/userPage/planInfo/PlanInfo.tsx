@@ -71,7 +71,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
   useEffect(() => {
 
 
-    const ws: WebSocket = new WebSocket('ws://80.90/185.79:8081/ws?token=' + token);
+    const ws: WebSocket = new WebSocket('wss://80.90/185.79:8081/ws?token=' + token);
     webSocketRef.current = ws;
 
     ws.onopen = () => {
