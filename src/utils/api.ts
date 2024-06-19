@@ -2,7 +2,7 @@ import request from "superagent"
 
 export const post = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {
-        const response = await request.post('http://localhost:8000/' + url)
+        const response = await request.post('https://api.connecteam.ru/' + url)
             .set('Access-Control-Allow-Origin', '*')
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
@@ -25,7 +25,7 @@ export const post = async <T extends Object>(url: string, body?: T, token?: stri
 
 export const put = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {
-        const response = await request.put('http://localhost:8000/' + url)
+        const response = await request.put('https://api.connecteam.ru/' + url)
             .set('Access-Control-Allow-Origin', '*')
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
@@ -48,7 +48,7 @@ export const put = async <T extends Object>(url: string, body?: T, token?: strin
 
 export const get = async (url: string, token?: string) => {
     try {
-        const response = await request.get('http://localhost:8000/' + url)
+        const response = await request.get('https://api.connecteam.ru/' + url)
             .set('Access-Control-Allow-Origin', '*')
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
@@ -70,7 +70,7 @@ export const get = async (url: string, token?: string) => {
 
 export const patch = async <T extends Object>(url: string, body?: T, token?: string) => {
     try {
-        const response = await request.patch('http://localhost:8000/' + url)
+        const response = await request.patch('https://api.connecteam.ru/' + url)
             .set('Access-Control-Allow-Origin', '*')
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
@@ -94,7 +94,7 @@ export const patch = async <T extends Object>(url: string, body?: T, token?: str
 
 export const Delete = async (url: string, token?: string) => {
     try {
-        const response = await request.delete('http://localhost:8000/' + url)
+        const response = await request.delete('https://api.connecteam.ru/' + url)
             .set('Access-Control-Allow-Origin', '*')
             .set('Accept', 'application/json')
             .set('Content-Type', 'application/json')
