@@ -10,6 +10,7 @@ export const post = async <T extends Object>(url: string, body?: T, token?: stri
             .send(body)
         return response;
     } catch (error: any) {
+        console.log(error)
         if (error.status == 401) {
             document.location.href = "/auth/login"
         }
