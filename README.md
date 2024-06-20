@@ -25,6 +25,7 @@ REACT_APP_GAME_URL=ws://localhost:8080/
 REACT_APP_NOTIFICATIONS_URL=ws://localhost:8081/
 ```
 Save the file content and close the file.
+
 5. Start the app in your browser:
 ```sh
 npm run start
