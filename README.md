@@ -18,7 +18,14 @@ cd connecteam-main
 ```sh
 npm install
 ```
-4. Start the app in your browser:
+4. Find .env file in the root directory. Edit the URLs for the server side services. Example is given below:
+```sh
+REACT_APP_API_URL=http://localhost:8000/
+REACT_APP_GAME_URL=ws://localhost:8080/
+REACT_APP_NOTIFICATIONS_URL=ws://localhost:8081/
+```
+Save the file content and close the file.
+5. Start the app in your browser:
 ```sh
 npm run start
 ```
