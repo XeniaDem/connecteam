@@ -211,7 +211,7 @@ export function GamePage() {
         }
 
 
-        const ws: WebSocket = new WebSocket('ws://localhost:8080/ws?token=' + token);
+        const ws: WebSocket = new WebSocket('wss://game.connecteam.ru/ws?token=' + token);
         webSocketRef.current = ws;
 
         ws.onopen = () => {
