@@ -1,27 +1,46 @@
-# vite-template-redux
+# ConnecTeam Front-end Web App
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+## Installation
+
+In terminal, run the following command to clone the repo:
 
 ```sh
-npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
+git clone https://github.com/XeniaDem/connecteam.git
 ```
 
-## Goals
+## Setup
+1. Install Node.js to your machine. This can be done by clicking the [link](https://nodejs.org/en).
+2. In terminal, cd into the cloned repository:
+```sh
+cd connecteam-main
+```
+3. Then install the dependencies:
+```sh
+npm install
+```
+4. Find .env file in the root directory. Edit the URLs for the server side services. Example is given below:
+```sh
+REACT_APP_API_URL=http://localhost:8000/
+REACT_APP_GAME_URL=ws://localhost:8080/
+REACT_APP_NOTIFICATIONS_URL=ws://localhost:8081/
+```
+Save the file content and close the file.
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
+5. Start the app in your browser:
+```sh
+npm run start
+```
 
 ## Scripts
 
 - `dev`/`start` - start dev server and open browser
 - `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
 
-## Inspiration
+## Server Side
 
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+While using the application make sure its Server side is running. To read the installation guides, please follow the links below:
+1. [ConnecTeam HTTP service](https://github.com/alkmnd/ConnectTeam)
+2. [ConnecTeam Game service](https://github.com/alkmnd/GameService)
+3. [ConnecTeam Notification service](https://github.com/alkmnd/NotificationService)
+
+

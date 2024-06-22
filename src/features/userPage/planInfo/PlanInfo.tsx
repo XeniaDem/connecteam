@@ -68,10 +68,10 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
 
   const webSocketRef = useRef<WebSocket | null>(null)
+
   useEffect(() => {
-
-
-    const ws: WebSocket = new WebSocket('wss://ws.connecteam.ru/ws?token=' + token);
+    const notificationsUrl = process.env.REACT_APP_NOTIFICATIONS_URL;
+    const ws: WebSocket = new WebSocket(notificationsUrl + "ws?token=" + token);
     webSocketRef.current = ws;
 
     ws.onopen = () => {
@@ -198,10 +198,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
           readServerError(error.response.text)
           console.log("error:", error)
         }
-
-
       }
-
     }
 
     dispatch(updateNotifications({notificationsCount: notificationsModels.filter(notification => notification.read == false).length}))
@@ -209,8 +206,6 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
     notificationsModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     setNotifications(notificationsModels);
-
-
   }
 
   const fetchNotifications = async () => {
@@ -224,9 +219,6 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
     }
   }
   
-  useEffect(() => {
-
-  }, []);
 
   useEffect(() => {
     setPlanType(savedPlan?.planType)
@@ -236,7 +228,6 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
     if (savedPlan == null) {
       fetchPreviousPlans()
     }
-
   }, [savedPlan]);
 
   return (
@@ -283,19 +274,14 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
                   }
                 </div>
               }
-
             </div>
             <div className={styles.footerContainer}>
               {planStatus == "active" &&
                 <div className={styles.footer}>
                   Дата истечения срока подписки {expiryDate}
                 </div>}
-
-
               <Button text={planStatus == "active" ? "Управлять планом" : "Продлить план"}
                 onClick={() => navigate("/user_page/profile", { state: { targetId: "plan_info" } })} className={styles.button} />
-
-
             </div>
           </div>
           :
