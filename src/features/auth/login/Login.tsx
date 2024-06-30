@@ -93,7 +93,6 @@ export function Login() {
     }
 
     try {
-      alert(`${process.env.REACT_APP_API_URL}`)
       const response = await post('auth/sign-in/email', data)
       saveAccessAndToken(response.text)
       setLoginError("")

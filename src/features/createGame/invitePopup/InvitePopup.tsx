@@ -29,6 +29,7 @@ type Props = {
 
 
 export function InvitePopup(props: Props) {
+  const appUrl = process.env.REACT_APP_URL;
 
   const token = useSelector(selectToken)
 
@@ -152,7 +153,7 @@ export function InvitePopup(props: Props) {
   }
 
   const fetchLink = () => {
-    setLink("localhost:5173/invite/game/" + props.invitationCode)
+    setLink(appUrl + "invite/game/" + props.invitationCode)
 
   }
 

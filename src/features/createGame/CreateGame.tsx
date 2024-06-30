@@ -14,6 +14,8 @@ import { get, post, readServerError } from "../../utils/api"
 
 export function CreateGame() {
 
+  const appUrl = process.env.REACT_APP_URL;
+
   const [gameCreated, setGameCreated] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -105,7 +107,7 @@ export function CreateGame() {
 
   }
   const openCopyPopup = () => {
-    navigator.clipboard.writeText("localhost:5173/invite/game/" + invitationCode)
+    navigator.clipboard.writeText(appUrl + "invite/game/" + invitationCode) 
     setCopyOpen(true)
     setTimeout(() => {
       setCopyOpen(false);

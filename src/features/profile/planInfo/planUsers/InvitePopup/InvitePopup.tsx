@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Button } from "../../../../../components/button/Button"
 import styles from "./InvitePopup.module.css"
@@ -11,7 +10,6 @@ import SendIcon from '@mui/icons-material/Send';
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../../../../store/authSlice";
 import { get, post, readServerError } from "../../../../../utils/api";
-import { useNavigate } from "react-router-dom";
 import telegramLogo from "../../../../../app/assets/telegram.png"
 import whatsappLogo from "../../../../../app/assets/whatsapp.png"
 
@@ -29,6 +27,7 @@ type Props = {
 
 
 export function InvitePopup(props: Props) {
+  const appUrl = process.env.REACT_APP_URL;
 
   const token = useSelector(selectToken)
 
@@ -58,14 +57,11 @@ export function InvitePopup(props: Props) {
   var emailErrorMessage = getEmailErrorMessage()
 
 
-  const sendEmailInvite = () => { ///////////////////////////////
+  const sendEmailInvite = () => { //TBD
     setFormSubmitted(true)
     if (emailErrorMessage != null) {
       return;
     }
-
-
-
   }
 
 
@@ -82,7 +78,7 @@ export function InvitePopup(props: Props) {
 
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
-      var isYou = (messageParsed.data[i].id == id) ////////////////
+      var isYou = (messageParsed.data[i].id == id)
       if (isYou)
         continue;
       var access = messageParsed.data[i].access
@@ -158,7 +154,7 @@ export function InvitePopup(props: Props) {
 
 
   const fetchLink = () => {
-    setLink("localhost:5173/invite/plan/" + props.invitationCode)
+    setLink(appUrl + "invite/plan/" + props.invitationCode)
 
   }
 

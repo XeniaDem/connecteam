@@ -6,7 +6,6 @@ import ellipse2 from "../../../app/assets/ellipse2.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "../../../store/authSlice";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { setPurchaseData } from "../../../store/purchaseSlice";
 import { Plan } from "../PlanList";
 
@@ -24,10 +23,9 @@ type Props = {
 }
 
 export function ChoosePlanPopup(props: Props) {
+  const appUrl = process.env.REACT_APP_URL;
 
   const token = useSelector(selectToken)
-
-  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -77,9 +75,9 @@ export function ChoosePlanPopup(props: Props) {
       }
       else {
         if (!isUpgrade) {
-          handlePurchase(props.newPlanType, "http://localhost:5173/purchase/plan")
+          handlePurchase(props.newPlanType, appUrl + "purchase/plan")
         } else {
-          props.currentPlan && handlePurchase(props.currentPlan.planType + "-to-" + props.newPlanType, "http://localhost:5173/purchase/upgrade")
+          props.currentPlan && handlePurchase(props.currentPlan.planType + "-to-" + props.newPlanType, appUrl + "purchase/upgrade")
         }
 
       }

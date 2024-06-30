@@ -16,6 +16,7 @@ type Props = {
 
 
 export function InvitePopup(props: Props) {
+  const appUrl = process.env.REACT_APP_URL;
   const token = useSelector(selectToken)
   const [copiedHidden, setCopiedHidden] = useState(true);
   const copyLink = () => {
@@ -32,7 +33,7 @@ export function InvitePopup(props: Props) {
 
   const readInvitationCode = (message: any) => {
     const messageParsed = JSON.parse(message);
-    setLink("localhost:5173/invite/game/" + messageParsed.invitation_code)
+    setLink(appUrl + "invite/game/" + messageParsed.invitation_code)
 
   }
 

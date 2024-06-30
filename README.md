@@ -18,11 +18,12 @@ cd connecteam-main
 ```sh
 npm install
 ```
-4. Find .env file in the root directory. Edit the URLs for the server side services. Example is given below:
+4. Find .env file in the root directory. Edit the URLs for the server side services and the app itself. Example is given below:
 ```sh
 REACT_APP_API_URL=http://localhost:8000/
 REACT_APP_GAME_URL=ws://localhost:8080/
 REACT_APP_NOTIFICATIONS_URL=ws://localhost:8081/
+REACT_APP_URL=ws://localhost:5173/
 ```
 Save the file content and close the file.
 
