@@ -23,7 +23,7 @@ npm install
 REACT_APP_API_URL=http://localhost:8000/
 REACT_APP_GAME_URL=ws://localhost:8080/
 REACT_APP_NOTIFICATIONS_URL=ws://localhost:8081/
-REACT_APP_URL=ws://localhost:5173/
+REACT_APP_URL=http://localhost:5173/
 ```
 Save the file content and close the file.
 
