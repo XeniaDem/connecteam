@@ -77,9 +77,9 @@ export function ChoosePlanPopup(props: Props) {
       }
       else {
         if (!isUpgrade) {
-          handlePurchase(props.newPlanType, "http://localhost:5173/purchase/plan")
+          handlePurchase(props.newPlanType, "https://connecteam.ru/purchase/plan")
         } else {
-          props.currentPlan && handlePurchase(props.currentPlan.planType + "-to-" + props.newPlanType, "http://localhost:5173/purchase/upgrade")
+          props.currentPlan && handlePurchase(props.currentPlan.planType + "-to-" + props.newPlanType, "https://connecteam.ru/purchase/upgrade")
         }
 
       }

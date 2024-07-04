@@ -152,7 +152,7 @@ export function InvitePopup(props: Props) {
   }
 
   const fetchLink = () => {
-    setLink("localhost:5173/invite/game/" + props.invitationCode)
+    setLink("https://connecteam.ru/invite/game/" + props.invitationCode)
 
   }
 

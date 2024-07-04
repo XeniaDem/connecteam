@@ -105,7 +105,7 @@ export function CreateGame() {
 
   }
   const openCopyPopup = () => {
-    navigator.clipboard.writeText("localhost:5173/invite/game/" + invitationCode)
+    navigator.clipboard.writeText("https://connecteam.ru/invite/game/" + invitationCode)
     setCopyOpen(true)
     setTimeout(() => {
       setCopyOpen(false);
