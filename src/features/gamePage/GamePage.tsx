@@ -119,9 +119,9 @@ export function GamePage() {
     }, [])
 
     const onGameStart = useCallback((messageObject: any) => {
-        const topics = JSON.stringify(messageObject.payload.game.topics)
+        const topics = JSON.stringify(messageObject.payload.topics)
 
-        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.game.topics.length }))
+        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.topics.length}))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
         dispatch(updateGame({ gameStarted: true, meetingJwt: messageObject.payload.token, meetingNumber: messageObject.payload.meeting_number, meetingPasscode: messageObject.payload.passcode }))
     }, [])
