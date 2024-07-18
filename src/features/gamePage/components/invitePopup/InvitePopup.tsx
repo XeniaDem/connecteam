@@ -9,57 +9,45 @@ import { get, readServerError } from "../../../../utils/api";
 type Props = {
   gameId?: string;
   closePopup: () => void;
-
 }
-
-
-
 
 export function InvitePopup(props: Props) {
   const token = useSelector(selectToken)
+
+  const appUrl = process.env.REACT_APP_URL;
+
   const [copiedHidden, setCopiedHidden] = useState(true);
+
   const copyLink = () => {
     navigator.clipboard.writeText(link)
     setCopiedHidden(false)
     setTimeout(() => {
       setCopiedHidden(true);
     }, 3000);
-
   }
 
   const [link, setLink] = useState("")
 
-
   const readInvitationCode = (message: any) => {
     const messageParsed = JSON.parse(message);
-    setLink("https://connecteam.ru/invite/game/" + messageParsed.invitation_code)
-
+    setLink(appUrl + "invite/game/" + messageParsed.invitation_code)
   }
 
   const fetchGame = async () => {
     try {
-
       const response = await get('games/' + props.gameId, token)
       readInvitationCode(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
   useEffect(() => {
     fetchGame();
-
-
   }, []);
-
-
-
 
   return (
     <div className={styles.background}>
@@ -68,7 +56,6 @@ export function InvitePopup(props: Props) {
         <div className={styles.close}>
           <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
         </div>
-
 
         <div className={styles.title}>
           Пригласите друзей
@@ -87,17 +74,13 @@ export function InvitePopup(props: Props) {
           </div>
           ) : (
             null
-
           )}
           </div>
-
-
         </div>
 
         <Button text={"Копировать"} onClick={copyLink} className={styles.copyButton} />
 
       </div>
-
     </div>
   )
 }

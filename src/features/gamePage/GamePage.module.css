@@ -15,17 +15,11 @@
 
 .players {
   font-family: 'Work Sans Variable', sans-serif;
-
   display: flex;
   justify-content: center;
-
-
-  gap: 46px;
-
   flex-wrap: wrap;
   z-index: 1;
   padding-bottom: 20px;
-
 }
 
 .audio {

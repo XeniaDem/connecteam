@@ -34,14 +34,16 @@ export function InvitePopup(props: Props) {
 
   const id = useSelector(selectId)
 
+  const appUrl = process.env.REACT_APP_URL;
+
   const [copiedHidden, setCopiedHidden] = useState(true);
+
   const copyLink = () => {
     navigator.clipboard.writeText(link)
     setCopiedHidden(false)
     setTimeout(() => {
       setCopiedHidden(true);
     }, 3000);
-
   }
 
   const [email, setEmail] = useState("")
@@ -58,14 +60,11 @@ export function InvitePopup(props: Props) {
   var emailErrorMessage = getEmailErrorMessage()
 
 
-  const sendEmailInvite = () => { ///////////////////////////////
+  const sendEmailInvite = () => { //TBD
     setFormSubmitted(true)
     if (emailErrorMessage != null) {
       return;
     }
-
-
-
   }
 
 
@@ -82,7 +81,7 @@ export function InvitePopup(props: Props) {
 
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
-      var isYou = (messageParsed.data[i].id == id) ////////////////
+      var isYou = (messageParsed.data[i].id == id)
       if (isYou)
         continue;
       var access = messageParsed.data[i].access
@@ -101,26 +100,20 @@ export function InvitePopup(props: Props) {
   }
 
   const fetchUsers = async () => {
-
     try {
       const response = await get('users/list', token)
       readUsers(response.text)
       return;
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
-
 
   const [link, setLink] = useState("")
 
   const [findUserHidden, setFindUserHidden] = useState(true)
-
 
   const addUser = () => {
     if (findUserHidden == true) {
@@ -131,10 +124,7 @@ export function InvitePopup(props: Props) {
         return;
       }
       inviteUser()
-
-
       setFindUserHidden(true)
-
     }
   }
 
@@ -144,27 +134,20 @@ export function InvitePopup(props: Props) {
     }
     try {
       const response = await post('plans/invite/' + props.planId, data, token)
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
 
   const fetchLink = () => {
-    setLink("https://connecteam.ru/invite/plan/" + props.invitationCode)
-
+    setLink(appUrl + "invite/plan/" + props.invitationCode)
   }
 
   const text = "Вас пригласили присоединиться к плану доступа в Connecteam! Перейдите по ссылке, чтобы принять приглашение."
-
-
 
   useEffect(() => {
     fetchUsers()

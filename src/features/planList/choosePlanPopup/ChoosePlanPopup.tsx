@@ -15,8 +15,6 @@ import { Plan } from "../PlanList";
 type Props = {
   closePopup: () => void;
   onChange: () => void;
-  // currentPlanType: string | undefined;
-  // currentPlanId: string | undefined;
   currentPlan?: Plan | null
   newPlanType: string;
   buyingTrial: boolean;
@@ -27,8 +25,6 @@ export function ChoosePlanPopup(props: Props) {
 
   const token = useSelector(selectToken)
 
-  const navigate = useNavigate()
-
   const dispatch = useDispatch()
 
   const period = props.newPlanType == "basic" ? (props.buyingTrial ? 14 : 30) : 30
@@ -37,6 +33,7 @@ export function ChoosePlanPopup(props: Props) {
 
   const [purchaseInfo, setPurchaseInfo] = useState("")
 
+  const appUrl = process.env.REACT_APP_URL;
 
   const readAccess = () => {
     if (!props.currentPlan || props.currentPlan.isTrial) {
@@ -77,9 +74,9 @@ export function ChoosePlanPopup(props: Props) {
       }
       else {
         if (!isUpgrade) {
-          handlePurchase(props.newPlanType, "https://connecteam.ru/purchase/plan")
+          handlePurchase(props.newPlanType, appUrl + "purchase/plan")
         } else {
-          props.currentPlan && handlePurchase(props.currentPlan.planType + "-to-" + props.newPlanType, "https://connecteam.ru/purchase/upgrade")
+          props.currentPlan && handlePurchase(props.currentPlan.planType + "-to-" + props.newPlanType, appUrl + "purchase/upgrade")
         }
 
       }

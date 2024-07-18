@@ -38,11 +38,12 @@ export function InvitePopup(props: Props) {
 
   const [formSubmitted, setFormSubmitted] = useState(false)
 
+  const appUrl = process.env.REACT_APP_URL;
+
   const getEmailErrorMessage = () => {
     if (!validator.isEmail(email)) {
       return "Некорректно введен адрес эл. почты"
     }
-
     return null
   }
   var emailErrorMessage = getEmailErrorMessage()
@@ -58,14 +59,11 @@ export function InvitePopup(props: Props) {
   }
 
 
-  const sendEmailInvite = () => { ///////////////////////////////
+  const sendEmailInvite = () => { //TBD
     setFormSubmitted(true)
     if (emailErrorMessage != null) {
       return;
     }
-
-
-
   }
 
   const [users, setUsers] = useState<SearchUserModel[]>([])
@@ -80,7 +78,7 @@ export function InvitePopup(props: Props) {
 
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
-      var isYou = (messageParsed.data[i].id == id) ////////////////
+      var isYou = (messageParsed.data[i].id == id)
       if (isYou)
         continue;
       var access = messageParsed.data[i].access
@@ -99,26 +97,21 @@ export function InvitePopup(props: Props) {
   }
 
   const fetchUsers = async () => {
-
     try {
       const response = await get('users/list', token)
       readUsers(response.text)
       return;
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
   const [link, setLink] = useState("")
 
   const [findUserHidden, setFindUserHidden] = useState(true)
-
 
   const addUser = () => {
     if (findUserHidden == true) {
@@ -130,7 +123,6 @@ export function InvitePopup(props: Props) {
       }
       inviteUser()
       setFindUserHidden(true)
-
     }
   }
 
@@ -140,25 +132,19 @@ export function InvitePopup(props: Props) {
     }
     try {
       const response = await post('games/invite/' + props.gameId, data, token)
-
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   const fetchLink = () => {
-    setLink("https://connecteam.ru/invite/game/" + props.invitationCode)
+    setLink(appUrl + "invite/game/" + props.invitationCode)
 
   }
 
   const text = "Вас пригласили присоединиться к игре в Connecteam! Перейдите по ссылке, чтобы просмотреть данные игры и принять приглашение."
-
-
 
   useEffect(() => {
     fetchUsers()
@@ -169,7 +155,6 @@ export function InvitePopup(props: Props) {
   return (
     <div className={styles.background}>
       <div className={styles.container}>
-
         <div className={styles.close}>
           <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
         </div>
@@ -200,27 +185,20 @@ export function InvitePopup(props: Props) {
             </div>
             ) : (
               null
-
             )}
           </div>
-
-
         </div>
-
 
         <input className={styles.input} placeholder="Эл. адрес" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
 
         {formSubmitted && (emailErrorMessage) ? (
           <div className={styles.errorMessage}>
             {emailErrorMessage}
-
           </div>
-
         ) : (
-          <div />
+          null
         )}
         <Button text={"Отправить"} onClick={sendEmailInvite} className={styles.sendButton} />
-
 
         <div className={styles.buttons}>
           {!findUserHidden ? <SearchBar data={users} onSelectedChange={setCurrentUser} placeholder="Поиск пользователя..." /> : null}
@@ -236,11 +214,8 @@ export function InvitePopup(props: Props) {
               <PersonSearchIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
             ) : (
               <SendIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
-
             )}
           </IconButton>
-
 
         </div>
         <div className={styles.logos}>
@@ -255,10 +230,7 @@ export function InvitePopup(props: Props) {
             }} />
           </div>
         </div>
-
-
       </div>
-
     </div>
   )
 }

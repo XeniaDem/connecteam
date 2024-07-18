@@ -238,7 +238,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
         </div>}
         <div className={styles.up}>
           <div className={styles.title}>
-            Добро пожаловать, {name} {" "} {surname}!
+            Добро пожаловать, {name}!
           </div>
           <div className={styles.notifications}>
             <IconButton onClick={() => {setNotificationsHidden(false); fetchNotifications()}}>

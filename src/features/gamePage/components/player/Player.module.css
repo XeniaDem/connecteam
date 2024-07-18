@@ -1,126 +1,118 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.crown {
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
-
-display: flex;
-align-items: center;
-flex-direction: column;
-justify-content: center;
-
-
-
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .smallCrown {
-
-
   margin-top: -20px;
-
-
-
 }
 
 .photo {
   width: 57px;
-height: 57px;
-flex-shrink: 0;
-border-radius: 70.336px;
-border: 3px solid #303030;
+  height: 57px;
+  flex-shrink: 0;
+  border-radius: 70.336px;
+  border: 3px solid #303030;
 
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  object-fit: cover;
 
 }
 
 .photoAnswering {
-margin-top: 2px;
+  margin-top: 2px;
   width: 61px;
-height: 61px;
-flex-shrink: 0;
-border-radius: 70.336px;
-
-
-display: flex;
-align-items: center;
-justify-content: center;
-background-size: contain;
-overflow: hidden;
-position: relative;
-
-
+  height: 61px;
+  flex-shrink: 0;
+  border-radius: 70.336px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  overflow: hidden;
+  position: relative;
 }
+
 .photoAnswering::before {
   border-radius: 30.336px;
   border: 3px solid transparent;
-  padding: 10px; 
+  padding: 10px;
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
-  -webkit-mask: /*4*/
-     linear-gradient(#fff 0 0) padding-box, 
-     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; /*5'*/
+  background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
+  /*3*/
+  -webkit-mask:
+    /*4*/
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  /*5'*/
 
 }
-
-
-
-
-
-
-
 
 .photoDisconnected {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 63px;
-height: 63px;
-background-color: #303030;
-border-radius: 70.336px;
+  height: 63px;
+  background-color: #303030;
+  border-radius: 70.336px;
 
 
 }
 
 .name {
   color: #FFF;
-font-size: 17.143px;
-font-style: normal;
-font-weight: 500;
-line-height: 24.812px; /* 144.737% */
-margin-top: 10px;
-text-align: center;
-
+  font-size: 17.143px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.812px;
+  /* 144.737% */
+  margin-top: 10px;
+  text-align: center;
+  max-width: 160px;
 }
 
 .nameDisconnected {
-
   color: #595959;
-font-size: 17.143px;
-font-style: normal;
-font-weight: 500;
-line-height: 24.812px; /* 144.737% */
-
+  font-size: 17.143px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.812px;
+  /* 144.737% */
   margin-top: 10px;
   text-align: center;
-
 }
 
 .nameYou {
   font-size: 17.143px;
   font-style: normal;
   font-weight: 500;
-  line-height: 24.812px; /* 144.737% */
+  line-height: 24.812px;
+  /* 144.737% */
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-margin-top: 10px;
-text-align: center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .addButton {
@@ -135,17 +127,4 @@ text-align: center;
   font-size: 60.143px;
   font-weight: 350;
   border: transparent;
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

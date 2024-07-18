@@ -23,7 +23,9 @@ export function CreateGame() {
   const [gameDate, setGameDate] = useState("");
 
   const [createError, setCreateError] = useState(""); 
-  // const [gameTime, setGameTime] = useState("");
+
+  const appUrl = process.env.REACT_APP_URL;
+
 
   const getCreateErrorMessage = () => {
     if (gameName.trim() == "") {
@@ -62,11 +64,10 @@ export function CreateGame() {
   }
 
 
-  const createGame = async () => { //////////////////////////
+  const createGame = async () => { 
     setFormSubmitted(true);
     if (errorMessage != null) {
       return;
-
     }
     const data = {
       name: gameName,
@@ -77,17 +78,11 @@ export function CreateGame() {
       setCreateError("")
       setGameCreated(true);
       readGameData(response.text)
-     
-     
-
     }
     catch (error: any) {
       readCreateError(error.response.text)
       console.log("error:", error)
     }
-
-
-
   }
 
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -105,7 +100,7 @@ export function CreateGame() {
 
   }
   const openCopyPopup = () => {
-    navigator.clipboard.writeText("https://connecteam.ru/invite/game/" + invitationCode)
+    navigator.clipboard.writeText(appUrl + "invite/game/" + invitationCode)
     setCopyOpen(true)
     setTimeout(() => {
       setCopyOpen(false);
@@ -113,39 +108,28 @@ export function CreateGame() {
 
   }
 
-
-
   const [name, setName] = useState("");
 
-
   const readName = (message: any) => {
-
     var messageParsed = JSON.parse(message);
     var name = messageParsed.first_name
     setName(name)
-
-
   }
 
 
   const fetchMe = async () => {
     try {
-
       const response = await get('users/me', token)
       readName(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 
   useEffect(() => {
-
     fetchMe();
   }, []);
 
@@ -178,9 +162,6 @@ export function CreateGame() {
 
             <input type="datetime-local" min={new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf(":"))}
               className={styles.input} placeholder="Дата игры" disabled={gameCreated} value={gameDate} onChange={(event) => { setGameDate(event.target.value) }} />
-
-            {/* <input type="time" className={styles.input} placeholder="Время игры" disabled={gameCreated}
-              value={gameTime} onChange={(event) => { setGameTime(event.target.value) }} /> */}
 
           </div>
 
