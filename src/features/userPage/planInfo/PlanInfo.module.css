@@ -83,7 +83,6 @@
   padding-top: 154px;
   padding-left: 51px;
   max-width: 1000px;
-  line-break: anywhere;
 
 }
 
@@ -178,6 +177,7 @@
   }
   .notifications {
     margin-top: 90px;
+    height: auto;
   }
   .up {
     padding-right: 0px;

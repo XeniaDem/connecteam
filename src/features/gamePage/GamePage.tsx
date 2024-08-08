@@ -1,5 +1,5 @@
 import styles from "./GamePage.module.css"
-import { JSXElementConstructor, ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
 import { selectToken } from "../../store/authSlice";
@@ -11,7 +11,7 @@ import { WaitGame } from "./screens/waitGame/WaitGame";
 import { StartGame } from "./screens/startGame/StartGame";
 import { Rounds } from "./components/rounds/Rounds";
 import { ChooseTopic } from "./screens/chooseTopic/ChooseTopic";
-import { GameScreen, selectGame, setGame, setRounds, setStage, setTimer, updateCurrentScreen, updateGame, updateRounds } from "../../store/gameSlice";
+import { GameScreen, selectGame, setGame, setResults, setRounds, setStage, setTimer, updateCurrentScreen, updateGame, updateRounds } from "../../store/gameSlice";
 import { store } from "../../store/store";
 import { Button } from "../../components/button/Button";
 import { GameError } from "./screens/gameError/GameError";
@@ -21,8 +21,6 @@ import { GameResults } from "../gameResults/GameResults";
 import { Audio } from "./components/audio/Audio";
 import { useParams } from "react-router-dom";
 import ZoomMtgEmbedded from "@zoom/meetingsdk/embedded";
-
-
 
 interface CommonGameScreenElementsProps {
     gameStarted: boolean;
@@ -41,6 +39,9 @@ export function GamePage() {
 
     let { gameId } = useParams();
 
+    const { state } = useLocation();
+    const { name } = state || {};
+
     const [error, setError] = useState("")
 
     const [players, setPlayers] = useState<PlayerModel[] | null>(null)
@@ -51,9 +52,7 @@ export function GamePage() {
         setTimeout(() => {
             setUserLeftHidden(true);
         }, 3000);
-
     }
-
 
     const clearData = () => {
         dispatch(setGame({ name: "", date: "", gameId: "", creatorId: "", playerId: "", playerName: "" }))
@@ -63,43 +62,40 @@ export function GamePage() {
         dispatch(updateRounds({ currentRound: 0 }))
         dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         dispatch(setTimer({ timerStarted: false, timeStart: "" }))
-
-
+        dispatch(setResults({ results: ""}))
     }
 
     const webSocketRef = useRef<WebSocket | null>(null)
 
 
-
     const onUserLeft = useCallback((messageObject: any) => {
         showUserLeft()
-        removePlayer(messageObject.sender.id)
+        removePlayer(messageObject.payload)
     }, [])
 
-    const onGameFinish = useCallback(() => {
+    const onGameFinish = useCallback((messageObject: any) => {
+        const results = JSON.stringify(messageObject.payload)
+        dispatch(setResults({ results: results}))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameResults }))
     }, [])
 
     const onRoundFinish = useCallback((messageObject: any) => {
         const topics = JSON.stringify(messageObject.payload)
         const game = store.getState().game
-
         dispatch(setRounds({ topics: topics, roundsNum: game.roundsNum }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
-
     }, [])
 
     const onRatingFinish = useCallback(() => {
         dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         startStage()
-
     }, [])
 
     const onAnswerFinish = useCallback(() => {
         dispatch(setTimer({ timerStarted: false, timeStart: "" }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.RateAnswer }))
-
     }, [])
+
     const onAnswerStart = useCallback((messageObject: any) => {
         dispatch(setTimer({ timerStarted: true, timeStart: messageObject.time }))
     }, [])
@@ -119,9 +115,8 @@ export function GamePage() {
     }, [])
 
     const onGameStart = useCallback((messageObject: any) => {
-        const topics = JSON.stringify(messageObject.payload.topics)
-
-        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.topics.length}))
+        const topics = JSON.stringify(messageObject.payload.game.topics)
+        dispatch(setRounds({ topics: topics, roundsNum: messageObject.payload.game.topics.length }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.ChooseTopic }))
         dispatch(updateGame({ gameStarted: true, meetingJwt: messageObject.payload.token, meetingNumber: messageObject.payload.meeting_number, meetingPasscode: messageObject.payload.passcode }))
     }, [])
@@ -129,20 +124,16 @@ export function GamePage() {
     const onTopicsChoose = useCallback((messageObject: any) => {
         const sender = messageObject.sender
         const senderId = sender.id
-
         const game = store.getState().game
         const id = game.playerId
-
         if (id == senderId) {
             dispatch(updateCurrentScreen({ currentScreen: GameScreen.StartGame }))
         }
-
     }, [])
 
 
 
     const onMyGameJoin = useCallback((messageObject: any) => {
-
         const sender = messageObject.sender
         const senderId = sender.id
         const senderName = sender.name
@@ -154,15 +145,12 @@ export function GamePage() {
         gameId && dispatch(setGame({ name: payload.name, date: payload.date, gameId: gameId, creatorId: payload.creator_id, playerId: senderId, playerName: senderName }))
         dispatch(updateCurrentScreen({ currentScreen: currentScreen }))
 
-
         updatePlayers(messageObject)
-
     }, [])
 
 
     const onUserGameJoin = useCallback((messageObject: any) => {
         updatePlayers(messageObject)
-
     }, [])
 
 
@@ -210,9 +198,15 @@ export function GamePage() {
             clearData()
         }
 
-
         const gameUrl = process.env.REACT_APP_GAME_URL;
-        const ws: WebSocket = new WebSocket(gameUrl + "ws?token=" + token);
+
+        var ws: WebSocket
+        if (token != "") {
+            ws = new WebSocket(gameUrl + "ws?token=" + token);
+        }
+        else {
+            ws = new WebSocket(gameUrl + "ws?name=" + name);
+        }
         webSocketRef.current = ws;
 
         ws.onopen = () => {
@@ -257,11 +251,16 @@ export function GamePage() {
                     onRoundFinish(messageObject)
                 }
                 if (messageObject.action == "game-end") {
-                    onGameFinish()
+                    onGameFinish(messageObject)
                 }
                 if (messageObject.action == "user-left") {
                     onUserLeft(messageObject)
                 }
+                if (messageObject.action == "game-abort") { 
+                    setError("Игра была завершена досрочно")
+                    dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
+                }
+
                 if (messageObject.action == "error") {
                     if (messageObject.payload.message.includes("max number")) {
                         setError("Превышен лимит участников игры")
@@ -417,7 +416,7 @@ export function GamePage() {
         gameStarted,
         children, // children передается автоматически через пропс children
     }) => (
-        <div>
+        <div >
             <div className={styles.ellipse1}>
                 <img src={ellipse1} />
             </div>
@@ -436,7 +435,7 @@ export function GamePage() {
             </div>
 
             {gameStarted ?
-                <div>
+                <div className={styles.screen}>
                     <div className={styles.players}>
                         {players?.map(player =>
                             <div>
@@ -461,7 +460,7 @@ export function GamePage() {
 
 
     return (
-        <div>
+        <div >
 
             {game.gameStarted &&
                 <div className={styles.audio}>
@@ -488,7 +487,7 @@ export function GamePage() {
             {game.currentScreen == GameScreen.StartGame &&
                 <div className={styles.container}>
                     <CommonGameScreenElements gameStarted={true} children
-                        ={<StartGame name={game.name} date={game.date} id={gameId} onButtonClicked={startGame} />} />
+                        ={<StartGame name={game.name} date={game.date} id={gameId} players={players} onButtonClicked={startGame} />} />
                 </div>
 
             }
@@ -530,7 +529,7 @@ export function GamePage() {
 
             }
             {game.currentScreen == GameScreen.GameResults &&
-                players && <GameResults gameId={game.gameId} onButtonClicked={() => {
+                players && <GameResults onButtonClicked={() => {
                     leaveGame()
                     clearData()
                     navigate("/user_page")

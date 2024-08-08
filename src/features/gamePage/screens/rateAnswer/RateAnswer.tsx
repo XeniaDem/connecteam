@@ -1,4 +1,3 @@
-
 import styles from "./RateAnswer.module.css"
 import dots from "../dots.svg"
 import { Button } from "../../../../components/button/Button"
@@ -23,14 +22,11 @@ type Props = {
   question: string;
   tags: string;
   onButonClicked: (rating: number, selected: string[]) => void;
-
 }
 
 
 export function RateAnswer(props: Props) {
   const token = useSelector(selectToken)
-
-
 
   if (!props.isAnswering) {
 
@@ -45,14 +41,11 @@ export function RateAnswer(props: Props) {
     const [tags, setTags] = useState<TagModel[] | null>()
 
     const readTags = () => {
-      console.log(props.tags)
       if (props.tags == "") {
         setTags(null);
         return;
       }
       const messageParsed = JSON.parse(props.tags);
-
-    
       const tagsNum = messageParsed.length;
       const tagsModels = [];
       for (let j = 0; j < tagsNum; j++) {
@@ -64,8 +57,6 @@ export function RateAnswer(props: Props) {
         tagsModels.push(tagModel)
       }
       setTags(tagsModels);
-
-
     }
 
     const [selectedTagsIds, setSelectedTagsIds] = useState<string[]>([]);
@@ -83,7 +74,7 @@ export function RateAnswer(props: Props) {
         if (currentTag == null || tags && tags.find(tag => tag.id == currentTag.id)) {
           return;
         }
-       
+
         if (tags) {
           setTags(tags.concat(currentTag))
         } else {
@@ -93,7 +84,7 @@ export function RateAnswer(props: Props) {
 
         }
         setNewTagHidden(true)
-  
+
       }
     }
 
@@ -132,21 +123,24 @@ export function RateAnswer(props: Props) {
         readServerError(error.response.text)
         console.log("error:", error)
       }
-
-
     }
 
+
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const getRateError = () => {
+      if (rating < 1)
+        return "Пожалуйста, поставьте оценку";
+    }
+
+    const rateError = getRateError();
+
     useEffect(() => {
-      console.log(props.tags)
       readTags()
-
-
-
     }, []);
+
     return (
       <div>
         <div className={styles.container}>
-
           <div className={styles.content}>
             <div className={styles.question}>
               <Question nameAnswering={props.nameAnswering} text={props.question} />
@@ -156,7 +150,6 @@ export function RateAnswer(props: Props) {
               </div>
 
               <div className={styles.tags}>
-
                 {tags?.map(tag => {
                   const onTagClicked = (newValue: boolean) => {
                     if (newValue) {
@@ -170,14 +163,13 @@ export function RateAnswer(props: Props) {
                   return (
                     <div>
                       <Tag savedTag={tag} selected={selectedTagsIds.includes(tag.id)} onTagClicked={onTagClicked} />
-
                     </div>
                   )
 
                 }
                 )
                 }
-                {!newTagHidden ? allTags && <SearchBar data={allTags} placeholder = "Поиск тега..." onSelectedChange={setCurrentTag} /> : null}
+                {!newTagHidden ? allTags && <SearchBar data={allTags} placeholder="Поиск тега..." onSelectedChange={setCurrentTag} /> : null}
 
                 <div className={styles.addButton}>
                   <IconButton onClick={addTag}>
@@ -189,8 +181,16 @@ export function RateAnswer(props: Props) {
                   </IconButton>
                 </div>
               </div>
+              {rateError && formSubmitted && (<div className={styles.errorMessage}>
+                {rateError}
+              </div>)}
 
-              <Button text={"Завершить оценивание"} onClick={() => props.onButonClicked(rating, selectedTagsIds)} className={styles.finishButton} />
+              <Button text={"Завершить оценивание"} onClick={() => {
+                setFormSubmitted(true);
+                if (rateError)
+                  return;
+                props.onButonClicked(rating, selectedTagsIds)
+              }} className={styles.finishButton} />
             </div>
           </div>
         </div>
@@ -213,5 +213,4 @@ export function RateAnswer(props: Props) {
       </div>
     )
   }
-
 }

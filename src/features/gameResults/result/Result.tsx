@@ -20,22 +20,20 @@ type Props = {
 export function Result({ savedResult }: Props) {
 
   return (
-    <div>
-      <div className={styles.container}>
-        <div className={styles.rectangle} style={{ height: (!isMobile ? savedResult.result * 4 : savedResult.result * 2) }}>
-          {savedResult.result}
-        </div>
-        {savedResult.isYou ? (
-          <div className={styles.nameYou}>
-            Вы
-          </div>
-        ) : (
-          <div className={styles.name}>
-            {savedResult.name}
-          </div>
-        )
-        }
+    <div className={styles.container}>
+      <div className={styles.rectangle} style={{ height: (!isMobile ? savedResult.result * 4 : savedResult.result * 2) }}>
+        {savedResult.result}
       </div>
+      {savedResult.isYou ? (
+        <div className={styles.nameYou}>
+          {savedResult.name} (Вы)
+        </div>
+      ) : (
+        <div className={styles.name}>
+          {savedResult.name}
+        </div>
+      )
+      }
     </div>
   )
 }

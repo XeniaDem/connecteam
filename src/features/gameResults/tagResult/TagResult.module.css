@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  gap: 10px;
+  gap: 25px;
   flex-wrap: wrap;
   
  
@@ -75,4 +75,19 @@
   display: flex;
   gap: 5px;
   min-width: 70px;
+}
+
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.39);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140.76%;
+  /* 27.457px */
+  text-align: center;
+
 }

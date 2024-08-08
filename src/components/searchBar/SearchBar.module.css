@@ -46,14 +46,15 @@
 
   margin-top: 5px;
 
-  position: relative;
+  position: absolute; /*was relative*/
   overflow-y: auto;
   height: 150px;
 
   border-radius: 20px;
   color: #FFF;
 
-  /* height: 150px; */
+  background: rgba(23, 23, 23, 0.8);
+
 }
 
 .suggestions.hidden {

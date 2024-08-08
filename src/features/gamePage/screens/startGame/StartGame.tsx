@@ -1,4 +1,3 @@
-
 import styles from "./StartGame.module.css"
 import crown from "../crown.svg"
 import photo from "./photo.svg"
@@ -8,14 +7,17 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import DoneIcon from '@mui/icons-material/Done';
 import { useSelector } from "react-redux"
 import { selectToken } from "../../../../store/authSlice"
-import { patch, post, readServerError } from "../../../../utils/api"
+import { post, readServerError } from "../../../../utils/api"
 import { useState } from "react"
+import { PlayerModel } from "../../components/player/Player"
 
 type Props = {
+
   name: string;
   date: string;
   photo?: string;
   id?: string;
+  players: PlayerModel[] | null;
   onButtonClicked: () => void;
 }
 
@@ -26,10 +28,8 @@ export function StartGame(props: Props) {
 
   const [notified, setNotified] = useState(false)
 
-
   const notifyPlayers = async () => {
     try {
-
       const response = await post('notifications/games/' + props.id + '/start', undefined, token)
       setNotified(true)
     }
@@ -37,9 +37,16 @@ export function StartGame(props: Props) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const getStartError = () => {
+    if (props.players && props.players?.length < 2)
+      return "Недостаточно игроков для начала игры";
+  }
+
+  const startError = getStartError();
 
 
   return (
@@ -78,7 +85,16 @@ export function StartGame(props: Props) {
           }
         </IconButton>
 
-        <Button text={"Начать игру"} onClick={props.onButtonClicked} className={styles.startButton} />
+        {startError && formSubmitted && (<div className={styles.errorMessage}>
+          {startError}
+        </div>)}
+
+        <Button text={"Начать игру"} onClick={() => {
+          setFormSubmitted(true);
+          if (startError)
+            return;
+          props.onButtonClicked()
+        }} className={styles.startButton} />
       </div>
     </div>
   )

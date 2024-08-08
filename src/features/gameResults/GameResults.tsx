@@ -13,10 +13,13 @@ import { selectId, selectToken } from "../../store/authSlice"
 import { useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { TagResult } from "./tagResult/TagResult"
+import { selectGame } from "../../store/gameSlice"
 
 
 type Props = {
-  gameId?: string;
+
+  // gameId?: string;
+
   onButtonClicked?: () => void;
 }
 
@@ -25,6 +28,10 @@ export function GameResults(props: Props) {
 
   const token = useSelector(selectToken)
   const userId = useSelector(selectId)
+
+  const game = useSelector(selectGame)
+  const playerId = game.playerId
+
   const { state } = useLocation();
 
   const navigate = useNavigate()
@@ -37,67 +44,74 @@ export function GameResults(props: Props) {
   const [results, setResults] = useState<ResultModel[] | null>(null)
   const [singleResult, setSingleResult] = useState<ResultModel | undefined>()
 
+  const [showResults, setShowResults] = useState(true)
+
 
   const readResults = async (message: any) => {
     const messageParsed = JSON.parse(message);
-    if (messageParsed.data == null) {
+    console.log("res: " + message)
+   
+
+    const results = messageParsed.results ? messageParsed.results : messageParsed.data;
+
+    if (results == null) {
       setResults(null)
+      setShowResults(false)
       return;
     }
 
-    const resultsNum = messageParsed.data.length;
+    const resultsNum = results.length;
+    console.log("num: " + resultsNum)
 
     const resultsModels = [];
     for (let i = 0; i < resultsNum; i++) {
-      try {
-        var response;
-        if (props.gameId)
-          response = await get('games/' + props.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
-        else
-          response = await get('games/' + state.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
-        const tags = []
-        const tagsData = JSON.parse(response.text);
-        if (tagsData.data) {
-          for (let j = 0; j < tagsData.data.length; j++) {
-            const tagModel = {
-              id: tagsData.data[j].id,
-              key: tagsData.data[j].name
-            }
-            tags.push(tagModel)
-          }
-        }
-        response = await get('users/' + messageParsed.data[i].user_id, token)
-        const userData = JSON.parse(response.text);
-        const resultModel = {
-          id: userData.id,
-          name: userData.first_name + " " + userData.second_name,
-          isCreator: userData.id == creatorId,
-          isYou: userData.id == userId,
-          photoUrl: "",
-          result: messageParsed.data[i].value,
-          tags: tags
+      const result = results[i]
 
+      // var response;
+      // if (props.gameId)
+      //   response = await get('games/' + props.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
+      // else
+      // response = await get('games/' + state.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
+      const tags = []
+      // console.log("tags: " + response.text)
+      const tagsData = result.tags;
+      if (tagsData) {
+        for (let j = 0; j < tagsData.length; j++) {
+          const tagModel = {
+            id: tagsData[j].id,
+            key: tagsData[j].name
+          }
+          tags.push(tagModel)
         }
-        resultsModels.push(resultModel)
       }
-      catch (error: any) {
-        readServerError(error.response.text)
-        console.log("error:", error)
+      // response = await get('users/' + messageParsed.data[i].user_id, token)
+      // const userData = JSON.parse(response.text);
+      // console.log("my: " + userData.id)
+      // console.log("creator: " + creatorId)
+      // console.log(userData.id == creatorId)
+      const id = result.user_id == "00000000-0000-0000-0000-000000000000" ? result.user_temp_id : result.user_id
+      const resultModel = {
+        id: id,
+        name: result.name,
+        isCreator: result.user_id == creatorId,
+        isYou: userId == "" ? id == playerId : id == userId,
+        photoUrl: "",
+        result: result.value,
+        tags: tags
+
       }
+      resultsModels.push(resultModel)
+
     }
     setResults(resultsModels)
-    setSingleResult(resultsModels?.find(result => result.id == userId))
+    setSingleResult(resultsModels?.find(result => userId == "" ? result.id == playerId : result.id == userId))
   }
 
 
 
   const fetchResults = async () => {
     try {
-      var response;
-      if (props.gameId)
-        response = await get('games/' + props.gameId + '/results', token)
-      else
-        response = await get('games/' + state.gameId + '/results', token)
+      const response = await get('games/' + state.gameId + '/results', token)
       readResults(response.text)
     }
     catch (error: any) {
@@ -110,6 +124,7 @@ export function GameResults(props: Props) {
 
 
   const readGame = (message: any) => {
+
     const messageParsed = JSON.parse(message);
 
     setName(messageParsed.name)
@@ -120,11 +135,7 @@ export function GameResults(props: Props) {
 
   const fetchGame = async () => {
     try {
-      var response;
-      if (props.gameId)
-        response = await get('games/' + props.gameId, token)
-      else
-        response = await get('games/' + state.gameId, token)
+      const response = await get('games/' + state.gameId, token)
       readGame(response.text)
     }
     catch (error: any) {
@@ -133,12 +144,24 @@ export function GameResults(props: Props) {
     }
   }
 
-
+  useEffect(() => {
+    if (state.gameId)
+      fetchGame()
+    else {
+      setName(game.name)
+      setDate(game.date)
+      setCreatorId(game.creatorId)
+      setIsCreator(game.creatorId == game.playerId)
+    }
+  }, []);
 
   useEffect(() => {
-    fetchGame()
-    fetchResults()
-  }, [isCreator]);
+    if (state.gameId)
+      fetchResults()
+    else {
+      readResults(game.results)
+    }
+  }, [creatorId]);
 
 
 
@@ -171,7 +194,7 @@ export function GameResults(props: Props) {
             <div className={styles.icon}>
               {(!isMobile) ? <img src={playersIcon} /> : <GroupsIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />}
             </div>
-            <div className={styles.playerList}>
+            {showResults && <div className={styles.playerList}>
               <div className={styles.subtitle}>
                 Участники:
               </div>
@@ -180,10 +203,12 @@ export function GameResults(props: Props) {
                   <Player savedPlayer={result} />
                 </div>
               )}
-            </div>
+            </div>}
           </div>
 
-          <div className={styles.results}>
+
+
+          {showResults && <div className={styles.results}>
             <div className={styles.subtitle}>
               Результаты:
             </div>
@@ -200,10 +225,14 @@ export function GameResults(props: Props) {
                 {singleResult && singleResult.result + " баллов"}
               </div>
             )}
-          </div>
+          </div>}
         </div>
 
-        <div>
+        {!showResults && <div className={styles.error}>
+          Результаты данной игры отсутствуют, так как она была завершена досрочно
+        </div>}
+
+        {showResults && <div>
           <div className={styles.subtitle}>
             Теги:
           </div>
@@ -218,7 +247,7 @@ export function GameResults(props: Props) {
           ) : (
             singleResult && <TagResult savedResult={singleResult} />
           )}
-        </div>
+        </div>}
         <div className={styles.close}>
           <Button text={"Закрыть"} onClick={props.onButtonClicked ? props.onButtonClicked : () => navigate("/user_page")} className={styles.closeButton} />
         </div>

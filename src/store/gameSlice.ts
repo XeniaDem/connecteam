@@ -38,6 +38,8 @@ export interface GameState {
 
   timerStarted: boolean; // Булевое значение, указывающее запущен ли таймер
   timeStart: string; // Время последнего запуска таймера
+
+  results: string;
 }
 
 
@@ -68,7 +70,11 @@ const initialState: GameState = {
 
 
   timerStarted: localStorage.getItem("timerStarted") == "true" || false,
-  timeStart: localStorage.getItem("timeStart") || ""
+  timeStart: localStorage.getItem("timeStart") || "",
+
+  results: localStorage.getItem("results") || ""
+
+
 
 }
 
@@ -139,10 +145,15 @@ export const gameSlice = createSlice({
       localStorage.setItem("timerStarted", action.payload.timerStarted.toString())
       localStorage.setItem("timeStart", action.payload.timeStart)
     },
+
+    setResults: (state, action: PayloadAction<{results: string}>) => {
+      state.results = action.payload.results
+      localStorage.setItem("results", action.payload.results)
+    },
   },
 })
 
-export const { setGame, updateGame, updateCurrentScreen, setRounds, setStage, updateRounds, setTimer } = gameSlice.actions
+export const { setGame, updateGame, updateCurrentScreen, setRounds, setStage, updateRounds, setTimer, setResults } = gameSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

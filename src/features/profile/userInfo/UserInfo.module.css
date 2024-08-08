@@ -2,21 +2,12 @@
   font-family: 'Work Sans Variable', sans-serif;
 
   display: flex;
-
-
-
   justify-content: center;
 
   position: relative;
-  margin-top: 30px;
-  /* gap: 60px; */
+  margin-top: 40px;
 
   padding-bottom: 50px;
-
-
-
-
-
 }
 
 
@@ -99,6 +90,7 @@
   background: none;
   text-decoration-line: underline;
   z-index: 1;
+  padding: 0px;
 
 
 }
@@ -125,58 +117,18 @@
   margin-top: 250px;
   z-index: 1;
   margin-bottom: -50px;
-
-
-
-
-
-
 }
 
-.settingsContainer {
-  display: flex;
-
-  justify-content: end;
-
-
-}
-
-
-.settingsButton {
-
-  display: flex;
-  width: 269px;
-  height: 51px;
-  padding: 15px 29px 15px 32.5px;
-  justify-content: center;
-  align-items: center;
-  gap: 13.5px;
-  flex-shrink: 0;
-  border-radius: 51.39px;
-  border: 1.758px solid var(--vd, #55C6F7);
-  background: rgba(217, 217, 217, 0.10);
-  backdrop-filter: blur(6.7618255615234375px);
-  color: #FFF;
-  font-size: 16.075px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 133.125%;
-  /* 21.399px */
-  letter-spacing: -0.643px;
-  margin-top: -57px;
-
-}
 
 
 
 .footerButtons {
-
-
   display: flex;
   flex-direction: column;
   text-align: right;
   align-items: end;
   z-index: 1;
+  
 
 }
 
@@ -189,11 +141,11 @@
 
 @media (max-width: 821px) and (orientation:portrait), (max-height:821px) and (orientation:landscape) {
   .container {
-    padding-right: 20px;
+    gap: 10px;
   }
 
   .title {
-    font-size: 30px;
+    font-size: 20px;
     line-height: normal;
     margin-top: 74px;
 
@@ -207,6 +159,7 @@
   .footerButton {
     padding: 0px;
     font-size: 10px;
+    line-height: normal;
   }
 
   .ellipse1 {

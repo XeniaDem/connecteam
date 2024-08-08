@@ -8,20 +8,20 @@ import { Button } from "../../components/button/Button"
 import { useEffect, useState } from "react"
 import { get, post, readServerError } from "../../utils/api"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { selectToken } from "../../store/authSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { selectToken, signIn } from "../../store/authSlice"
 import { isMobile } from "react-device-detect"
 
 
 export function JoinGame() {
 
   const navigate = useNavigate()
-  const location = useLocation()
+  const dispatch = useDispatch()
 
   const token = useSelector(selectToken)
 
-  let {code} = useParams<{code?: string}>();
-  
+  let { code } = useParams<{ code?: string }>();
+
   const [gameName, setGameName] = useState("")
   const [gameDate, setGameDate] = useState("")
   const [gameStatus, setGameStatus] = useState("")
@@ -110,6 +110,10 @@ export function JoinGame() {
 
     }
     catch (error: any) {
+      if (error.status == 401) {
+        dispatch(signIn({ token: "", access: "", userId: "" }))
+        
+      }
       readServerError(error.response.text)
       console.log("error:", error)
     }
@@ -127,16 +131,14 @@ export function JoinGame() {
           const response = await post('games/' + code, undefined, token)
           setJoinError("")
         }
-        navigate("/game/" + gameId)
-        // подключение к веб-сокет серверу
+        navigate("/game/" + gameId, { state: { name: name + " " + surname }})     // подключение к веб-сокет серверу
       }
       if (gameStatus == "ended") {
         setJoinError("Игра завершена")
       }
       if (gameStatus == "cancelled") {
-         setJoinError("Игра отменена")
+        setJoinError("Игра отменена")
       }
-
     }
     catch (error: any) {
       readJoinError(error.response.text)
@@ -144,12 +146,8 @@ export function JoinGame() {
     }
   }
 
-
-
-
   const [isCreator, setIsCreator] = useState(false)
   useEffect(() => {
-    console.log(code)
     validatePathname()
     if (token != "")
       fetchMe()
@@ -158,6 +156,8 @@ export function JoinGame() {
   useEffect(() => {
     id && gameCreatorId && setIsCreator(id == gameCreatorId)
   }, [id, gameCreatorId]);
+
+
   return (
     <div>
       <div className={styles.container}>

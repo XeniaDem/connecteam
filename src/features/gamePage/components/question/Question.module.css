@@ -2,15 +2,15 @@
   font-family: 'Work Sans Variable', sans-serif;
   position: relative;
 
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-align-items: center;
+  align-items: center;
 
 
 
-width: 636.843px;
-gap: 32px;
+  max-width: 1000px;
+  gap: 32px;
 
 
 }
@@ -24,26 +24,15 @@ gap: 32px;
   font-size: 50px;
   font-style: normal;
   font-weight: 700;
-  line-height: 60px; /* 120% */
+  line-height: 60px;
+  /* 120% */
 }
 
 .answering {
   color: #FFF;
-font-size: 36.157px;
-font-style: normal;
-font-weight: 500;
-line-height: 52.332px; /* 144.737% */
+  font-size: 36.157px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 52.332px;
+  /* 144.737% */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

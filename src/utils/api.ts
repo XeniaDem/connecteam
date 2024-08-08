@@ -58,6 +58,7 @@ export const get = async (url: string, token?: string) => {
         return response;
     } catch (error: any) {
         if (error.status == 401) {
+            
             document.location.href = "/auth/login"
         }  
         else if (error.message.includes('network is offline')) {

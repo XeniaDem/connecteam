@@ -335,8 +335,8 @@ export function UserInfo({ savedUser, token, onChange }: Props) {
 
           </div>}
 
-          <Field isInput={true} title={"Имя"} disabled={!isDataChanging} value={name} onValueChange={setName} maxLength={32} />
-          <Field isInput={true} title={"Фамилия"} disabled={!isDataChanging} value={surname} onValueChange={setSurname} maxLength={32}/>
+          <Field isInput={true} title={"Имя"} disabled={!isDataChanging} value={name} onValueChange={setName} maxLength={20} />
+          <Field isInput={true} title={"Фамилия"} disabled={!isDataChanging} value={surname} onValueChange={setSurname} maxLength={20}/>
 
           <Field isTextArea={true} title={"О себе"} placeholder="Напишите что-нибудь..." disabled={!isDataChanging} value={about} onValueChange={setAbout} maxLength={256} />
 

@@ -1,4 +1,3 @@
-
 import { Field } from "../field/Field"
 import styles from "./CompanyInfo.module.css"
 import ellipse2 from "../../../app/assets/ellipse3.svg"

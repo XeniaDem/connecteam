@@ -18,7 +18,7 @@ export function TagResult({ savedResult }: Props) {
         {savedResult.isYou ? (
           <div className={styles.container}>
             <div className={styles.nameYou}>
-              Вы
+              {savedResult.name} (Вы)
             </div>
           </div>
         ) : (
@@ -33,13 +33,23 @@ export function TagResult({ savedResult }: Props) {
 
       </div>
 
-      {savedResult.tags.map(tag =>
-        <div className={styles.tag}>
-          <div className={styles.text}>
-            {tag.key}
-          </div>
+
+      {savedResult.tags == null || savedResult.tags.length == 0 ? (
+        <div className={styles.empty}>
+          нет тегов
         </div>
-      )}
+
+      ) : (
+        
+          savedResult.tags.map(tag =>
+            <div className={styles.tag}>
+              <div className={styles.text}>
+                {tag.key}
+              </div>
+            </div>
+          )
+        )
+      }
     </div>
 
 

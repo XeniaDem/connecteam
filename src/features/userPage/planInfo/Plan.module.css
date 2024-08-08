@@ -81,16 +81,16 @@ align-items: center;
     padding-right: 10px;
   }
   .textBoxes {
-    margin-left: 30px;
-    gap:5px;
+    margin-left: 0px;
+    gap: 5px;
   }
   .name {
-    margin-left: 30px;
+    margin-left: 0px;
     margin-top: 10px;
     font-size: 20px;
     line-height: normal;
+    text-align: center;
 
   }
-  
 
 }

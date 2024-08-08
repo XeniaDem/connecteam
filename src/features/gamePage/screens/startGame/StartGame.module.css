@@ -15,13 +15,7 @@
   top: 80px;
   /* right: 80px; */
   left: max(calc(100vw - 130px), 800px);
-
-
-
 }
-
-
-
 
 .photo {
   width: 140px;
@@ -53,10 +47,6 @@
 
 }
 
-
-
-
-
 .title {
 
   margin-top: 30px;
@@ -85,8 +75,8 @@
   flex-direction: column;
   font-size: 10px;
   background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-background-clip: text;
--webkit-background-clip: text;
+  background-clip: text;
+  -webkit-background-clip: text;
 
 }
 
@@ -99,3 +89,13 @@ background-clip: text;
   margin-top: 16px;
 }
 
+.errorMessage {
+
+  margin-bottom: -15px;
+  color: red;
+  font-size: 14.972px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24.33px;
+  /* 162.5% */
+}

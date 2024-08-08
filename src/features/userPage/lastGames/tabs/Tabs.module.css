@@ -2,10 +2,11 @@
     font-size: 15.178px;
     font-style: normal;
     font-weight: 500;
-    line-height: 140.76%; /* 21.364px */
+    line-height: 140.76%;
+    /* 21.364px */
     letter-spacing: -0.759px;
     background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-    
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: flex;
@@ -21,21 +22,24 @@
 .tab::before {
     border: 1px solid transparent;
     border-bottom: none;
-    padding: 10px; 
+    padding: 10px;
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;
     content: "";
     position: absolute;
     width: 140px;
     inset: 0;
-    background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box; /*3*/
-    -webkit-mask: /*4*/
-       linear-gradient(#fff 0 0) padding-box, 
-       linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; /*5'*/
+    background: linear-gradient(90deg, #55C6F7, #2AF8BA) border-box;
+    /*3*/
+    -webkit-mask:
+        /*4*/
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    /*5'*/
 
-  
-  }
+
+}
 
 .tab {
     border-top-left-radius: 60px;
@@ -50,11 +54,11 @@
     position: relative;
     z-index: 1;
     background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-    
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-   
+
 
 
 }
@@ -73,12 +77,12 @@
 
     z-index: 1;
     background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-    
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     cursor: pointer;
 
-    
+
 }
 
 .empty {
@@ -86,17 +90,18 @@
     align-items: center;
     justify-content: center;
     color: rgba(255, 255, 255, 0.39);
-  font-size: 38.507px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 140.76%; /* 27.457px */
-  text-align: center;
-  margin-top: 300px;
-  
-  }
+    font-size: 38.507px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140.76%;
+    /* 27.457px */
+    text-align: center;
+    margin-top: 300px;
+
+}
 
 
-@media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
+@media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {
 
     .tabs {
         justify-content: space-around;
@@ -104,6 +109,7 @@
         gap: 0px;
 
     }
+
     .tab {
         width: auto;
         min-width: 83px;
@@ -111,12 +117,13 @@
         border-top-right-radius: 30px;
 
     }
+
     .tab::before {
         width: auto;
         min-width: 83px;
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
     }
-    
 
-  }
+
+}

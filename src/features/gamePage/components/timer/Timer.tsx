@@ -32,17 +32,15 @@ export function Timer(props: Props) {
     },
   });
 
-  const seconds = (sec: number) => {
-    if (sec % 10 == 1) {
-      return "Cекунда"
-    }
-    if (sec % 10 == 2 || sec % 10 == 3 || sec % 10 == 4) {
-      return "Cекунды"
-    }
-    if (sec % 10 == 5 || sec % 10 == 6 || sec % 10 == 7 || sec % 10 == 8 || sec % 10 == 9 || sec % 10 == 0) {
-      return "Cекунд"
-    }
-  }
+  // const seconds = (sec: number) => {
+  //   if (sec % 10 == 1 && sec % 100 != 11) {
+  //     return "секунда"
+  //   }
+  //   if ((sec % 10 == 2 || sec % 10 == 3 || sec % 10 == 4) && sec % 100 != 12 && sec % 100 != 13 && sec % 100 != 14) {
+  //     return "секунды"
+  //   }
+  //   return "секунд"
+  // }
 
   useEffect(() => {
     if (game.timerStarted == true) {
@@ -62,7 +60,7 @@ export function Timer(props: Props) {
         <div className={styles.timerContainer}>
           <div className={styles.decor1} />
           <div className={styles.decor2} />
-          {time} <br /> {seconds(time)}
+          {time} <br /> {"сек."}
         </div>
 
         {/* {props.isCreator ? (

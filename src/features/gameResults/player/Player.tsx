@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { ResultModel } from "../result/Result";
 import styles from "./Player.module.css"
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
@@ -12,6 +13,9 @@ type Props = {
 
 export function Player({ savedPlayer }: Props) {
 
+  // useEffect(() => {
+  //   console.log(savedPlayer)
+  // }, []);
   return (
     <div>
 
@@ -21,13 +25,15 @@ export function Player({ savedPlayer }: Props) {
             {savedPlayer.photoUrl == "" ? <PhotoCameraIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} /> : <img src={savedPlayer.photoUrl} />}
           </div>
           <div className={styles.nameYou}>
-            Вы
+            {savedPlayer.name}
             {savedPlayer.isCreator ? (
               <div className={styles.nameYou}>
-                (Организатор)
+                (Вы, организатор)
               </div>
             ) : (
-              null
+              <div className={styles.nameYou}>
+                (Вы)
+              </div>
             )}
           </div>
         </div>

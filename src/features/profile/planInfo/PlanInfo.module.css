@@ -99,12 +99,26 @@ line-height: 32.132px; /* 229.09% */
   .container {
     padding-bottom: 10px;
 
-
   }
   .title {
-    font-size: 30px;
+    font-size: 20px;
     line-height: normal;
     z-index: 1;
+  }
+  .ellipse1 {
+    display: none;
+  }
+  .ellipse2 {
+    display: none;
+  }
+  .ellipse3 {
+    display: none;
+  }
+  .icon1 {
+    display: none;
+  }
+  .icon2 {
+    display: none;
   }
 }
 
