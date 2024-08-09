@@ -134,6 +134,8 @@ export function RateAnswer(props: Props) {
 
     const rateError = getRateError();
 
+    const [ratingSet, setRatingSet] = useState(false);
+
     useEffect(() => {
       readTags()
     }, []);
@@ -162,7 +164,7 @@ export function RateAnswer(props: Props) {
                   }
                   return (
                     <div>
-                      <Tag savedTag={tag} selected={selectedTagsIds.includes(tag.id)} onTagClicked={onTagClicked} />
+                      <Tag savedTag={tag} selected={selectedTagsIds.includes(tag.id)} onTagClicked={ratingSet ? ()=> null : () => onTagClicked} />
                     </div>
                   )
 
@@ -171,7 +173,7 @@ export function RateAnswer(props: Props) {
                 }
                 {!newTagHidden ? allTags && <SearchBar data={allTags} placeholder="Поиск тега..." onSelectedChange={setCurrentTag} /> : null}
 
-                <div className={styles.addButton}>
+                {!ratingSet && <div className={styles.addButton}>
                   <IconButton onClick={addTag}>
                     {newTagHidden ? (
                       <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
@@ -179,18 +181,19 @@ export function RateAnswer(props: Props) {
                       <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
                     )}
                   </IconButton>
-                </div>
+                </div>}
               </div>
               {rateError && formSubmitted && (<div className={styles.errorMessage}>
                 {rateError}
               </div>)}
 
-              <Button text={"Завершить оценивание"} onClick={() => {
+              {!ratingSet && <Button text={"Завершить оценивание"} onClick={() => {
                 setFormSubmitted(true);
                 if (rateError)
                   return;
                 props.onButonClicked(rating, selectedTagsIds)
-              }} className={styles.finishButton} />
+                setRatingSet(true)
+              }} className={styles.finishButton} />}
             </div>
           </div>
         </div>

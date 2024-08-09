@@ -427,7 +427,7 @@ export function GamePage() {
                 <Button text={""} onClick={() => {
                     leaveGame()
                     clearData()
-                    navigate("/user_page")
+                    token == "" ? navigate("/") : navigate("/user_page")
 
                     game.creatorId == game.playerId ? client.endMeeting() : client.leaveMeeting()
 
@@ -522,7 +522,7 @@ export function GamePage() {
                 <div className={styles.container}>
                     <CommonGameScreenElements gameStarted={false} children={<GameError error={error} onButtonClicked={() => {
                         clearData()
-                        navigate("/user_page")
+                        token == "" ? navigate("/") : navigate("/user_page")
                         game.creatorId == game.playerId ? client.endMeeting() : client.leaveMeeting()
                     }} />} />
                 </div>
