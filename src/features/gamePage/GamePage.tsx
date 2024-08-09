@@ -62,7 +62,7 @@ export function GamePage() {
         dispatch(updateRounds({ currentRound: 0 }))
         dispatch(setStage({ playerAnswering: "", playerAnsweringId: "", question: "", tags: "" }))
         dispatch(setTimer({ timerStarted: false, timeStart: "" }))
-        dispatch(setResults({ results: ""}))
+        dispatch(setResults({ results: "" }))
     }
 
     const webSocketRef = useRef<WebSocket | null>(null)
@@ -75,7 +75,7 @@ export function GamePage() {
 
     const onGameFinish = useCallback((messageObject: any) => {
         const results = JSON.stringify(messageObject.payload)
-        dispatch(setResults({ results: results}))
+        dispatch(setResults({ results: results }))
         dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameResults }))
     }, [])
 
@@ -189,11 +189,12 @@ export function GamePage() {
     }
 
     useEffect(() => {
+        console.log(game)
         if (!gameId) {
             navigate("/user_page")
             return;
         }
-        if (game.gameId != "" && game.gameId != gameId) {
+        if (game.gameId != gameId) {
             console.log("clear")
             clearData()
         }
@@ -256,7 +257,7 @@ export function GamePage() {
                 if (messageObject.action == "user-left") {
                     onUserLeft(messageObject)
                 }
-                if (messageObject.action == "game-abort") { 
+                if (messageObject.action == "game-abort") {
                     setError("Игра была завершена досрочно")
                     dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
                 }
@@ -281,6 +282,8 @@ export function GamePage() {
             dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
         };
     }, []);
+
+
 
     const joinGame = useCallback(() => {
         const message = JSON.stringify({
@@ -460,13 +463,13 @@ export function GamePage() {
 
 
     return (
-        <div >
+        <div>
 
-            {game.gameStarted &&
+            {/* {game.gameStarted &&
                 <div className={styles.audio}>
                     <Audio client={client} />
                 </div>
-            }
+            } */}
 
 
             {game.currentScreen == GameScreen.WaitGame &&

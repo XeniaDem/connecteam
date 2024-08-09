@@ -164,7 +164,11 @@ export function RateAnswer(props: Props) {
                   }
                   return (
                     <div>
-                      <Tag savedTag={tag} selected={selectedTagsIds.includes(tag.id)} onTagClicked={ratingSet ? ()=> null : () => onTagClicked} />
+                      {!ratingSet ?
+                        <Tag savedTag={tag} selected={selectedTagsIds.includes(tag.id)} onTagClicked={onTagClicked} />
+                        :
+                        selectedTagsIds.includes(tag.id) && <Tag savedTag={tag} selected={selectedTagsIds.includes(tag.id)} onTagClicked={() => null} />
+                      }
                     </div>
                   )
 
@@ -176,9 +180,15 @@ export function RateAnswer(props: Props) {
                 {!ratingSet && <div className={styles.addButton}>
                   <IconButton onClick={addTag}>
                     {newTagHidden ? (
-                      <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+                      <div className={styles.buttonContainer}>
+                        <AddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+                        Добавить теги
+                      </div>
                     ) : (
-                      <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+                      <div className={styles.buttonContainer}>
+                        <DoneIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+                        Готово
+                      </div>
                     )}
                   </IconButton>
                 </div>}
@@ -192,6 +202,7 @@ export function RateAnswer(props: Props) {
                 if (rateError)
                   return;
                 props.onButonClicked(rating, selectedTagsIds)
+                setNewTagHidden(true)
                 setRatingSet(true)
               }} className={styles.finishButton} />}
             </div>

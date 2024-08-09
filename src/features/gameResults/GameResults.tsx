@@ -17,9 +17,6 @@ import { selectGame } from "../../store/gameSlice"
 
 
 type Props = {
-
-  // gameId?: string;
-
   onButtonClicked?: () => void;
 }
 
@@ -66,14 +63,7 @@ export function GameResults(props: Props) {
     const resultsModels = [];
     for (let i = 0; i < resultsNum; i++) {
       const result = results[i]
-
-      // var response;
-      // if (props.gameId)
-      //   response = await get('games/' + props.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
-      // else
-      // response = await get('games/' + state.gameId + '/results/' + messageParsed.data[i].user_id + '/tags', token)
       const tags = []
-      // console.log("tags: " + response.text)
       const tagsData = result.tags;
       if (tagsData) {
         for (let j = 0; j < tagsData.length; j++) {
@@ -84,11 +74,6 @@ export function GameResults(props: Props) {
           tags.push(tagModel)
         }
       }
-      // response = await get('users/' + messageParsed.data[i].user_id, token)
-      // const userData = JSON.parse(response.text);
-      // console.log("my: " + userData.id)
-      // console.log("creator: " + creatorId)
-      // console.log(userData.id == creatorId)
       const id = result.user_id == "00000000-0000-0000-0000-000000000000" ? result.user_temp_id : result.user_id
       const resultModel = {
         id: id,
