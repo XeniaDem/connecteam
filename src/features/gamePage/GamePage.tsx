@@ -532,7 +532,7 @@ export function GamePage() {
                 players && <GameResults onButtonClicked={() => {
                     leaveGame()
                     clearData()
-                    navigate("/user_page")
+                    token == "" ? navigate("/") : navigate("/user_page")
                     game.creatorId == game.playerId ? client.endMeeting() : client.leaveMeeting()
                 }} />
             }

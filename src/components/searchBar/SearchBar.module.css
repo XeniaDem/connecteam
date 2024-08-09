@@ -48,7 +48,7 @@
 
   position: absolute; /*was relative*/
   overflow-y: auto;
-  height: 150px;
+  max-height: 150px;
 
   border-radius: 20px;
   color: #FFF;

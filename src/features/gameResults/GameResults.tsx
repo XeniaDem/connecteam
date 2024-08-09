@@ -145,7 +145,7 @@ export function GameResults(props: Props) {
   }
 
   useEffect(() => {
-    if (state.gameId)
+    if (state && state.gameId)
       fetchGame()
     else {
       setName(game.name)
@@ -156,7 +156,7 @@ export function GameResults(props: Props) {
   }, []);
 
   useEffect(() => {
-    if (state.gameId)
+    if (state && state.gameId)
       fetchResults()
     else {
       readResults(game.results)
