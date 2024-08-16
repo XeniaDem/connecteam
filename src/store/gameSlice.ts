@@ -20,6 +20,8 @@ export interface GameState {
   playerId: string; // ID игрока
   playerName: string; // Имя игрока
 
+  players: string;
+
   gameStarted: boolean; // Булевое значение, указывающее началась ли игра
   meetingJwt: string; // Токен для подключения к аудиочату
   meetingNumber: string; 
@@ -50,6 +52,8 @@ const initialState: GameState = {
   creatorId: localStorage.getItem("creatorId") || "",
   playerId: localStorage.getItem("playerId") || "",
   playerName: localStorage.getItem("playerName") || "",
+
+  players: localStorage.getItem("players") || "",
 
   gameStarted: localStorage.getItem("gameStarted") == "true" || false,
   meetingJwt: localStorage.getItem("meetingJwt") || "",
@@ -116,6 +120,14 @@ export const gameSlice = createSlice({
       state.currentScreen = action.payload.currentScreen
       localStorage.setItem("currentScreen", action.payload.currentScreen)
     },
+
+    setPlayers: (state, action: PayloadAction<{players: string}>) => {
+      state.players = action.payload.players
+
+      localStorage.setItem("players", action.payload.players)
+  
+    },
+
     setRounds: (state, action: PayloadAction<{topics: string, roundsNum: number}>) => {
       state.topics = action.payload.topics
       state.roundsNum = action.payload.roundsNum
@@ -126,6 +138,8 @@ export const gameSlice = createSlice({
       state.currentRound = action.payload.currentRound
       localStorage.setItem("currentRound", action.payload.currentRound.toString())
     },
+
+
     setStage: (state, action: PayloadAction<{playerAnswering: string, playerAnsweringId: string, question: string, tags: string}>) => {
       state.playerAnswering = action.payload.playerAnswering
       state.playerAnsweringId = action.payload.playerAnsweringId
@@ -153,7 +167,7 @@ export const gameSlice = createSlice({
   },
 })
 
-export const { setGame, updateGame, updateCurrentScreen, setRounds, setStage, updateRounds, setTimer, setResults } = gameSlice.actions
+export const { setGame, updateGame, updateCurrentScreen, setPlayers, setRounds, setStage, updateRounds, setTimer, setResults } = gameSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

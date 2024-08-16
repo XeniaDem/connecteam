@@ -35,8 +35,6 @@ export function NotificationsCenter(props: Props) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
 

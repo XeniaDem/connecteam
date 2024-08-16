@@ -64,7 +64,7 @@ export function Tabs(props: Props) {
             }
             return 0;
         }
-        newGames.sort(compare)
+        // newGames.sort(compare)
         setGames(newGames)
     }
 

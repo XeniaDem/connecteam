@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import styles from "./Game.module.css"
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -13,7 +12,9 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ClearIcon from '@mui/icons-material/Clear';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import disableScroll from 'disable-scroll';
-import { InvitePopup } from "../../../createGame/invitePopup/InvitePopup";
+import { InvitePopup } from "../../../invitePopup/InvitePopup";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { ConfirmationPopup } from "./confirmationPopup/ConfirmationPopup";
 
 export enum GameStatus {
   Cancelled = "cancelled",
@@ -46,9 +47,7 @@ export function Game({ savedGame, isCreator }: Props) {
   const [gameDate, setGameDate] = useState("")
 
   const [nameEditing, setNameEditing] = useState(false)
-
   const [dateEditing, setDateEditing] = useState(false)
-
 
   const [inviteOpen, setInviteOpen] = useState(false);
 
@@ -56,14 +55,13 @@ export function Game({ savedGame, isCreator }: Props) {
   const openInvitePopup = () => {
     disableScroll.on()
     setInviteOpen(true)
-
   }
 
   const closeInvitePopup = () => {
     disableScroll.off()
     setInviteOpen(false)
-
   }
+
   const getStatus = () => {
     if (savedGame.status == GameStatus.Cancelled)
       return "Отменена"
@@ -75,44 +73,19 @@ export function Game({ savedGame, isCreator }: Props) {
       return "Завершена"
   }
 
-  const deleteGame = async () => {
-    try {
-      const response = await Delete('games/' + savedGame.id, token)
-      window.location.reload()
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
-  }
-
-  const cancelGame = async () => {
-    try {
-      const response = await patch('games/' + savedGame.id + '/cancel', undefined, token)
-      window.location.reload()
-    }
-    catch (error: any) {
-      readServerError(error.response.text)
-      console.log("error:", error)
-    }
-
-  }
-
+ 
   const editName = async () => {
     const data = {
       "name": gameName
     }
     try {
       const response = await patch('games/' + savedGame.id + '/name', data, token)
-      window.location.reload()
-
-
+      // window.location.reload()
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
   }
 
   const editDate = async () => {
@@ -122,15 +95,12 @@ export function Game({ savedGame, isCreator }: Props) {
     }
     try {
       const response = await patch('games/' + savedGame.id + '/date', data, token)
-      window.location.reload()
-
-
+      // window.location.reload()
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
   }
 
   const handleNameEdit = () => {
@@ -155,15 +125,29 @@ export function Game({ savedGame, isCreator }: Props) {
       }
     }
     setDateEditing(!dateEditing);
+  }
+
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
+  const [isCancel, setIsCancel] = useState(false);
+
+  const openConfirmationPopup = () => {
+    disableScroll.on()
+    setConfirmationOpen(true)
 
   }
+  const closeConfirmationPopup = () => {
+    disableScroll.off()
+    setConfirmationOpen(false)
+    window.location.reload()
+  
+  }
+
 
   useEffect(() => {
     const date = savedGame.date.split('T')[0] + 'T'
     const time = savedGame.date.split('T')[1].slice(0, -1)
     setGameName(savedGame.name)
     setGameDate(date + time)
-
   }, [savedGame]);
 
 
@@ -172,22 +156,44 @@ export function Game({ savedGame, isCreator }: Props) {
       <div className={styles.container}>
 
         <div className={styles.group}>
+          <IconButton onClick={()=> {setIsCancel(false); openConfirmationPopup()}}>
+            <svg width={0} height={0}>
+              <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                <stop offset={0} stopColor="#55C6F7" />
+                <stop offset={1} stopColor="#2AF8BA" />
+              </linearGradient>
+            </svg>
+            <div className={styles.buttonContainer}>
+              <DeleteForeverIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              Удалить
+            </div>
+          </IconButton>
           {savedGame.status == GameStatus.NotStarted ?
             isCreator && (<div>
-              <IconButton onClick={cancelGame}>
+              <IconButton onClick={()=> {setIsCancel(true); openConfirmationPopup()}}>
                 <svg width={0} height={0}>
                   <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
                     <stop offset={0} stopColor="#55C6F7" />
                     <stop offset={1} stopColor="#2AF8BA" />
                   </linearGradient>
                 </svg>
-                <ClearIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                <div className={styles.buttonContainer}>
+                  <ClearIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                  Отменить
+                </div>
               </IconButton>
 
               <IconButton onClick={handleNameEdit}>
-                {!nameEditing ? (<EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                {!nameEditing ? (
+                  <div className={styles.buttonContainer}>
+                    <EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                    Изм.
+                  </div>
                 ) : (
-                  <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                  <div className={styles.buttonContainer}>
+                    <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                    Готово
+                  </div>
                 )}
               </IconButton>
             </div>)
@@ -203,9 +209,17 @@ export function Game({ savedGame, isCreator }: Props) {
         <div className={styles.group}>
           {savedGame.status == GameStatus.NotStarted ?
             isCreator && (<IconButton onClick={handleDateEdit}>
-              {!dateEditing ? (<EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              {!dateEditing ? (
+
+                <div className={styles.buttonContainer}>
+                  <EditIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                  Изм.
+                </div>
               ) : (
-                <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                <div className={styles.buttonContainer}>
+                  <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+                  Готово
+                </div>
               )}
             </IconButton>)
             :
@@ -221,13 +235,16 @@ export function Game({ savedGame, isCreator }: Props) {
           <div className={styles.status}>
             {getStatus()}
           </div>
-          {savedGame.status == GameStatus.NotStarted && !isCreator && (<IconButton onClick={deleteGame}>
-              <LogoutIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-            </IconButton>)}
- 
+          {/* {savedGame.status == GameStatus.NotStarted && !isCreator && (<IconButton onClick={deleteGame}>
+            <LogoutIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+          </IconButton>)} */}
+
           {savedGame.status == GameStatus.NotStarted && isCreator && <IconButton onClick={openInvitePopup}>
 
-            <GroupAddIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <div className={styles.buttonContainer}>
+              <GroupAddIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              Поделиться
+            </div>
 
           </IconButton>}
 
@@ -235,15 +252,19 @@ export function Game({ savedGame, isCreator }: Props) {
             if (savedGame.status == GameStatus.NotStarted || savedGame.status == GameStatus.InProgress)
               navigate("/game/" + savedGame.id)
             if (savedGame.status == GameStatus.Ended)
-              navigate("game_results", { state: { gameId: savedGame.id}})
+              navigate("game_results", { state: { gameId: savedGame.id } })
           }}>
-            <KeyboardArrowRightIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+            <div className={styles.buttonContainer}>
+              <KeyboardArrowRightIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              Перейти
+            </div>
           </IconButton>}
 
         </div>
       </div>
       <div className={styles.divider} />
-      {inviteOpen ? <InvitePopup invitationCode = {savedGame.invitationCode} gameId={savedGame.id} closePopup={closeInvitePopup} /> : null}
+      {inviteOpen ? <InvitePopup invitationCode={savedGame.invitationCode} id={savedGame.id} isGame={true} closePopup={closeInvitePopup} /> : null}
+      {confirmationOpen ? <ConfirmationPopup closePopup={closeConfirmationPopup} isCancel={isCancel}  savedGame={savedGame} /> : null}
     </div>
   )
 }

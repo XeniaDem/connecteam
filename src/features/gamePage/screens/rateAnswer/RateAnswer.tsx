@@ -175,7 +175,7 @@ export function RateAnswer(props: Props) {
                 }
                 )
                 }
-                {!newTagHidden ? allTags && <SearchBar data={allTags} placeholder="Поиск тега..." onSelectedChange={setCurrentTag} /> : null}
+                {!newTagHidden ? allTags && <SearchBar data={allTags} showData={true} placeholder="Поиск тега..." onSelectedChange={setCurrentTag} /> : null}
 
                 {!ratingSet && <div className={styles.addButton}>
                   <IconButton onClick={addTag}>

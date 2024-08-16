@@ -1,19 +1,18 @@
-
 import { useEffect, useState } from "react";
-import { Button } from "../../../../../components/button/Button"
+import { Button } from "../../components/button/Button"
 import styles from "./InvitePopup.module.css"
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { IconButton } from "@mui/material";
 import validator from "validator";
-import { SearchBar } from "../../../../../components/searchBar/SearchBar";
+import { SearchBar } from "../../components/searchBar/SearchBar";
+import { get, post, readServerError } from "../../utils/api";
+import { selectId, selectToken } from "../../store/authSlice";
+import { useSelector } from "react-redux";
+import { IconButton } from "@mui/material";
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import SendIcon from '@mui/icons-material/Send';
-import { useSelector } from "react-redux";
-import { selectId, selectToken } from "../../../../../store/authSlice";
-import { get, post, readServerError } from "../../../../../utils/api";
-import { useNavigate } from "react-router-dom";
-import telegramLogo from "../../../../../app/assets/telegram.png"
-import whatsappLogo from "../../../../../app/assets/whatsapp.png"
+import telegramLogo from "../../app/assets/telegram.png"
+import whatsappLogo from "../../app/assets/whatsapp.png"
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DoneIcon from '@mui/icons-material/Done';
 
 type SearchUserModel = {
   id: string,
@@ -23,10 +22,9 @@ type SearchUserModel = {
 type Props = {
   closePopup: () => void;
   invitationCode: string;
-  planId: string;
-
+  id: string;
+  isGame: boolean;
 }
-
 
 export function InvitePopup(props: Props) {
 
@@ -34,31 +32,31 @@ export function InvitePopup(props: Props) {
 
   const id = useSelector(selectId)
 
-  const appUrl = process.env.REACT_APP_URL;
-
-  const [copiedHidden, setCopiedHidden] = useState(true);
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(link)
-    setCopiedHidden(false)
-    setTimeout(() => {
-      setCopiedHidden(true);
-    }, 3000);
-  }
-
   const [email, setEmail] = useState("")
 
   const [formSubmitted, setFormSubmitted] = useState(false)
+
+  const appUrl = process.env.REACT_APP_URL;
 
   const getEmailErrorMessage = () => {
     if (!validator.isEmail(email)) {
       return "Некорректно введен адрес эл. почты"
     }
-
     return null
   }
   var emailErrorMessage = getEmailErrorMessage()
 
+  const [copied, setCopied] = useState(false);
+
+  const copyLink = () => {
+    if (copied)
+      return;
+    navigator.clipboard.writeText(link)
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
+  }
 
   const sendEmailInvite = () => { //TBD
     setFormSubmitted(true)
@@ -67,18 +65,13 @@ export function InvitePopup(props: Props) {
     }
   }
 
-
-
   const [users, setUsers] = useState<SearchUserModel[]>([])
 
   const [currentUser, setCurrentUser] = useState<SearchUserModel>()
 
   const readUsers = (message: any) => {
-
     const messageParsed = JSON.parse(message);
-
     const usersNum = (messageParsed.data.length);
-
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
       var isYou = (messageParsed.data[i].id == id)
@@ -90,13 +83,10 @@ export function InvitePopup(props: Props) {
       const userModel = {
         id: messageParsed.data[i].id,
         key: messageParsed.data[i].first_name + " " + messageParsed.data[i].second_name + " " + messageParsed.data[i].email
-
       }
       userModels.push(userModel)
-
     }
     setUsers(userModels)
-
   }
 
   const fetchUsers = async () => {
@@ -123,17 +113,20 @@ export function InvitePopup(props: Props) {
       if (currentUser == null) {
         return;
       }
-      inviteUser()
+      inviteUser(props.isGame)
       setFindUserHidden(true)
     }
   }
 
-  const inviteUser = async () => {
+  const inviteUser = async (isGame: boolean) => {
     const data = {
       "user_id": currentUser?.id
     }
     try {
-      const response = await post('plans/invite/' + props.planId, data, token)
+      if (isGame)
+        post('games/invite/' + props.id, data, token)
+      else
+        post('plans/invite/' + props.id, data, token)
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -141,28 +134,30 @@ export function InvitePopup(props: Props) {
     }
   }
 
-
-
-  const fetchLink = () => {
-    setLink(appUrl + "invite/plan/" + props.invitationCode)
+  const fetchLink = (isGame: boolean) => {
+    if (isGame)
+      setLink(appUrl + "invite/game/" + props.invitationCode)
+    else
+      setLink(appUrl + "invite/plan/" + props.invitationCode)
   }
 
-  const text = "Вас пригласили присоединиться к плану доступа в Connecteam! Перейдите по ссылке, чтобы принять приглашение."
+  const text = props.isGame ?
+    "Вас пригласили присоединиться к игре в Connecteam! Перейдите по ссылке, чтобы просмотреть данные игры и принять приглашение."
+    :
+    "Вас пригласили присоединиться к плану доступа в Connecteam! Перейдите по ссылке, чтобы просмотреть и принять приглашение."
 
   useEffect(() => {
     fetchUsers()
-    fetchLink()
+    fetchLink(props.isGame)
   }, []);
+
 
   return (
     <div className={styles.background}>
       <div className={styles.container}>
-
         <div className={styles.close}>
           <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
         </div>
-
-
         <div className={styles.title}>
           Пригласите участника
         </div>
@@ -179,23 +174,18 @@ export function InvitePopup(props: Props) {
                   <stop offset={1} stopColor="#2AF8BA" />
                 </linearGradient>
               </svg>
-              <ContentCopyIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+
+              {!copied ? (
+                <ContentCopyIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+              ) : (
+                <DoneIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+              )}
             </IconButton>
           </div>
 
           <div className={styles.divider} />
-          <div className={styles.info}>
-            {!copiedHidden ? (<div className={styles.copied}>
-              Скопировано!
-            </div>
-            ) : (
-              null
-
-            )}
-          </div>
-
-
         </div>
+
         <input className={styles.input} placeholder="Эл. адрес" value={email} onChange={(event) => { setEmail((event.target.value).replace(/\s/g, '')) }} />
 
         {formSubmitted && (emailErrorMessage) ? (
@@ -208,18 +198,28 @@ export function InvitePopup(props: Props) {
         <Button text={"Отправить"} onClick={sendEmailInvite} className={styles.sendButton} />
 
         <div className={styles.buttons}>
-          {!findUserHidden ? <SearchBar data={users} onSelectedChange={setCurrentUser} placeholder="Поиск пользователя..." /> : null}
+          {!findUserHidden ? <SearchBar data={users} onSelectedChange={setCurrentUser} showData={false} placeholder="Поиск пользователя..." /> : null}
 
           <IconButton onClick={addUser}>
+            <svg width={0} height={0}>
+              <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+                <stop offset={0} stopColor="#55C6F7" />
+                <stop offset={1} stopColor="#2AF8BA" />
+              </linearGradient>
+            </svg>
             {findUserHidden ? (
-              <PersonSearchIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
+              <div className={styles.buttonContainer}>
+                <PersonSearchIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+                Поиск участника
+              </div>
             ) : (
-              <SendIcon fontSize="large" sx={{ fill: "url(#linearColors)" }} />
-
-
+              currentUser &&
+              <div className={styles.buttonContainer}>
+                <SendIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+                Отправить
+              </div>
             )}
           </IconButton>
-
 
         </div>
         <div className={styles.logos}>
@@ -234,9 +234,7 @@ export function InvitePopup(props: Props) {
             }} />
           </div>
         </div>
-
       </div>
-
     </div>
   )
 }

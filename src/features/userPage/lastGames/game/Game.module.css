@@ -10,9 +10,10 @@
 }
 
 .group {
-
+  min-width: 210px;
   display: flex;
   align-items: center;
+  justify-content: end;
 
 }
 
@@ -155,6 +156,16 @@ input[type="time"i] {
   border-image: linear-gradient(90deg, #55C6F7, #2AF8BA) 1;
 }
 
+.buttonContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+
+}
 @media (max-width: 763px) and (orientation:portrait), (max-height:763px) and (orientation:landscape) {
 
   .container {

@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "../../../../components/button/Button"
 import { PlanUser, PlanUserModel } from "./planUser/PlanUser"
 import disableScroll from 'disable-scroll';
-import { InvitePopup } from "./InvitePopup/InvitePopup"
 import { isMobile } from 'react-device-detect';
+import { InvitePopup } from "../../../invitePopup/InvitePopup"
 
 
 
@@ -22,14 +22,11 @@ export function PlanUsersPage() {
 
   const [usersNum, setUsersNum] = useState(0)
 
-
   const readPlanUsers = (message: any) => {
     console.log(message)
     const messageParsed = JSON.parse(message);
-
     const usersNum = (messageParsed.data.length);
     setUsersNum(usersNum)
-
     const userModels = [];
     for (let i = 0; i < usersNum; i++) {
       const isHolder = (messageParsed.data[i].id == holderId)
@@ -40,59 +37,43 @@ export function PlanUsersPage() {
         email: messageParsed.data[i].email,
         photo: messageParsed.data[i].profile_image,
         isHolder: isHolder
-
-
       }
       userModels.push(planUserModel)
 
     }
     setPlanUsers(userModels)
     setFetched(true)
-
   }
-
-
 
   const fetchPlanUsers = async () => {
     try {
       const response = await get('plans/' + holderPlanId + '/members', token)
       readPlanUsers(response.text)
       return;
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
-  const [fetched, setFetched] = useState(false)
 
+  const [fetched, setFetched] = useState(false)
 
   const onChange = () => {
     setFetched(!fetched)
-
   }
 
   const [inviteUserOpen, setInviteUserOpen] = useState(false);
 
-
-
   const openInviteUserPopup = () => {
     disableScroll.on()
     setInviteUserOpen(true)
-
   }
   const closeInviteUserPopup = () => {
     disableScroll.off()
     setInviteUserOpen(false)
     onChange()
-
-
-
   }
-
 
   const [invitationCode, setInvitationCode] = useState("")
   const [holderPlanId, setHolderPlanId] = useState("")
@@ -109,29 +90,22 @@ export function PlanUsersPage() {
     setInvitationCode(messageParsed.invitation_code)
     setHolderPlanId(messageParsed.id)
     setHolderId(messageParsed.holder_id)
-
-
   }
 
   const fetchPlan = async () => {
     try {
       const response = await get('plans/current', token)
       readPlanInfo(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
-
 
   useEffect(() => {
     holderPlanId && fetchPlanUsers()
   }, [holderPlanId, fetched]);
-
 
   useEffect(() => {
     fetchPlan()
@@ -178,7 +152,7 @@ export function PlanUsersPage() {
           null
         )}
       </div>
-      {inviteUserOpen ? <InvitePopup closePopup={closeInviteUserPopup} invitationCode={invitationCode} planId={holderPlanId}/> : null}
+      {inviteUserOpen ? <InvitePopup closePopup={closeInviteUserPopup} invitationCode={invitationCode} id={holderPlanId} isGame={false}/> : null}
     </div>
   )
 }

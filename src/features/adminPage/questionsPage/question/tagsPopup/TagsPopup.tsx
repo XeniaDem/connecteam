@@ -158,7 +158,7 @@ export function TagsPopup(props: Props) {
                 </div>
               )}
               <div className={styles.addTag}>
-                {!newTagHidden ? allTags && <SearchBar data={allTags} onSelectedChange={setCurrentTag} placeholder="Поиск тега..." /> : null}
+                {!newTagHidden ? allTags && <SearchBar data={allTags} onSelectedChange={setCurrentTag} showData={true} placeholder="Поиск тега..." /> : null}
                 <div className={styles.addButton}>
                   <IconButton onClick={addTag}>
 

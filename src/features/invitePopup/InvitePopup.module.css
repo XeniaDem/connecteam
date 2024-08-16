@@ -8,19 +8,16 @@
   backdrop-filter: blur(2px) brightness(0.5);
   z-index: 1;
 
-
 }
-
 
 .container {
   font-family: 'Work Sans Variable', sans-serif;
 
-
-  overflow-y: scroll;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   display: flex;
   flex-direction: column;
 
@@ -29,20 +26,18 @@
   gap: 13px;
 
 
-  width: 50vw;
+  width: 500px;
 
   flex-shrink: 0;
 
-  border-radius: 23.377px;
-
+  border-radius: 23px;
   background: linear-gradient(174deg, #1D1D1D 2.72%, rgba(29, 29, 29, 0.9) 115.36%);
   backdrop-filter: blur(30.21428680419922px);
-  position: relative;
 
 }
 
 .container::before {
-  border-radius: 23.377px;
+  border-radius: 23px;
   border: 0.5px solid transparent;
   padding: 10px;
   content: "";
@@ -58,11 +53,13 @@
   /*5'*/
 
 }
-
-
-
-
-
+.buttons {
+  display: flex;
+  /* gap: 10px; */
+  align-items: baseline;
+  justify-content: center;
+  margin-left: 12px;
+}
 
 .close {
   position: absolute;
@@ -82,16 +79,13 @@
   border: none;
 
 
-  background: url("../../../../../app/assets/close.svg") no-repeat;
+  background:url("../../app/assets/close.svg") no-repeat;
   z-index: 1;
 
 }
 
-.closeButton:hover,
-.closeButton:focus {
-
+.closeButton:hover {
   box-shadow: none;
-
 }
 
 .title {
@@ -116,8 +110,22 @@
   /* 162.5% */
   z-index: 1;
 }
+
+
+.copied {
+  /* margin-top: 10px;
+  margin-bottom: -30px; */
+  color: white;
+  text-align: center;
+  font-size: 13.918px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22.616px;
+  /* 162.5% */
+}
+
+
 .input {
-  margin-top: 20px;
   font-family: 'Work Sans Variable', sans-serif;
   width: 285.531px;
   height: 46.667px;
@@ -137,31 +145,6 @@
   outline: none;
 }
 
-.errorMessage {
-  color: red;
-  font-size: 14.972px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24.33px;
-  /* 162.5% */
-  display: flex;
-  justify-content: end;
-  padding: 0px;
-
-}
-
-
-
-.sendButton {
-  width: 285.531px;
-  height: 46.667px;
-  flex-shrink: 0;
-  border-radius: 40.783px;
-  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-  z-index: 1;
-
-}
-
 .link {
   text-align: center;
   color: #8E8E8E;
@@ -177,41 +160,26 @@
   background: linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%);
 }
 
-.buttons {
-  display: flex;
-  gap: 20px;
-  align-items: baseline;
-}
-
-.copyButton {
-  width: 272.531px;
-  height: 53.667px;
-  flex-shrink: 0;
-  border-radius: 40.783px;
-  border: 1px solid var(--vd, #55C6F7);
-  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index: 1;
-
-}
-
-.info {
-  display: flex;
-  justify-content: center;
-}
-
-.copied {
-  margin-top: 10px;
-  margin-bottom: -30px;
-  color: white;
-  font-size: 13.918px;
+.errorMessage {
+  color: red;
+  font-size: 14.972px;
   font-style: normal;
   font-weight: 500;
-  line-height: 22.616px;
+  line-height: 24.33px;
   /* 162.5% */
+  display: flex;
+  justify-content: end;
+  padding: 0px;
 
+}
+
+.sendButton {
+  width: 285.531px;
+  height: 46.667px;
+  flex-shrink: 0;
+  border-radius: 40.783px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  z-index: 1;
 
 }
 
@@ -219,43 +187,49 @@
   z-index: 1;
   cursor: pointer;
 }
+
 .logos {
   display: flex;
   gap: 5px;
 }
+
+.buttonContainer {
+  margin-top: -14px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
+
+}
 @media (max-width: 763px) and (orientation:portrait) , (max-height:763px) and (orientation:landscape){
   .container {
+    width: 75vw;
     height: auto;
-    gap: 8px;
+    gap:8px;
     align-items: center;
     justify-content: center;
-    padding: 40px;
-    padding-top: 20px;
-
   }
   .title {
     font-size: 20px;
     line-height: normal;
   }
-  .subtitle {
-    text-align: center;
+  .name {
+    margin: 0px;
+    width: auto;
+    padding: 10px;
+    height: auto;
   }
-  .link {
-    width: 70vw;
-    line-break:anywhere;
-
+  .inputSmall::-webkit-input-placeholder {
+    font-size: 10px;
   }
-
-  .copyButton {
+  .sendButton {
+    width: auto;
     height: auto;
     padding: 10px;
     font-size: 14px;
     margin-top: 10px;
-
   }
-  .copied {
-    margin-top: 0px;
-  }
-
-
 }

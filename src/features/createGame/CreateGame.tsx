@@ -5,7 +5,7 @@ import { CopyPopup } from "./copyPopup/CopyPopup"
 import ellipse1 from "../../app/assets/ellipse1.svg"
 import ellipse2 from "../../app/assets/ellipse2.svg"
 import icon from "./icon.svg"
-import { InvitePopup } from "./invitePopup/InvitePopup"
+import { InvitePopup } from "../invitePopup/InvitePopup"
 import disableScroll from 'disable-scroll';
 import { useSelector } from "react-redux"
 import { selectToken } from "../../store/authSlice"
@@ -194,7 +194,7 @@ export function CreateGame() {
           }
         </div>
       </div>
-      {inviteOpen ? <InvitePopup invitationCode = {invitationCode} gameId={gameId} closePopup={closeInvitePopup} /> : null}
+      {inviteOpen ? <InvitePopup invitationCode={invitationCode} id={gameId} closePopup={closeInvitePopup} isGame={true} /> : null}
       {copyOpen ? <CopyPopup /> : null}
     </div>
   )

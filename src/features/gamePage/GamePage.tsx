@@ -11,7 +11,7 @@ import { WaitGame } from "./screens/waitGame/WaitGame";
 import { StartGame } from "./screens/startGame/StartGame";
 import { Rounds } from "./components/rounds/Rounds";
 import { ChooseTopic } from "./screens/chooseTopic/ChooseTopic";
-import { GameScreen, selectGame, setGame, setResults, setRounds, setStage, setTimer, updateCurrentScreen, updateGame, updateRounds } from "../../store/gameSlice";
+import { GameScreen, selectGame, setGame, setPlayers, setResults, setRounds, setStage, setTimer, updateCurrentScreen, updateGame, updateRounds } from "../../store/gameSlice";
 import { store } from "../../store/store";
 import { Button } from "../../components/button/Button";
 import { GameError } from "./screens/gameError/GameError";
@@ -67,6 +67,15 @@ export function GamePage() {
 
     const webSocketRef = useRef<WebSocket | null>(null)
 
+    const onUserDeleted = useCallback((messageObject: any) => {
+        const game = store.getState().game
+        showUserLeft()
+        if (messageObject.payload == game.playerId) {
+            setError("Вы были исключены из игры")
+            dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
+        }
+        removePlayer(messageObject.payload)
+    }, [])
 
     const onUserLeft = useCallback((messageObject: any) => {
         showUserLeft()
@@ -145,6 +154,9 @@ export function GamePage() {
         gameId && dispatch(setGame({ name: payload.name, date: payload.date, gameId: gameId, creatorId: payload.creator_id, playerId: senderId, playerName: senderName }))
         dispatch(updateCurrentScreen({ currentScreen: currentScreen }))
 
+        // const players = JSON.stringify(messageObject.payload.users)
+        // dispatch(setPlayers({players: players}))
+
         updatePlayers(messageObject)
     }, [])
 
@@ -154,7 +166,7 @@ export function GamePage() {
     }, [])
 
 
-    const updatePlayers = (messageObject: any) => {
+    const updatePlayers = useCallback((messageObject: any) => {
         const payload = messageObject.payload
         if (!payload.users) {
             setPlayers(null)
@@ -166,10 +178,8 @@ export function GamePage() {
         const game = store.getState().game
         const creatorId = game.creatorId
         const id = game.playerId
-        const userAnsweringId = game.playerAnsweringId
 
         for (let i = 0; i < playersNum; i++) {
-
             const playerModel = {
                 id: payload.users[i].id,
                 isCreator: payload.users[i].id == creatorId,
@@ -180,13 +190,20 @@ export function GamePage() {
             playersModels.push(playerModel)
         }
         setPlayers(playersModels)
-    }
+        console.log("0: " + playersModels)
+    }, [])
 
 
-    const removePlayer = (id: string) => {
+    const removePlayer = useCallback((id: string) => {
+        console.log("1: " + players)
         const newPlayers = players?.filter(player => player.id != id)
+        console.log("2: " + newPlayers)
         newPlayers && setPlayers(newPlayers)
-    }
+    }, [])
+
+
+
+
 
     useEffect(() => {
         console.log(game)
@@ -257,6 +274,9 @@ export function GamePage() {
                 if (messageObject.action == "user-left") {
                     onUserLeft(messageObject)
                 }
+                if (messageObject.action == "user-deleted") {
+                    onUserDeleted(messageObject)
+                }
                 if (messageObject.action == "game-abort") {
                     setError("Игра была завершена досрочно")
                     dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
@@ -282,6 +302,11 @@ export function GamePage() {
             dispatch(updateCurrentScreen({ currentScreen: GameScreen.GameError }))
         };
     }, []);
+
+
+
+
+
 
 
 
@@ -386,8 +411,6 @@ export function GamePage() {
         for (let i = 0; i < selected.length; i++) {
             tags.push(selected[i])
         }
-
-
         const currentGame = store.getState().game
         const message = JSON.stringify({
             action: "rate-user",
@@ -409,7 +432,18 @@ export function GamePage() {
         })
         webSocketRef.current?.send(message)
         console.log("sent " + message)
+    }, [])
 
+    const deleteUser = useCallback((id: string) => {
+        const currentGame = store.getState().game
+        const message = JSON.stringify({
+            action: "delete-user",
+            target: gameId,
+            sender: { "id": currentGame.playerId },
+            payload: id
+        })
+        webSocketRef.current?.send(message)
+        console.log("sent " + message)
     }, [])
 
 
@@ -442,7 +476,7 @@ export function GamePage() {
                     <div className={styles.players}>
                         {players?.map(player =>
                             <div>
-                                <Player savedPlayer={player} isAnswering={game.playerAnsweringId == player.id} />
+                                <Player savedPlayer={player} isAnswering={game.playerAnsweringId == player.id} deleteUser={deleteUser} />
                             </div>
                         )}
                     </div>
