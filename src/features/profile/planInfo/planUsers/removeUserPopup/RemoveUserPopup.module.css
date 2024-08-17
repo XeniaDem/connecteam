@@ -13,25 +13,15 @@
 .container {
   font-family: 'Work Sans Variable', sans-serif;
 
-
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* top: 0;
-left: 0;
-right: 0;
-bottom: 0; */
   display: flex;
   flex-direction: column;
   overflow: hidden;
 
-
-
   padding: 60px;
-
-
-
   flex-shrink: 0;
 
   border-radius: 23px;
@@ -63,11 +53,6 @@ bottom: 0; */
 
 }
 
-
-
-
-
-
 .close {
   position: absolute;
   top: 20px;
@@ -85,8 +70,6 @@ bottom: 0; */
   height: 23px;
   padding: 0px;
   border: none;
-
-
   background: url("../../../../../app/assets/close.svg") no-repeat;
   z-index: 2;
 
@@ -161,17 +144,18 @@ bottom: 0; */
 }
 
 
-.ellipse1 {
-  position: absolute;
-  top: -203px;
-  left: -125px;
-}
 
-.ellipse2 {
-  position: absolute;
-  bottom: -80px;
-  right: -180px;
+.name {
 
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: center;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
 }
 
@@ -204,12 +188,6 @@ bottom: 0; */
     font-size: 14px;
     margin-top: 10px;
 
-  }
-  .ellipse1 {
-    display: none;
-  }
-  .ellipse2 {
-    display: none;
   }
 
 }

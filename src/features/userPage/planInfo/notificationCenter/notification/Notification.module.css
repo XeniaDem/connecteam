@@ -7,9 +7,20 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  padding: 5px;
+}
 
+.highlighted {
+  font-family: 'Work Sans Variable', sans-serif;
+  min-height: 82px;
 
+  display: flex;
 
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: rgb(42, 248, 186, 0.1);
+  padding: 5px;
 }
 
 
@@ -19,28 +30,17 @@
   align-items: center;
   flex-wrap: wrap;
   row-gap: 0px;
-
 }
 
 
-
-
-
 .text {
-
   font-size: 15px;
   font-weight: 500;
   letter-spacing: -0.05em;
-
   align-items: center;
   color: #FFF;
 }
 
-.new {
-  display: flex;
-  justify-content: end;
-  /* margin-top: -20px; */
-}
 
 .nameActive {
   font-size: 20px;
@@ -56,7 +56,6 @@
 
 .date {
   color: rgba(255, 255, 255, 0.39);
-
   font-size: 15.817px;
   font-style: normal;
   font-weight: 500;
@@ -66,8 +65,6 @@
   align-items: center;
 
   display: flex;
-
-
 }
 
 
@@ -83,8 +80,6 @@
   background: none;
   text-decoration-line: underline;
   z-index: 1;
-
-
 }
 
 .footerButton:hover {
@@ -93,11 +88,24 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   box-shadow: none;
-
 }
-
-
 
 .divider {
   border: 1px solid rgba(89, 89, 89, 1);
+}
+
+.controlButtons {
+  display: flex;
+  justify-content: end;
+  margin-top: -50px;
+}
+
+.buttonContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
+  background-clip: text;
+  -webkit-background-clip: text;
 }

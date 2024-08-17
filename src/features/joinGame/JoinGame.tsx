@@ -147,6 +147,7 @@ export function JoinGame() {
   }
 
   const [isCreator, setIsCreator] = useState(false)
+  
   useEffect(() => {
     validatePathname()
     if (token != "")

@@ -1,7 +1,5 @@
-
 import { IconButton } from "@mui/material";
 import styles from "./StarRating.module.css"
-
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState } from "react";
@@ -14,9 +12,6 @@ export function StarRating(props: Props) {
 
   const [rating, setRating] = useState(0);
 
-
-
-
   return (
     <div className={styles.container}>
       <svg width={0} height={0}>
@@ -25,7 +20,6 @@ export function StarRating(props: Props) {
           <stop offset={1} stopColor="#2AF8BA" />
         </linearGradient>
       </svg>
-
 
       <div className={styles.stars}>
 
@@ -53,6 +47,7 @@ export function StarRating(props: Props) {
             <StarIcon fontSize="large" htmlColor="#55C6F7" />
           )}
         </IconButton>
+
         <IconButton onClick={() => {setRating(4); props.onRatingSet(4)}}>
           {rating < 4 ? (
             <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
@@ -60,6 +55,7 @@ export function StarRating(props: Props) {
             <StarIcon fontSize="large" htmlColor="#55C6F7" />
           )}
         </IconButton>
+
         <IconButton onClick={() => {setRating(5); props.onRatingSet(5)}}>
           {rating < 5 ? (
             <StarBorderIcon fontSize="large" htmlColor="#55C6F7" />
@@ -68,11 +64,8 @@ export function StarRating(props: Props) {
           )}
         </IconButton>
       </div>
-
-
     </div>
   )
-
 }
 
 

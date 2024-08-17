@@ -1,10 +1,7 @@
-
 import styles from "./AnswerQuestion.module.css"
 import { Question } from "../../components/question/Question"
 import { Timer } from "../../components/timer/Timer"
 import { Button } from "../../../../components/button/Button"
-
-
 
 type Props = {
   isAnswering: boolean;
@@ -14,21 +11,14 @@ type Props = {
   started: boolean;
   onStartButonClicked: () => void;
   onFinishButonClicked: () => void;
-
-
-
-
 }
 
 
 
 export function AnswerQuestion(props: Props) {
-
-
   return (
     <div>
       <div className={styles.container}>
-
         <div className={styles.content}>
           <div className={styles.question}>
             <Question text={props.question} nameAnswering={props.nameAnswering} />

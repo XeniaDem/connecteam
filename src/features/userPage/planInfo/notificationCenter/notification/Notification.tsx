@@ -1,12 +1,9 @@
 import styles from "./Notification.module.css"
-import DoneIcon from '@mui/icons-material/Done';
-import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material"
-import { Button } from "../../../../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { GameModel } from "../../../lastGames/game/Game";
 import { Plan } from "../../../../planList/PlanList";
-import CircleIcon from '@mui/icons-material/Circle';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export enum NotificationType {
   CancelGameNotification = "game-cancel",
@@ -18,18 +15,17 @@ export enum NotificationType {
 
 export type NotificationModel = {
   type: NotificationType;
-  date: string;
+  date: Date;
   game?: GameModel
   plan?: Plan;
   invitor: string;
-  accepted?: boolean;
   read: boolean;
 }
 
 type Props = {
   savedNotification: NotificationModel;
-
 }
+
 
 
 
@@ -40,7 +36,7 @@ export function Notification({ savedNotification }: Props) {
   if (savedNotification.type == NotificationType.CancelGameNotification) {
     return (
       <div>
-        <div className={styles.container}>
+        <div className={savedNotification.read ? styles.container : styles.highlighted}>
           <div className={styles.group}>
             <div className={styles.text} >
               Игра {" "}
@@ -48,17 +44,11 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.game?.name} {" "} {savedNotification.game?.date} {" "}
               </span>
               отменена
-              {!savedNotification.read && (<div className={styles.new}>
-                <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
-              </div>)}
             </div>
           </div>
           <div className={styles.group}>
-
-            <div className={styles.controlButtons}>
-              <div className={styles.date}>
-                {savedNotification.date.slice(0, -3)}
-              </div>
+            <div className={styles.date}>
+              {savedNotification.date.toLocaleString().slice(0, -3)}
             </div>
           </div>
         </div>
@@ -67,15 +57,10 @@ export function Notification({ savedNotification }: Props) {
     )
   }
 
-
-
   if (savedNotification.type == NotificationType.InviteGameNotification) {
-
     return (
       <div>
-
-        <div className={styles.container}>
-
+        <div className={savedNotification.read ? styles.container : styles.highlighted}>
           <div className={styles.group}>
             <div className={styles.text} >
               Пользователь {" "}
@@ -86,35 +71,25 @@ export function Notification({ savedNotification }: Props) {
               <span className={styles.nameActive}>
                 {savedNotification.game?.name} {" "} {savedNotification.game?.date}
               </span>
-
-              {!savedNotification.read && (<div className={styles.new}>
-                <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
-              </div>)}
             </div>
-
-
-
-
           </div>
           <div className={styles.group}>
-
-            <div className={styles.controlButtons}>
-              {!savedNotification.accepted && <IconButton onClick={() => navigate("/invite/game/" + savedNotification.game?.invitationCode)}>
-                <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
-              </IconButton>}
-
-              <div className={styles.date}>
-                {savedNotification.date.slice(0, -3)}
-              </div>
+            <div className={styles.date}>
+              {savedNotification.date.toLocaleString().slice(0, -3)}
             </div>
           </div>
         </div>
 
-
+        <div className={styles.controlButtons}>
+          <IconButton onClick={() => navigate("/invite/game/" + savedNotification.game?.invitationCode)}>
+            <div className={styles.buttonContainer}>
+              <ArrowForwardIosIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              Перейти
+            </div>
+          </IconButton>
+        </div>
         <div className={styles.divider} />
-
       </div>
-
     )
   }
 
@@ -122,7 +97,7 @@ export function Notification({ savedNotification }: Props) {
   if (savedNotification.type == NotificationType.StartGameNotification) {
     return (
       <div>
-        <div className={styles.container}>
+        <div className={savedNotification.read ? styles.container : styles.highlighted}>
           <div className={styles.group}>
             <div className={styles.text} >
               Игра {" "}
@@ -130,32 +105,32 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.game?.name} {" "} {savedNotification.game?.date} {" "}
               </span>
               скоро начнется
-              {!savedNotification.read && (<div className={styles.new}>
-                <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
-              </div>)}
             </div>
           </div>
           <div className={styles.group}>
-            <div className={styles.controlButtons}>
-              <Button text={"Перейти"} onClick={() => navigate("/game/" + savedNotification.game?.id)} className={styles.footerButton} />
-              <div className={styles.date}>
-                {savedNotification.date.slice(0, -3)}
-              </div>
+            <div className={styles.date}>
+              {savedNotification.date.toLocaleString().slice(0, -3)}
             </div>
-
           </div>
         </div>
+        <div className={styles.controlButtons}>
 
+          <IconButton onClick={() => navigate("/game/" + savedNotification.game?.id)}>
+            <div className={styles.buttonContainer}>
+              <ArrowForwardIosIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              Перейти
+            </div>
+          </IconButton>
+        </div>
         <div className={styles.divider} />
       </div>
     )
   }
 
   if (savedNotification.type == NotificationType.InviteSubNotification) {
-
     return (
       <div>
-        <div className={styles.container}>
+        <div className={savedNotification.read ? styles.container : styles.highlighted}>
           <div className={styles.group}>
             <div className={styles.text} >
               Пользователь {" "}
@@ -163,37 +138,32 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.invitor} {" "}
               </span>
               пригласил Вас присоединиться к плану
-              {!savedNotification.read && (<div className={styles.new}>
-                <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
-              </div>)}
             </div>
-
           </div>
           <div className={styles.group}>
-
-            <div className={styles.controlButtons}>
-              {!savedNotification.accepted && (<IconButton onClick={() => navigate("/invite/plan/" + savedNotification.plan?.invitationCode)}>
-                <DoneIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
-              </IconButton>)}
-
-              <div className={styles.date}>
-                {savedNotification.date.slice(0, -3)}
-              </div>
+            <div className={styles.date}>
+              {savedNotification.date.toLocaleString().slice(0, -3)}
             </div>
           </div>
         </div>
 
+        <div className={styles.controlButtons}>
+          <IconButton onClick={() => navigate("/invite/plan/" + savedNotification.plan?.invitationCode)}>
+            <div className={styles.buttonContainer}>
+              <ArrowForwardIosIcon fontSize="medium" sx={{ fill: "url(#linearColors)" }} />
+              Перейти
+            </div>
+          </IconButton>
+        </div>
         <div className={styles.divider} />
-
       </div>
-
     )
   }
 
   if (savedNotification.type == NotificationType.DeleteFromSubNotification) {
     return (
       <div>
-        <div className={styles.container}>
+        <div className={savedNotification.read ? styles.container : styles.highlighted}>
           <div className={styles.group}>
             <div className={styles.text} >
               Пользователь {" "}
@@ -201,32 +171,19 @@ export function Notification({ savedNotification }: Props) {
                 {savedNotification.invitor} {" "}
               </span>
               удалил Вас из участников плана
-              {!savedNotification.read && (<div className={styles.new}>
-                <CircleIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
-              </div>)}
             </div>
-
-
           </div>
           <div className={styles.group}>
-
-            <div className={styles.controlButtons}>
-              <div className={styles.date}>
-                {savedNotification.date.slice(0, -3)}
-              </div>
+            <div className={styles.date}>
+              {savedNotification.date.toLocaleString().slice(0, -3)}
             </div>
           </div>
         </div>
-
         <div className={styles.divider} />
-
       </div>
-
     )
   }
   return (null)
-
-
 }
 
 

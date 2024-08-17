@@ -1,4 +1,3 @@
-
 import styles from "./ChooseTopic.module.css"
 import dots from "../dots.svg"
 import { Button } from "../../../../components/button/Button"
@@ -11,8 +10,6 @@ type Props = {
   topics: string;
   onButonClicked: (selected: string) => void;
 }
-
-
 
 export function ChooseTopic(props: Props) {
   if (!props.isCreator) {
@@ -32,8 +29,8 @@ export function ChooseTopic(props: Props) {
     )
   }
   else {
-
     const [topics, setTopics] = useState<TopicModel[] | null>(null)
+
     const [selectedTopicId, setSelectedTopicId] = useState("");
 
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -49,10 +46,8 @@ export function ChooseTopic(props: Props) {
           name: messageParsed[i].title,
           id: messageParsed[i].id,
           used: (messageParsed[i].used == true)
-
         }
         topicModels.push(topicModel)
-
       }
       setTopics(topicModels)
     }
@@ -64,18 +59,16 @@ export function ChooseTopic(props: Props) {
 
     const startError = getStartError();
 
-
-
     useEffect(() => {
       readTopics()
     }, [props.topics]);
+
     return (
       <div>
         <div className={styles.container}>
           <div className={styles.title}>
             Выберите тему вопросов раунда
           </div>
-
           <div className={styles.topics}>
             {topics && topics.map(topic => {
               const onTopicClicked = (newValue: boolean) => {

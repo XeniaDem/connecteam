@@ -52,22 +52,17 @@ export function ConfirmationPopup(props: Props) {
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
           <div className={styles.body}>
-            <div className={styles.ellipse1}>
-              <img src={ellipse1} />
-            </div>
-            <div className={styles.ellipse2}>
-              <img src={ellipse2} />
-            </div>
+  
 
 
 
             {props.isCancel ?
               <div className={styles.text}>
-                Вы точно хотите отменить игру <br /> {props.savedGame.name}?
+                Вы точно хотите отменить игру <br/> <span className={styles.name} > {props.savedGame.name} </span>?
               </div>
               :
               <div className={styles.text}>
-                Вы точно хотите удалить игру <br /> {props.savedGame.name}?
+                Вы точно хотите удалить игру <br/>  <span className={styles.name} > {props.savedGame.name} </span>?
               </div>
             }
 

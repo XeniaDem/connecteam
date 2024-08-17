@@ -10,9 +10,8 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 export type Tab = {
     tabName: string;
-
-
 }
+
 type Props = {
     tabs: Tab[];
     userId: string;
@@ -31,9 +30,13 @@ export function Tabs(props: Props) {
 
     const [games, setGames] = useState<GameModel[] | null>(null)
 
+    const [searchHitBottom, setSearchHitBottom] = useState(false)
+
     const readGames = (message: any) => {
         const messageParsed = JSON.parse(message);
+        console.log("data: " + messageParsed.data)
         if (messageParsed.data == null) {
+            setSearchHitBottom(true)
             return;
         }
 
@@ -41,7 +44,6 @@ export function Tabs(props: Props) {
 
         const gamesModels = [];
         for (let i = 0; i < gamesNum; i++) {
-
             const gameModel = {
                 id: messageParsed.data[i].id,
                 name: messageParsed.data[i].name,
@@ -101,7 +103,7 @@ export function Tabs(props: Props) {
                     {props.tabs.map(tab => {
                         const classname = cn(styles.tab, { [styles.activeTab]: (activeTab == tab.tabName) })
                         return (
-                            <div className={classname} onClick={() => { setActiveTab(tab.tabName); setGames(null); setPageNum(0) }}>
+                            <div className={classname} onClick={() => { setActiveTab(tab.tabName); setGames(null); setPageNum(0); setSearchHitBottom(false) }}>
                                 {tab.tabName}
                             </div>
                         )
@@ -115,7 +117,6 @@ export function Tabs(props: Props) {
                         <div className={styles.empty}>
                             Пока нет игр
                         </div>
-
                     ) : (
                         (games?.map(game =>
                             <div>
@@ -124,6 +125,9 @@ export function Tabs(props: Props) {
                         ))
                     )}
                 </div>
+            </div>
+            <div className={styles.footer}>
+                {!searchHitBottom ? "Прокрутите, чтобы посмотреть более ранние игры" : null}
             </div>
         </div>
     )

@@ -1,7 +1,5 @@
 import { Button } from "../../../../../components/button/Button"
 import styles from "./RemoveUserPopup.module.css"
-import ellipse1 from "../../../../../app/assets/ellipse1.svg"
-import ellipse2 from "../../../../../app/assets/ellipse2.svg"
 import { PlanUserModel } from "../planUser/PlanUser";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../../../store/authSlice";
@@ -39,15 +37,9 @@ export function RemoveUserPopup(props: Props) {
             <Button text={""} onClick={props.closePopup} className={styles.closeButton} />
           </div>
           <div className={styles.body}>
-            <div className={styles.ellipse1}>
-              <img src={ellipse1} />
-            </div>
-            <div className={styles.ellipse2}>
-              <img src={ellipse2} />
-            </div>
 
             <div className={styles.text}>
-              Вы точно хотите удалить пользователя <br /> {props.planUser.name} из участников плана?
+              Вы точно хотите удалить пользователя <br /> <span className={styles.name}> {props.planUser.name} </span> из участников плана?
             </div>
 
             <div className={styles.buttons}>

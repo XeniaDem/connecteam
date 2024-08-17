@@ -21,13 +21,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
-
-
   padding: 60px;
-
-
-
   flex-shrink: 0;
 
   border-radius: 23px;
@@ -58,10 +52,6 @@
 }
 
 
-
-
-
-
 .close {
   position: absolute;
   top: 20px;
@@ -79,8 +69,6 @@
   height: 23px;
   padding: 0px;
   border: none;
-
-
   background: url("../../../../../app/assets/close.svg") no-repeat;
   z-index: 2;
 
@@ -88,7 +76,6 @@
 
 .closeButton:hover {
   box-shadow: none;
-
 }
 
 
@@ -100,8 +87,6 @@
   letter-spacing: 0em;
   text-align: center;
   z-index: 100;
-
-
 }
 
 .body {
@@ -155,18 +140,17 @@
 
 }
 
+.name {
 
-.ellipse1 {
-  position: absolute;
-  top: -203px;
-  left: -125px;
-}
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: center;
+  background: var(--vd, linear-gradient(90deg, #55C6F7 0%, #2AF8BA 107.16%));
 
-.ellipse2 {
-  position: absolute;
-  bottom: -80px;
-  right: -180px;
-
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
 }
 
@@ -199,12 +183,6 @@
     font-size: 14px;
     margin-top: 10px;
 
-  }
-  .ellipse1 {
-    display: none;
-  }
-  .ellipse2 {
-    display: none;
   }
 
 }

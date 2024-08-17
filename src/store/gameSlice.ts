@@ -70,8 +70,6 @@ const initialState: GameState = {
   playerAnsweringId: localStorage.getItem("playerAnsweringId") || "",
   question: localStorage.getItem("question") || "",
   tags: localStorage.getItem("tags") || "",
-  // stageStarted: localStorage.getItem("stageStarted") == "true" || false,
-
 
   timerStarted: localStorage.getItem("timerStarted") == "true" || false,
   timeStart: localStorage.getItem("timeStart") || "",
@@ -113,7 +111,6 @@ export const gameSlice = createSlice({
       localStorage.setItem("meetingJwt", action.payload.meetingJwt)
       localStorage.setItem("meetingNumber", action.payload.meetingNumber)
       localStorage.setItem("meetingPasscode", action.payload.meetingPasscode)
-
     },
 
     updateCurrentScreen: (state, action: PayloadAction<{currentScreen: GameScreen}>) => {
@@ -123,14 +120,13 @@ export const gameSlice = createSlice({
 
     setPlayers: (state, action: PayloadAction<{players: string}>) => {
       state.players = action.payload.players
-
       localStorage.setItem("players", action.payload.players)
-  
     },
 
     setRounds: (state, action: PayloadAction<{topics: string, roundsNum: number}>) => {
       state.topics = action.payload.topics
       state.roundsNum = action.payload.roundsNum
+
       localStorage.setItem("topics", action.payload.topics)
       localStorage.setItem("roundsNum", action.payload.roundsNum.toString())
     },
@@ -139,23 +135,22 @@ export const gameSlice = createSlice({
       localStorage.setItem("currentRound", action.payload.currentRound.toString())
     },
 
-
     setStage: (state, action: PayloadAction<{playerAnswering: string, playerAnsweringId: string, question: string, tags: string}>) => {
       state.playerAnswering = action.payload.playerAnswering
       state.playerAnsweringId = action.payload.playerAnsweringId
       state.question = action.payload.question
       state.tags = action.payload.tags
-      // state.stageStarted = action.payload.stageStarted
 
       localStorage.setItem("playerAnswering", action.payload.playerAnswering)
       localStorage.setItem("playerAnsweringId", action.payload.playerAnsweringId)
       localStorage.setItem("question", action.payload.question)
       localStorage.setItem("tags", action.payload.tags)
-      // localStorage.setItem("stageStarted", action.payload.stageStarted.toString())
     },
+
     setTimer: (state, action: PayloadAction<{timerStarted: boolean, timeStart: string}>) => {
       state.timerStarted = action.payload.timerStarted
       state.timeStart = action.payload.timeStart
+
       localStorage.setItem("timerStarted", action.payload.timerStarted.toString())
       localStorage.setItem("timeStart", action.payload.timeStart)
     },
@@ -173,8 +168,6 @@ export const { setGame, updateGame, updateCurrentScreen, setPlayers, setRounds, 
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectGame = (state: RootState) => state.game
-
-
 
 export default gameSlice.reducer
 

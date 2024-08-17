@@ -1,9 +1,7 @@
-
 import styles from "../Plan.module.css"
 import tick from "../../../../app/assets/tickBig.svg"
 
 export function PremiumPlan() {
-
 
   return (
     <div>
@@ -50,8 +48,4 @@ export function PremiumPlan() {
       </div>
     </div>
   )
-
-
-
-
 }

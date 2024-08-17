@@ -81,10 +81,8 @@ export function RateAnswer(props: Props) {
           const newTags = []
           newTags.push(currentTag)
           setTags(newTags)
-
         }
         setNewTagHidden(true)
-
       }
     }
 
@@ -99,19 +97,14 @@ export function RateAnswer(props: Props) {
 
       const tagsModels = [];
       for (let i = 0; i < tagsNum; i++) {
-
         const tagModel = {
           id: messageParsed.data[i].id,
           key: messageParsed.data[i].name,
         }
         tagsModels.push(tagModel)
-
       }
       setAllTags(tagsModels)
-
     }
-
-
 
     const fetchAllTags = async () => {
       try {
@@ -125,8 +118,8 @@ export function RateAnswer(props: Props) {
       }
     }
 
-
     const [formSubmitted, setFormSubmitted] = useState(false);
+    
     const getRateError = () => {
       if (rating < 1)
         return "Пожалуйста, поставьте оценку";
@@ -171,7 +164,6 @@ export function RateAnswer(props: Props) {
                       }
                     </div>
                   )
-
                 }
                 )
                 }

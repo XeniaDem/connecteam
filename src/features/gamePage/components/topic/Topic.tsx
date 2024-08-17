@@ -9,6 +9,7 @@ export type TopicModel = {
   id: string;
   used?: boolean;
 }
+
 type Props = {
   name: string;
   withCheckBox: boolean;
@@ -20,14 +21,9 @@ type Props = {
 
 export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }: Props) {
 
-
-
   const handleChange = () => {
     onTopicClicked(!selected);
-    
   };
-
-
 
   return (
     <div>
@@ -39,13 +35,12 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
             <img src={ellipse} />
           </div>
           <TopicIcon fontSize="medium" />
-
         </div>}
+
         <div className={styles.text}>
           <div className={styles.name}>
             {name}
           </div>
-
         </div>
 
         {withCheckBox ? (
@@ -53,12 +48,9 @@ export function Topic({ selected, onTopicClicked, withCheckBox, name, inactive }
             <CheckBox checked={selected} setChecked={() => onTopicClicked(!selected)} disabled = {inactive}/>
           </div>
         ) : (
-          <div />
+          null
         )}
-
-
       </div>
-
     </div>
   )
 }

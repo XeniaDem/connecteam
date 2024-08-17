@@ -9,15 +9,13 @@ import { useSelector } from "react-redux"
 import { selectToken } from "../../../../store/authSlice"
 import { post, readServerError } from "../../../../utils/api"
 import { useState } from "react"
-import { PlayerModel } from "../../components/player/Player"
 
 type Props = {
-
   name: string;
   date: string;
   photo?: string;
   id?: string;
-  players: PlayerModel[] | null;
+  players: string;
   onButtonClicked: () => void;
 }
 
@@ -42,7 +40,10 @@ export function StartGame(props: Props) {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const getStartError = () => {
-    if (props.players && props.players?.length < 2)
+    const messageParsed = JSON.parse(props.players);
+
+    const playersNum = messageParsed.length
+    if (playersNum < 2)
       return "Недостаточно игроков для начала игры";
   }
 

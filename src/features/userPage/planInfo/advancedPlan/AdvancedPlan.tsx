@@ -1,4 +1,3 @@
-
 import styles from "../Plan.module.css"
 import tick from "../../../../app/assets/tickBig.svg"
 
@@ -6,8 +5,6 @@ import tick from "../../../../app/assets/tickBig.svg"
 
 
 export function AdvancedPlan() {
-
-
   return (
     <div>
       <div className={styles.container}>

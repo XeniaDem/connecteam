@@ -2,7 +2,7 @@ import styles from "./Player.module.css"
 import smallCrown from "./smallCrown.svg"
 import photo from "./samplePhoto.svg"
 import { useSelector } from "react-redux";
-import { selectGame } from "../../../../store/gameSlice";
+import { selectGame } from "../../../../../store/gameSlice";
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from "@mui/material";
 

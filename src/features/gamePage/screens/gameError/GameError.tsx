@@ -9,7 +9,6 @@ type Props = {
 }
 
 export function GameError(props: Props) {
-  const navigate = useNavigate()
   return (
     <div>
       <div className={styles.container}>
@@ -18,7 +17,6 @@ export function GameError(props: Props) {
         </div>
         <Button text={"Назад"} onClick={() => { props.onButtonClicked() }} className={styles.backButton} />
       </div>
-
     </div>
   )
 }

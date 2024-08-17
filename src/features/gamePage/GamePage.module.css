@@ -16,17 +16,6 @@
   justify-content: space-around;
 }
 
-
-
-.players {
-  font-family: 'Work Sans Variable', sans-serif;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  z-index: 1;
-  padding-bottom: 20px;
-}
-
 .audio {
   position: absolute;
   top: 20px;
@@ -34,6 +23,7 @@
   z-index: 100;
 
 }
+
 .exitButton {
   position: absolute;
   top: 50px;
@@ -48,24 +38,18 @@
 
   background: url("./exit.svg") no-repeat;
   z-index: 1;
-
 }
 
 .exitButton:hover,
 .exitButton:focus {
-
   box-shadow: none;
-
 }
 
 .ellipse1 {
   position: absolute;
   top: 0px;
   left: 0px;
-
 }
-
-
 
 .ellipse2 {
   position: absolute;
@@ -74,22 +58,15 @@
 
 }
 .errorMessage {
- 
-  /* margin-bottom: -15px; */
   color: red;
   font-size: 14.972px;
   font-style: normal;
   font-weight: 500;
   line-height: 24.33px;
   text-align: center;
-  /* 162.5% */
 }
 
 @media (max-width: 768px) and (orientation:portrait), (max-height:768px) and (orientation:landscape) {
-  .players {
-    flex-wrap: wrap;
-    gap: 20px;
-  }
 
   .ellipse1 {
     display: none;

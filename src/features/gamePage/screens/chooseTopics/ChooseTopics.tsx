@@ -11,6 +11,7 @@ import { Plan } from "../../../planList/PlanList"
 type Props = {
   onButonClicked: (selected?: string[]) => void;
 }
+
 export function ChooseTopics(props: Props) {
 
   const token = useSelector(selectToken)
@@ -18,10 +19,8 @@ export function ChooseTopics(props: Props) {
   const [topics, setTopics] = useState<TopicModel[] | null>(null)
   const [topicsIds, setTopicsIds] = useState<string[]>([])
 
-
   const readTopics = (message: any) => {
     const messageParsed = JSON.parse(message);
-
     const topicsNum = messageParsed.data.length;
 
     const topicModels = [];
@@ -30,23 +29,18 @@ export function ChooseTopics(props: Props) {
       const topicModel = {
         name: messageParsed.data[i].title,
         id: messageParsed.data[i].id
-
       }
       topicModels.push(topicModel)
       topicsIds.push(topicModel.id)
-
     }
     setTopics(topicModels)
     setTopicsIds(topicsIds)
-
   }
 
   const fetchTopics = async () => {
     try {
-
       const response = await get('topics/', token)
       readTopics(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
@@ -71,23 +65,17 @@ export function ChooseTopics(props: Props) {
 
     }
     setPlanInfo(planInfo);
-
   }
-
 
   const fetchPlan = async () => {
     try {
-
       const response = await get('plans/current', token)
       readPlanInfo(response.text)
-
     }
     catch (error: any) {
       readServerError(error.response.text)
       console.log("error:", error)
     }
-
-
   }
 
   const getTopicLimit = () => {
@@ -102,58 +90,36 @@ export function ChooseTopics(props: Props) {
 
   const topicLimit = getTopicLimit();
 
-
-
-
-
   const [selectedTopicsIds, setSelectedTopicsIds] = useState<string[]>([]);
 
   const shuffle = (array: string[]) => {
     return array.sort(() => Math.random() - 0.5);
   };
 
-
   const chooseRandomTopics = () => {
     const newSelectedTopicsIds = topicsIds
-
     setSelectedTopicsIds(shuffle(newSelectedTopicsIds).slice(0, topicLimit))
-
-
   }
 
   const [formSubmitted, setFormSubmitted] = useState(false);
+
   const getChooseError = () => {
     if (selectedTopicsIds.length < 3)
       return "Выберите хотя бы 3 темы";
-
-
   }
 
   const chooseError = getChooseError();
 
-
   useEffect(() => {
-
     fetchTopics();
     fetchPlan();
-
   }, []);
 
-  // useEffect(() => {
-
-  //   if (planInfo?.planType == "basic") {
-  //     props.onButonClicked()
-  //     return;
-  //   }
-
-
-  // }, [planInfo]);
 
   if (planInfo?.planType == "basic") {
     return (
       <div>
         <div className={styles.container}>
-
           <div className={styles.title}>
             Темы игры сгенерированы
           </div>
@@ -175,18 +141,14 @@ export function ChooseTopics(props: Props) {
           <Button text={"Продолжить"} onClick={() => {
             props.onButonClicked()
           }} className={styles.startButton} />
-
         </div>
-
       </div>
-
     )
   }
 
   return (
     <div>
       <div className={styles.container}>
-
         <div className={styles.title}>
           Выберите темы для игры
         </div>
@@ -195,8 +157,6 @@ export function ChooseTopics(props: Props) {
         </div>
 
         <div className={styles.topics}>
-
-
           {topics?.map(topic => {
             const onTopicClicked = (newValue: boolean) => {
               if (newValue) {
@@ -227,7 +187,6 @@ export function ChooseTopics(props: Props) {
 
         {chooseError && formSubmitted && (<div className={styles.errorMessage}>
           {chooseError}
-
         </div>)}
 
         <Button text={"Подтвердить"} onClick={() => {
@@ -236,9 +195,7 @@ export function ChooseTopics(props: Props) {
             return;
           props.onButonClicked(selectedTopicsIds)
         }} className={styles.startButton} />
-
       </div>
-
     </div>
   )
 }

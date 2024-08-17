@@ -1,17 +1,10 @@
 
 import styles from "./Round.module.css"
 
-
-
-
-
-
 type Props = {
   numRound: number;
   started: boolean;
   last: boolean;
-
-
 }
 
 
@@ -30,6 +23,7 @@ export function Round(props: Props) {
       </div>
     )
   }
+  
   else {
     return (
       <div className={styles.container}>

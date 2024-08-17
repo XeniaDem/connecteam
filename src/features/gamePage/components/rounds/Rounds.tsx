@@ -1,17 +1,10 @@
-
 import styles from "./Rounds.module.css"
 import { Round } from "./round/Round";
-
-
 
 type Props = {
   roundsNum: number;
   currentRound: number;
-
-
 }
-
-Rounds.defaultProps = { roundsNum: 8, currentRound: 1 }
 
 
 export function Rounds(props: Props) {
@@ -34,7 +27,6 @@ export function Rounds(props: Props) {
     }
     rounds.push(<Round numRound={i} started={false} last={false}/>)
   }
-
 
   return (
     <div className={styles.container}>

@@ -125,25 +125,12 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
           response = await get('users/' + gameData.creatorId, token)
           const invitor = JSON.parse(response.text).first_name + " " + JSON.parse(response.text).second_name
 
-          var accepted;
-          if (type == "invite-game") {
-            response = await get('games/' + gameData.id + '/members', token)
-            const membersNum = JSON.parse(response.text).members.length
-            const membersIds = []
-            for (let j = 0; j < membersNum; j++) {
-              membersIds.push(JSON.parse(response.text).members[j].id)
-            }
-            if (membersIds.includes(id)) {
-              accepted = true;
-            }
-
-          }
+  
           notificationModel = {
             type: messageParsed.data[i].type,
-            date: new Date(messageParsed.data[i].date).toLocaleString(),
+            date: new Date(messageParsed.data[i].date),
             game: gameData,
             invitor: invitor,
-            accepted: accepted,
             read: messageParsed.data[i].is_read
           }
           notificationsModels.push(notificationModel)
@@ -185,10 +172,9 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
           }
           notificationModel = {
             type: messageParsed.data[i].type,
-            date: new Date(messageParsed.data[i].date).toLocaleString(),
+            date: new Date(messageParsed.data[i].date),
             plan: planData,
             invitor: invitor,
-            accepted: accepted,
             read: messageParsed.data[i].is_read
 
           }
@@ -203,7 +189,7 @@ export function PlanInfo({ name, surname, savedPlan, onChange }: Props) {
 
     dispatch(updateNotifications({notificationsCount: notificationsModels.filter(notification => notification.read == false).length}))
 
-    notificationsModels.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    notificationsModels.sort((a, b) => (b.date).getTime() - (a.date).getTime());
 
     setNotifications(notificationsModels);
   }

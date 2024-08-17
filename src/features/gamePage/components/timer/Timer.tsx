@@ -11,13 +11,10 @@ import { selectGame } from "../../../../store/gameSlice";
 type Props = {
   isCreator: boolean;
   onTimeOver: () => void;
-
-
 }
 
 
 export function Timer(props: Props) {
-
 
   const game = useSelector(selectGame)
 
@@ -32,15 +29,6 @@ export function Timer(props: Props) {
     },
   });
 
-  // const seconds = (sec: number) => {
-  //   if (sec % 10 == 1 && sec % 100 != 11) {
-  //     return "секунда"
-  //   }
-  //   if ((sec % 10 == 2 || sec % 10 == 3 || sec % 10 == 4) && sec % 100 != 12 && sec % 100 != 13 && sec % 100 != 14) {
-  //     return "секунды"
-  //   }
-  //   return "секунд"
-  // }
 
   useEffect(() => {
     if (game.timerStarted == true) {

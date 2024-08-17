@@ -18,7 +18,6 @@ export function WaitGame(props: Props) {
       <div className={styles.date}>
         {props.date}
       </div>
-
     </div>
   )
 }
