@@ -13,6 +13,7 @@ import telegramLogo from "../../app/assets/telegram.png"
 import whatsappLogo from "../../app/assets/whatsapp.png"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneIcon from '@mui/icons-material/Done';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 type SearchUserModel = {
   id: string,
@@ -57,6 +58,18 @@ export function InvitePopup(props: Props) {
       setCopied(false);
     }, 3000);
   }
+
+  const [sendResultHidden, setSendResultHidden] = useState(true);
+  const [sendSuccess, setSendSuccess] = useState(false);
+
+  const showSendResult = () => {
+
+    setSendResultHidden(false)
+    setTimeout(() => {
+      setSendResultHidden(true);
+    }, 1000);
+  }
+
 
   const sendEmailInvite = () => { //TBD
     setFormSubmitted(true)
@@ -123,12 +136,23 @@ export function InvitePopup(props: Props) {
       "user_id": currentUser?.id
     }
     try {
+      var response;
       if (isGame)
-        post('games/invite/' + props.id, data, token)
+        response = post('games/invite/' + props.id, data, token)
       else
-        post('plans/invite/' + props.id, data, token)
+        response = post('plans/invite/' + props.id, data, token)
+
+      console.log((await response).statusCode)
+
+      setSendSuccess(true)
+      showSendResult()
+
     }
     catch (error: any) {
+      setSendSuccess(false)
+      showSendResult()
+
+ 
       readServerError(error.response.text)
       console.log("error:", error)
     }
@@ -208,10 +232,27 @@ export function InvitePopup(props: Props) {
               </linearGradient>
             </svg>
             {findUserHidden ? (
-              <div className={styles.buttonContainer}>
-                <PersonSearchIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
-                Поиск участника
-              </div>
+              sendResultHidden ?
+
+                <div className={styles.buttonContainer}>
+                  <PersonSearchIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+                  Поиск участника
+                </div>
+                :
+                (sendSuccess ? (
+                  <div className={styles.buttonContainer}>
+                    <DoneIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+                    Готово
+                  </div>
+                ) : (
+                  <div className={styles.buttonContainer}>
+                    <ErrorOutlineIcon fontSize="small" sx={{ fill: "url(#linearColors)" }} />
+                    Ошибка
+                  </div>
+                ))
+
+
+
             ) : (
               currentUser &&
               <div className={styles.buttonContainer}>

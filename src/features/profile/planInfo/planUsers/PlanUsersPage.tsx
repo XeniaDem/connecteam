@@ -23,7 +23,6 @@ export function PlanUsersPage() {
   const [usersNum, setUsersNum] = useState(0)
 
   const readPlanUsers = (message: any) => {
-    console.log(message)
     const messageParsed = JSON.parse(message);
     const usersNum = (messageParsed.data.length);
     setUsersNum(usersNum)

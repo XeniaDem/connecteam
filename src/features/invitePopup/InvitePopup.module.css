@@ -54,6 +54,7 @@
 
 }
 .buttons {
+  margin-top: 15px;
   display: flex;
   /* gap: 10px; */
   align-items: baseline;

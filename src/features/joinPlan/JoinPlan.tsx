@@ -10,24 +10,25 @@ import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { get, post } from "../../utils/api"
 import { isMobile } from 'react-device-detect';
 import { useSelector } from "react-redux"
-import { selectToken } from "../../store/authSlice"
+import { selectId, selectToken } from "../../store/authSlice"
 
 
 export function JoinPlan() {
   const navigate = useNavigate()
 
   const token = useSelector(selectToken)
+  const id = useSelector(selectId)
 
   let { code } = useParams<{ code?: string }>();
 
-
   const [name, setName] = useState("")
   const [holderId, setHolderId] = useState("")
+  const [planId, setPlanId] = useState("")
 
   const [isForbidden, setIsForbidden] = useState(false)
   const [errorMessage, setErrorMessage] = useState("");
 
-
+  const [isMember, setIsMember] = useState(false)
 
 
   const readJoinError = (message: any) => {
@@ -55,8 +56,6 @@ export function JoinPlan() {
       setErrorMessage("Вы уже являетесь участником плана")
       return;
     }
-    
-
     setErrorMessage(message)
   }
 
@@ -66,7 +65,9 @@ export function JoinPlan() {
     }
     try {
       const response = await get('validate/plan/' + code)
+      console.log(response.text) //////////
       setHolderId(JSON.parse(response.text).holder_id)
+      setPlanId(JSON.parse(response.text).id)
     }
     catch (error: any) {
       readJoinError(error.response.text)
@@ -89,8 +90,33 @@ export function JoinPlan() {
   const joinPlan = async () => {
     try {
       const response = await post('plans/join/' + code, undefined, token)
-      // console.log(response.text)
       navigate("/user_page")
+    }
+    catch (error: any) {
+      readJoinError(error.response.text)
+      console.log("error:", error)
+    }
+  }
+
+
+  const readPlanUsers = (message: any) => {
+    const messageParsed = JSON.parse(message);
+    const usersNum = (messageParsed.data.length);
+
+    for (let i = 0; i < usersNum; i++) {
+      if (id == messageParsed.data[i].id) {
+        setIsMember(true)
+        return;
+      }
+    }
+  }
+
+
+
+  const checkIfMember = async () => {
+    try {
+      const response = await get('plans/' + planId + '/members', token)
+      readPlanUsers(response.text)
     }
     catch (error: any) {
       readJoinError(error.response.text)
@@ -116,6 +142,11 @@ export function JoinPlan() {
 
   }, [holderId]);
 
+  useEffect(() => {
+    if (token != "")
+      planId && checkIfMember()
+  }, [planId]);
+
   return (
     <div>
       <div className={styles.container}>
@@ -133,6 +164,9 @@ export function JoinPlan() {
           <div className={styles.title}>
             Пользователь <span className={styles.title1}> {name} </span> пригласил Вас присоединиться к плану
           </div>
+          {isMember && <div className={styles.text}>
+            Вы уже являетесь участником плана
+          </div>}
           {token == "" ?
             <div className={styles.buttons} >
               <Button text={"Зарегистрироваться"} onClick={() => navigate("/auth/register", { state: { planInvitation: code } })} className={styles.button} />
@@ -148,10 +182,10 @@ export function JoinPlan() {
               </div>
             </div>
             :
-            <div className={styles.buttons}>
+            !isMember && <div className={styles.buttons}>
               {isForbidden ? <div className={styles.errorMessage}> {errorMessage} </div>
                 :
-                <Button text={"Присоединиться"} onClick={joinPlan} className={styles.button} />}
+                <Button text={"Присоединиться"} onClick={joinPlan} className={styles.button}/>}
             </div>
           }
         </div>

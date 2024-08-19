@@ -168,6 +168,14 @@
 
 
 
+.text {
+  color: gray;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24.33px;
+
+}
 
 
 .ellipse1 {
